@@ -191,6 +191,25 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 </head>
 <body>
 <script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark');}catch(e){}})();</script>
+<script>
+// 포털(iframe) 안에서 열렸을 때: 자체 설정 버튼은 숨기고(포털 설정이 단일 소스), 포털의 화면모드 변경을 실시간 동기화
+(function(){
+  try{
+    if (window.self !== window.top) {
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('hdrSettingsBtn');
+        if (btn) btn.style.display = 'none';
+      });
+    }
+  }catch(e){}
+  window.addEventListener('storage', function(e){
+    if (e.key === 'theme' && e.newValue) {
+      document.documentElement.setAttribute('data-theme', e.newValue);
+      if (typeof syncThemeOptUI === 'function') syncThemeOptUI();
+    }
+  });
+})();
+</script>
 
 <div id="settingsModal">
   <div class="modal-backdrop" onclick="closeSettingsModal()">
@@ -224,7 +243,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     </div>
     <div class="header-right">
       <div class="hdr-date">2026-08-10</div>
-      <button class="hdr-btn" onclick="openSettingsModal()">⚙ 설정</button>
+      <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
   <nav class="top-nav">
