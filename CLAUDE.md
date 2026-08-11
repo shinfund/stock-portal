@@ -34,5 +34,5 @@ work-portal과 동일하게 **GitHub 저장소 + Cloudflare Pages** 조합으로
 
 - 소스 저장소: `apps/stock-portal`은 workspace 메인 repo와 별개의 중첩 git 저장소이며, origin은 `https://github.com/shinfund/stock-portal.git`
 - Cloudflare Pages 프로젝트명 `stock-portal`, Production branch `main`, 빌드 명령 없음/출력 디렉터리 `/`(루트). `main`에 push하면 자동 배포된다.
-- **주의**: 최초 연결 시 Cloudflare 대시보드에 "This project is disconnected from your Git account. This may cause deployments to fail." 경고가 떴었다(첫 배포 자체는 정상 성공). 이후 push해도 자동배포가 안 되면 Cloudflare Pages → stock-portal → Settings에서 GitHub 재연결 필요.
+- **주의(해결됨)**: 최초 연결 시 Cloudflare 대시보드에 "This project is disconnected from your Git account. This may cause deployments to fail." 경고가 떴었다(첫 배포 자체는 정상 성공). 원인은 Cloudflare Workers and Pages GitHub App의 Repository access가 "Only select repositories"로 제한되어 있었는데, 저장소명이 `stock-partal`→`stock-portal`로 바뀌며 허용 목록에서 빠졌기 때문. GitHub 앱 설정(Settings → Git repository → Manage)에서 `stock-portal`을 다시 추가해 해결(2026-08-11).
 - 라이브 확인 시 work-portal과 동일하게 `curl -sL`(리다이렉트 추적) 사용 권장.
