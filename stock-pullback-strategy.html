@@ -478,6 +478,39 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 
   <div class="sc">
+    <div class="sc-title">확정 진입·청산 조건 요약표 <span class="sub">v11 — 아래 상세 조건·백테스트 근거를 규칙만 압축 정리</span></div>
+    <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건 — 5가지 전부 충족</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th class="l">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="l">대상 유니버스</td><td class="l">시가총액 TOP50</td></tr>
+          <tr><td class="l">① 시장국면(KOSPI)</td><td class="l">종가 &gt; EMA100 AND EMA100이 10거래일 전보다 상승중</td></tr>
+          <tr><td class="l">② 국면 지속성</td><td class="l">위 상승국면이 최소 10거래일 연속 유지</td></tr>
+          <tr><td class="l">③ 시장 변동성(v11)</td><td class="l">KOSPI 14일 ATR% ≤ 4%(초과 시 신규진입 금지)</td></tr>
+          <tr><td class="l">④ 종목 추세(정배열)</td><td class="l">종가 &gt; EMA100 AND EMA50 &gt; EMA100 AND EMA100이 10거래일 전보다 상승중</td></tr>
+          <tr><td class="l">⑤ 재지지 신호(V3_RETEST)</td><td class="l">최근 6거래일 내 50일 신고가 경신 AND 종가 ≤ 그 신고가 AND 종가 &gt; EMA50 AND 눌림폭(신고가대비%) ≤ 14일 ATR%×0.4</td></tr>
+          <tr><td class="l">진입 시점</td><td class="l">위 5가지 조건을 모두 충족한 날 종가 매수</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건 — 4가지 중 먼저 도달하는 조건 적용, 부분익절은 별도 오버레이</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="c">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
+        <tbody>
+          <tr><td class="c"><b>①</b></td><td class="l">매입가 대비 <b>-8%</b> 도달(최우선)</td><td class="l">전량 매도</td></tr>
+          <tr><td class="c"><b>②</b></td><td class="l">종가가 <b>EMA50 아래로 하향 이탈</b></td><td class="l">전량 매도(추세이탈)</td></tr>
+          <tr><td class="c"><b>③</b></td><td class="l">보유중 고점 대비 <b>-8%</b> 하락</td><td class="l">전량 매도(트레일링)</td></tr>
+          <tr><td class="c"><b>④</b></td><td class="l">최대 보유 <b>40거래일</b> 도달</td><td class="l">잔량 전량 매도(시간청산)</td></tr>
+          <tr><td class="c">＋</td><td class="l">①~④와 별개로 수익률 <b>+10%</b> 먼저 도달</td><td class="l">보유수량 <b>50%</b> 매도 확정(부분익절), 잔량은 ①~④ 규칙 그대로 유지</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">참고 백테스트 성과(TOP50 × 7년, v11): n=769, 평균 <b class="t-pos">+6.05%</b>, 중앙값 <b class="t-pos">+5.77%</b>, 승률 <b>56%</b>, Sharpe <b>0.407</b>(baseline 전량매도 대비 중앙값·승률·Sharpe 전부 개선). 근거 상세는 아래 항목 및 백테스트결과 탭 참조.</div>
+  </div>
+
+  <div class="sc">
     <div class="sc-title">매수(진입) 조건 — 5가지 전부 충족 <span class="sub">v11 확정</span></div>
     <div class="rule-box">
       <div class="rb-title">① 시장국면(KOSPI)</div>
