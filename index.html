@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
 <meta name="robots" content="noindex,nofollow"/>
 <title>주식포털</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0.3' y2='1'%3E%3Cstop offset='0' stop-color='%238FE9CE'/%3E%3Cstop offset='1' stop-color='%230B4A36'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='5.3' fill='url(%23g)'/%3E%3Cline x1='5' y1='2' x2='5' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='3' y='9' width='4' height='7' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3Cline x1='12' y1='2' x2='12' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='10' y='4' width='4' height='9' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3Cline x1='19' y1='2' x2='19' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='17' y='12' width='4' height='7' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0.3' y2='1'%3E%3Cstop offset='0' stop-color='%23F5A582'/%3E%3Cstop offset='1' stop-color='%235A2410'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='24' height='24' rx='5.3' fill='url(%23g)'/%3E%3Cline x1='5' y1='2' x2='5' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='3' y='9' width='4' height='7' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3Cline x1='12' y1='2' x2='12' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='10' y='4' width='4' height='9' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3Cline x1='19' y1='2' x2='19' y2='22' stroke='%23fff' stroke-width='1.8' stroke-linecap='round'/%3E%3Crect x='17' y='12' width='4' height='7' fill='none' stroke='%23fff' stroke-width='1.8'/%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet"/>
 <style>
@@ -115,22 +115,6 @@ body{
   display:flex;height:100dvh;
 }
 
-/* ═══ 로그인 잠금화면 (전체화면 게이트 — 공용 비밀번호 입력 전에는 셸 자체가 렌더링되지 않음) ═══ */
-#lockScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px;z-index:2000;}
-html[data-authed="1"] #lockScreen{display:none}
-html:not([data-authed="1"]) .sidebar,
-html:not([data-authed="1"]) .sidebar-backdrop,
-html:not([data-authed="1"]) .main-area{display:none}
-.lock-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r20);padding:36px 32px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.15);text-align:center;}
-.lock-logo{width:52px;height:52px;border-radius:14px;margin:0 auto 16px;background:linear-gradient(155deg,#8FE9CE 0%,#1D9E75 55%,#0B4A36 100%);display:flex;align-items:center;justify-content:center;}
-.lock-logo svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
-.lock-title{font-size:19px;font-weight:800;color:var(--txt);margin-bottom:6px;}
-.lock-sub{font-size:12.5px;color:var(--txt3);margin-bottom:22px;line-height:1.6;}
-.lock-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r8);padding:11px 14px;font-size:14px;font-family:inherit;color:var(--txt);outline:none;text-align:center;transition:border .18s;}
-.lock-input:focus{border-color:var(--sky);background:var(--card);}
-.lock-hint{font-size:12px;color:var(--coral);margin-top:8px;min-height:16px;}
-.lock-btn{width:100%;margin-top:14px;background:var(--sky);border:none;color:#fff;border-radius:var(--r8);padding:12px;font-size:14.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .12s;}
-.lock-btn:hover{background:var(--sky600);}
 
 /* ═══ 사이드바 (PC) ═══════════════════════════════════════ */
 .sidebar{
@@ -157,7 +141,7 @@ html:not([data-authed="1"]) .main-area{display:none}
 .sb-logo-text{min-width:0;flex:1;}
 .sb-logo-icon{
   width:26px;height:26px;flex-shrink:0;
-  background:linear-gradient(155deg,#8FE9CE 0%,#1D9E75 55%,#0B4A36 100%);
+  background:linear-gradient(155deg,#F5A582 0%,#D85A30 55%,#5A2410 100%);
   border-radius:7px;
   display:flex;align-items:center;justify-content:center;
 }
@@ -189,6 +173,16 @@ html:not([data-authed="1"]) .main-area{display:none}
   content:'';position:absolute;left:-6px;top:22%;bottom:22%;
   width:3px;background:var(--sky);border-radius:0 3px 3px 0;
 }
+.sb-disabled{opacity:.6;cursor:not-allowed !important;}
+.sb-disabled:hover{background:transparent !important;color:var(--nav-item-text) !important;}
+.sb-lock-icon{width:12px !important;height:12px !important;flex-shrink:0;opacity:.8;display:none;}
+/* 공용 비밀번호 로그인 전: 홈·설정·로그아웃을 제외한 사이드바 메뉴는 클릭은 되지만(go()에서 막고 설정을 띄움) 시각적으로 잠금 표시 */
+html:not([data-viewauthed="1"]) #sbn-deviation,
+html:not([data-viewauthed="1"]) #sbn-pullback,
+html:not([data-viewauthed="1"]) #sbn-tech{
+  opacity:.55;
+}
+html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
 
 .sb-footer-btn{
   display:flex;align-items:center;gap:8px;flex-shrink:0;
@@ -286,6 +280,21 @@ html:not([data-authed="1"]) .main-area{display:none}
   font-size:12px;font-weight:600;color:var(--nav-pill-text);
 }
 .topbar-master-badge{color:var(--teal600);font-weight:700;}
+.topbar-auth-exp.warn{color:var(--amber);animation:authExpBlink 1.4s ease-in-out infinite;}
+@keyframes authExpBlink{0%,100%{opacity:1;}50%{opacity:.4;}}
+.topbar-info-sep{color:var(--nav-pill-sep);font-weight:300;}
+
+.guide-card{
+  background:var(--sky50);border:1px solid var(--sky100);
+  border-radius:var(--r12);padding:16px;margin-bottom:20px;
+}
+.guide-card-title{font-size:13px;font-weight:700;color:var(--sky800);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.guide-card-body{font-size:12px;color:var(--sky800);line-height:1.8;}
+.guide-btn{
+  margin-top:11px;background:var(--sky);border:none;color:#fff;
+  border-radius:var(--r8);padding:7px 14px;font-size:12px;
+  font-weight:700;cursor:pointer;font-family:inherit;
+}
 
 .tip{position:relative;}
 .tip::after{
@@ -374,7 +383,7 @@ html:not([data-authed="1"]) .main-area{display:none}
 }
 .m-logo{display:flex;align-items:center;gap:9px;}
 .m-logo-icon{
-  width:26px;height:26px;background:linear-gradient(160deg,#8FE9CE,#0B4A36);
+  width:26px;height:26px;background:linear-gradient(160deg,#F5A582,#5A2410);
   border-radius:7px;display:flex;align-items:center;justify-content:center;
 }
 .m-logo-icon svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
@@ -481,7 +490,6 @@ html:not([data-authed="1"]) .main-area{display:none}
   .main-area{height:calc(100dvh - var(--header-h));}
   .home-inner{padding:12px;}
   .app-grid{grid-template-columns:1fr;}
-  .lock-card{padding:28px 22px;}
 }
 </style>
 </head>
@@ -489,29 +497,15 @@ html:not([data-authed="1"]) .main-area{display:none}
 <script>
 // 화면모드(라이트/다크)를 렌더링 전에 즉시 적용 (전환 시 깜빡임 방지)
 (function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark');}catch(e){}})();
-// 로그인 상태도 렌더링 전에 즉시 판정 (셸이 잠깐 보였다 사라지는 깜빡임 방지)
+// 메뉴 잠금 상태도 렌더링 전에 즉시 판정 (사이드바가 잠깐 풀린 채로 보였다 잠기는 깜빡임 방지)
 (function(){
   try{
     var exp = parseInt(localStorage.getItem('sp_viewExpires')||'0',10)||0;
     var authed = localStorage.getItem('sp_viewUnlocked')==='1' && Date.now() < exp;
-    document.documentElement.setAttribute('data-authed', authed?'1':'0');
-  }catch(e){ document.documentElement.setAttribute('data-authed','0'); }
+    document.documentElement.setAttribute('data-viewauthed', authed?'1':'0');
+  }catch(e){ document.documentElement.setAttribute('data-viewauthed','0'); }
 })();
 </script>
-
-<!-- ─────────────── 로그인 잠금화면 ─────────────── -->
-<div id="lockScreen">
-  <div class="lock-card">
-    <div class="lock-logo">
-      <svg viewBox="0 0 24 24"><line x1="5" y1="2" x2="5" y2="22"/><rect x="3" y="9" width="4" height="7"/><line x1="12" y1="2" x2="12" y2="22"/><rect x="10" y="4" width="4" height="9"/><line x1="19" y1="2" x2="19" y2="22"/><rect x="17" y="12" width="4" height="7"/></svg>
-    </div>
-    <div class="lock-title">주식포털</div>
-    <div class="lock-sub">괴리율 · 눌림목 · 기술적 분석<br/>3대 매매전략 리포트 통합 뷰어</div>
-    <input id="lockPw" class="lock-input" type="password" placeholder="비밀번호 입력" autocomplete="current-password" autofocus onkeydown="if(event.key==='Enter')doViewLogin()"/>
-    <div class="lock-hint" id="lockHint"></div>
-    <button class="lock-btn" onclick="doViewLogin()">입장하기</button>
-  </div>
-</div>
 
 <!-- ─────────────── 사이드바 ─────────────── -->
 <aside class="sidebar" id="sidebar">
@@ -535,23 +529,22 @@ html:not([data-authed="1"]) .main-area{display:none}
     <div class="sb-item" id="sbn-deviation" onclick="go('deviation')">
       <svg viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
       <span>괴리율 매매전략</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
     <div class="sb-item" id="sbn-pullback" onclick="go('pullback')">
       <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
       <span>눌림목 매매전략</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
     <div class="sb-item" id="sbn-tech" onclick="go('tech')">
       <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       <span>기술적 분석</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
 
     <div class="sb-footer-btn" onclick="openCfg();closeMobileSidebar();">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       설정
-    </div>
-    <div class="sb-footer-btn" onclick="doViewLogout()">
-      <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-      로그아웃
     </div>
   </nav>
  </div>
@@ -606,6 +599,8 @@ html:not([data-authed="1"]) .main-area{display:none}
 
     <div class="tb-spacer"></div>
     <div class="topbar-info" id="topbar-info" style="display:none">
+      <span id="topbar-auth-exp" class="topbar-auth-exp"></span>
+      <span class="topbar-info-sep" id="topbar-master-sep" style="display:none">|</span>
       <span id="topbar-master-badge" class="topbar-master-badge" style="display:none">🔓 관리자모드</span>
     </div>
   </div>
@@ -647,6 +642,18 @@ html:not([data-authed="1"]) .main-area{display:none}
             <div class="ac-arrow">리포트 열기 →</div>
           </div>
         </div>
+
+        <div class="guide-card" id="guide-card">
+          <div class="guide-card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--sky800)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            로그인 안내
+          </div>
+          <div class="guide-card-body">
+            좌측 메뉴 하단 <strong>설정</strong> 버튼에서 공용 비밀번호로 로그인하면 괴리율·눌림목·기술적 분석 3개 리포트를 모두 조회할 수 있습니다.
+          </div>
+          <button class="guide-btn" onclick="openCfg()">지금 로그인하기</button>
+        </div>
+
       </div>
     </div>
 
@@ -700,11 +707,26 @@ html:not([data-authed="1"]) .main-area{display:none}
       </div>
 
       <div class="modal-tabs">
-        <div class="modal-tab on" id="cfgtab-btn-theme" onclick="switchCfgTab('theme')">화면모드</div>
+        <div class="modal-tab on" id="cfgtab-btn-dbid" onclick="switchCfgTab('dbid')">로그인</div>
+        <div class="modal-tab" id="cfgtab-btn-theme" onclick="switchCfgTab('theme')">화면모드</div>
         <div class="modal-tab" id="cfgtab-btn-master" onclick="switchCfgTab('master')">관리자모드</div>
       </div>
 
-      <div class="modal-tab-panel on" id="cfgtab-theme">
+      <div class="modal-tab-panel on" id="cfgtab-dbid">
+        <div class="mf">
+          <label class="ml">공용 비밀번호</label>
+          <input id="c-pw" class="mi" type="password" placeholder="비밀번호 입력" autocomplete="current-password" onkeydown="if(event.key==='Enter')doViewLogin()"/>
+          <div class="mh" id="loginStatusHint"></div>
+        </div>
+        <div class="mh">여기서 로그인하면 괴리율·눌림목·기술적 분석 3개 리포트가 모두 열립니다.</div>
+
+        <div class="modal-btns">
+          <button class="btn-cancel" onclick="doViewLogout()">로그아웃</button>
+          <button class="btn-save" onclick="doViewLogin()">로그인</button>
+        </div>
+      </div>
+
+      <div class="modal-tab-panel" id="cfgtab-theme">
         <div class="modal-sec" style="margin-top:0">화면모드</div>
         <div class="theme-opts">
           <div class="theme-opt" id="theme-opt-dark" onclick="setNavTheme('dark')">
@@ -783,6 +805,13 @@ function go(id, opts) {
   const record = opts.record !== false;
   const newTab = opts.newTab === true;
   if (id === _cur) return;
+
+  if (id !== 'home' && !isViewAuthed()) {
+    showToast('로그인이 필요합니다.');
+    openCfg();
+    closeMobileSidebar();
+    return;
+  }
 
   if (!openTabs.includes(id)) {
     if (newTab || _cur === 'home') {
@@ -918,7 +947,7 @@ renderTabs();
 updateNavButtons();
 initDraggableModals();
 
-// ── 로그인 (전체화면 게이트 — 공용 비밀번호 1개로 3개 리포트 모두 조회) ──────
+// ── 로그인 (설정모달 로그인 탭 — 공용 비밀번호 1개로 3개 리포트 모두 조회) ──────
 // 비밀번호는 SHA-256 해시로만 코드에 남는다(평문은 코드 어디에도 없음).
 const VIEW_PASSWORD_HASH = 'bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f';
 const VIEW_TTL_MS = 30 * 24 * 3600 * 1000; // 30일
@@ -926,28 +955,45 @@ async function sha256HexLocal(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
+function isViewAuthed() {
+  try {
+    const exp = parseInt(localStorage.getItem('sp_viewExpires') || '0', 10) || 0;
+    return localStorage.getItem('sp_viewUnlocked') === '1' && Date.now() < exp;
+  } catch (e) { return false; }
+}
+function updateLoginStatusHint() {
+  const h = document.getElementById('loginStatusHint');
+  if (!h) return;
+  const exp = parseInt(localStorage.getItem('sp_viewExpires') || '0', 10) || 0;
+  h.textContent = isViewAuthed() ? '로그인 상태 (만료: ' + new Date(exp).toLocaleString('ko-KR') + ')' : '로그인이 필요합니다';
+}
 async function doViewLogin() {
-  const pEl = document.getElementById('lockPw');
+  const pEl = document.getElementById('c-pw');
   const pw = (pEl && pEl.value) || '';
-  const hint = document.getElementById('lockHint');
-  if (!pw) { if (hint) hint.textContent = '비밀번호를 입력해주세요.'; return; }
+  if (!pw) { showToast('비밀번호를 입력해주세요.'); return; }
   const h = await sha256HexLocal(pw);
   if (h === VIEW_PASSWORD_HASH) {
     try {
       localStorage.setItem('sp_viewUnlocked', '1');
       localStorage.setItem('sp_viewExpires', String(Date.now() + VIEW_TTL_MS));
     } catch (e) {}
-    document.documentElement.setAttribute('data-authed', '1');
-    if (hint) hint.textContent = '';
+    document.documentElement.setAttribute('data-viewauthed', '1');
     if (pEl) pEl.value = '';
-    showToast('입장되었습니다.');
+    closeCfg();
+    showToast('로그인되었습니다.');
+    updateLoginStatusHint();
+    updateTopbarStatus();
   } else {
-    if (hint) hint.textContent = '비밀번호가 올바르지 않습니다.';
+    showToast('비밀번호가 올바르지 않습니다.');
   }
 }
 function doViewLogout() {
   try { localStorage.removeItem('sp_viewUnlocked'); localStorage.removeItem('sp_viewExpires'); } catch (e) {}
-  location.reload();
+  document.documentElement.setAttribute('data-viewauthed', '0');
+  updateLoginStatusHint();
+  updateTopbarStatus();
+  showToast('로그아웃되었습니다.');
+  if (_cur !== 'home') { _cur = null; go('home'); }
 }
 // 다른 탭에서 로그인/로그아웃·화면모드 변경이 발생해도 이 탭에 즉시 동기화
 window.addEventListener('storage', e => {
@@ -1010,7 +1056,8 @@ function initDraggableModals(){
 }
 
 function openCfg() {
-  switchCfgTab('theme');
+  updateLoginStatusHint();
+  switchCfgTab('dbid');
   syncThemeOptUI();
   updateMasterStatusHint();
   document.getElementById('cfgModal').classList.add('open');
@@ -1025,8 +1072,10 @@ function closeCfg(e) {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCfg(); });
 
 function switchCfgTab(tab) {
+  document.getElementById('cfgtab-btn-dbid')?.classList.toggle('on', tab === 'dbid');
   document.getElementById('cfgtab-btn-theme')?.classList.toggle('on', tab === 'theme');
   document.getElementById('cfgtab-btn-master')?.classList.toggle('on', tab === 'master');
+  document.getElementById('cfgtab-dbid')?.classList.toggle('on', tab === 'dbid');
   document.getElementById('cfgtab-theme')?.classList.toggle('on', tab === 'theme');
   document.getElementById('cfgtab-master')?.classList.toggle('on', tab === 'master');
 }
@@ -1080,12 +1129,34 @@ function updateMasterStatusHint() {
   }
 }
 function updateTopbarStatus(){
+  document.getElementById('guide-card')?.style.setProperty('display', isViewAuthed() ? 'none' : '');
   const wrap = document.getElementById('topbar-info');
+  const el = document.getElementById('topbar-auth-exp');
+  const mSep = document.getElementById('topbar-master-sep');
   const mBadge = document.getElementById('topbar-master-badge');
-  if (!wrap) return;
+  if (!wrap || !el) return;
+
+  const authed = isViewAuthed();
+  if (authed) {
+    const exp = parseInt(localStorage.getItem('sp_viewExpires') || '0', 10) || 0;
+    const d = new Date(exp);
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mi = String(d.getMinutes()).padStart(2, '0');
+    const isSoon = (exp - Date.now()) < 24 * 60 * 60 * 1000;
+    el.textContent = `${isSoon ? '⚠ ' : ''}인증만료 ${mm}/${dd} ${hh}:${mi}`;
+    el.title = isSoon ? '로그인이 곧 만료됩니다 — 사이드바 하단 설정에서 다시 로그인해주세요.' : '';
+    el.classList.toggle('warn', isSoon);
+    el.style.display = '';
+  } else {
+    el.style.display = 'none';
+  }
+
   const master = isMaster();
+  if (mSep) mSep.style.display = (authed && master) ? '' : 'none';
   if (mBadge) mBadge.style.display = master ? '' : 'none';
-  wrap.style.display = master ? '' : 'none';
+  wrap.style.display = (authed || master) ? '' : 'none';
 }
 
 // ── 화면모드 (라이트: 사이드바·헤더만 / 다크: 전체 콘텐츠 포함) ──
