@@ -26,10 +26,13 @@ work-portal처럼 Cloudflare Worker 로그인이 아니라, **로컬 SHA-256 해
 - 공용 비밀번호(`pass1234`) — 전체화면 잠금화면(`#lockScreen`)에서 입력, 통과해야 포털 셸 자체가 렌더링됨(`localStorage.sp_viewUnlocked`, 30일 유지)
 - 관리자모드(`ks1314`) — 설정 모달의 "관리자모드" 탭에서 잠금해제(`localStorage.sp_masterUnlocked`, 7일 유지). 현재는 게이트되는 기능이 없고 상단 배지 표시용이며, 향후 관리자 전용 기능(예: 리포트 재생성 트리거) 추가 시 `isMaster()`를 재사용
 
-## 배포
+## 배포 (중요)
 
 work-portal과 동일하게 **GitHub 저장소 + Cloudflare Pages** 조합으로 배포한다(Notion 없이 정적 파일만 서빙하므로 Worker 백엔드는 불필요).
 
-- 소스 저장소: `apps/stock-portal`은 workspace 메인 repo와 별개의 중첩 git 저장소이며, origin은 `https://github.com/shinfund/stock-portal.git` (main 브랜치에 index.html 등 루트 배치 완료·push 완료, 2026-08-11)
-- Cloudflare Pages 프로젝트 연결은 대시보드에서 수동으로 1회 설정 필요(Workers & Pages → Create application → Pages → Connect to Git → `shinfund/stock-portal` 선택 → Production branch `main` → 빌드 명령 없음/출력 디렉터리 `/`). 연결되면 `main` push마다 자동 배포되고 `*.pages.dev` 주소가 발급된다(실제 배포 주소는 연결 후 확인해 이 문서에 갱신할 것).
+실제 서비스 주소: **https://stock-portal-dxa.pages.dev/** (2026-08-11 연결·1차 배포 확인 완료, index.html/3개 리포트 전부 200 정상 응답)
+
+- 소스 저장소: `apps/stock-portal`은 workspace 메인 repo와 별개의 중첩 git 저장소이며, origin은 `https://github.com/shinfund/stock-portal.git`
+- Cloudflare Pages 프로젝트명 `stock-portal`, Production branch `main`, 빌드 명령 없음/출력 디렉터리 `/`(루트). `main`에 push하면 자동 배포된다.
+- **주의**: 최초 연결 시 Cloudflare 대시보드에 "This project is disconnected from your Git account. This may cause deployments to fail." 경고가 떴었다(첫 배포 자체는 정상 성공). 이후 push해도 자동배포가 안 되면 Cloudflare Pages → stock-portal → Settings에서 GitHub 재연결 필요.
 - 라이브 확인 시 work-portal과 동일하게 `curl -sL`(리다이렉트 추적) 사용 권장.
