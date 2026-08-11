@@ -415,6 +415,48 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 
   <div class="sc">
+    <div class="sc-title">확정 진입·청산 조건 요약표 <span class="sub">2026-08-11 — 아래 상세 백테스트 근거를 규칙만 압축 정리</span></div>
+    <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th class="l">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="l">대상 유니버스</td><td class="l">시가총액 TOP50</td></tr>
+          <tr><td class="l">단기 지표</td><td class="l">EMA5, EMA20 각각의 괴리율(종가 대비 %), 롤링 250거래일 Z-score·위치(percentile)</td></tr>
+          <tr><td class="l">임계값</td><td class="l">EMA5·EMA20 <b>각각</b> Z≤-2 AND 위치≤3%ile — <b>둘 다 동시 충족(AND)</b></td></tr>
+          <tr><td class="l">장기추세 필터</td><td class="l">EMA50 &lt; EMA200(하락추세)일 때만 신호 인정</td></tr>
+          <tr><td class="l">진입 시점</td><td class="l">조건이 새로 충족되기 시작한 첫날(rising edge) 종가 매수</td></tr>
+          <tr><td class="l">재진입</td><td class="l">이미 보유 중인 종목은 신호가 다시 나도 신규 매수 안 함(종목당 1포지션)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건 — 5단계, 손절이 항상 최우선</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="c">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
+        <tbody>
+          <tr><td class="c"><b>①</b></td><td class="l">매입단가 대비 <b>-15%</b> 도달</td><td class="l">전량 매도(다른 조건보다 항상 우선)</td></tr>
+          <tr><td class="c"><b>②</b></td><td class="l">매입단가 대비 <b>+20%</b> 도달</td><td class="l">보유수량 <b>50%</b> 매도</td></tr>
+          <tr><td class="c"><b>③</b></td><td class="l">②이후 종가가 <b>EMA20 돌파</b>(종가≥EMA20)</td><td class="l">잔량의 50%(전체 25%) 매도</td></tr>
+          <tr><td class="c"><b>④</b></td><td class="l">③이후 <b>EMA5 하향이탈</b> 전까지</td><td class="l">잔량(25%) 홀딩, 이탈 시 전량매도</td></tr>
+          <tr><td class="c"><b>⑤</b></td><td class="l">최대 보유 <b>20거래일</b> 도달</td><td class="l">잔량 전량매도</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>포지션 사이징</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th class="l">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="l">종목당 기본 비중</td><td class="l">자산의 10%, 1주 가격이 비싸면 최대 25%까지 상향(최소 1주 보장)</td></tr>
+          <tr><td class="l">클러스터 캡</td><td class="l">같은 날 신호가 여러 종목 겹치면 그 날 신규진입 총합이 자산의 40% 넘지 않게 비례 축소</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">참고 백테스트 성과(TOP50 × 7년): n=177, 가중평균 <b class="t-pos">+6.27%</b>, 승률 <b>73%</b>, SL비율 <b>3%</b> / 포트폴리오 시뮬레이션 최종지수 <b>209.66(+109.66%)</b>, MDD <b>-5.89%</b>. 근거 상세는 아래 항목 참조.</div>
+  </div>
+
+  <div class="sc">
     <div class="sc-title">청산구조 비교: 3단계 vs 2단계 대안 <span class="sub">TOP50 · 3년(calendarDays 1100) · 하락추세 필터 적용 전 · 2026-08-07</span></div>
     <div class="tbl-wrap">
       <table>
