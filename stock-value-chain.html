@@ -216,9 +216,10 @@ html[data-theme="light"] .intro .strength.warn{color:var(--amber800)}
 .disc{
   margin-top:20px; padding:12px 15px; border-radius:var(--r12);
   background:var(--amber50); color:var(--amber800);
-  font-size:12px; line-height:1.65; font-weight:500;
+  font-size:12px; line-height:1.65; font-weight:400;
 }
-.disc b{font-weight:800}
+html[data-theme="dark"] .disc{color:var(--txt)}
+.disc b{font-weight:700}
 
 
 /* ── 리스크 텍스트 강조 ── */
@@ -229,7 +230,7 @@ html[data-theme="light"] .intro .strength.warn{color:var(--amber800)}
   line-height:1.6;
 }
 html[data-theme="dark"] .stock-desc .risk{color:var(--txt)}
-.stock-desc .risk-label{font-size:12.5px; font-weight:700; display:block; margin-bottom:3px; color:var(--coral800);}
+.stock-desc .risk-label{font-size:12.5px; font-weight:400; display:block; margin-bottom:3px; color:var(--coral800);}
 html[data-theme="dark"] .stock-desc .risk-label{color:var(--coral)}
 .stock-desc .risk ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px;}
 .stock-desc .risk li{display:flex; align-items:baseline; gap:6px; line-height:1.65; font-size:12.5px; font-weight:400;}
@@ -997,7 +998,7 @@ function buildHistHTML(hist){
     const mainText = (rawIdx === -1 ? h.d : h.d.slice(0, rawIdx)).trim();
     const riskText = rawIdx === -1 ? '' : h.d.slice(rawIdx + RISK_MARK.length).trim();
     const mainHTML = mainToBullets(mainText);
-    const riskHTML = riskText ? `<span class="hist-risk"><span style="font-size:11px;font-weight:700;">⚠️ 리스크</span> ${riskToBullets(riskText)}</span>` : '';
+    const riskHTML = riskText ? `<span class="hist-risk"><span style="font-size:11px;font-weight:400;">⚠️ 리스크</span> ${riskToBullets(riskText)}</span>` : '';
     return `<div class="hist-item">
       <span class="hist-date${isLatest?' hl':''}">${esc(label)}</span>
       <span class="hist-body">${mainHTML}${riskHTML}</span>
@@ -1382,19 +1383,6 @@ function showFromHome(idx){
 // 초기 진입 처리는 홈 탭 버튼 추가 이후(addHomeTab 실행 후)로 이동
 
 
-// ── 특수 탭 버튼 생성 공통 헬퍼 ──
-function makeSpecialTab(id, cls, innerHtml, onClick, insertFn){
-  const b = document.createElement('button');
-  b.className = cls;
-  b.id = id;
-  b.type = 'button';
-  b.setAttribute('role', 'tab');
-  b.setAttribute('aria-selected', 'false');
-  b.innerHTML = innerHtml;
-  b.onclick = onClick;
-  insertFn(b);
-}
-
 // 탭·패널 전체 비활성화 헬퍼
 function deactivateAll(){
   tabs.forEach(t => { t.classList.remove('on'); t.setAttribute('aria-selected','false'); t.tabIndex=-1; });
@@ -1418,9 +1406,6 @@ function deactivateAll(){
 function safeReplaceHash(hash){
   try{ if(location.hash.slice(1) !== hash) history.replaceState(null,'','#'+hash); }catch(e){}
 }
-
-// 홈 탭 버튼 추가 — 모든 특수 탭 삽입 후 맨 마지막에 실행 → insertBefore(firstChild)로 맨 좌측 확보
-makeSpecialTab('tab-home', 'nav-tab home-tab', `<span>홈</span>`, () => showHomePanel(), b => nav.insertBefore(b, nav.firstChild));
 
 // ════════════════════════════════════════════════
 // 설정 모달 — 화면모드(다크/라이트)
