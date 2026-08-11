@@ -28,4 +28,8 @@ work-portal처럼 Cloudflare Worker 로그인이 아니라, **로컬 SHA-256 해
 
 ## 배포
 
-배포 주소는 사용자 확인 필요 — 최초 요청 시 `https://shinfund.github.io/stock-partal/`로 안내받았으나 로컬 저장 경로(`stock-portal`)와 철자가 달라 오타 여부 확인 대기 중.
+work-portal과 동일하게 **GitHub 저장소 + Cloudflare Pages** 조합으로 배포한다(Notion 없이 정적 파일만 서빙하므로 Worker 백엔드는 불필요).
+
+- 소스 저장소: `apps/stock-portal`은 workspace 메인 repo와 별개의 중첩 git 저장소이며, origin은 `https://github.com/shinfund/stock-portal.git` (main 브랜치에 index.html 등 루트 배치 완료·push 완료, 2026-08-11)
+- Cloudflare Pages 프로젝트 연결은 대시보드에서 수동으로 1회 설정 필요(Workers & Pages → Create application → Pages → Connect to Git → `shinfund/stock-portal` 선택 → Production branch `main` → 빌드 명령 없음/출력 디렉터리 `/`). 연결되면 `main` push마다 자동 배포되고 `*.pages.dev` 주소가 발급된다(실제 배포 주소는 연결 후 확인해 이 문서에 갱신할 것).
+- 라이브 확인 시 work-portal과 동일하게 `curl -sL`(리다이렉트 추적) 사용 권장.
