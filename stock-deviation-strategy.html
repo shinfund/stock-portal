@@ -63,6 +63,8 @@ body{margin:0;font-family:'Noto Sans KR','Pretendard',-apple-system,BlinkMacSyst
 .tab-btn.on{color:var(--sky600)}
 .tab-btn.on::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:2.5px;background:var(--sky);border-radius:2px 2px 0 0}
 .nav-spacer{height:calc(104px + env(safe-area-inset-top,0px))}
+html.in-portal .hdr-wrap{position:static;box-shadow:none}
+html.in-portal .nav-spacer{display:none}
 .wrap{max-width:1100px;margin:0}
 .main{padding:0 16px max(20px,env(safe-area-inset-bottom))}
 .panel{display:none}
@@ -196,6 +198,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 (function(){
   try{
     if (window.self !== window.top) {
+      document.documentElement.classList.add('in-portal');
       document.addEventListener('DOMContentLoaded', function(){
         var btn = document.getElementById('hdrSettingsBtn');
         if (btn) btn.style.display = 'none';
