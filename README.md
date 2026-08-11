@@ -1,1 +1,1 @@
-# stock-partal
+# stock-portal
