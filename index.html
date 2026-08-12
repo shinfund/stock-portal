@@ -13,7 +13,7 @@
   /* work-portal과 동일한 GitHub Desktop 팔레트 기준 액센트·중립색 (디자인 시스템 통일) */
   --sky:#0366D6;--sky50:#E9F1FE;--sky100:#C7DCF6;--sky600:#005CC5;--sky800:#032F62;
   --teal:#1D9E75;--teal50:#E1F5EE;--teal100:#9FE1CB;--teal600:#0F6E56;
-  --coral:#D85A30;--coral50:#FAECE7;--coral100:#F5C4B3;
+  --coral:#D85A30;--coral50:#FAECE7;--coral100:#F5C4B3;--coral600:#A8431F;
   --amber:#BA7517;--amber50:#FAEEDA;--amber100:#FAC775;
   --purple:#534AB7;--purple50:#EEEDFE;--purple100:#CECBF6;
   --bg:#FFFFFF;--card:#FFFFFF;--border:#E1E4E8;--border2:#F6F8FA;
@@ -96,6 +96,7 @@ html[data-theme="dark"]{
 
   --coral50:rgba(216,90,48,.18);
   --coral100:rgba(216,90,48,.34);
+  --coral600:#FF9466;
 
   --amber50:rgba(186,117,23,.22);
   --amber100:rgba(186,117,23,.38);
@@ -104,6 +105,8 @@ html[data-theme="dark"]{
   --purple50:rgba(83,74,183,.26);
   --purple100:rgba(83,74,183,.4);
   --purple:#A79BE8;
+
+  --ac-name-color:#fff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;}
@@ -363,13 +366,13 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
   box-shadow:0 8px 22px rgba(55,138,221,.13);
 }
 .ac-badge{display:inline-block;font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:99px;width:fit-content;}
-.ac-badge.coral{background:var(--coral50);color:var(--coral);}
+.ac-badge.coral{background:var(--coral50);color:var(--coral600);}
 .ac-badge.teal{background:var(--teal50);color:var(--teal600);}
 .ac-badge.purple{background:var(--purple50);color:var(--purple);}
 .ac-badge.sky{background:var(--sky50);color:var(--sky600);}
-.ac-name{font-size:14px;font-weight:700;color:var(--txt);margin-top:2px;}
+.ac-name{font-size:14px;font-weight:700;color:var(--ac-name-color, var(--txt));margin-top:2px;}
 .ac-desc{font-size:12px;color:var(--txt2);line-height:1.55;}
-.ac-updated{font-size:11px;color:var(--txt3);}
+.ac-updated{font-size:12.5px;color:var(--txt3);}
 .ac-arrow{font-size:12px;color:var(--sky600);font-weight:700;margin-top:auto;}
 
 .sec-hd{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
@@ -626,7 +629,7 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
               <div class="ac-badge coral">평균회귀 · 하락추세</div>
               <div class="ac-name">괴리율 매매전략</div>
               <div class="ac-desc">EMA5·20 Z-Score + 위치백분위 과매도 구간 진입, 3단계 청산 전략</div>
-              <div class="ac-updated">최종 갱신 2026-08-11 16:38</div>
+              <div class="ac-updated">최종 갱신 2026-08-12 09:49</div>
             </div>
             <div class="ac-arrow">리포트 열기 →</div>
           </div>
@@ -635,7 +638,7 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
               <div class="ac-badge teal">추세추종 · 상승추세</div>
               <div class="ac-name">눌림목 매매전략</div>
               <div class="ac-desc">EMA50/100 정배열 + 신고가 재지지 되돌림 진입(V3_RETEST), 손절·트레일링·분할익절</div>
-              <div class="ac-updated">최종 갱신 2026-08-11 16:40</div>
+              <div class="ac-updated">최종 갱신 2026-08-12 09:04</div>
             </div>
             <div class="ac-arrow">리포트 열기 →</div>
           </div>
