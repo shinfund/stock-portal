@@ -49,7 +49,7 @@ body{margin:0;font-family:'Noto Sans KR','Pretendard',-apple-system,BlinkMacSyst
 html{scrollbar-width:none}
 html::-webkit-scrollbar{display:none}
 .hdr-wrap{position:fixed;top:0;left:0;right:0;z-index:50;box-shadow:var(--hdr-shadow);transition:background .18s ease}
-.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0;transition:background .18s ease}
+.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;transition:background .18s ease}
 .header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
 .logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#7FB4FF 0%,#0366D6 55%,#032F62 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(3,102,214,.35)}
 .logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
@@ -59,7 +59,7 @@ html::-webkit-scrollbar{display:none}
 .hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
 .hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:700;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
 .hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
-.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;max-width:1100px;margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
 .top-nav::-webkit-scrollbar{display:none}
 .tab-btn{flex:1;flex-shrink:0;min-width:64px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt);font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;padding:13px 6px;touch-action:manipulation;transition:color .15s;position:relative;white-space:nowrap}
 .tab-btn.on{color:var(--sky600)}
@@ -120,7 +120,7 @@ tbody tr:hover{background:var(--sky50)}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
-.badge{font-size:12.5px;font-weight:700;padding:2px 9px;border-radius:10px;white-space:nowrap}
+.badge{font-size:12.5px;font-weight:400;padding:2px 9px;border-radius:10px;white-space:nowrap}
 .bdg-red{background:var(--red50);color:var(--red)}
 .bdg-blue{background:var(--blue50);color:var(--blue)}
 .bdg-sky{background:var(--sky50);color:var(--sky600)}
@@ -181,7 +181,7 @@ tbody tr:hover{background:var(--sky50)}
   .kpi-card .num{font-size:19px} .kpi-card .lbl{font-size:13px}
   table{font-size:14px} thead th,tbody td{padding:10px 9px}
 }
-@media(min-width:1024px){.kpi-row{gap:12px}}
+@media(min-width:1024px){.kpi-row{gap:12px} .tab-btn{flex:0 1 160px}}
 thead th{font-weight:400}
 html[data-theme="dark"] thead th{color:#fff}
 tbody td.t-pos,tbody td.t-neg,tbody td.t-neg-hi,tbody td.t-flat{font-weight:400}
@@ -190,6 +190,7 @@ tbody td .badge{font-weight:400}
 .chart-card-stats .t-pos,.chart-card-stats .t-neg,.chart-card-stats .t-neg-hi,.chart-card-stats .t-flat{font-weight:400}
 html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
 html[data-theme="dark"] .tab-btn.on{color:#fff}
+html[data-theme="dark"] .bdg-gray{color:#fff}
 .chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
 .chart-legend i{width:22px;border-top-width:3px}
 .chart-legend span:not(:last-child){border-right:1.5px solid var(--gray600);padding-right:12px}
@@ -237,7 +238,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 </div>
 
-<div class="hdr-wrap"><div class="wrap">
+<div class="hdr-wrap">
   <div class="header">
     <div class="header-left">
       <div class="logo-info">
@@ -245,7 +246,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 08.12 10:19</div>
+      <div class="hdr-date">Update 08.12 10:50</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
@@ -256,7 +257,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <button class="tab-btn" data-tab="3">매매전략</button>
     <button class="tab-btn" data-tab="4">요약</button>
   </nav>
-</div></div>
+</div>
 <div class="nav-spacer"></div>
 
 <div class="wrap"><div class="main">
@@ -434,7 +435,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       </div>
     </div>
     <div class="sc-note">2025-08-12 ~ 2026-08-12(최근 1년) 탐색 · 실제 신호 발생 구간은 2026-03-04 ~ 2026-08-12 · 시가총액 TOP50 · EMA5+EMA20 Z≤-2&amp;위치≤3%ile AND 하락추세 조건 기준. 가장 최근 신호는 2026-07-29(한화에어로스페이스·두산에너빌리티·삼성중공업 3종목 동시 발생 — 클러스터 신호일). 표본이 적은 이유: 이 전략은 시가총액 TOP50 중 <b>장기 하락추세(EMA50&lt;EMA200)이면서 동시에 EMA5·EMA20이 모두 롤링250일 기준 극단적 과매도(Z≤-2 &amp; 위치≤3%ile)</b>인 드문 상황만 신호로 잡기 때문에 최근 1년간 11건 수준이 정상 빈도입니다(7년 백테스트 기준 연 평균 약 25건).</div>
-    <div class="sc-note">TP·LEG20 배지는 각각 +20%익절(50%매도), EMA20돌파(잔량25%매도) 단계가 실행된 트레이드를 뜻합니다. "보유중"은 아직 손절·시간청산(20거래일) 등 최종 청산 조건에 도달하지 않아 현재 가격 기준 평가손익으로 표시됩니다.</div>
+    <div class="sc-note"><b>배지 용어</b> — <span class="badge bdg-teal">보유중</span> 아직 손절·시간청산 등 최종 청산 조건에 도달하지 않아 현재가 기준 평가손익으로 표시 중 · <span class="badge bdg-red">손절</span> 매입단가 대비 -15% 도달로 전량 매도 · <span class="badge bdg-purple">시간청산</span> 최대보유 20거래일 도달로 잔량 전량 매도 · <span class="badge bdg-gray">5EMA이탈</span> 종가가 EMA5 아래로 하향 이탈해 잔량 전량 매도 · <span class="badge bdg-sky">TP</span> 매입단가 대비 +20% 도달해 수량 50% 익절 · <span class="badge bdg-amber">LEG20</span> 종가가 EMA20을 돌파(≥)해 잔량의 50%(전체 25%) 추가 매도.</div>
     <div class="sc-note">차트 카드의 점선 세로선·파란 점은 신호 발생(진입) 시점, 우측 끝 빨간 점은 현재가입니다. 각 차트는 진입 10거래일 전부터 오늘까지의 구간을 보여줍니다.</div>
   </div>
 </div>

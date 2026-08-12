@@ -19,7 +19,9 @@ Copy-Item "C:\Users\shinf\Workspace\data\analysis\stock-tech-analysis_<최신시
 
 복사 후 `index.html` 홈 화면의 각 앱 카드 `.ac-updated` 텍스트(최종 갱신 일시)도 함께 갱신할 것.
 
-**복사할 때마다 반드시 재적용해야 하는 포털 전용 CSS 패치**: 원본 리포트는 독립 실행(standalone) 시 가운데 정렬되도록 `.header`/`.top-nav`/`.wrap` 3곳이 `max-width:1100px;margin:0 auto`로 되어 있다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, 세 곳 모두 `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다(max-width:1100px 자체는 유지). 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 복사 후 이 3줄만 매번 재수정할 것(2026-08-11 확정).
+**복사할 때마다 반드시 재적용해야 하는 포털 전용 CSS 패치**: 콘텐츠 영역 `.wrap`(패널을 감싸는 쪽, `<div class="wrap"><div class="main">...`)은 원본 리포트가 독립 실행(standalone) 시 가운데 정렬되도록 `max-width:1100px;margin:0 auto`로 되어 있다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다(max-width:1100px 자체는 유지). 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 복사 후 이 1줄만 매번 재수정할 것.
+
+**헤더·탭바(`.header`/`.top-nav`)는 애초에 `max-width`가 없어야 한다(2026-08-12 확정)** — 예전엔 이 둘도 `.wrap`과 함께 `max-width:1100px`로 캡되어 있었는데, 포털의 넓은 iframe에서 배경이 1100px에서 끊기고 우측에 빈 공간이 남아 "탭 영역이 확장형이 아니다"라는 결함으로 보였다(work-portal의 `.hdr`/`.top-tabs`는 애초에 max-width가 없음 — work-portal이 기준, [[feedback_design_baseline_workportal]]). html-report-design 스킬 자체를 이미 이렇게 고쳐뒀으므로(§3), 새로 생성되는 리포트는 처음부터 전폭이다. 다만 기존에 떠 있던 사본을 다시 복사해 올 때는 헤더·탭바가 `.wrap`에 감싸여 있지 않은지, `max-width:1100px;margin:0 auto`가 남아있지 않은지 확인할 것.
 
 ## 인증
 

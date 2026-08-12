@@ -49,7 +49,7 @@ body{margin:0;font-family:'Noto Sans KR','Pretendard',-apple-system,BlinkMacSyst
 html{scrollbar-width:none}
 html::-webkit-scrollbar{display:none}
 .hdr-wrap{position:fixed;top:0;left:0;right:0;z-index:50;box-shadow:var(--hdr-shadow);transition:background .18s ease}
-.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0;transition:background .18s ease}
+.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;transition:background .18s ease}
 .header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
 .logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#F5A582 0%,#D85A30 55%,#5A2410 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(216,90,48,.35)}
 .logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
@@ -59,7 +59,7 @@ html::-webkit-scrollbar{display:none}
 .hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
 .hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:700;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
 .hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
-.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;max-width:1100px;margin:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
 .top-nav::-webkit-scrollbar{display:none}
 .tab-btn{flex:1;flex-shrink:0;min-width:64px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt);font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;padding:13px 6px;touch-action:manipulation;transition:color .15s;position:relative;white-space:nowrap}
 .tab-btn.on{color:var(--teal600)}
@@ -169,7 +169,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   .sc{padding:18px 20px} .sc-title{font-size:15px}
   table{font-size:14px} thead th,tbody td{padding:10px 9px}
 }
-@media(min-width:1024px){.kpi-row{gap:12px} .kpi-card .num{font-size:24px}}
+@media(min-width:1024px){.kpi-row{gap:12px} .kpi-card .num{font-size:24px} .tab-btn{flex:0 1 160px}}
 </style>
 </head>
 <body>
@@ -213,7 +213,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 </div>
 
-<div class="hdr-wrap"><div class="wrap">
+<div class="hdr-wrap">
   <div class="header">
     <div class="header-left">
       <div class="logo-info">
@@ -221,7 +221,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 08.11 16:36</div>
+      <div class="hdr-date">Update 08.12 10:50</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
@@ -232,7 +232,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <button class="tab-btn" data-tab="3">백테스트결과</button>
     <button class="tab-btn" data-tab="4">최근신호</button>
   </nav>
-</div></div>
+</div>
 <div class="nav-spacer"></div>
 
 <div class="wrap"><div class="main">
