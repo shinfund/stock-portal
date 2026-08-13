@@ -1,27 +1,25 @@
 # stock-portal (주식포털)
 
-정적 HTML로 만든 매매전략 리포트 포털. work-portal과 동일한 디자인 시스템(GitHub Desktop 팔레트, 사이드바/탭바/다크·라이트)을 쓰지만, **work-portal은 Notion DB를 실시간 연동하는 업무앱 모음**이고 **stock-portal은 Claude가 분석·백테스트한 결과를 정적 HTML 리포트로 생성해 올리는 방식**이라는 근본적인 차이가 있다. 즉 stock-portal의 3개 앱은 Worker/DB 없이 완전히 자립적인(self-contained) 정적 파일이다.
+정적 HTML로 만든 매매전략 리포트 포털. work-portal과 동일한 디자인 시스템(GitHub Desktop 팔레트, 사이드바/탭바/다크·라이트)을 쓰지만, **work-portal은 Notion DB를 실시간 연동하는 업무앱 모음**이고 **stock-portal은 Claude가 분석·백테스트한 결과를 정적 HTML 리포트로 생성해 올리는 방식**이라는 근본적인 차이가 있다. 즉 stock-portal의 앱들은 Worker/DB 없이 완전히 자립적인(self-contained) 정적 파일이다(밸류체인만 예외 — Notion DB 실시간 연동).
 
 - `index.html` — 포털 셸 (사이드바, 모바일 상단 메뉴, 탭 관리, 전체화면 로그인 게이트)
-- `stock-deviation-strategy.html` — 괴리율 매매전략 (평균회귀·하락추세)
-- `stock-pullback-strategy.html` — 눌림목 매매전략 (추세추종·상승추세, V3_RETEST)
-- `stock-tech-analysis.html` — 기술적 분석 / EMA래더 완전정배열 (추세추종)
+- `stock-deviation.html` — 괴리율 매매전략 (평균회귀·하락추세) — 스킬 `stock-deviation`
+- `stock-pullback.html` — 눌림목 매매전략 (추세추종·상승추세, V3_RETEST) — 스킬 `stock-pullback`
+- `stock-emaladder.html` — 기술적 분석 / EMA래더 완전정배열 (추세추종) — 스킬 `stock-emaladder`
+- `stock-valuechain.html` — 주식 밸류체인 (Notion DB 실시간 연동) — 스킬 `stock-valuechain`
+- `stock-baseline.html` — 기준선 매매전략 (EMA200 기준선 파동 전략, 되돌림·파동스윙) — 스킬 미정(신규), 생성 스크립트 `scripts/project_baseline_strategy_backtest.mjs` / `scripts/project_baseline_recent_signals.mjs` / `scripts/project_baseline_holdings_check.mjs`
 
-## 리포트 갱신 방법 (중요)
+**파일명 규칙(2026-08-13 통일)**: 스킬명·스크립트명·앱 파일명이 전부 같은 슬러그를 공유한다 — 스킬 `stock-<slug>`, 종합생성 스크립트 `scripts/project_stock_<slug>.mjs`, 앱파일 `stock-<slug>.html`. 신규 전략 추가 시 이 규칙을 그대로 따를 것.
 
-위 3개 파일은 `data/analysis/`에 타임스탬프 접미사로 생성되는 원본 리포트의 **고정 파일명 사본**이다. 각 전략 스킬(stock-deviation-stats, stock-pullback-strategy, stock-tech-analysis)로 "리포트 생성"을 실행해 `data/analysis/{slug}_YYYYMMDDHHmm.html`이 새로 만들어지면, **반드시 최신 파일을 이 폴더의 고정 파일명으로 다시 복사**해야 포털에 반영된다:
+## 리포트 갱신 방법 (중요, 2026-08-12부터 변경)
 
-```powershell
-Copy-Item "C:\Users\shinf\Workspace\data\analysis\stock-deviation-strategy_<최신시각>.html" "C:\Users\shinf\Workspace\apps\stock-portal\stock-deviation-strategy.html" -Force
-Copy-Item "C:\Users\shinf\Workspace\data\analysis\stock-pullback-strategy_<최신시각>.html" "C:\Users\shinf\Workspace\apps\stock-portal\stock-pullback-strategy.html" -Force
-Copy-Item "C:\Users\shinf\Workspace\data\analysis\stock-tech-analysis_<최신시각>.html" "C:\Users\shinf\Workspace\apps\stock-portal\stock-tech-analysis.html" -Force
-```
+**`data/analysis/`에 타임스탬프 사본을 생성하던 방식은 폐지되었다** — 괴리율·눌림목·기술적분석·밸류체인 4개는 이제 이 폴더의 앱 파일을 **직접 수정**해서 갱신한다(별도 원본→복사 과정 없음). "리포트 생성"을 명시적으로 요청받으면 해당 스킬의 최신 백테스트/분석 결과를 이 폴더의 앱 파일에 바로 반영할 것.
 
-복사 후 `index.html` 홈 화면의 각 앱 카드 `.ac-updated` 텍스트(최종 갱신 일시)도 함께 갱신할 것.
+갱신 후 `index.html` 홈 화면의 각 앱 카드 `.ac-updated` 텍스트(최종 갱신 일시)도 함께 갱신할 것.
 
-**복사할 때마다 반드시 재적용해야 하는 포털 전용 CSS 패치**: 콘텐츠 영역 `.wrap`(패널을 감싸는 쪽, `<div class="wrap"><div class="main">...`)은 원본 리포트가 독립 실행(standalone) 시 가운데 정렬되도록 `max-width:1100px;margin:0 auto`로 되어 있다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다(max-width:1100px 자체는 유지). 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 복사 후 이 1줄만 매번 재수정할 것.
+**앱 파일을 새로 만들거나 갱신할 때마다 반드시 적용해야 하는 포털 전용 CSS 패치**: 콘텐츠 영역 `.wrap`(패널을 감싸는 쪽, `<div class="wrap"><div class="main">...`)은 원본 리포트가 독립 실행(standalone) 시 가운데 정렬되도록 `max-width:1100px;margin:0 auto`로 되어 있다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다(max-width:1100px 자체는 유지). 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 이 1줄만 앱 파일에서 재수정할 것.
 
-**헤더·탭바(`.header`/`.top-nav`)는 애초에 `max-width`가 없어야 한다(2026-08-12 확정)** — 예전엔 이 둘도 `.wrap`과 함께 `max-width:1100px`로 캡되어 있었는데, 포털의 넓은 iframe에서 배경이 1100px에서 끊기고 우측에 빈 공간이 남아 "탭 영역이 확장형이 아니다"라는 결함으로 보였다(work-portal의 `.hdr`/`.top-tabs`는 애초에 max-width가 없음 — work-portal이 기준, [[feedback_design_baseline_workportal]]). html-report-design 스킬 자체를 이미 이렇게 고쳐뒀으므로(§3), 새로 생성되는 리포트는 처음부터 전폭이다. 다만 기존에 떠 있던 사본을 다시 복사해 올 때는 헤더·탭바가 `.wrap`에 감싸여 있지 않은지, `max-width:1100px;margin:0 auto`가 남아있지 않은지 확인할 것.
+**헤더·탭바(`.header`/`.top-nav`)는 애초에 `max-width`가 없어야 한다(2026-08-12 확정)** — 예전엔 이 둘도 `.wrap`과 함께 `max-width:1100px`로 캡되어 있었는데, 포털의 넓은 iframe에서 배경이 1100px에서 끊기고 우측에 빈 공간이 남아 "탭 영역이 확장형이 아니다"라는 결함으로 보였다(work-portal의 `.hdr`/`.top-tabs`는 애초에 max-width가 없음 — work-portal이 기준, [[feedback_design_baseline_workportal]]). html-report-design 스킬 자체를 이미 이렇게 고쳐뒀으므로(§3), 새로 생성되는 리포트는 처음부터 전폭이다. 기존 앱 파일을 참조해 새 앱을 만들 때는 헤더·탭바가 `.wrap`에 감싸여 있지 않은지, `max-width:1100px;margin:0 auto`가 남아있지 않은지 확인할 것.
 
 ## 인증
 

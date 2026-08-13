@@ -255,7 +255,8 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
     <button class="tab-btn" data-tab="1">예상종목</button>
     <button class="tab-btn" data-tab="2">보유종목</button>
     <button class="tab-btn" data-tab="3">매매전략</button>
-    <button class="tab-btn" data-tab="4">요약</button>
+    <button class="tab-btn" data-tab="4">백테스트</button>
+    <button class="tab-btn" data-tab="5">요약</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -897,6 +898,92 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
     <div class="rule-box">
       <div class="rb-body">종목당 기본 자산의 <b>10%</b> 배분, 1주 가격이 이보다 비싸면 최대 <b>25%</b>까지 상향해 최소 1주 매수 보장. 같은 날 여러 신호가 겹치는 클러스터는 그 날 신규진입 총 배분이 자산의 <b>40%</b>를 넘지 않도록 비례 축소(축소 후 1주도 못 사면 "클러스터혼잡"으로 제외).</div>
     </div>
+  </div>
+</div>
+
+<div class="panel" id="p5">
+  <div class="sc">
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">TOP50 · 7년(calendarDays 2555) · 2026-08-10 최종 청산규칙(+20%익절)</span></div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sky"><div class="num">177</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+6.27%</div><div class="lbl">가중평균</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+5.45%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">73%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">3%</div><div class="lbl">SL비율</div></div>
+    </div>
+    <div class="sc-note">진입: EMA5·EMA20 각각 Z≤-2 &amp; 위치≤3%ile 동시충족(AND) AND EMA50&lt;EMA200(장기 하락추세). 청산: ①손절-15%(최우선) ②매입단가 대비 +20% 도달 시 50%익절 ③이후 종가≥EMA20 돌파 시 잔량50%(전체25%)매도 ④이후 종가&lt;EMA5 하향이탈 시 잔량전량매도 ⑤시간청산20거래일. 레그별: TP20 30건 / LEG20 30건 / BREAKDOWN 20건 / TIME 152건 / SL 5건.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">청산 규칙 변천 — EMA5돌파 1차매도 → +20%익절 <span class="sub">TOP50 · 7년, 진입조건 동일·청산 1차매도 트리거만 교체</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">청산규칙</th><th>n</th><th>가중평균</th><th>중앙값</th><th>승률</th><th>평균종결</th><th>SL비율</th></tr></thead>
+        <tbody>
+          <tr><td class="l">구규칙(2026-08-07, 종가 EMA5돌파 시 1차매도)</td><td>178</td><td class="t-pos">+3.92%</td><td class="t-pos">+4.62%</td><td>79%</td><td>16.3일</td><td>3%</td></tr>
+          <tr><td class="l"><b>신규(2026-08-10, 매입가대비+20% 익절, 채택)</b></td><td><b>177</b></td><td class="t-pos"><b>+6.27%</b></td><td class="t-pos"><b>+5.45%</b></td><td><b>73%</b></td><td><b>19.0일</b></td><td><b>3%</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">사용자 지시로 1차매도 트리거를 "종가 EMA5돌파"에서 "매입단가 대비 +20% 도달"로 교체. 승률은 6%p 낮아지지만(트레이드의 83%가 +20% 문턱을 못 넘고 20거래일 시간청산까지 감 — 구규칙은 EMA5를 거의 항상 빨리 돌파해 시간청산 비중이 40%뿐이었음) 가중평균수익률은 개선. SL 발생건수는 두 규칙 모두 비슷한 수준(5~6건) — SL비율은 청산구조가 아니라 진입 신호 품질이 결정한다는 기존 결론을 재확인.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">EMA 기간 백테스트 <span class="sub">TOP20 · +20거래일 순방향수익률 기준</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">EMA기간</th><th class="l">결과</th></tr></thead>
+        <tbody>
+          <tr><td class="l">10일</td><td class="l">신호 과다·노이즈↑</td></tr>
+          <tr><td class="l"><b>20일(채택)</b></td><td class="l"><b>n=89, 평균 +9.2%, 승률 71% — 최우수</b></td></tr>
+          <tr><td class="l">60일</td><td class="l">신호 희소</td></tr>
+          <tr><td class="l">120일</td><td class="l">신호 희소</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">사용자 개인 이평 체계(5/10/20/50/100/200/400 EMA)에 포함되는 기간이라 실전 차트와도 일치. 2026-08-06 하루 SMA20 전환을 시도했다가 "실제 보는 차트 이평 체계 자체가 EMA"라는 이유로 같은 날 EMA20으로 재확정.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">유니버스(시가총액 TOP N) 백테스트 <span class="sub">EMA20 고정 · +20거래일 순방향수익률 기준</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">유니버스</th><th>평균수익률</th><th>승률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">TOP10</td><td class="t-pos">+11.0%</td><td>74%</td></tr>
+          <tr><td class="l"><b>TOP20(연구 균형점)</b></td><td class="t-pos"><b>+9.2%</b></td><td><b>71%</b></td></tr>
+          <tr><td class="l">TOP30</td><td class="t-pos">+8.5%</td><td>69%</td></tr>
+          <tr><td class="l">TOP50(실전 채택)</td><td class="t-pos">+7.0%</td><td>66%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">TOP10→30까지는 완만한 품질저하, TOP30→50에서 저하폭이 확대(시가총액 48위 알테오젠부터 코스닥 종목이 처음 등장). 표본·품질 균형점은 TOP20~30이지만, "TOP20은 고가종목이 많아 시드머니가 작으면 실제 매수가 힘들다"는 실전 커버리지 이유로 라이브 관찰·매매 대상은 TOP50 단독 채택(균형점 연구 결론 자체는 유지).</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">손절선(SL) 최적화 <span class="sub">스윕(6~20%·무손절) 후 절충 채택</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">기준</th><th class="l">구규칙 스윕(2026-07-25, TOP20·2년)</th><th class="l">신규진입 재검증(2026-08-07, TOP50·7년)</th></tr></thead>
+        <tbody>
+          <tr><td class="l"><b>-15%(채택)</b></td><td class="l">평균 +4.70% · 승률 76%</td><td class="l t-pos"><b>가중평균 +3.92%</b></td></tr>
+          <tr><td class="l">무손절</td><td class="l t-pos">평균 +6.79% · 승률 82% · 위험조정 0.82(전 지표 최고)</td><td class="l t-pos">가중평균 +4.11%(-15% 대비 차이 0.2%p)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">SL을 완화할수록 모든 지표가 단조 개선(평균회귀 전략 특성상 추가하락이 더 강한 반등으로 이어지는 경우가 많아, 타이트한 손절이 회귀가 완성되기 전에 손실을 확정시킴). 다만 표본에 상장폐지 등 개별종목 파국적 사건이 전혀 없어 무손절의 꼬리위험은 측정되지 않음 — 후회율 분석(SL확정 거래 상당수가 "안 팔았으면 더 나음")도 감안해 -15%로 절충. 2026-08-07 신규 진입필터(이중 Z+하락추세) 적용 후 재검증에서는 SL≥20%부터 완전히 평평(SL비율 0%)해질 만큼 진입필터 자체가 품질관리 역할을 대신하며 -15%와 무손절의 격차가 0.2%p까지 줄었으나, 꼬리위험 보험 기능은 여전히 필요하다고 판단해 -15% 유지를 확정.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">포트폴리오 시뮬레이션 <span class="sub">2019-09-09~2026-08-10(7년) · TOP50 · 2026-08-10 최종규칙</span></div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sky"><div class="num">209.66</div><div class="lbl">최종 지수(시작=100)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+109.66%</div><div class="lbl">누적수익률</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">-5.89%</div><div class="lbl">MDD</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">132</div><div class="lbl">청산완료</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">73%</div><div class="lbl">승률</div></div>
+    </div>
+    <div class="sc-note">사이징: 종목당 기본 10%(1주 가격이 비싸면 최대 25%까지 상향), 같은 날 신호 클러스터는 40% 상한. 레그별 청산 SL 5 / TP20 23 / LEG20 20 / BREAKDOWN 14 / TIME 113건, 가중평균 +6.23%. 구규칙(2026-08-07, EMA5돌파 1차매도) 대비 지수 161.99(+61.99%)/MDD-6.40%에서 지수·MDD 둘 다 개선.</div>
   </div>
 </div>
 
