@@ -112,15 +112,15 @@ tbody tr:hover{background:var(--teal50)}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
-.badge{font-size:12.5px;font-weight:400;padding:2px 9px;border-radius:10px;white-space:nowrap}
-.bdg-red{background:var(--red50);color:var(--red)}
-.bdg-blue{background:var(--blue50);color:var(--blue)}
-.bdg-sky{background:var(--sky50);color:var(--sky600)}
-.bdg-teal{background:var(--teal50);color:var(--teal600)}
-.bdg-amber{background:var(--amber50);color:var(--amber)}
-.bdg-coral{background:var(--coral50);color:var(--coral)}
-.bdg-gray{background:var(--gray50);color:var(--gray600)}
-.bdg-purple{background:var(--purple50);color:var(--purple)}
+.badge{font-size:12.5px;font-weight:400;padding:2px 9px;border-radius:10px;white-space:nowrap;color:#fff;border:1px solid rgba(0,0,0,.18)}
+.bdg-red{background:#B71C1C}
+.bdg-blue{background:#1565C0}
+.bdg-sky{background:#0277BD}
+.bdg-teal{background:#0D6D63}
+.bdg-amber{background:#8F5A00}
+.bdg-coral{background:#B23A12}
+.bdg-gray{background:#52606B}
+.bdg-purple{background:#5B4FBD}
 .ai-sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r12);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
 .ai-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .ai-badge{margin-left:auto}
@@ -156,9 +156,7 @@ tbody tr:hover{background:var(--teal50)}
 .ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
 .theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
 html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
-html[data-theme="dark"] .tab-btn.on{color:#fff}
-html[data-theme="dark"] .bdg-red,html[data-theme="dark"] .bdg-blue,html[data-theme="dark"] .bdg-sky,html[data-theme="dark"] .bdg-teal,html[data-theme="dark"] .bdg-amber,html[data-theme="dark"] .bdg-coral,html[data-theme="dark"] .bdg-gray,html[data-theme="dark"] .bdg-purple{color:#fff}
-@media(max-width:374px){.logo-sub{display:none} .tab-btn{font-size:13px;padding:11px 2px;min-width:52px} .kpi-card .num{font-size:16px} .kpi-card .lbl{font-size:12px}}
+html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub{display:none} .tab-btn{font-size:13px;padding:11px 2px;min-width:52px} .kpi-card .num{font-size:16px} .kpi-card .lbl{font-size:12px}}
 @media(max-width:600px){
   .nav-spacer{height:calc(108px + env(safe-area-inset-top,0px))}
   .main{padding:0 10px max(20px,env(safe-area-inset-bottom))}
