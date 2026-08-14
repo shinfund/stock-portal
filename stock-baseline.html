@@ -686,28 +686,28 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
 
     <line x1="180" y1="204" x2="180" y2="300" stroke="var(--teal)" stroke-width="1" stroke-dasharray="2,2"/>
     <circle cx="180" cy="204" r="6" fill="var(--teal)" stroke="var(--card)" stroke-width="1.5"/>
-    <text x="180" y="320" font-size="13" font-weight="700" fill="var(--teal)" text-anchor="middle">①</text>
+    <text x="180" y="320" font-size="13" font-weight="500" fill="var(--teal)" text-anchor="middle">①</text>
     <text x="180" y="336" font-size="12" fill="var(--txt2)" text-anchor="middle">1차매수(50%)</text>
 
     <line x1="288" y1="262" x2="288" y2="340" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2"/>
     <circle cx="288" cy="262" r="6" fill="var(--purple)" stroke="var(--card)" stroke-width="1.5"/>
-    <text x="288" y="358" font-size="13" font-weight="700" fill="var(--purple)" text-anchor="middle">②</text>
+    <text x="288" y="358" font-size="13" font-weight="500" fill="var(--purple)" text-anchor="middle">②</text>
     <text x="288" y="374" font-size="12" fill="var(--txt2)" text-anchor="middle">2차매수(잔여50%)</text>
 
     <line x1="450" y1="158" x2="450" y2="60" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2"/>
     <circle cx="450" cy="158" r="6" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.5"/>
-    <text x="450" y="46" font-size="13" font-weight="700" fill="var(--sky600)" text-anchor="middle">③</text>
+    <text x="450" y="46" font-size="13" font-weight="500" fill="var(--sky600)" text-anchor="middle">③</text>
     <text x="450" y="62" font-size="12" fill="var(--txt2)" text-anchor="middle" transform="translate(0,-10)"></text>
     <text x="450" y="30" font-size="12" fill="var(--txt2)" text-anchor="middle">회복(매수중단)</text>
 
     <line x1="540" y1="130" x2="540" y2="60" stroke="var(--red)" stroke-width="1" stroke-dasharray="2,2"/>
     <circle cx="540" cy="130" r="6" fill="var(--red)" stroke="var(--card)" stroke-width="1.5"/>
-    <text x="540" y="46" font-size="13" font-weight="700" fill="var(--red)" text-anchor="middle">④</text>
+    <text x="540" y="46" font-size="13" font-weight="500" fill="var(--red)" text-anchor="middle">④</text>
     <text x="540" y="30" font-size="12" fill="var(--txt2)" text-anchor="middle">1파매도(50%)</text>
 
     <line x1="594" y1="235" x2="594" y2="340" stroke="var(--coral)" stroke-width="1" stroke-dasharray="2,2"/>
     <circle cx="594" cy="235" r="6" fill="var(--coral)" stroke="var(--card)" stroke-width="1.5"/>
-    <text x="594" y="358" font-size="13" font-weight="700" fill="var(--coral)" text-anchor="middle">⑤</text>
+    <text x="594" y="358" font-size="13" font-weight="500" fill="var(--coral)" text-anchor="middle">⑤</text>
     <text x="594" y="374" font-size="12" fill="var(--txt2)" text-anchor="middle">재이탈(잔량전량)</text>
   </svg>
     <div class="sc-note">종가가 EMA200(기준선) 아래에서 20거래일 이상 연속 이탈 중일 때, 종가가 새로운 최저점을 갱신한 뒤 그 이후 첫 EMA5 상향돌파가 나오면서(잦은 휩쏘 재신호 방지) 동시에 롤링Z&le;-1.25 조건도 충족되면 목표비중의 50%씩 최대 2회 분할매수합니다(①②). 종가가 EMA200을 다시 상향돌파하면(③) 회복으로 간주해 매수를 중단하고, 이후 5EMA 상향/하향 교차를 파동(1파→2파→3파)으로 세어 파동 하향돌파마다 단계적으로 분할매도합니다(④). 회복 후 기준선을 다시 하향이탈하면 파동 단계와 무관하게 잔량을 즉시 전량매도합니다(⑤, 최우선 안전장치).</div>
