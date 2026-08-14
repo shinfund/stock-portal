@@ -84,11 +84,11 @@ html.in-portal .nav-spacer{display:none}
 .kpi-purple .num{color:var(--purple)}
 .sc{background:var(--card);border-radius:var(--r12);border:1px solid var(--border);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
 .sc-title{font-size:14.5px;font-weight:600;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
-.sc-title .sub{font-size:13.5px;font-weight:400;color:var(--txt2)}
+.sc-title .sub{font-size:13px;font-weight:400;color:var(--txt2)}
 .sc-note{font-size:14px;color:var(--txt2);margin-bottom:12px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r8);overscroll-behavior-x:contain;margin-bottom:8px}
-table{min-width:100%;border-collapse:collapse;font-size:13.5px}
-thead th{background:var(--sky50);color:var(--sky800);font-weight:400;font-size:13.5px;padding:9px 8px;text-align:right;white-space:nowrap}
+table{min-width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--sky50);color:var(--sky800);font-weight:400;font-size:14px;padding:9px 8px;text-align:right;white-space:nowrap}
 html[data-theme="dark"] thead th{color:#fff}
 thead th.l{text-align:left} thead th.c{text-align:center}
 tbody td{padding:9px 8px;border-bottom:1px solid var(--border2);text-align:right;white-space:nowrap;color:var(--txt)}
@@ -167,15 +167,15 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   .main{padding:0 10px max(20px,env(safe-area-inset-bottom))}
   .sc{padding:12px 12px} .tab-btn{font-size:13.5px;padding:12px 4px}
   .kpi-card .num{font-size:17px} .kpi-card .lbl{font-size:12px}
-  table{font-size:13px} thead th,tbody td{padding:8px 5px}
+  thead th,tbody td{padding:8px 5px}
   .hdr-date{display:none}
 }
 @media(min-width:769px){
   .nav-spacer{height:calc(106px + env(safe-area-inset-top,0px))}
   .main{padding:0 20px max(20px,env(safe-area-inset-bottom))}
   .sc{padding:18px 20px} .sc-title{font-size:15px}
-  .kpi-card .num{font-size:19px} .kpi-card .lbl{font-size:13px}
-  table{font-size:14px} thead th,tbody td{padding:10px 9px}
+  .kpi-card .lbl{font-size:13px}
+  thead th,tbody td{padding:10px 9px}
 }
 @media(min-width:1024px){.kpi-row{gap:12px} .tab-btn{flex:0 1 160px}}
 </style>
