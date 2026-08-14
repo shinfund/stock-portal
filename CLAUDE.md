@@ -17,7 +17,9 @@
 
 갱신 후 `index.html` 홈 화면의 각 앱 카드 `.ac-updated` 텍스트(최종 갱신 일시)도 함께 갱신할 것.
 
-**앱 파일을 새로 만들거나 갱신할 때마다 반드시 적용해야 하는 포털 전용 CSS 패치**: 콘텐츠 영역 `.wrap`(패널을 감싸는 쪽, `<div class="wrap"><div class="main">...`)은 원본 리포트가 독립 실행(standalone) 시 가운데 정렬되도록 `max-width:1100px;margin:0 auto`로 되어 있다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다(max-width:1100px 자체는 유지). 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 이 1줄만 앱 파일에서 재수정할 것.
+**앱 파일을 새로 만들거나 갱신할 때마다 반드시 적용해야 하는 포털 전용 CSS 패치**: 콘텐츠 영역 `.wrap`(패널을 감싸는 쪽, `<div class="wrap"><div class="main">...`)은 원본 리포트가 독립 실행(standalone) 시 가운데 정렬되도록 `max-width:1100px;margin:0 auto`로 되어 있었다. 포털에 iframe으로 삽입되면 사이드바 옆 넓은 여백 때문에 콘텐츠가 어중간하게 가운데로 몰려 보이므로, `margin:0 auto` → `margin:0`으로 바꿔 좌측 정렬한다. 이건 html-report-design 스킬의 기본 동작(단독 열람 시엔 가운데 정렬이 맞음)을 포털 컨텍스트에서만 덮어쓰는 것이므로, 스킬 자체는 건드리지 말고 이 1줄만 앱 파일에서 재수정할 것.
+
+**`max-width:1100px` 자체는 2026-08-14부로 폐지, 5개 앱 전체 적용**: 초광폭 모니터에서 표(특히 신호일자처럼 가변 길이 텍스트가 있는 컬럼)가 화면 폭을 못 쓰고 오른쪽에 빈 공간만 남는다는 사용자 피드백으로, `.wrap{max-width:1100px;margin:0}` → `.wrap{margin:0}`(max-width 완전 제거)로 5개 앱(stock-baseline/stock-deviation/stock-pullback/stock-emaladder/stock-valuechain) 전부 변경했다. 콘텐츠 영역은 이제 포털 iframe이 제공하는 폭만큼 그대로 늘어난다. 표 안 컬럼별 폭은 `table-layout:fixed` + 컬럼별 %(stock-baseline 최근신호 표가 레퍼런스)로 화면폭에 비례해 자동조절하는 패턴을 신규/개편 표에도 따를 것. work-portal은 이 변경 대상이 아님(사용자가 별도로 처리 예정, 2026-08-14).
 
 **헤더·탭바(`.header`/`.top-nav`)는 애초에 `max-width`가 없어야 한다(2026-08-12 확정)** — 예전엔 이 둘도 `.wrap`과 함께 `max-width:1100px`로 캡되어 있었는데, 포털의 넓은 iframe에서 배경이 1100px에서 끊기고 우측에 빈 공간이 남아 "탭 영역이 확장형이 아니다"라는 결함으로 보였다(work-portal의 `.hdr`/`.top-tabs`는 애초에 max-width가 없음 — work-portal이 기준, [[feedback_design_baseline_workportal]]). html-report-design 스킬 자체를 이미 이렇게 고쳐뒀으므로(§3), 새로 생성되는 리포트는 처음부터 전폭이다. 기존 앱 파일을 참조해 새 앱을 만들 때는 헤더·탭바가 `.wrap`에 감싸여 있지 않은지, `max-width:1100px;margin:0 auto`가 남아있지 않은지 확인할 것.
 
