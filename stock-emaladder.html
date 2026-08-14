@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+b,strong{font-weight:500}
 :root {
   --sky:#0366D6; --sky50:#E9F1FE; --sky100:#C7DCF6; --sky600:#005CC5; --sky800:#032F62;
   --teal:#1D9E75; --teal50:#E1F5EE; --teal100:#9FE1CB; --teal600:#0F6E56;
@@ -53,11 +54,11 @@ html::-webkit-scrollbar{display:none}
 .header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
 .logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#F5A582 0%,#D85A30 55%,#5A2410 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(216,90,48,.35)}
 .logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
-.logo-title{font-size:14.5px;font-weight:700;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.logo-title{font-size:14.5px;font-weight:500;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
 .logo-sub{font-size:13px;color:var(--hdr-text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
 .header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:10px}
 .hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
-.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:700;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
+.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:500;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
 .hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
 .top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
 .top-nav::-webkit-scrollbar{display:none}
@@ -74,8 +75,8 @@ html.in-portal .nav-spacer{display:none}
 @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .kpi-row{display:flex;gap:9px;margin-bottom:14px;padding-top:10px;flex-wrap:wrap}
 .kpi-card{flex:1;min-width:100px;background:var(--card);border:1px solid var(--border);border-radius:var(--r12);padding:10px 10px;text-align:center;box-shadow:var(--shadow)}
-.kpi-card .num{font-size:18px;font-weight:600;line-height:1.1}
-.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:600;color:var(--txt2)}
+.kpi-card .num{font-size:18px;font-weight:500;line-height:1.1}
+.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:500;color:var(--txt2)}
 .kpi-sky .num{color:var(--sky600)}
 .kpi-red .num{color:var(--red)}
 .kpi-teal .num{color:var(--teal600)}
@@ -83,7 +84,7 @@ html.in-portal .nav-spacer{display:none}
 .kpi-amber .num{color:var(--amber)}
 .kpi-purple .num{color:var(--purple)}
 .sc{background:var(--card);border-radius:var(--r12);border:1px solid var(--border);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
-.sc-title{font-size:14.5px;font-weight:600;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.sc-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .sc-title .sub{font-size:13.5px;font-weight:400;color:var(--txt2)}
 .sc-note{font-size:14px;color:var(--txt2);margin-bottom:12px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r8);overscroll-behavior-x:contain;margin-bottom:8px}
@@ -97,7 +98,7 @@ tbody tr:hover{background:var(--teal50)}
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:20px}
 .chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px 14px}
 .chart-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap}
-.chart-card-name{font-size:15px;font-weight:600;color:var(--txt)}
+.chart-card-name{font-size:15px;font-weight:500;color:var(--txt)}
 .chart-card-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:14px;color:var(--txt);font-weight:400}
 .chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
 .chart-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--txt);margin-bottom:12px;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
@@ -119,7 +120,7 @@ tbody tr:hover{background:var(--teal50)}
 .bdg-gray{background:var(--gray50);color:var(--gray600)}
 .bdg-purple{background:var(--purple50);color:var(--purple)}
 .ai-sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r12);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
-.ai-title{font-size:14.5px;font-weight:800;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ai-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .ai-badge{margin-left:auto}
 .ai-list{display:flex;flex-direction:column;gap:7px}
 .ai-item{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--txt);line-height:1.55}
@@ -127,31 +128,31 @@ tbody tr:hover{background:var(--teal50)}
 .ai-dot-red{background:var(--red)} .ai-dot-teal{background:var(--teal)} .ai-dot-sky{background:var(--sky)}
 .ai-dot-amber{background:var(--amber)} .ai-dot-purple{background:var(--purple)} .ai-dot-gray{background:var(--gray600)}
 .rule-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px;margin-bottom:10px}
-.rule-box .rb-title{font-size:14.5px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.rule-box .rb-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:6px}
 .rule-box .rb-body{font-size:14px;color:var(--txt2);line-height:1.7}
 .rule-box .rb-body code{background:var(--border2);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--txt)}
 .rule-box ol,.rule-box ul{margin:6px 0 0;padding-left:20px}
 .rule-box li{margin-bottom:4px}
 .hist-item{display:flex;gap:8px;font-size:13.5px;line-height:1.6;color:var(--txt2);padding:5px 0;border-bottom:1px dashed var(--border)}
 .hist-item:last-child{border-bottom:none}
-.hist-v{flex-shrink:0;font-weight:800;color:var(--teal600);width:34px}
+.hist-v{flex-shrink:0;font-weight:500;color:var(--teal600);width:34px}
 #settingsModal{display:none;position:fixed;inset:0;z-index:100}
 #settingsModal.modal-open{display:block}
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}
 .modal-box{background:var(--card);border-radius:var(--r16);padding:20px;width:100%;max-width:320px;box-shadow:var(--shadow-h)}
-.modal-title{font-size:16px;font-weight:600;color:var(--txt);margin-bottom:14px}
-.modal-section{font-size:13.5px;font-weight:700;color:var(--txt2);margin-bottom:8px}
+.modal-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:14px}
+.modal-section{font-size:13.5px;font-weight:500;color:var(--txt2);margin-bottom:8px}
 .theme-opts{display:flex;gap:10px}
 .theme-opt{flex:1;cursor:pointer;text-align:center;padding:8px;border-radius:var(--r12);border:2px solid var(--border);position:relative;transition:border-color .12s}
 .theme-opt.on{border-color:var(--teal)}
-.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center}
 .theme-swatch{width:100%;height:50px;border-radius:8px;border:1px solid var(--border2);margin-bottom:6px;position:relative;overflow:hidden}
 .theme-swatch-dark{background:#24292E}
 .theme-swatch-light{background:#FFFFFF}
 .theme-swatch-dark .ts-side{background:#24292E;border-right:1px solid rgba(255,255,255,.08)}
 .theme-swatch-light .ts-side{background:#FFFFFF;border-right:1px solid #DCE9F7}
 .ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
-.theme-opt-label{font-size:13px;font-weight:700;color:var(--txt)}
+.theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
 html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
 html[data-theme="dark"] .tab-btn.on{color:#fff}
 html[data-theme="dark"] .bdg-gray{color:#fff}
@@ -243,7 +244,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
 <div class="panel on" id="p0">
   <div class="sc">
     <div class="sc-title">참고용 관심종목 차트 <span class="sub">최근 110거래일 · 종가·EMA20·EMA100·EMA400 · 현재 완전정배열(5/5) 7종목</span></div>
-    <div class="sc-note">⚠️ 현재(2026-08-11) KOSPI가 하락/횡보 국면(상승지속 0거래일)이라 시장국면 조건을 충족하지 못해 <b>신규 진입 내역이 없습니다.</b> 아래 7종목은 개별적으로는 이미 EMA래더가 완전정배열 상태이지만, 시장국면 필터에 걸려 "대기" 상태인 참고용 종목들입니다: KOSPI가 다시 상승국면(EMA100 상승 + 지속10거래일)에 진입하면 이 종목들부터 매수신호가 나올 가능성이 있습니다.</div>
+    <div class="sc-note">⚠️ 현재(2026-08-11) KOSPI가 하락/횡보 국면(상승지속 0거래일)이라 시장국면 조건을 충족하지 못해 <b>신규 진입 내역이 없습니다.</b> 아래 7종목은 개별적으로는 이미 EMA래더가 완전정배열 상태이지만, 시장국면 필터에 걸려 "대기" 상태인 참고용 종목들입니다 : KOSPI가 다시 상승국면(EMA100 상승 + 지속10거래일)에 진입하면 이 종목들부터 매수신호가 나올 가능성이 있습니다.</div>
     <div class="chart-legend"><span><i style="border-color:var(--txt)"></i>종가</span><span><i class="dash" style="border-color:var(--purple)"></i>EMA20</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA400</span><span style="color:var(--txt)">4개 선 전부 이 순서대로 쌓여있으면(종가>EMA20>EMA100>EMA400) 완전정배열</span></div>
     <div class="chart-grid">
 
@@ -356,11 +357,11 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
     <div class="sc-title">매수(진입) 조건</div>
     <div class="rule-box">
       <div class="rb-title">① EMA래더 완전정배열 전환일</div>
-      <div class="rb-body">종목의 <code>EMA5 &gt; EMA20 &gt; EMA50 &gt; EMA100 &gt; EMA200 &gt; EMA400</code>이 전부 순서대로 정배열되는 첫날(전날엔 5개 인접쌍 중 하나라도 미충족). 매일 상태를 유지 중인 날이 아니라 <b>새로 전환되는 날만</b> 신호로 인정: "4개 이상 정배열"처럼 기준을 완화하면 오히려 성과가 나빠짐이 확인됨(1차 신호품질 스캔).</div>
+      <div class="rb-body">종목의 <code>EMA5 &gt; EMA20 &gt; EMA50 &gt; EMA100 &gt; EMA200 &gt; EMA400</code>이 전부 순서대로 정배열되는 첫날(전날엔 5개 인접쌍 중 하나라도 미충족). 매일 상태를 유지 중인 날이 아니라 <b>새로 전환되는 날만</b> 신호로 인정 : "4개 이상 정배열"처럼 기준을 완화하면 오히려 성과가 나빠짐이 확인됨(1차 신호품질 스캔).</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">② 시장국면(KOSPI)</div>
-      <div class="rb-body">KOSPI 종가 &gt; EMA100, EMA100이 10거래일 전보다 상승: 이 상태가 <b>10거래일 이상 지속</b>되어야 진입 허용. 막 전환된 직후의 휩소 구간을 배제하는 목적(눌림목 전략과 동일 원리).</div>
+      <div class="rb-body">KOSPI 종가 &gt; EMA100, EMA100이 10거래일 전보다 상승 : 이 상태가 <b>10거래일 이상 지속</b>되어야 진입 허용. 막 전환된 직후의 휩소 구간을 배제하는 목적(눌림목 전략과 동일 원리).</div>
     </div>
   </div>
 
@@ -372,7 +373,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
     </div>
     <div class="rule-box">
       <div class="rb-title">② 추세이탈(TREND_BREAK)</div>
-      <div class="rb-body">종가가 <code>EMA100</code> 아래로 하향: EMA20/50 등 빠른 이평선보다 EMA100처럼 느린 기준이 휩소(잦은 오탈출)를 줄여 Sharpe가 더 우수함이 그리드서치로 확인됨.</div>
+      <div class="rb-body">종가가 <code>EMA100</code> 아래로 하향 : EMA20/50 등 빠른 이평선보다 EMA100처럼 느린 기준이 휩소(잦은 오탈출)를 줄여 Sharpe가 더 우수함이 그리드서치로 확인됨.</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">③ 트레일링</div>
@@ -391,19 +392,19 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   <div class="ai-sc">
     <div class="ai-title">💡 설계 원칙 <span class="badge bdg-teal ai-badge">4가지 핵심</span></div>
     <div class="ai-list">
-      <div class="ai-item"><span class="ai-dot ai-dot-teal"></span><span>"전부 정배열"이 핵심, 완화하면 역효과: 6개 EMA 중 4개만 맞아도 정배열로 인정하는 느슨한 기준은 완전정배열보다 성과가 낮았음. 개별 EMA쌍 골든크로스(특히 EMA100/200)는 오히려 베이스라인보다 열세인 지연지표로 확인돼 전부 기각.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-amber"></span><span>느린 이평일수록 청산기준으로 우수: 추세이탈 기준을 EMA20/50/100 중 비교한 결과 가장 느린 EMA100이 휩소를 줄여 Sharpe 최우수. 눌림목 전략에서 EMA50이 EMA5/20보다 나았던 것과 같은 패턴.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-red"></span><span>"소수 대박" 손익구조: 승률만 보면 안 됨: TP 없는 baseline은 승률48%·중앙값마저 음수(-1.61%)로, 절반 이상이 소액손실이고 소수 대박 트레이드가 평균을 끌어올리는 구조. 괴리율(승률80%)·눌림목(승률56%)과는 손익분포 성격이 근본적으로 다름.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-purple"></span><span>Sharpe 최고치보다 승률·중앙값 안정성 우선: TP20%가 Sharpe는 근소 높았지만(0.385) 승률49%·중앙값음수 구조가 IS/OOS 내내 유지됨. TP10%는 Sharpe가 근소 낮지만(0.371) 승률56%·중앙값+4%대 양수가 IS/OOS 양쪽에서 일관: 통계적 최적치가 항상 실전 채택 기준은 아니라는 원칙(눌림목·괴리율과 같은 결).</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-teal"></span><span>"전부 정배열"이 핵심, 완화하면 역효과 : 6개 EMA 중 4개만 맞아도 정배열로 인정하는 느슨한 기준은 완전정배열보다 성과가 낮았음. 개별 EMA쌍 골든크로스(특히 EMA100/200)는 오히려 베이스라인보다 열세인 지연지표로 확인돼 전부 기각.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-amber"></span><span>느린 이평일수록 청산기준으로 우수 : 추세이탈 기준을 EMA20/50/100 중 비교한 결과 가장 느린 EMA100이 휩소를 줄여 Sharpe 최우수. 눌림목 전략에서 EMA50이 EMA5/20보다 나았던 것과 같은 패턴.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-red"></span><span>"소수 대박" 손익구조 : 승률만 보면 안 됨 : TP 없는 baseline은 승률48%·중앙값마저 음수(-1.61%)로, 절반 이상이 소액손실이고 소수 대박 트레이드가 평균을 끌어올리는 구조. 괴리율(승률80%)·눌림목(승률56%)과는 손익분포 성격이 근본적으로 다름.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-purple"></span><span>Sharpe 최고치보다 승률·중앙값 안정성 우선 : TP20%가 Sharpe는 근소 높았지만(0.385) 승률49%·중앙값음수 구조가 IS/OOS 내내 유지됨. TP10%는 Sharpe가 근소 낮지만(0.371) 승률56%·중앙값+4%대 양수가 IS/OOS 양쪽에서 일관 : 통계적 최적치가 항상 실전 채택 기준은 아니라는 원칙(눌림목·괴리율과 같은 결).</span></div>
     </div>
   </div>
 
   <div class="sc">
     <div class="sc-title">검증 연혁</div>
-    <div class="hist-item"><span class="hist-v">1</span><span>청산규칙 없는 1차 신호품질 스캔: 완전정배열 전환일만 베이스라인(무신호) 대비 뚜렷한 우위(+40일 승률63%·Sharpe0.388 vs 베이스라인 57%·0.287). 개별 EMA쌍 골든크로스는 전부 기각.</span></div>
-    <div class="hist-item"><span class="hist-v">2</span><span>청산규칙 그리드서치: TREND_BREAK 기준 EMA는 100이 최우수, SL10%/TRAIL12% 채택. TP 없는 조합은 승률48%·중앙값음수 확인.</span></div>
-    <div class="hist-item"><span class="hist-v">3</span><span>시장국면 필터 적용: Sharpe 0.286→0.353 개선(진입 756→421건).</span></div>
-    <div class="hist-item"><span class="hist-v">4</span><span>TP 오버레이 비교(TP10% vs TP20%) + IS/OOS 검증: TP10%(실전형) 최종 채택.</span></div>
+    <div class="hist-item"><span class="hist-v">1</span><span>청산규칙 없는 1차 신호품질 스캔 : 완전정배열 전환일만 베이스라인(무신호) 대비 뚜렷한 우위(+40일 승률63%·Sharpe0.388 vs 베이스라인 57%·0.287). 개별 EMA쌍 골든크로스는 전부 기각.</span></div>
+    <div class="hist-item"><span class="hist-v">2</span><span>청산규칙 그리드서치 : TREND_BREAK 기준 EMA는 100이 최우수, SL10%/TRAIL12% 채택. TP 없는 조합은 승률48%·중앙값음수 확인.</span></div>
+    <div class="hist-item"><span class="hist-v">3</span><span>시장국면 필터 적용 : Sharpe 0.286→0.353 개선(진입 756→421건).</span></div>
+    <div class="hist-item"><span class="hist-v">4</span><span>TP 오버레이 비교(TP10% vs TP20%) + IS/OOS 검증 : TP10%(실전형) 최종 채택.</span></div>
   </div>
 </div>
 
@@ -420,11 +421,11 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   <div class="ai-sc">
     <div class="ai-title">💡 종합 인사이트</div>
     <div class="ai-list">
-      <div class="ai-item"><span class="ai-dot ai-dot-gray"></span><span>현재(2026-08-11) 신규 진입 없음: KOSPI가 하락/횡보 국면(상승지속 0거래일)이라 시장국면 조건 미충족. 완전정배열 7종목(KT&G·하나금융지주·신한지주·우리금융지주·삼성화재·삼성에스디에스·S-Oil)이 있으나 전부 "대기" 상태. (전일 대비 KB금융이 정배열 이탈 4/5로 하락)</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-teal"></span><span>세번째 확정 매매전략: 괴리율(하락장·평균회귀, 승률80%)·눌림목(상승장·추세추종, 승률56%)에 이어 EMA래더(추세추종, 승률56%)까지 3대 전략 체제 완성. 눌림목과 승률·Sharpe 수준은 비슷하나 진입빈도가 더 낮고(연~70건 vs 눌림목 연~140건) 손익분포가 더 "소수 대박형"에 가까움.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-amber"></span><span>구(舊) stock-tech-analysis 스킬 완전 재구축: 2026-06-22에 만들어졌던 지지저항 SVG+MA/RSI/MACD/BB 리포트 도구가 백테스트 검증 없는 관행적 기준이라는 지적을 계기로 스킬·스크립트를 삭제하고, 이번에 TOP50×6년 백테스트로 처음부터 재구축.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-red"></span><span>기각된 실험들: 개별 EMA쌍 골든크로스(5개 전부), "4개이상 정배열" 완화기준, TREND_BREAK을 EMA20/50으로 사용, TP20%안: 전부 완전정배열+EMA100+TP10% 조합보다 성과 열세로 기각.</span></div>
-      <div class="ai-item"><span class="ai-dot ai-dot-purple"></span><span>남은 과제: 슬리피지·매매수수료 미반영, 코스닥 소형주 표본 부족(TOP50 중 코스닥은 알테오젠 1종목뿐), 3대 전략 간 신호 중복 여부 미검토.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-gray"></span><span>현재(2026-08-11) 신규 진입 없음 : KOSPI가 하락/횡보 국면(상승지속 0거래일)이라 시장국면 조건 미충족. 완전정배열 7종목(KT&G·하나금융지주·신한지주·우리금융지주·삼성화재·삼성에스디에스·S-Oil)이 있으나 전부 "대기" 상태. (전일 대비 KB금융이 정배열 이탈 4/5로 하락)</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-teal"></span><span>세번째 확정 매매전략 : 괴리율(하락장·평균회귀, 승률80%)·눌림목(상승장·추세추종, 승률56%)에 이어 EMA래더(추세추종, 승률56%)까지 3대 전략 체제 완성. 눌림목과 승률·Sharpe 수준은 비슷하나 진입빈도가 더 낮고(연~70건 vs 눌림목 연~140건) 손익분포가 더 "소수 대박형"에 가까움.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-amber"></span><span>구(舊) stock-tech-analysis 스킬 완전 재구축 : 2026-06-22에 만들어졌던 지지저항 SVG+MA/RSI/MACD/BB 리포트 도구가 백테스트 검증 없는 관행적 기준이라는 지적을 계기로 스킬·스크립트를 삭제하고, 이번에 TOP50×6년 백테스트로 처음부터 재구축.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-red"></span><span>기각된 실험들 : 개별 EMA쌍 골든크로스(5개 전부), "4개이상 정배열" 완화기준, TREND_BREAK을 EMA20/50으로 사용, TP20%안 : 전부 완전정배열+EMA100+TP10% 조합보다 성과 열세로 기각.</span></div>
+      <div class="ai-item"><span class="ai-dot ai-dot-purple"></span><span>남은 과제 : 슬리피지·매매수수료 미반영, 코스닥 소형주 표본 부족(TOP50 중 코스닥은 알테오젠 1종목뿐), 3대 전략 간 신호 중복 여부 미검토.</span></div>
     </div>
   </div>
 </div>
@@ -440,11 +441,11 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         <tr><td class="l"><b>TP+10%/50%매도(최종전략)</b></td><td>421</td><td class="t-pos">+6.26%</td><td class="t-pos">+4.42%</td><td>56%</td><td>0.371</td></tr>
       </tbody>
     </table></div>
-    <div class="sc-note">IS/OOS 스냅샷(60/40분할, ~2025-12-02 기준): IS(n256) 평균+6.86%/중앙값+4.37%/승률57%/Sharpe0.431 → OOS(n165) 평균+5.33%/중앙값+4.50%/승률55%/Sharpe0.293</div>
+    <div class="sc-note">IS/OOS 스냅샷(60/40분할, ~2025-12-02 기준) : IS(n256) 평균+6.86%/중앙값+4.37%/승률57%/Sharpe0.431 → OOS(n165) 평균+5.33%/중앙값+4.50%/승률55%/Sharpe0.293</div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">그리드1: TREND_BREAK EMA × SL × TRAIL <span class="sub">상위 10개 조합(maxHold=60)</span></div>
+    <div class="sc-title">그리드1 : TREND_BREAK EMA × SL × TRAIL <span class="sub">상위 10개 조합(maxHold=60)</span></div>
     <div class="tbl-wrap"><table>
       <thead><tr><th class="l">조합</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>Sharpe</th></tr></thead>
       <tbody>
@@ -463,7 +464,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">그리드2: 시장국면 필터 on/off</div>
+    <div class="sc-title">그리드2 : 시장국면 필터 on/off</div>
     <div class="tbl-wrap"><table>
       <thead><tr><th class="l">조합</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>Sharpe</th></tr></thead>
       <tbody>
@@ -474,7 +475,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">그리드3: 부분익절(TP) 오버레이 비교</div>
+    <div class="sc-title">그리드3 : 부분익절(TP) 오버레이 비교</div>
     <div class="tbl-wrap"><table>
       <thead><tr><th class="l">조합</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>Sharpe</th></tr></thead>
       <tbody>
@@ -484,7 +485,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         <tr><td class="l">TP+20%/50%매도(Sharpe최고)</td><td>420</td><td class="t-pos">+7.37%</td><td class="t-neg-hi">-1.41%</td><td>49%</td><td>0.385</td></tr>
       </tbody>
     </table></div>
-    <div class="sc-note">TP20%가 Sharpe는 최고치이나 승률·중앙값은 계속 음수 구조: TP10%(실전형)를 최종 채택.</div>
+    <div class="sc-note">TP20%가 Sharpe는 최고치이나 승률·중앙값은 계속 음수 구조 : TP10%(실전형)를 최종 채택.</div>
   </div>
 
   <div class="sc">

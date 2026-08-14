@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+b,strong{font-weight:500}
 :root {
   --sky:#0366D6; --sky50:#E9F1FE; --sky100:#C7DCF6; --sky600:#005CC5; --sky800:#032F62;
   --teal:#1D9E75; --teal50:#E1F5EE; --teal100:#9FE1CB; --teal600:#0F6E56;
@@ -53,11 +54,11 @@ html::-webkit-scrollbar{display:none}
 .header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
 .logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#7FE4B4 0%,#1D9E75 55%,#0B4A36 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(29,158,117,.35)}
 .logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
-.logo-title{font-size:14.5px;font-weight:700;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.logo-title{font-size:14.5px;font-weight:500;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
 .logo-sub{font-size:13px;color:var(--hdr-text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
 .header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:10px}
 .hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
-.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:700;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
+.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:500;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
 .hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
 .top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
 .top-nav::-webkit-scrollbar{display:none}
@@ -74,8 +75,8 @@ html.in-portal .nav-spacer{display:none}
 @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .kpi-row{display:flex;gap:9px;margin-bottom:14px;padding-top:10px;flex-wrap:wrap}
 .kpi-card{flex:1;min-width:100px;background:var(--card);border:1px solid var(--border);border-radius:var(--r12);padding:10px 10px;text-align:center;box-shadow:var(--shadow)}
-.kpi-card .num{font-size:18px;font-weight:600;line-height:1.1}
-.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:600;color:var(--txt2)}
+.kpi-card .num{font-size:18px;font-weight:500;line-height:1.1}
+.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:500;color:var(--txt2)}
 .kpi-sky .num{color:var(--sky600)}
 .kpi-red .num{color:var(--red)}
 .kpi-teal .num{color:var(--teal600)}
@@ -83,7 +84,7 @@ html.in-portal .nav-spacer{display:none}
 .kpi-amber .num{color:var(--amber)}
 .kpi-purple .num{color:var(--purple)}
 .sc{background:var(--card);border-radius:var(--r12);border:1px solid var(--border);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
-.sc-title{font-size:14.5px;font-weight:600;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.sc-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 .sc-title .sub{font-size:13px;font-weight:400;color:var(--txt2)}
 .sc-note{font-size:14px;color:var(--txt2);margin-bottom:12px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r8);overscroll-behavior-x:contain;margin-bottom:8px}
@@ -101,7 +102,7 @@ tbody tr:hover{background:var(--teal50)}
 .chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:20px}
 .chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px 14px}
 .chart-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap}
-.chart-card-name{font-size:15px;font-weight:600;color:var(--txt)}
+.chart-card-name{font-size:15px;font-weight:500;color:var(--txt)}
 .chart-card-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:14px;color:var(--txt);font-weight:400}
 .chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
 .chart-card-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);font-size:13.5px;color:var(--txt)}
@@ -125,7 +126,7 @@ tbody tr:hover{background:var(--teal50)}
 .bdg-gray{background:var(--gray50);color:var(--gray600)}
 .bdg-purple{background:var(--purple50);color:var(--purple)}
 .ai-sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r12);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
-.ai-title{font-size:14.5px;font-weight:800;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ai-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .ai-badge{margin-left:auto}
 .ai-list{display:flex;flex-direction:column;gap:7px}
 .ai-item{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--txt);line-height:1.55}
@@ -133,31 +134,31 @@ tbody tr:hover{background:var(--teal50)}
 .ai-dot-red{background:var(--red)} .ai-dot-teal{background:var(--teal)} .ai-dot-sky{background:var(--sky)}
 .ai-dot-amber{background:var(--amber)} .ai-dot-purple{background:var(--purple)} .ai-dot-gray{background:var(--gray600)}
 .rule-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px;margin-bottom:10px}
-.rule-box .rb-title{font-size:14.5px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.rule-box .rb-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:6px}
 .rule-box .rb-body{font-size:14px;color:var(--txt2);line-height:1.7}
 .rule-box .rb-body code{background:var(--border2);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--txt)}
 .rule-box ol,.rule-box ul{margin:6px 0 0;padding-left:20px}
 .rule-box li{margin-bottom:4px}
 .hist-item{display:flex;gap:8px;font-size:13.5px;line-height:1.6;color:var(--txt2);padding:5px 0;border-bottom:1px dashed var(--border)}
 .hist-item:last-child{border-bottom:none}
-.hist-v{flex-shrink:0;font-weight:800;color:var(--teal600);width:34px}
+.hist-v{flex-shrink:0;font-weight:500;color:var(--teal600);width:34px}
 #settingsModal{display:none;position:fixed;inset:0;z-index:100}
 #settingsModal.modal-open{display:block}
 .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}
 .modal-box{background:var(--card);border-radius:var(--r16);padding:20px;width:100%;max-width:320px;box-shadow:var(--shadow-h)}
-.modal-title{font-size:16px;font-weight:600;color:var(--txt);margin-bottom:14px}
-.modal-section{font-size:13.5px;font-weight:700;color:var(--txt2);margin-bottom:8px}
+.modal-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:14px}
+.modal-section{font-size:13.5px;font-weight:500;color:var(--txt2);margin-bottom:8px}
 .theme-opts{display:flex;gap:10px}
 .theme-opt{flex:1;cursor:pointer;text-align:center;padding:8px;border-radius:var(--r12);border:2px solid var(--border);position:relative;transition:border-color .12s}
 .theme-opt.on{border-color:var(--teal)}
-.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center}
 .theme-swatch{width:100%;height:50px;border-radius:8px;border:1px solid var(--border2);margin-bottom:6px;position:relative;overflow:hidden}
 .theme-swatch-dark{background:#24292E}
 .theme-swatch-light{background:#FFFFFF}
 .theme-swatch-dark .ts-side{background:#24292E;border-right:1px solid rgba(255,255,255,.08)}
 .theme-swatch-light .ts-side{background:#FFFFFF;border-right:1px solid #DCE9F7}
 .ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
-.theme-opt-label{font-size:13px;font-weight:700;color:var(--txt)}
+.theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
 html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
 html[data-theme="dark"] .tab-btn.on{color:#fff}
 html[data-theme="dark"] .bdg-gray{color:#fff}
@@ -259,29 +260,29 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:9%">날짜</th><th class="l" style="width:12%">종목</th><th style="width:8%">진입가</th><th class="l" style="width:11%">상태</th><th class="c" style="width:6%">경과</th><th style="width:8%">수익률</th><th class="l" style="width:16%">매수현황</th><th class="l" style="width:30%">신호일자</th></tr></thead>
         <tbody>
-          <tr><td class="l">2026-08-14</td><td class="l">HD현대중공업</td><td>508,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+0</td><td class="t-flat">+0.00%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-08-14(508,000)</td></tr>
-          <tr><td class="l">2026-08-04</td><td class="l">HD현대일렉트릭</td><td>716,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+8</td><td class="t-pos">+8.38%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-08-04(716,000)</td></tr>
-          <tr><td class="l">2026-07-31</td><td class="l">두산에너빌리티</td><td>67,100</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+10</td><td class="t-pos">+21.76%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-07-31(67,100)</td></tr>
-          <tr><td class="l">2026-07-31</td><td class="l">POSCO홀딩스</td><td>312,500</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+10</td><td class="t-pos">+5.28%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-07-31(312,500)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">LG에너지솔루션</td><td>348,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+8.08%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(348,000) &middot; 2차 2026-07-30(320,000)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">미래에셋증권</td><td>39,200</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+0.34%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(39,200) &middot; 2차 2026-07-31(34,550)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">LG화학</td><td>271,500</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+4.06%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(271,500) &middot; 2차 2026-07-31(258,000)</td></tr>
-          <tr><td class="l">2026-07-22</td><td class="l">HD한국조선해양</td><td>353,500</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+15</td><td class="t-pos">+5.40%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-22(353,500) &middot; 2차 2026-07-30(368,500)</td></tr>
-          <tr><td class="l">2026-07-22</td><td class="l">한화오션</td><td>83,900</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+17</td><td class="t-pos">+12.12%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-22(83,900) &middot; 2차 2026-07-31(85,200)</td></tr>
-          <tr><td class="l">2026-07-22</td><td class="l">삼성중공업</td><td>21,600</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+17</td><td class="t-pos">+4.31%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-22(21,600) &middot; 2차 2026-07-31(21,350)</td></tr>
-          <tr><td class="l">2026-07-22</td><td class="l">HD현대</td><td>212,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+3</td><td class="t-neg">-0.71%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-22(212,000)</td></tr>
-          <tr><td class="l">2026-07-21</td><td class="l">NAVER</td><td>193,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+5</td><td class="t-pos">+8.81%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-21(193,000)</td></tr>
-          <tr><td class="l">2026-07-21</td><td class="l">현대글로비스</td><td>189,700</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+5</td><td class="t-pos">+0.58%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-21(189,700)</td></tr>
-          <tr><td class="l">2026-07-03</td><td class="l">고려아연</td><td>1,115,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+29</td><td class="t-pos">+11.57%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-03(1,115,000) &middot; 2차 2026-07-16(1,029,000) &middot; <span style="opacity:.65">3차(신호만) 2026-07-22(994,000)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-07-31(999,000)</span></td></tr>
-          <tr><td class="l">2026-06-29</td><td class="l">SK이노베이션</td><td>98,400</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+20</td><td class="t-pos">+16.80%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-29(98,400) &middot; 2차 2026-07-01(98,000) &middot; <span style="opacity:.65">3차(신호만) 2026-07-06(96,500)</span></td></tr>
-          <tr><td class="l">2026-06-12</td><td class="l">한국전력</td><td>37,650</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+44</td><td class="t-neg">-10.17%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-06-12(37,650) &middot; 2차 2026-07-23(35,600)</td></tr>
-          <tr><td class="l">2026-04-01</td><td class="l">삼성바이오로직스</td><td>1,572,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+80</td><td class="t-neg">-2.09%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-04-01(1,572,000) &middot; 2차 2026-05-14(1,449,000) &middot; <span style="opacity:.65">3차(신호만) 2026-05-21(1,395,000)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-06-15(1,332,000)</span></td></tr>
-          <tr><td class="l">2026-04-01</td><td class="l">NAVER</td><td>210,500</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+46</td><td class="t-pos">+17.48%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-04-01(210,500) &middot; 2차 2026-04-08(201,500) &middot; <span style="opacity:.65">3차(신호만) 2026-05-21(199,500)</span></td></tr>
-          <tr><td class="l">2026-04-01</td><td class="l">카카오</td><td>48,150</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+92</td><td class="t-neg">-15.92%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-04-01(48,150) &middot; 2차 2026-04-07(46,400) &middot; <span style="opacity:.65">3차(신호만) 2026-05-14(45,950)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-05-29(41,950)</span> &middot; <span style="opacity:.65">5차(신호만) 2026-06-12(41,500)</span> &middot; <span style="opacity:.65">6차(신호만) 2026-06-29(35,850)</span></td></tr>
-          <tr><td class="l">2026-02-26</td><td class="l">알테오젠</td><td>310,000</td><td class="l"><span class="badge bdg-teal">보유중</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+115</td><td class="t-pos">+4.53%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(1파매도완료(잔량50%) · 1파 진행중)</span></td><td class="l">신호: 1차 2026-02-26(310,000) &middot; 2차 2026-03-10(288,846) &middot; <span style="opacity:.65">3차(신호만) 2026-03-24(273,462)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-05-13(272,308)</span> &middot; <span style="opacity:.65">5차(신호만) 2026-07-23(235,769)</span></td></tr>
-          <tr><td class="l">2025-12-08</td><td class="l">LIG디펜스앤에어로스페이스</td><td>387,000</td><td class="l"><span class="badge bdg-gray">3파완주매도</span> <span class="badge bdg-sky">1파매도</span> <span class="badge bdg-amber">2파매도</span></td><td class="c">D+35</td><td class="t-pos">+38.11%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2025-12-08(387,000)</td></tr>
-          <tr><td class="l">2025-11-26</td><td class="l">HMM</td><td>19,010</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+33</td><td class="t-pos">+6.52%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2025-11-26(19,010)</td></tr>
-          <tr><td class="l">2025-11-05</td><td class="l">SK텔레콤</td><td>52,700</td><td class="l"><span class="badge bdg-gray">3파완주매도</span> <span class="badge bdg-sky">1파매도</span> <span class="badge bdg-amber">2파매도</span></td><td class="c">D+76</td><td class="t-pos">+41.51%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2025-11-05(52,700)</td></tr>
+          <tr><td class="l">2026-08-14</td><td class="l">HD현대중공업</td><td>508,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+0</td><td class="t-flat">+0.00%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호 : 1차 2026-08-14(508,000)</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">HD현대일렉트릭</td><td>716,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+8</td><td class="t-pos">+8.38%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호 : 1차 2026-08-04(716,000)</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">두산에너빌리티</td><td>67,100</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+10</td><td class="t-pos">+21.76%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호 : 1차 2026-07-31(67,100)</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">POSCO홀딩스</td><td>312,500</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+10</td><td class="t-pos">+5.28%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호 : 1차 2026-07-31(312,500)</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">LG에너지솔루션</td><td>348,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+8.08%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-23(348,000) &middot; 2차 2026-07-30(320,000)</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">미래에셋증권</td><td>39,200</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+0.34%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-23(39,200) &middot; 2차 2026-07-31(34,550)</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">LG화학</td><td>271,500</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+16</td><td class="t-pos">+4.06%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-23(271,500) &middot; 2차 2026-07-31(258,000)</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">HD한국조선해양</td><td>353,500</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+15</td><td class="t-pos">+5.40%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-07-22(353,500) &middot; 2차 2026-07-30(368,500)</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">한화오션</td><td>83,900</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+17</td><td class="t-pos">+12.12%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-22(83,900) &middot; 2차 2026-07-31(85,200)</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">삼성중공업</td><td>21,600</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+17</td><td class="t-pos">+4.31%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-22(21,600) &middot; 2차 2026-07-31(21,350)</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">HD현대</td><td>212,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+3</td><td class="t-neg">-0.71%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-07-22(212,000)</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">NAVER</td><td>193,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+5</td><td class="t-pos">+8.81%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-07-21(193,000)</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">현대글로비스</td><td>189,700</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+5</td><td class="t-pos">+0.58%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-07-21(189,700)</td></tr>
+          <tr><td class="l">2026-07-03</td><td class="l">고려아연</td><td>1,115,000</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+29</td><td class="t-pos">+11.57%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-07-03(1,115,000) &middot; 2차 2026-07-16(1,029,000) &middot; <span style="opacity:.65">3차(신호만) 2026-07-22(994,000)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-07-31(999,000)</span></td></tr>
+          <tr><td class="l">2026-06-29</td><td class="l">SK이노베이션</td><td>98,400</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+20</td><td class="t-pos">+16.80%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-06-29(98,400) &middot; 2차 2026-07-01(98,000) &middot; <span style="opacity:.65">3차(신호만) 2026-07-06(96,500)</span></td></tr>
+          <tr><td class="l">2026-06-12</td><td class="l">한국전력</td><td>37,650</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+44</td><td class="t-neg">-10.17%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-06-12(37,650) &middot; 2차 2026-07-23(35,600)</td></tr>
+          <tr><td class="l">2026-04-01</td><td class="l">삼성바이오로직스</td><td>1,572,000</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+80</td><td class="t-neg">-2.09%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-04-01(1,572,000) &middot; 2차 2026-05-14(1,449,000) &middot; <span style="opacity:.65">3차(신호만) 2026-05-21(1,395,000)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-06-15(1,332,000)</span></td></tr>
+          <tr><td class="l">2026-04-01</td><td class="l">NAVER</td><td>210,500</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+46</td><td class="t-pos">+17.48%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2026-04-01(210,500) &middot; 2차 2026-04-08(201,500) &middot; <span style="opacity:.65">3차(신호만) 2026-05-21(199,500)</span></td></tr>
+          <tr><td class="l">2026-04-01</td><td class="l">카카오</td><td>48,150</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+92</td><td class="t-neg">-15.92%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호 : 1차 2026-04-01(48,150) &middot; 2차 2026-04-07(46,400) &middot; <span style="opacity:.65">3차(신호만) 2026-05-14(45,950)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-05-29(41,950)</span> &middot; <span style="opacity:.65">5차(신호만) 2026-06-12(41,500)</span> &middot; <span style="opacity:.65">6차(신호만) 2026-06-29(35,850)</span></td></tr>
+          <tr><td class="l">2026-02-26</td><td class="l">알테오젠</td><td>310,000</td><td class="l"><span class="badge bdg-teal">보유중</span> <span class="badge bdg-sky">1파매도</span></td><td class="c">D+115</td><td class="t-pos">+4.53%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(1파매도완료(잔량50%) · 1파 진행중)</span></td><td class="l">신호 : 1차 2026-02-26(310,000) &middot; 2차 2026-03-10(288,846) &middot; <span style="opacity:.65">3차(신호만) 2026-03-24(273,462)</span> &middot; <span style="opacity:.65">4차(신호만) 2026-05-13(272,308)</span> &middot; <span style="opacity:.65">5차(신호만) 2026-07-23(235,769)</span></td></tr>
+          <tr><td class="l">2025-12-08</td><td class="l">LIG디펜스앤에어로스페이스</td><td>387,000</td><td class="l"><span class="badge bdg-gray">3파완주매도</span> <span class="badge bdg-sky">1파매도</span> <span class="badge bdg-amber">2파매도</span></td><td class="c">D+35</td><td class="t-pos">+38.11%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2025-12-08(387,000)</td></tr>
+          <tr><td class="l">2025-11-26</td><td class="l">HMM</td><td>19,010</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span></td><td class="c">D+33</td><td class="t-pos">+6.52%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2025-11-26(19,010)</td></tr>
+          <tr><td class="l">2025-11-05</td><td class="l">SK텔레콤</td><td>52,700</td><td class="l"><span class="badge bdg-gray">3파완주매도</span> <span class="badge bdg-sky">1파매도</span> <span class="badge bdg-amber">2파매도</span></td><td class="c">D+76</td><td class="t-pos">+41.51%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호 : 1차 2025-11-05(52,700)</td></tr>
         </tbody>
       </table>
     </div>
@@ -676,7 +677,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
 
 <div class="panel" id="p3">
   <div class="sc">
-    <div class="sc-title">매수/매도 전략 예시 <span class="sub">합성 예시 곡선(설명용): 실선=종가, 점선(하늘)=EMA5, 점선(주황)=EMA200(기준선)</span></div>
+    <div class="sc-title">매수/매도 전략 예시 <span class="sub">합성 예시 곡선(설명용) : 실선=종가, 점선(하늘)=EMA5, 점선(주황)=EMA200(기준선)</span></div>
     <div class="chart-legend"><span><i style="border-color:var(--txt)"></i>종가</span><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span style="color:var(--txt)">①1차매수(20거래일 이상 이탈+Z&le;-1.25+최저점갱신 후 첫 EMA5상향돌파) ②2차매수(새 최저점 갱신 후 재충족 시 최대2회) ③회복(EMA200 재상향돌파, 매수중단) ④1파 하향돌파(50%매도) ⑤기준선 재하향돌파(잔량 전량 즉시매도, BASELINE_BREAK)</span></div>
     <svg viewBox="0 0 680 380" width="100%" height="380" style="display:block;max-width:100%">
     <polyline points="54,120 90,122 126,126 162,132 198,140 234,150 270,163 306,178 342,196 378,216 414,238 450,213 486,220 522,225 558,227 594,228 630,226 660,222" fill="none" stroke="var(--amber)" stroke-width="1.6" stroke-dasharray="5,3"/>
@@ -713,7 +714,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-08-13 확정, 2026-08-14 반등신호 조건 개선+Z임계값 완화: 4번째 확정 매매전략(EMA200 기준선 파동 전략)</span></div>
+    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-08-13 확정, 2026-08-14 반등신호 조건 개선+Z임계값 완화 : 4번째 확정 매매전략(EMA200 기준선 파동 전략)</span></div>
     <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건</b></div>
     <div class="tbl-wrap">
       <table>
@@ -727,7 +728,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         </tbody>
       </table>
     </div>
-    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건: 우선순위대로 매일 판정</b></div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건 : 우선순위대로 매일 판정</b></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="c shrink">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
@@ -740,61 +741,61 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         </tbody>
       </table>
     </div>
-    <div class="sc-note">참고 백테스트 성과(TOP50 &times; 7년, 확정 최종 설정): n=293, 가중평균 <b class="t-pos">+7.78%</b>, 중앙값 <b class="t-pos">+7.65%</b>, 승률 <b>74%</b>, 평균보유 <b>75.8거래일</b>. 근거 상세는 백테스트 탭 참조.</div>
+    <div class="sc-note">참고 백테스트 성과(TOP50 &times; 7년, 확정 최종 설정) : n=293, 가중평균 <b class="t-pos">+7.78%</b>, 중앙값 <b class="t-pos">+7.65%</b>, 승률 <b>74%</b>, 평균보유 <b>75.8거래일</b>. 근거 상세는 백테스트 탭 참조.</div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">매수(진입) 조건: 3가지 전부 충족</div>
+    <div class="sc-title">매수(진입) 조건 : 3가지 전부 충족</div>
     <div class="rule-box">
       <div class="rb-title">① 이탈 스트릭(연속 20거래일 이상)</div>
-      <div class="rb-body">종가 &lt; <code>EMA200</code> 상태가 <b>연속 20거래일 이상</b> 유지: 짧은 눌림이 아니라 충분히 오래 기준선 아래 눌려있는 종목만 대상으로 삼음</div>
+      <div class="rb-body">종가 &lt; <code>EMA200</code> 상태가 <b>연속 20거래일 이상</b> 유지 : 짧은 눌림이 아니라 충분히 오래 기준선 아래 눌려있는 종목만 대상으로 삼음</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">② 괴리율 Z-score &le; -1.25(2026-08-14 완화)</div>
-      <div class="rb-body">EMA200 대비 괴리율(dev200)의 롤링 <b>250거래일</b> Z-score가 <b>-1.25 이하</b>: 해당 종목 자체의 최근 1년 변동성 대비 "이례적으로 많이" 눌린 구간만 선별(고정% 대신 종목별 정규화). 기존 -1.5는 다소 엄격해 기회를 과도하게 걸렀다는 판단으로 완화(표본 202건&rarr;293건, 품질 손실은 미미)</div>
+      <div class="rb-body">EMA200 대비 괴리율(dev200)의 롤링 <b>250거래일</b> Z-score가 <b>-1.25 이하</b> : 해당 종목 자체의 최근 1년 변동성 대비 "이례적으로 많이" 눌린 구간만 선별(고정% 대신 종목별 정규화). 기존 -1.5는 다소 엄격해 기회를 과도하게 걸렀다는 판단으로 완화(표본 202건&rarr;293건, 품질 손실은 미미)</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">③ 반등 신호(2026-08-14 개선: 최저점갱신 후 첫 EMA5 상향돌파)</div>
-      <div class="rb-body">기준선 아래 구간에서 종가가 <b>새로운 최저점</b>을 갱신한 뒤, 그 이후 첫 <code>EMA5</code> 상향돌파만 신호로 인정합니다. 최저점을 다시 갱신하기 전까지는 같은 구간 내 잦은 휩쏘(등락)로 재신호가 나지 않습니다: 기존(EMA5 상향돌파가 재발생할 때마다 매번 신호) 방식은 잦은 매수신호를 유발해 폐기했습니다. 사용자 확인 후 전환.</div>
+      <div class="rb-title">③ 반등 신호(2026-08-14 개선 : 최저점갱신 후 첫 EMA5 상향돌파)</div>
+      <div class="rb-body">기준선 아래 구간에서 종가가 <b>새로운 최저점</b>을 갱신한 뒤, 그 이후 첫 <code>EMA5</code> 상향돌파만 신호로 인정합니다. 최저점을 다시 갱신하기 전까지는 같은 구간 내 잦은 휩쏘(등락)로 재신호가 나지 않습니다 : 기존(EMA5 상향돌파가 재발생할 때마다 매번 신호) 방식은 잦은 매수신호를 유발해 폐기했습니다. 사용자 확인 후 전환.</div>
     </div>
     <div class="sc-note">세 조건이 동시 충족된 날 목표비중 50%를 <b>종가로 매수</b>합니다. 회복 전까지 ①이 유지되는 동안 종가가 새 최저점을 다시 갱신한 뒤 ②③이 다시 충족되면 나머지 50%를 추가매수합니다(최대 2회 = 목표비중 100%).</div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">매도(청산) 조건: 회복 전/후로 성격이 다른 두 국면</div>
+    <div class="sc-title">매도(청산) 조건 : 회복 전/후로 성격이 다른 두 국면</div>
     <div class="rule-box">
-      <div class="rb-title">회복 전: 회복전타임아웃(RECOVER_TIMEOUT) 120거래일</div>
+      <div class="rb-title">회복 전 : 회복전타임아웃(RECOVER_TIMEOUT) 120거래일</div>
       <div class="rb-body">1차매수일로부터 <b>120거래일</b> 내에 종가가 EMA200을 상향돌파(회복)하지 못하면 잔량을 전량 매도합니다. 사실상 손절을 대체하는 안전판 역할입니다(청산 트레이드의 85%가 이 사유일 때 손실상태).</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">회복 후: 기준선 재하향돌파(BASELINE_BREAK, 최우선)</div>
+      <div class="rb-title">회복 후 : 기준선 재하향돌파(BASELINE_BREAK, 최우선)</div>
       <div class="rb-body">회복(종가&ge;EMA200) 이후 종가가 다시 EMA200 아래로 이탈하면, 진행 중인 파동 단계와 무관하게 잔량을 <b>즉시 전량매도</b>합니다. 지연&middot;버퍼&middot;부분매도 변형을 9가지 검증했지만 전부 즉시 전량매도보다 못했습니다(백테스트 탭 참조).</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">회복 후: 파동별 분할매도(WAVE1&rarr;WAVE2&rarr;WAVE3)</div>
+      <div class="rb-title">회복 후 : 파동별 분할매도(WAVE1&rarr;WAVE2&rarr;WAVE3)</div>
       <div class="rb-body">회복 후 5EMA 상향/하향 교차를 파동으로 카운트합니다. <b>1파</b> 하향돌파 시 50%매도, <b>2파</b> 하향돌파 시 잔량50%(전체25%)매도, <b>3파</b> 하향돌파 시 잔량 전량매도. 손실상태 매도 비중이 1% 이하로, 대부분 이익구간에서만 발동됩니다.</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">회복 후: 회복후보유(TIME) 60거래일</div>
+      <div class="rb-title">회복 후 : 회복후보유(TIME) 60거래일</div>
       <div class="rb-body">회복일 기준 상대일수로 <b>60거래일</b> 경과 시 잔량을 전량 매도합니다. 회복 후 파동청산까지 실측 보유일수(중앙값 4일&middot;p90 21일&middot;최대 41일)보다 여유있게 설정되어 있어, 정상적인 파동청산을 방해하지 않으면서 자본회전을 개선합니다(구 통합 120일 대비).</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">손절: 자동규칙 없음</div>
+      <div class="rb-title">손절 : 자동규칙 없음</div>
       <div class="rb-body">사용자 지시에 따라 -15% 일률손절과 같은 자동 규칙은 적용하지 않고 <b>수동판단 영역</b>으로 남겨두었습니다. 참고용 최대낙폭(평균 -10.25%, 최악 -42.83%)만 기록하며, 실제 매도 트리거로는 쓰이지 않습니다.</div>
     </div>
   </div>
 
   <div class="ai-sc">
-    <div class="ai-title">🔍 설계 원칙: 왜 이렇게 정했는가</div>
+    <div class="ai-title">🔍 설계 원칙 : 왜 이렇게 정했는가</div>
     <div class="ai-list">
-      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>반등신호 "최저점갱신 후 첫 EMA5 상향돌파"로 전환(2026-08-14): 기존(EMA5 상향돌파가 재발생할 때마다 매번 신호) 방식은 같은 눌림 구간에서 잦은 휩쏘성 매수신호를 유발했습니다. 사용자가 "잦은 매수신호를 줄이는" 목적으로 최종 채택. 최저점 추적은 <b>①스트릭(20거래일 이상 이탈) 조건이 처음 충족되는 시점부터 리셋</b>해서 시작합니다: 스트릭 미달 구간에서 미리 소진된 반등을 무효 취급하지 않도록 하는 보정입니다(첫 구현 시 이 리셋을 빠뜨려 삼성중공업 등에서 실제보다 신호가 덜 잡히는 문제를 사용자가 지적해 수정).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>Z임계값 -1.5&rarr;-1.25로 완화(2026-08-14): 반등신호 조건 변경으로 표본이 줄어든 김에 Z임계값도 재검토했습니다. -1.5는 표본을 다소 과도하게 걸렀다는 판단으로 -1.25로 완화(표본 202건&rarr;293건, 가중평균 +7.81%&rarr;+7.78%로 거의 동일, 승률 75%&rarr;74%). vlow 전환의 "잦은 신호 축소" 취지는 유지하면서 Z가 과도하게 걸러내던 기회를 회복하는 절충점입니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>분할매수 상한(2회) 초과 신호는 오히려 경고 신호: 상한 때문에 체결되지 못한 3차 이상 신호가 발생한 트레이드가 전체의 34%(101건)인데, 이 그룹의 가중평균은 <b class="t-neg-hi">-2.62%</b>로 나머지 그룹(<b class="t-pos">+13.25%</b>)과 뚜렷이 대비됩니다. 신호가 반복해서 계속 나온다는 건 대개 종목이 계속 신저가를 갱신하며 못 버티고 있다는 뜻이라, "신호가 많이 뜬다고 더 사는 게 유리하다"는 직관과 반대입니다: 2회 상한이 우연이 아니라 실제로 위험관리 역할을 하고 있다는 근거이기도 합니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>회복 전/후는 성격이 다른 두 구간: 시간청산도 분리해야 함: 원래 "회복 전이든 후든 120거래일 지나면 전량매도"라는 단일 규칙이었지만, 회복까지 걸리는 시간(중앙값45일&middot;p90 97일)과 회복 후 파동청산까지 걸리는 시간(중앙값4일&middot;p90 21일)은 완전히 다른 성격입니다. 이를 회복전타임아웃(120일)과 회복후보유(60일)로 구조적으로 분리한 것이 가장 큰 개선이었습니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>"120일이 너무 길다"는 가설은 기각됨: 분리 후 회복전타임아웃을 더 짧게(40&middot;60&middot;90일) 줄여보는 실험을 했으나, 짧게 자를수록 승률이 오히려 낮아졌습니다(63%&rarr;62%&rarr;72%&rarr;74%). 회복이 90~120일 넘게 걸려도 결국 이익으로 끝나는 케이스가 많아 120일을 그대로 유지했습니다(반등신호&middot;Z임계값 변경 후 재검증에서도 동일 결론).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>분할매수 2회는 "가중평균수익률"이 아니라 "실질기대수익률" 기준으로 선택: 종목별로 자금을 미리 배정하는 실전 운용에서는 미체결 잔여자금이 그 종목에서 0%수익으로 노는 비용입니다. 단순 가중평균은 legs를 늘릴수록 계속 개선되지만, 자본배치율까지 곱한 실질기대수익률은 legs가 늘수록 오히려 하락합니다(2회 배치율 79%가 절충점).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>"회복시점 캐치업 매수"는 기각: 미체결 잔여물량을 회복 확정일에 일괄매수하는 방식도 검토했으나, 회복일은 이미 저점 대비 많이 오른 시점이라 캐치업 매수가 평단가를 크게 악화시켰습니다(6레그 기준 가중평균 +9.40%&rarr;+1.65%로 폭락).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계: 괴리율(평균회귀, EMA5&middot;20 단기)&middot;눌림목(추세추종, EMA50&middot;100 상승국면)&middot;EMA래더(완전정배열 추세추종)에 이은 4번째 확정 전략입니다. 성격은 "장기추세(EMA200) 되돌림 후 파동형 스윙"으로, 국면&middot;시간축이 달라 병행 가능합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>반등신호 "최저점갱신 후 첫 EMA5 상향돌파"로 전환(2026-08-14) : 기존(EMA5 상향돌파가 재발생할 때마다 매번 신호) 방식은 같은 눌림 구간에서 잦은 휩쏘성 매수신호를 유발했습니다. 사용자가 "잦은 매수신호를 줄이는" 목적으로 최종 채택. 최저점 추적은 <b>①스트릭(20거래일 이상 이탈) 조건이 처음 충족되는 시점부터 리셋</b>해서 시작합니다 : 스트릭 미달 구간에서 미리 소진된 반등을 무효 취급하지 않도록 하는 보정입니다(첫 구현 시 이 리셋을 빠뜨려 삼성중공업 등에서 실제보다 신호가 덜 잡히는 문제를 사용자가 지적해 수정).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>Z임계값 -1.5&rarr;-1.25로 완화(2026-08-14) : 반등신호 조건 변경으로 표본이 줄어든 김에 Z임계값도 재검토했습니다. -1.5는 표본을 다소 과도하게 걸렀다는 판단으로 -1.25로 완화(표본 202건&rarr;293건, 가중평균 +7.81%&rarr;+7.78%로 거의 동일, 승률 75%&rarr;74%). vlow 전환의 "잦은 신호 축소" 취지는 유지하면서 Z가 과도하게 걸러내던 기회를 회복하는 절충점입니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>분할매수 상한(2회) 초과 신호는 오히려 경고 신호 : 상한 때문에 체결되지 못한 3차 이상 신호가 발생한 트레이드가 전체의 34%(101건)인데, 이 그룹의 가중평균은 <b class="t-neg-hi">-2.62%</b>로 나머지 그룹(<b class="t-pos">+13.25%</b>)과 뚜렷이 대비됩니다. 신호가 반복해서 계속 나온다는 건 대개 종목이 계속 신저가를 갱신하며 못 버티고 있다는 뜻이라, "신호가 많이 뜬다고 더 사는 게 유리하다"는 직관과 반대입니다 : 2회 상한이 우연이 아니라 실제로 위험관리 역할을 하고 있다는 근거이기도 합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>회복 전/후는 성격이 다른 두 구간 : 시간청산도 분리해야 함 : 원래 "회복 전이든 후든 120거래일 지나면 전량매도"라는 단일 규칙이었지만, 회복까지 걸리는 시간(중앙값45일&middot;p90 97일)과 회복 후 파동청산까지 걸리는 시간(중앙값4일&middot;p90 21일)은 완전히 다른 성격입니다. 이를 회복전타임아웃(120일)과 회복후보유(60일)로 구조적으로 분리한 것이 가장 큰 개선이었습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>"120일이 너무 길다"는 가설은 기각됨 : 분리 후 회복전타임아웃을 더 짧게(40&middot;60&middot;90일) 줄여보는 실험을 했으나, 짧게 자를수록 승률이 오히려 낮아졌습니다(63%&rarr;62%&rarr;72%&rarr;74%). 회복이 90~120일 넘게 걸려도 결국 이익으로 끝나는 케이스가 많아 120일을 그대로 유지했습니다(반등신호&middot;Z임계값 변경 후 재검증에서도 동일 결론).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>분할매수 2회는 "가중평균수익률"이 아니라 "실질기대수익률" 기준으로 선택 : 종목별로 자금을 미리 배정하는 실전 운용에서는 미체결 잔여자금이 그 종목에서 0%수익으로 노는 비용입니다. 단순 가중평균은 legs를 늘릴수록 계속 개선되지만, 자본배치율까지 곱한 실질기대수익률은 legs가 늘수록 오히려 하락합니다(2회 배치율 79%가 절충점).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>"회복시점 캐치업 매수"는 기각 : 미체결 잔여물량을 회복 확정일에 일괄매수하는 방식도 검토했으나, 회복일은 이미 저점 대비 많이 오른 시점이라 캐치업 매수가 평단가를 크게 악화시켰습니다(6레그 기준 가중평균 +9.40%&rarr;+1.65%로 폭락).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀, EMA5&middot;20 단기)&middot;눌림목(추세추종, EMA50&middot;100 상승국면)&middot;EMA래더(완전정배열 추세추종)에 이은 4번째 확정 전략입니다. 성격은 "장기추세(EMA200) 되돌림 후 파동형 스윙"으로, 국면&middot;시간축이 달라 병행 가능합니다.</div></div>
     </div>
   </div>
 </div>
@@ -832,7 +833,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">분할매수 횟수(max-buy-legs) 스윕: 원시 가중평균 기준 <span class="sub">rebound-mode=vlow, z=-1.25, recover-timeout=120, post-recover-hold=60 고정</span></div>
+    <div class="sc-title">분할매수 횟수(max-buy-legs) 스윕 : 원시 가중평균 기준 <span class="sub">rebound-mode=vlow, z=-1.25, recover-timeout=120, post-recover-hold=60 고정</span></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">횟수</th><th>n</th><th>가중평균</th><th>중앙값</th><th>승률</th><th>최악</th><th>자본배치율</th></tr></thead>
@@ -850,7 +851,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">분할매수 횟수 스윕: 자본배치 조정 기준(실질기대수익률) <span class="sub">실질기대수익률 = 자본배치율 &times; 가중평균수익률, rebound-mode=vlow, z=-1.25</span></div>
+    <div class="sc-title">분할매수 횟수 스윕 : 자본배치 조정 기준(실질기대수익률) <span class="sub">실질기대수익률 = 자본배치율 &times; 가중평균수익률, rebound-mode=vlow, z=-1.25</span></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">횟수</th><th>자본배치율</th><th>가중평균</th><th>실질기대수익률</th></tr></thead>
@@ -868,13 +869,13 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   </div>
 
   <div class="sc">
-    <div class="sc-title">분할매수 상한(2회) 초과 신호 진단 <span class="sub">상한이 없었다면 3차 이상 매수가 있었을 트레이드: 2026-08-14 신규</span></div>
+    <div class="sc-title">분할매수 상한(2회) 초과 신호 진단 <span class="sub">상한이 없었다면 3차 이상 매수가 있었을 트레이드 : 2026-08-14 신규</span></div>
     <div class="kpi-row">
       <div class="kpi-card kpi-sky"><div class="num">101건</div><div class="lbl">상한 초과 트레이드(전체34%)</div></div>
       <div class="kpi-card kpi-coral"><div class="num">-2.62%</div><div class="lbl">초과신호그룹 가중평균</div></div>
       <div class="kpi-card kpi-teal"><div class="num">+13.25%</div><div class="lbl">비초과그룹 가중평균</div></div>
     </div>
-    <div class="sc-note">신호가 2회 상한을 넘어 3차&middot;4차&middot;심지어 9차까지 계속 나오는 트레이드는 대개 종목이 반등 없이 계속 신저가를 갱신하며 못 버티는 경우입니다(예: 삼성생명 2021-09-14 진입건은 9차까지 신호가 났지만 실제 체결은 2회뿐, 가중평균 -16.38%로 종료). "신호가 많이 뜨면 더 좋은 기회"라는 직관과 반대로, 상한 초과 그룹의 성과(-2.62%)가 비초과 그룹(+13.25%)보다 뚜렷이 나쁩니다: 2회 상한이 실질적인 위험관리 역할도 겸하고 있다는 근거입니다. 최근신호 탭에서 종목별로 신호 전체(체결분+신호만)를 확인할 수 있습니다.</div>
+    <div class="sc-note">신호가 2회 상한을 넘어 3차&middot;4차&middot;심지어 9차까지 계속 나오는 트레이드는 대개 종목이 반등 없이 계속 신저가를 갱신하며 못 버티는 경우입니다(예 : 삼성생명 2021-09-14 진입건은 9차까지 신호가 났지만 실제 체결은 2회뿐, 가중평균 -16.38%로 종료). "신호가 많이 뜨면 더 좋은 기회"라는 직관과 반대로, 상한 초과 그룹의 성과(-2.62%)가 비초과 그룹(+13.25%)보다 뚜렷이 나쁩니다 : 2회 상한이 실질적인 위험관리 역할도 겸하고 있다는 근거입니다. 최근신호 탭에서 종목별로 신호 전체(체결분+신호만)를 확인할 수 있습니다.</div>
   </div>
 
   <div class="sc">
@@ -892,7 +893,7 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         </tbody>
       </table>
     </div>
-    <div class="sc-note">반직관적 결과: 120일보다 <b>짧게</b> 자를수록 승률이 뚜렷이 나빠집니다(63%&rarr;62%&rarr;72%&rarr;74%): 회복이 90~120일 넘게 걸려도 결국 이익으로 끝나는 케이스가 많기 때문입니다. "120일이 너무 길다"는 가설은 기각했고, 120일을 그대로 유지했습니다(반등신호&middot;Z임계값 변경 후 재검증에서도 동일 패턴 재확인). 이 항목의 실질 개선은 숫자를 바꾼 게 아니라, 성격이 다른 회복전(중앙값45일&middot;p90 97일)&middot;회복후(중앙값4일&middot;p90 21일) 두 구간을 아래 회복후보유 항목처럼 구조적으로 분리한 것 자체입니다.</div>
+    <div class="sc-note">반직관적 결과 : 120일보다 <b>짧게</b> 자를수록 승률이 뚜렷이 나빠집니다(63%&rarr;62%&rarr;72%&rarr;74%) : 회복이 90~120일 넘게 걸려도 결국 이익으로 끝나는 케이스가 많기 때문입니다. "120일이 너무 길다"는 가설은 기각했고, 120일을 그대로 유지했습니다(반등신호&middot;Z임계값 변경 후 재검증에서도 동일 패턴 재확인). 이 항목의 실질 개선은 숫자를 바꾼 게 아니라, 성격이 다른 회복전(중앙값45일&middot;p90 97일)&middot;회복후(중앙값4일&middot;p90 21일) 두 구간을 아래 회복후보유 항목처럼 구조적으로 분리한 것 자체입니다.</div>
   </div>
 
   <div class="sc">
@@ -913,12 +914,12 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
         </tbody>
       </table>
     </div>
-    <div class="sc-note">확인일수&middot;가격버퍼&middot;부분매도 변형을 재검증했으나 전부 현행(즉시 전량매도) 대비 개선이 없었습니다: BASELINE_BREAK는 애초에 손실상태 매도가 6%뿐이라 개선 여지가 작았고, 지연&middot;버퍼&middot;분할 없이 즉시 전량매도를 유지하는 것이 최종 결론입니다.</div>
+    <div class="sc-note">확인일수&middot;가격버퍼&middot;부분매도 변형을 재검증했으나 전부 현행(즉시 전량매도) 대비 개선이 없었습니다 : BASELINE_BREAK는 애초에 손실상태 매도가 6%뿐이라 개선 여지가 작았고, 지연&middot;버퍼&middot;분할 없이 즉시 전량매도를 유지하는 것이 최종 결론입니다.</div>
   </div>
 
   <div class="sc">
     <div class="sc-title">"회복시점 캐치업 매수" 방식 검증 <span class="sub">기각, --catch-up-buy 플래그로 코드엔 존재(기본값 off), rebound-mode=vlow, z=-1.25</span></div>
-    <div class="sc-note">미체결 잔여 레그를 회복 확정일에 일괄매수해 목표비중을 항상 100% 채우는 방식도 검토했습니다. 하지만 회복일은 이미 저점 대비 많이 오른 시점이라, 캐치업 매수가 평단가를 크게 악화시킵니다: 6분할(max-buy-legs=6) 설정에서 재검증한 결과 가중평균이 <b class="t-pos">+9.40%</b>에서 <b class="t-neg-hi">+1.65%</b>(중앙값+1.15%, 승률65%)로 폭락해 기각했습니다.</div>
+    <div class="sc-note">미체결 잔여 레그를 회복 확정일에 일괄매수해 목표비중을 항상 100% 채우는 방식도 검토했습니다. 하지만 회복일은 이미 저점 대비 많이 오른 시점이라, 캐치업 매수가 평단가를 크게 악화시킵니다 : 6분할(max-buy-legs=6) 설정에서 재검증한 결과 가중평균이 <b class="t-pos">+9.40%</b>에서 <b class="t-neg-hi">+1.65%</b>(중앙값+1.15%, 승률65%)로 폭락해 기각했습니다.</div>
   </div>
 </div>
 
@@ -934,15 +935,15 @@ html[data-theme="dark"] .bdg-gray{color:#fff}
   <div class="ai-sc">
     <div class="ai-title">🔍 AI 인사이트 <span class="ai-badge badge bdg-teal">2026-08-14 반등신호&middot;Z임계값 갱신</span></div>
     <div class="ai-list">
-      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>반등신호 "최저점갱신 후 첫 EMA5 상향돌파"로 전환(2026-08-14): 사용자가 잦은 매수신호를 줄이길 원해, 기존(EMA5 상향돌파 재충족마다 매번 신호) 대신 최저점을 다시 갱신한 뒤의 첫 상향돌파만 신호로 인정하도록 변경했습니다. 최저점 추적은 스트릭(20거래일 이상 이탈) 조건이 처음 충족되는 시점부터 리셋합니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>Z임계값 -1.5&rarr;-1.25로 완화: 반등신호 조건 변경으로 표본이 준 김에 Z임계값도 재검토했습니다. 기존 -1.5가 다소 엄격했다는 판단으로 -1.25로 완화(표본 202건&rarr;293건, 품질 손실은 거의 없음).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>현재 상태(2026-08-14 기준): 최근365일 신호 23건 중 13건이 아직 보유중(회복 전 구간이 대부분), 10건 청산완료(승률80%). 신호일자 컬럼에서 종목별 전체 신호(체결분+미체결 신호만)를 날짜&middot;가격까지 확인할 수 있습니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>상한(2회) 초과 신호는 경고 신호: 3차 이상 신호가 발생한 트레이드가 전체의 34%(101건)인데, 이 그룹 가중평균은 -2.62%로 비초과 그룹(+13.25%)보다 뚜렷이 나쁩니다. 신호가 반복되는 건 대개 계속 신저가를 갱신하며 못 버티는 종목이라는 뜻: 2회 상한이 우연한 숫자가 아니라 실질적 위험관리 역할을 하고 있다는 근거입니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>회복 전/후 구조분리가 핵심 개선: 원래 단일 120일 시간청산이었던 것을 회복전타임아웃(120일, 유지)과 회복후보유(120일&rarr;60일로 압축)로 분리한 것이 가장 큰 개선입니다. 두 구간은 통계적 성격이 완전히 다릅니다(회복전 중앙값45일&middot;p90 97일 vs 회복후 중앙값4일&middot;p90 21일).</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>분할매수 2회는 실전 자금관리 반영 결과: 원시 가중평균만 보면 legs를 늘릴수록 계속 개선되지만(1회+6.25%&rarr;6회+9.40%), 종목별 고정 자금배정을 가정한 실질기대수익률(자본배치율&times;가중평균) 기준으로는 legs가 늘수록 오히려 하락합니다(1회+6.25%&rarr;6회+3.48%). 2회가 승률&middot;최악값 개선효과와 배치율 손실의 균형점입니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>기각된 개선 시도들: 회복전타임아웃 단축(120일보다 짧게 자르면 오히려 승률 악화), 기준선 재이탈 매도의 확인일수&middot;가격버퍼&middot;부분매도(전부 즉시 전량매도보다 못함), 회복시점 캐치업 매수(가중평균 +9.40%&rarr;+1.65%로 폭락). 리스크 관리는 규칙을 더 복잡하게 만드는 방향보다 구조를 두 국면으로 분리하는 방향에서만 실효가 있었습니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>다른 확정 전략과의 관계: 괴리율(평균회귀, 단기 EMA5&middot;20)&middot;눌림목(추세추종, 상승국면 EMA50&middot;100)&middot;EMA래더(완전정배열 추세추종)에 이은 4번째 확정 전략입니다. 성격은 "장기추세(EMA200) 되돌림 후 파동형 스윙"으로 국면&middot;시간축이 달라 병행 운용이 가능합니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>미해결 과제: 슬리피지&middot;수수료 미반영, 손절 없는 회복전 구간의 최대낙폭(평균-10.25%, 최악-42.83%)은 여전히 수동판단 영역으로 남아있습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>반등신호 "최저점갱신 후 첫 EMA5 상향돌파"로 전환(2026-08-14) : 사용자가 잦은 매수신호를 줄이길 원해, 기존(EMA5 상향돌파 재충족마다 매번 신호) 대신 최저점을 다시 갱신한 뒤의 첫 상향돌파만 신호로 인정하도록 변경했습니다. 최저점 추적은 스트릭(20거래일 이상 이탈) 조건이 처음 충족되는 시점부터 리셋합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>Z임계값 -1.5&rarr;-1.25로 완화 : 반등신호 조건 변경으로 표본이 준 김에 Z임계값도 재검토했습니다. 기존 -1.5가 다소 엄격했다는 판단으로 -1.25로 완화(표본 202건&rarr;293건, 품질 손실은 거의 없음).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>현재 상태(2026-08-14 기준) : 최근365일 신호 23건 중 13건이 아직 보유중(회복 전 구간이 대부분), 10건 청산완료(승률80%). 신호일자 컬럼에서 종목별 전체 신호(체결분+미체결 신호만)를 날짜&middot;가격까지 확인할 수 있습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>상한(2회) 초과 신호는 경고 신호 : 3차 이상 신호가 발생한 트레이드가 전체의 34%(101건)인데, 이 그룹 가중평균은 -2.62%로 비초과 그룹(+13.25%)보다 뚜렷이 나쁩니다. 신호가 반복되는 건 대개 계속 신저가를 갱신하며 못 버티는 종목이라는 뜻 : 2회 상한이 우연한 숫자가 아니라 실질적 위험관리 역할을 하고 있다는 근거입니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>회복 전/후 구조분리가 핵심 개선 : 원래 단일 120일 시간청산이었던 것을 회복전타임아웃(120일, 유지)과 회복후보유(120일&rarr;60일로 압축)로 분리한 것이 가장 큰 개선입니다. 두 구간은 통계적 성격이 완전히 다릅니다(회복전 중앙값45일&middot;p90 97일 vs 회복후 중앙값4일&middot;p90 21일).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>분할매수 2회는 실전 자금관리 반영 결과 : 원시 가중평균만 보면 legs를 늘릴수록 계속 개선되지만(1회+6.25%&rarr;6회+9.40%), 종목별 고정 자금배정을 가정한 실질기대수익률(자본배치율&times;가중평균) 기준으로는 legs가 늘수록 오히려 하락합니다(1회+6.25%&rarr;6회+3.48%). 2회가 승률&middot;최악값 개선효과와 배치율 손실의 균형점입니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>기각된 개선 시도들 : 회복전타임아웃 단축(120일보다 짧게 자르면 오히려 승률 악화), 기준선 재이탈 매도의 확인일수&middot;가격버퍼&middot;부분매도(전부 즉시 전량매도보다 못함), 회복시점 캐치업 매수(가중평균 +9.40%&rarr;+1.65%로 폭락). 리스크 관리는 규칙을 더 복잡하게 만드는 방향보다 구조를 두 국면으로 분리하는 방향에서만 실효가 있었습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀, 단기 EMA5&middot;20)&middot;눌림목(추세추종, 상승국면 EMA50&middot;100)&middot;EMA래더(완전정배열 추세추종)에 이은 4번째 확정 전략입니다. 성격은 "장기추세(EMA200) 되돌림 후 파동형 스윙"으로 국면&middot;시간축이 달라 병행 운용이 가능합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>미해결 과제 : 슬리피지&middot;수수료 미반영, 손절 없는 회복전 구간의 최대낙폭(평균-10.25%, 최악-42.83%)은 여전히 수동판단 영역으로 남아있습니다.</div></div>
     </div>
   </div>
 </div>
