@@ -5,7 +5,6 @@
 - `index.html` — 포털 셸 (사이드바, 모바일 상단 메뉴, 탭 관리, 전체화면 로그인 게이트)
 - `stock-deviation.html` — 괴리율 매매전략 (평균회귀·하락추세) — 스킬 `stock-deviation`
 - `stock-pullback.html` — 눌림목 매매전략 (추세추종·상승추세, V3_RETEST) — 스킬 `stock-pullback`
-- `stock-emaladder.html` — 기술적 분석 / EMA래더 완전정배열 (추세추종) — 스킬 `stock-emaladder`
 - `stock-valuechain.html` — 주식 밸류체인 (Notion DB 실시간 연동) — 스킬 `stock-valuechain`
 - `stock-baseline.html` — 기준선 매매전략 (EMA200 기준선 파동 전략, 되돌림·파동스윙) — 스킬 미정(신규), 생성 스크립트 `scripts/project_baseline_strategy_backtest.mjs` / `scripts/project_baseline_recent_signals.mjs` / `scripts/project_baseline_holdings_check.mjs`
 
