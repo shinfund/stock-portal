@@ -105,6 +105,8 @@ tbody tr:hover{background:var(--teal50)}
 .chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
 .chart-card-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);font-size:13.5px;color:var(--txt)}
 .chart-card-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.chart-card-legend i[style*="border-color"]{width:14px;height:0;border-radius:0;border-top:2px solid;background:none}
+.chart-card-legend i.dash{border-top-style:dashed}
 .chart-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--txt);margin-bottom:12px;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
 .chart-legend span{display:inline-flex;align-items:center;gap:5px}
 .chart-legend span:not(:last-child){border-right:1.5px solid var(--gray600);padding-right:12px}
@@ -346,7 +348,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-14.40%</span> <span class="sep">|</span> 기준선(EMA50) <span>1,795,561</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">SK스퀘어</span><span class="badge bdg-red">손절</span></div>
@@ -362,7 +364,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-11.72%</span> <span class="sep">|</span> 기준선(EMA50) <span>1,156,557</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성전기</span><span class="badge bdg-purple">트레일링청산</span><span class="badge bdg-sky">TP</span></div>
@@ -378,7 +380,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-0.65%</span> <span class="sep">|</span> 기준선(EMA50) <span>1,399,146</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성물산</span><span class="badge bdg-red">손절</span></div>
@@ -394,7 +396,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-6.12%</span> <span class="sep">|</span> 기준선(EMA50) <span>369,621</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">기아</span><span class="badge bdg-red">손절</span></div>
@@ -410,7 +412,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-6.69%</span> <span class="sep">|</span> 기준선(EMA50) <span>142,002</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--red)"></i>상태 <span>손절</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성전자</span><span class="badge bdg-purple">트레일링청산</span></div>
@@ -426,7 +428,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-5.07%</span> <span class="sep">|</span> 기준선(EMA50) <span>264,946</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">LG</span><span class="badge bdg-purple">트레일링청산</span><span class="badge bdg-sky">TP</span></div>
@@ -442,7 +444,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-pos">+6.13%</span> <span class="sep">|</span> 기준선(EMA50) <span>104,965</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성생명</span><span class="badge bdg-purple">트레일링청산</span><span class="badge bdg-sky">TP</span></div>
@@ -458,7 +460,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-10.95%</span> <span class="sep">|</span> 기준선(EMA50) <span>320,619</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">현대모비스</span><span class="badge bdg-purple">트레일링청산</span><span class="badge bdg-sky">TP</span></div>
@@ -474,7 +476,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-0.95%</span> <span class="sep">|</span> 기준선(EMA50) <span>508,845</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성전기</span><span class="badge bdg-purple">트레일링청산</span><span class="badge bdg-sky">TP</span></div>
@@ -490,7 +492,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-0.65%</span> <span class="sep">|</span> 기준선(EMA50) <span>1,399,146</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i style="background:var(--teal)"></i>기준선(EMA50)</span><span><i style="background:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
+        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--purple)"></i>상태 <span>트레일링청산</span></span></div>
       </div>
     </div>
     <div class="sc-note">청록색 점선은 기준선(EMA50), 회색 점선은 EMA100입니다. 세로 점선·하늘색 점은 진입 시점, 가로 하늘색 점선은 진입가 수준을 나타내며 현재 종가와의 위치를 한눈에 비교할 수 있습니다(2026-08-19 이평선 색상 통일). 우측 끝 빨간 점은 오늘(또는 청산일) 종가입니다.</div>
@@ -538,7 +540,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>20,552</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">S-Oil</span><span class="badge bdg-sky">정배열</span></div>
@@ -554,7 +556,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>128,473</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">SK이노베이션</span><span class="badge bdg-sky">정배열</span></div>
@@ -570,7 +572,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>114,866</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">우리금융지주</span><span class="badge bdg-sky">정배열</span></div>
@@ -586,7 +588,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>32,078</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">신한지주</span><span class="badge bdg-sky">정배열</span></div>
@@ -602,7 +604,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>102,807</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">하나금융지주</span><span class="badge bdg-sky">정배열</span></div>
@@ -618,7 +620,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>기준선(EMA50) <span>126,312</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span></div>
       </div>
     </div>
     <div class="sc-note">정배열(EMA50&gt;EMA100, EMA50 상승기울기)이 유지되는 종목 중, 최근 50일 신고가 대비 눌림폭을 해당 종목 변동성(ATR%×0.4)으로 정규화해 "되돌림밴드에 가장 가까운" 순으로 6종목을 선정했습니다. 밴드대비 1.00배 이하로 좁혀지고 6거래일 내 신고가 갱신 이력이 더해지면 V3_RETEST 매수신호가 발생합니다 : 아직 신호 발생 종목은 아니며 근접도 기준 참고용입니다.</div>
@@ -664,7 +666,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-8.26%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>689,990</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">손절검토</span></span><span><i style="background:var(--txt2)"></i>평단 <span>906,500</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>833,980</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">손절검토</span></span><span><i style="background:var(--txt2)"></i>평단 <span>906,500</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>833,980</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">두산로보틱스</span><span class="badge bdg-red">손절검토</span></div>
@@ -677,7 +679,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-6.47%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>79,547</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">손절검토</span></span><span><i style="background:var(--txt2)"></i>평단 <span>84,858</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>78,069</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">손절검토</span></span><span><i style="background:var(--txt2)"></i>평단 <span>84,858</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>78,069</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">삼성중공업</span><span class="badge bdg-red">전량매도검토(50EMA이탈)</span></div>
@@ -690,7 +692,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-9.06%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>23,367</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>21,350</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>19,642</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>21,350</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>19,642</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">기아</span><span class="badge bdg-red">전량매도검토(50EMA이탈)</span></div>
@@ -703,7 +705,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-3.64%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>142,390</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>127,033</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>116,870</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>127,033</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>116,870</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">SK하이닉스</span><span class="badge bdg-red">전량매도검토(50EMA이탈)</span></div>
@@ -716,7 +718,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-7.98%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>1,806,114</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>1,485,333</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>1,366,506</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>1,485,333</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>1,366,506</span></span></div>
       </div>
       <div class="chart-card">
         <div class="chart-card-head"><span class="chart-card-name">두산에너빌리티</span><span class="badge bdg-red">전량매도검토(50EMA이탈)</span></div>
@@ -729,7 +731,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         <div class="chart-card-stats">
           <span>EMA50대비 <span class="t-neg">-4.37%</span> <span class="sep">|</span> 추세 <span>역배열/조정</span> <span class="sep">|</span> 기준선(EMA50) <span>81,458</span></span>
         </div>
-        <div class="chart-card-legend"><span><i style="background:var(--purple)"></i>기준선(EMA50)</span><span><i style="background:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>66,300</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>60,996</span></span></div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--purple)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA100</span><span><i style="background:var(--red)"></i>판단 <span style="color:var(--red)">전량매도검토(50EMA이탈)</span></span><span><i style="background:var(--txt2)"></i>평단 <span>66,300</span></span><span><i style="background:var(--coral)"></i>손절선(-8%) <span>60,996</span></span></div>
       </div>
     </div>
     <div class="sc-note">눌림목 전략은 진입 시점의 매수일자·이행레그가 노션 스키마에 없어(괴리율 보유종목탭과 동일한 한계), 평단가 기준 손절(-8%)·EMA50 이탈 여부·매입가 대비 +10% 신규도달만 매일 스냅샷으로 재판정합니다. 정배열이 아닌 보유종목은 눌림목 전략의 신규 매수 조건 밖에서 진입된 종목(다른 전략·재량매매)일 수 있습니다.</div>
