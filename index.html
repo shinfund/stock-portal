@@ -378,6 +378,22 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
 .ac-arrow{font-size:12px;color:var(--ac-name-color, var(--txt));font-weight:400;margin-top:auto;}
 
 .sec-hd{font-size:14px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+.sec-hd .sec-hd-sub{font-size:11.5px;font-weight:400;color:var(--txt3);}
+
+/* ═══ 오늘의 관심종목 위젯 ══════════════════════════════════ */
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:20px;}
+.watch-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--r16);padding:14px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;}
+.watch-card-hd{display:flex;align-items:center;}
+.watch-group-title{font-size:11px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.03em;margin-bottom:5px;}
+.watch-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--txt);padding:5px 0;border-top:1px solid var(--border2);}
+.watch-item:first-child{border-top:none;}
+.watch-name{font-weight:500;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.watch-tag{flex:none;font-size:10px;font-weight:500;color:var(--txt3);background:var(--border2);border-radius:4px;padding:1px 5px;}
+.watch-metric{margin-left:auto;flex:none;font-size:12px;color:var(--txt2);white-space:nowrap;}
+.watch-metric.pos{color:var(--coral);}
+.watch-metric.neg{color:var(--sky);}
+.watch-empty{font-size:12px;color:var(--txt3);padding:4px 0;}
+.watch-more{font-size:11px;color:var(--txt3);padding-top:3px;}
 
 /* ═══ 모바일 ════════════════════════════════════════════════ */
 .mobile-hdr{
@@ -661,6 +677,62 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
               <div class="ac-updated">최종 갱신 2026-08-12 10:50</div>
             </div>
             <div class="ac-arrow">리포트 열기 →</div>
+          </div>
+        </div>
+
+        <div class="sec-hd"><span>오늘의 관심종목</span><span class="sec-hd-sub">전략별 최근신호·예상종목 기준 · 2026-08-19 15:50</span></div>
+        <div class="watch-grid">
+          <div class="watch-card">
+            <div class="watch-card-hd"><span class="ac-badge amber">기준선</span></div>
+            <div>
+              <div class="watch-group-title">오늘 신규진입</div>
+              <div class="watch-empty">오늘 신규 진입 없음</div>
+            </div>
+            <div>
+              <div class="watch-group-title">초근접 예상종목(Z조건 충족)</div>
+              <div class="watch-item"><span class="watch-name">기아</span><span class="watch-tag">KS</span><span class="watch-metric">Z -1.48</span></div>
+              <div class="watch-item"><span class="watch-name">기업은행</span><span class="watch-tag">KS</span><span class="watch-metric">Z -1.44</span></div>
+            </div>
+            <div>
+              <div class="watch-group-title">회복 지연·진입가 근접(위험관찰)</div>
+              <div class="watch-item"><span class="watch-name">삼천당제약</span><span class="watch-tag">KQ</span><span class="watch-metric neg">-28.80%</span></div>
+              <div class="watch-item"><span class="watch-name">에이비엘바이오</span><span class="watch-tag">KQ</span><span class="watch-metric neg">-26.24%</span></div>
+              <div class="watch-item"><span class="watch-name">카카오</span><span class="watch-tag">KS</span><span class="watch-metric neg">-23.05%</span></div>
+              <div class="watch-item"><span class="watch-name">한국전력</span><span class="watch-tag">KS</span><span class="watch-metric neg">-15.77%</span></div>
+              <div class="watch-item"><span class="watch-name">미래에셋증권</span><span class="watch-tag">KS</span><span class="watch-metric neg">-14.27%</span></div>
+              <div class="watch-more">+6개 더 · 리포트에서 전체 확인</div>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div class="watch-card-hd"><span class="ac-badge coral">괴리율</span></div>
+            <div>
+              <div class="watch-group-title">오늘 신규진입</div>
+              <div class="watch-empty">오늘 신규 진입 없음</div>
+            </div>
+            <div>
+              <div class="watch-group-title">초근접 예상종목</div>
+              <div class="watch-item"><span class="watch-name">한국전력</span><span class="watch-tag">KS</span><span class="watch-metric">Z20 -1.76</span></div>
+              <div class="watch-item"><span class="watch-name">삼성생명</span><span class="watch-tag">KS</span><span class="watch-metric">Z20 -1.48</span></div>
+            </div>
+            <div>
+              <div class="watch-group-title">회복 지연·진입가 근접(위험관찰)</div>
+              <div class="watch-empty">현재 보유중인 포지션 없음</div>
+            </div>
+          </div>
+          <div class="watch-card">
+            <div class="watch-card-hd"><span class="ac-badge teal">눌림목</span></div>
+            <div>
+              <div class="watch-group-title">오늘 신규진입</div>
+              <div class="watch-empty">오늘 신규 진입 없음</div>
+            </div>
+            <div>
+              <div class="watch-group-title">초근접 예상종목</div>
+              <div class="watch-item"><span class="watch-name">S-Oil</span><span class="watch-tag">KS</span><span class="watch-metric">밴드대비 0.22배</span></div>
+            </div>
+            <div>
+              <div class="watch-group-title">회복 지연·진입가 근접(위험관찰)</div>
+              <div class="watch-empty">현재 보유중인 포지션 없음</div>
+            </div>
           </div>
         </div>
 
