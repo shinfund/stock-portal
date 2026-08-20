@@ -1,11 +1,11 @@
 # stock-portal (주식포털)
 
-정적 HTML로 만든 매매전략 리포트 포털. work-portal과 동일한 디자인 시스템(GitHub Desktop 팔레트, 사이드바/탭바/다크·라이트)을 쓰지만, **work-portal은 Notion DB를 실시간 연동하는 업무앱 모음**이고 **stock-portal은 Claude가 분석·백테스트한 결과를 정적 HTML 리포트로 생성해 올리는 방식**이라는 근본적인 차이가 있다. 즉 stock-portal의 앱들은 Worker/DB 없이 완전히 자립적인(self-contained) 정적 파일이다(밸류체인만 예외 — Notion DB 실시간 연동).
+정적 HTML로 만든 매매전략 리포트 포털. work-portal과 동일한 디자인 시스템(GitHub Desktop 팔레트, 사이드바/탭바/다크·라이트)을 쓰지만, **work-portal은 Notion DB를 실시간 연동하는 업무앱 모음**이고 **stock-portal은 Claude가 분석·백테스트한 결과를 정적 HTML 리포트로 생성해 올리는 방식**이라는 근본적인 차이가 있다. stock-portal의 앱들은 전부 Worker/DB 없이 완전히 자립적인(self-contained) 정적 파일이며, 브라우저가 런타임에 외부 API를 호출하는 곳은 없다(2026-08-20 확인 — 예전엔 밸류체인만 예외로 적어뒀으나 실제 파일엔 fetch/Notion 호출이 전혀 없어 정정).
 
 - `index.html` — 포털 셸 (사이드바, 모바일 상단 메뉴, 탭 관리, 전체화면 로그인 게이트)
 - `stock-deviation.html` — 괴리율 매매전략 (평균회귀·하락추세) — 스킬 `stock-deviation`
 - `stock-pullback.html` — 눌림목 매매전략 (추세추종·상승추세, V3_RETEST) — 스킬 `stock-pullback`
-- `stock-valuechain.html` — 주식 밸류체인 (Notion DB 실시간 연동) — 스킬 `stock-valuechain`
+- `stock-valuechain.html` — 주식 밸류체인 (업종별 실적·이슈 정리, 데이터는 JS 객체로 파일에 직접 하드코딩) — 스킬 `stock-valuechain`. 갱신은 Claude가 요청받을 때 노션 DB 등 자료를 참고해 이 파일의 데이터를 수동으로 고쳐 쓰는 방식(런타임 연동 아님).
 - `stock-baseline.html` — 기준선 매매전략 (EMA200 기준선 파동 전략, 되돌림·파동스윙) — 스킬 미정(신규), 생성 스크립트 `scripts/project_baseline_strategy_backtest.mjs` / `scripts/project_baseline_recent_signals.mjs` / `scripts/project_baseline_holdings_check.mjs`
 
 **파일명 규칙(2026-08-13 통일)**: 스킬명·스크립트명·앱 파일명이 전부 같은 슬러그를 공유한다 — 스킬 `stock-<slug>`, 종합생성 스크립트 `scripts/project_stock_<slug>.mjs`, 앱파일 `stock-<slug>.html`. 신규 전략 추가 시 이 규칙을 그대로 따를 것.
