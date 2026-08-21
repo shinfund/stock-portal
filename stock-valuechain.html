@@ -1073,7 +1073,7 @@ function updDateHTML(upd, hist, uid){
 // ── 이력 HTML 생성 ──
 function buildHistHTML(hist){
   const items = hist.map((h, i) => {
-    const {label} = dayDiffLabel(h.upd);
+    const {label} = dayDiffLabel(h.update);
     const isLatest = i === 0;
     // 이력 본문: 원문을 전달 — mainToBullets/riskToBullets 내부에서 esc() 처리
     const rawIdx = h.d.indexOf(RISK_MARK);
