@@ -236,13 +236,11 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
     </div>
   </div>
   <nav class="top-nav">
-    <button class="tab-btn on" data-tab="0">최근신호(KS)</button>
-    <button class="tab-btn" data-tab="1">최근신호(KQ)</button>
-    <button class="tab-btn" data-tab="2">예상종목(KS)</button>
-    <button class="tab-btn" data-tab="3">예상종목(KQ)</button>
-    <button class="tab-btn" data-tab="4">보유종목</button>
-    <button class="tab-btn" data-tab="5">매매전략</button>
-    <button class="tab-btn" data-tab="6">백테스트</button>
+    <button class="tab-btn on" data-tab="0">최근신호</button>
+    <button class="tab-btn" data-tab="1">예상종목</button>
+    <button class="tab-btn" data-tab="2">보유종목</button>
+    <button class="tab-btn" data-tab="3">매매전략</button>
+    <button class="tab-btn" data-tab="4">백테스트</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -499,16 +497,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 </div>
 
-<div class="panel" id="p0-kq">
-  <div class="sc">
-    <div class="sc-title">코스닥은 라운드넘버 전략에서 제외되었습니다</div>
-    <div class="rule-box">
-      <div class="rb-title">2026-08-24부 코스닥 운용 제외</div>
-      <div class="rb-body">시장별 성과 분리 백테스트 결과 코스피 승률63%(n=3,337) vs 코스닥 승률56%(n=1,323) &mdash; 중앙값(+1.13%/+1.12%)은 거의 동일해 "이긴 트레이드 크기"는 같지만, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮습니다. 코스닥 전용 STOP버퍼 스윕(2~5%)으로 개선을 시도했으나 승률은 오르는 반면(56%&rarr;64%, 4%버퍼) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%, 코스피 기준값 0.130%에 한참 못 미침)해 변동성 구조 문제로 판단, 코스닥을 기본 유니버스에서 완전히 제외했습니다. 상세 근거는 <b>매매전략</b> 탭을 참고하세요.</div>
-    </div>
-  </div>
-</div>
-
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
     <div class="kpi-card kpi-sky"><div class="num">49</div><div class="lbl">분석 유니버스(코스피TOP50)</div></div>
@@ -737,16 +725,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         </div>
         <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>감시레벨(지지)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(저항)</span><span><i class="dash" style="border-color:var(--coral)"></i>STOP(예상)</span></div>
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="panel" id="p1-kq">
-  <div class="sc">
-    <div class="sc-title">코스닥은 라운드넘버 전략에서 제외되었습니다</div>
-    <div class="rule-box">
-      <div class="rb-title">2026-08-24부 코스닥 운용 제외</div>
-      <div class="rb-body">시장별 성과 분리 백테스트 결과 코스피 승률63%(n=3,337) vs 코스닥 승률56%(n=1,323) &mdash; 중앙값(+1.13%/+1.12%)은 거의 동일해 "이긴 트레이드 크기"는 같지만, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮습니다. 코스닥 전용 STOP버퍼 스윕(2~5%)으로 개선을 시도했으나 승률은 오르는 반면(56%&rarr;64%, 4%버퍼) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%, 코스피 기준값 0.130%에 한참 못 미침)해 변동성 구조 문제로 판단, 코스닥을 기본 유니버스에서 완전히 제외했습니다(예상종목 감시대상에서도 제외). 상세 근거는 <b>매매전략</b> 탭을 참고하세요.</div>
     </div>
   </div>
 </div>
@@ -1098,7 +1076,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="ai-item"><div class="ai-dot ai-dot-coral"></div><div>SK하이닉스 개별종목 유의사항 : 삼성전자는 풀 평균보다 우수(+0.43%, 승률64%)한 반면, <b>SK하이닉스는 승률57%인데도 평균수익률이 마이너스(-0.09%)</b>입니다 &mdash; 손실크기가 이익크기보다 커서 기대값이 음수입니다. 주력 종목이라 사다리형 분할매도로 개선 가능한지 별도 검증했는데(2026-08-24), 평균은 +1.06%로 개선됐지만 승률이 38%까지 떨어져 이 종목도 결국 단일 TP 방식을 유지하기로 했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>사다리형 분할매도 도입보류(2026-08-24) : 진입은 그대로 두고 청산만 TP1/TP2/TP3(L+1/2/3&times;step) 각 25%+잔여25%(STOP/TIME)로 바꿔 동일 이벤트셋으로 비교한 결과, 평균수익률은 개선됐지만 중앙값&middot;승률이 뚜렷이 악화됐습니다. 평균회귀 성격의 전략에 "이익을 계속 태우는" 청산 방식이 상충한다는 판단으로 단일 TP를 그대로 유지합니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>오버슈트 필터 추가(2026-08-24) : 보유종목 시세표에서 삼성SDI 신규 진입신호의 진입가가 이미 TP가를 넘긴 상태로 포착된 것을 계기로, "재돌파일 종가가 갭업으로 TP가(L+step)까지 이미 넘긴" 오버슈트 이벤트를 정상 이벤트와 분리 백테스트했습니다. 오버슈트(n=3,187)는 TP도달률(88%)은 오히려 높지만 진입가 자체가 이미 목표 근처/위라 실제로 남는 이익폭이 작아 승률(55%)&middot;중앙값(+0.28%)이 정상(n=4,660, 승률61%&middot;중앙값+1.13%)보다 뚜렷이 낮았습니다 &mdash; 사용자 승인으로 오버슈트를 진입 대상에서 제외해 확정 전략에 반영했습니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>코스피 전용 전환(2026-08-24) : "코스닥 승률이 낮아 보인다"는 사용자 문제제기로 시장별 성과를 분리한 결과 코스피 승률63% vs 코스닥 승률56%로 뚜렷한 격차를 확인했습니다. 중앙값은 거의 동일해 "이긴 트레이드 크기"는 같았고, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮았습니다. 코스닥 전용 STOP버퍼를 2%&rarr;5%까지 스윕해 해소를 시도했으나 승률은 개선돼도(56%&rarr;64%) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%)해 파라미터로 풀리는 문제가 아니라고 판단, 사용자 승인으로 코스닥을 기본 유니버스에서 완전히 제외했습니다(최근신호&middot;예상종목 KQ 탭은 운용 제외 안내로 대체).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>코스피 전용 전환(2026-08-24) : "코스닥 승률이 낮아 보인다"는 사용자 문제제기로 시장별 성과를 분리한 결과 코스피 승률63% vs 코스닥 승률56%로 뚜렷한 격차를 확인했습니다. 중앙값은 거의 동일해 "이긴 트레이드 크기"는 같았고, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮았습니다. 코스닥 전용 STOP버퍼를 2%&rarr;5%까지 스윕해 해소를 시도했으나 승률은 개선돼도(56%&rarr;64%) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%)해 파라미터로 풀리는 문제가 아니라고 판단, 사용자 승인으로 코스닥을 기본 유니버스에서 완전히 제외했습니다(최근신호&middot;예상종목 KQ 탭 자체를 삭제, 근거는 이 탭의 "시장별 성과 분리" 섹션 및 매매전략 탭 참고).</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀, EMA5&middot;20 단기)&middot;눌림목(추세추종, EMA50&middot;100 상승국면)&middot;EMA래더(완전정배열 추세추종)&middot;기준선(EMA200 장기 파동스윙)에 이은 5번째 확정 전략입니다. 진입시점 EMA200 국면별 성과는 코스피 전용 재집계 후 하락국면(n=1,420, 승률64%&middot;평균+0.31%)이 상승국면(n=1,688, 승률62%&middot;평균+0.30%)보다 근소 우위로 나타났지만(코스닥 포함 시절과 우열이 뒤바뀜, 차이는 근소) 조건에 실제로 넣지는 않았습니다(진단용 사후분리만, 향후 검증 과제).</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>포지션 사이징 확정(2026-08-24) : 손절 시 베팅금액 전부를 잃는다고 가정하는 고전적 켈리공식(<code>f*=승률-(1-승률)/손익비</code>)으로 계산하면 12.4%가 나오지만, 실제 매매는 손절 시 진입가 대비 -3.91%만 손실이라 이 공식을 위험도 기준으로 쓰는 건 부적절합니다. 실제 손실구조(진입금의 일부%만 손실)에 맞게 계산을 정정하면 트레이드당 10%는 오히려 순자본위험(0.39%, 최악단일트레이드 적용시 1.55%) 관점에서 여유 있는 보수적 설정입니다. 대신 진짜 리스크는 켈리 수식으로 안 잡히는 두 가지 &mdash; ①갭 리스크(하한가&middot;급락뉴스로 손절가를 지나쳐 체결) ②동시신호 상관관계(일평균2.78건&middot;최대14건, 시장전체가 흔들릴 때 몰림) &mdash; 라 판단, 트레이드당10%&middot;총노출상한30%을 채택하되 동시신호 몰림 시 밀집도&middot;트랙레코드 우선순위 규칙과 갭리스크 버퍼링(-6~8% 가정)을 추가하고, 초기엔 절반 규모(5%/15%)로 실전 검증 후 확대하는 단계적 도입을 권장합니다.</div></div>
     </div>
