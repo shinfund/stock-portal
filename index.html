@@ -529,6 +529,11 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
     </div>
 
     <div class="sb-sec">전략 리포트</div>
+    <div class="sb-item" id="sbn-roundnumber" onclick="go('roundnumber')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+      <span>라운드넘버 매매전략</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
     <div class="sb-item" id="sbn-baseline" onclick="go('baseline')">
       <svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M3 21h18"/></svg>
       <span>기준선 매매전략</span>
@@ -547,11 +552,6 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
     <div class="sb-item" id="sbn-valuechain" onclick="go('valuechain')">
       <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
       <span>주식 밸류체인</span>
-      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    </div>
-    <div class="sb-item" id="sbn-roundnumber" onclick="go('roundnumber')">
-      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
-      <span>라운드 넘버 매매전략</span>
       <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
     </div>
 
@@ -830,14 +830,14 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
       </div>
     </div>
 
-    <!-- ▸ 라운드 넘버 매매전략 iframe -->
+    <!-- ▸ 라운드넘버 매매전략 iframe -->
     <div class="panel" id="panel-roundnumber">
       <div class="iframe-wrap">
         <div class="iframe-overlay" id="ov-roundnumber">
           <div class="spin-ring"></div>
-          <div class="overlay-txt">라운드 넘버 매매전략 로딩 중...</div>
+          <div class="overlay-txt">라운드넘버 매매전략 로딩 중...</div>
         </div>
-        <iframe id="ifr-roundnumber" class="app-iframe" title="라운드 넘버 매매전략"></iframe>
+        <iframe id="ifr-roundnumber" class="app-iframe" title="라운드넘버 매매전략"></iframe>
       </div>
     </div>
 
@@ -923,19 +923,19 @@ const PORTAL_BOOT_TS = Date.now();
 
 // ── 앱 정의 ──────────────────────────────────────────────
 const APPS = {
+  roundnumber: { name:'라운드넘버 매매전략', file:'stock-roundnumber.html' },
+  baseline:    { name:'기준선 매매전략', file:'stock-baseline.html' },
   deviation:   { name:'괴리율 매매전략', file:'stock-deviation.html' },
   pullback:    { name:'눌림목 매매전략', file:'stock-pullback.html' },
-  valuechain:  { name:'주식 밸류체인', file:'stock-valuechain.html' },
-  baseline:    { name:'기준선 매매전략', file:'stock-baseline.html' },
-  roundnumber: { name:'라운드 넘버 매매전략', file:'stock-roundnumber.html' }
+  valuechain:  { name:'주식 밸류체인', file:'stock-valuechain.html' }
 };
 const PAGES = {
   home:        { mName:'홈' },
+  roundnumber: { mName:'라운드넘버 매매전략' },
+  baseline:    { mName:'기준선 매매전략' },
   deviation:   { mName:'괴리율 매매전략' },
   pullback:    { mName:'눌림목 매매전략' },
-  valuechain:  { mName:'주식 밸류체인' },
-  baseline:    { mName:'기준선 매매전략' },
-  roundnumber: { mName:'라운드 넘버 매매전략' }
+  valuechain:  { mName:'주식 밸류체인' }
 };
 
 let _cur = 'home';
