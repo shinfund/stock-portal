@@ -500,11 +500,11 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
     <div class="kpi-card kpi-sky"><div class="num">49</div><div class="lbl">분석 유니버스(코스피TOP50)</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">21</div><div class="lbl">감시레벨 1%이내 근접</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">21</div><div class="lbl">감시레벨 1%이내 근접(표시 종목수)</div></div>
   </div>
   <div class="sc">
-    <div class="sc-title">예상종목 리스트 <span class="sub">아직 이탈 전, 감시해야 할 라운드 레벨과의 거리 오름차순</span></div>
-    <div class="sc-note">"감시레벨(지지)"은 현재가 아래에서 트랙레코드(최근20거래일 중 5일 이상 그 레벨 위 유지)&middot;밀집도(최근150거래일 캔들 통과 3회 이상) 조건을 모두 충족하는 가장 가까운 라운드 레벨입니다. 이 레벨을 종가로 하향이탈한 뒤 5거래일 이내 재돌파하면 매수 신호가 발생합니다(아직 이탈 전이므로 참고용 관찰 대상입니다). TP&middot;STOP은 이탈&middot;재돌파가 실제로 발생했다고 가정했을 때의 예상 청산가입니다.</div>
+    <div class="sc-title">예상종목 리스트 <span class="sub">감시레벨과의 거리 1%이내로 추린 근접 종목만 표시, 거리 오름차순</span></div>
+    <div class="sc-note">"감시레벨(지지)"은 현재가 아래에서 트랙레코드(최근20거래일 중 5일 이상 그 레벨 위 유지)&middot;밀집도(최근150거래일 캔들 통과 3회 이상) 조건을 모두 충족하는 가장 가까운 라운드 레벨입니다. 이 레벨을 종가로 하향이탈한 뒤 5거래일 이내 재돌파하면 매수 신호가 발생합니다(아직 이탈 전이므로 참고용 관찰 대상입니다). TP&middot;STOP은 이탈&middot;재돌파가 실제로 발생했다고 가정했을 때의 예상 청산가입니다. 분석 유니버스(코스피50종목) 중 거리 1% 초과 종목은 목록이 너무 방대해져(전체 49종목 중 28종목) 표시에서 제외했습니다(2026-08-24).</div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:13%">종목명</th><th style="width:9%">현재가</th><th style="width:8%">step</th><th style="width:10%">감시레벨(지지)</th><th style="width:8%">거리</th><th class="c" style="width:10%">트랙레코드</th><th class="c" style="width:7%">밀집도</th><th style="width:9%">TP</th><th style="width:9%">STOP</th></tr></thead>
@@ -530,34 +530,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
           <tr><td class="l">HD한국조선해양</td><td>348,500</td><td>5,000</td><td>345,000</td><td class="t-pos">1.0%</td><td class="c">19/20일</td><td class="c">15봉</td><td>350,000</td><td>338,100</td></tr>
           <tr><td class="l">LG에너지솔루션</td><td>343,500</td><td>5,000</td><td>340,000</td><td class="t-pos">1.0%</td><td class="c">11/20일</td><td class="c">11봉</td><td>345,000</td><td>333,200</td></tr>
           <tr><td class="l">SK</td><td>586,000</td><td>20,000</td><td>580,000</td><td class="t-pos">1.0%</td><td class="c">5/20일</td><td class="c">14봉</td><td>600,000</td><td>568,400</td></tr>
-          <tr><td class="l">두산에너빌리티</td><td>73,300</td><td>2,500</td><td>72,500</td><td class="t-flat">1.1%</td><td class="c">13/20일</td><td class="c">9봉</td><td>75,000</td><td>71,050</td></tr>
-          <tr><td class="l">KB금융</td><td>164,300</td><td>2,500</td><td>162,500</td><td class="t-flat">1.1%</td><td class="c">18/20일</td><td class="c">26봉</td><td>165,000</td><td>159,250</td></tr>
-          <tr><td class="l">셀트리온</td><td>192,300</td><td>2,500</td><td>190,000</td><td class="t-flat">1.2%</td><td class="c">12/20일</td><td class="c">21봉</td><td>192,500</td><td>186,200</td></tr>
-          <tr><td class="l">삼성전기</td><td>1,316,000</td><td>100,000</td><td>1,300,000</td><td class="t-flat">1.2%</td><td class="c">10/20일</td><td class="c">12봉</td><td>1,400,000</td><td>1,274,000</td></tr>
-          <tr><td class="l">HD현대</td><td>213,000</td><td>5,000</td><td>210,000</td><td class="t-flat">1.4%</td><td class="c">14/20일</td><td class="c">15봉</td><td>215,000</td><td>205,800</td></tr>
-          <tr><td class="l">미래에셋증권</td><td>34,500</td><td>2,000</td><td>34,000</td><td class="t-flat">1.4%</td><td class="c">15/20일</td><td class="c">9봉</td><td>36,000</td><td>33,320</td></tr>
-          <tr><td class="l">한미반도체</td><td>213,500</td><td>10,000</td><td>210,000</td><td class="t-flat">1.6%</td><td class="c">9/20일</td><td class="c">18봉</td><td>220,000</td><td>205,800</td></tr>
-          <tr><td class="l">SK이노베이션</td><td>124,800</td><td>2,500</td><td>122,500</td><td class="t-flat">1.8%</td><td class="c">8/20일</td><td class="c">31봉</td><td>125,000</td><td>120,050</td></tr>
-          <tr><td class="l">한화오션</td><td>84,200</td><td>2,500</td><td>82,500</td><td class="t-flat">2.0%</td><td class="c">17/20일</td><td class="c">12봉</td><td>85,000</td><td>80,850</td></tr>
-          <tr><td class="l">SK스퀘어</td><td>1,123,000</td><td>50,000</td><td>1,100,000</td><td class="t-flat">2.0%</td><td class="c">7/20일</td><td class="c">13봉</td><td>1,150,000</td><td>1,078,000</td></tr>
-          <tr><td class="l">카카오</td><td>35,800</td><td>1,000</td><td>35,000</td><td class="t-flat">2.2%</td><td class="c">20/20일</td><td class="c">20봉</td><td>36,000</td><td>34,300</td></tr>
-          <tr><td class="l">LG전자</td><td>194,500</td><td>10,000</td><td>190,000</td><td class="t-flat">2.3%</td><td class="c">7/20일</td><td class="c">17봉</td><td>200,000</td><td>186,200</td></tr>
-          <tr><td class="l">HD현대일렉트릭</td><td>718,000</td><td>25,000</td><td>700,000</td><td class="t-flat">2.5%</td><td class="c">16/20일</td><td class="c">4봉</td><td>725,000</td><td>686,000</td></tr>
-          <tr><td class="l">LG</td><td>107,700</td><td>5,000</td><td>105,000</td><td class="t-flat">2.5%</td><td class="c">10/20일</td><td class="c">23봉</td><td>110,000</td><td>102,900</td></tr>
-          <tr><td class="l">두산</td><td>1,078,000</td><td>50,000</td><td>1,050,000</td><td class="t-flat">2.6%</td><td class="c">17/20일</td><td class="c">13봉</td><td>1,100,000</td><td>1,029,000</td></tr>
-          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>695,000</td><td>25,000</td><td>675,000</td><td class="t-flat">2.9%</td><td class="c">18/20일</td><td class="c">18봉</td><td>700,000</td><td>661,500</td></tr>
-          <tr><td class="l">고려아연</td><td>1,237,000</td><td>50,000</td><td>1,200,000</td><td class="t-flat">3.0%</td><td class="c">7/20일</td><td class="c">14봉</td><td>1,250,000</td><td>1,176,000</td></tr>
-          <tr><td class="l">삼성화재</td><td>661,000</td><td>10,000</td><td>640,000</td><td class="t-neg">3.2%</td><td class="c">5/20일</td><td class="c">27봉</td><td>650,000</td><td>627,200</td></tr>
-          <tr><td class="l">현대모비스</td><td>496,000</td><td>20,000</td><td>480,000</td><td class="t-neg">3.2%</td><td class="c">15/20일</td><td class="c">22봉</td><td>500,000</td><td>470,400</td></tr>
-          <tr><td class="l">삼성에스디에스</td><td>228,000</td><td>10,000</td><td>220,000</td><td class="t-neg">3.5%</td><td class="c">11/20일</td><td class="c">13봉</td><td>230,000</td><td>215,600</td></tr>
-          <tr><td class="l">현대차</td><td>415,000</td><td>20,000</td><td>400,000</td><td class="t-neg">3.6%</td><td class="c">13/20일</td><td class="c">10봉</td><td>420,000</td><td>392,000</td></tr>
-          <tr><td class="l">LS ELECTRIC</td><td>187,000</td><td>10,000</td><td>180,000</td><td class="t-neg">3.7%</td><td class="c">17/20일</td><td class="c">10봉</td><td>190,000</td><td>176,400</td></tr>
-          <tr><td class="l">삼성SDI</td><td>478,000</td><td>20,000</td><td>460,000</td><td class="t-neg">3.8%</td><td class="c">8/20일</td><td class="c">19봉</td><td>480,000</td><td>450,800</td></tr>
-          <tr><td class="l">SK텔레콤</td><td>102,200</td><td>2,500</td><td>97,500</td><td class="t-neg">4.6%</td><td class="c">6/20일</td><td class="c">24봉</td><td>100,000</td><td>95,550</td></tr>
-          <tr><td class="l">삼성생명</td><td>328,500</td><td>10,000</td><td>310,000</td><td class="t-neg">5.6%</td><td class="c">5/20일</td><td class="c">16봉</td><td>320,000</td><td>303,800</td></tr>
-          <tr><td class="l">SK하이닉스</td><td>1,730,000</td><td>100,000</td><td>1,600,000</td><td class="t-neg">7.5%</td><td class="c">8/20일</td><td class="c">11봉</td><td>1,700,000</td><td>1,568,000</td></tr>
-          <tr><td class="l">삼성전자</td><td>281,500</td><td>10,000</td><td>260,000</td><td class="t-neg">7.6%</td><td class="c">6/20일</td><td class="c">12봉</td><td>270,000</td><td>254,800</td></tr>
-          <tr><td class="l">삼성물산</td><td>395,500</td><td>10,000</td><td>360,000</td><td class="t-neg">9.0%</td><td class="c">5/20일</td><td class="c">11봉</td><td>370,000</td><td>352,800</td></tr>
         </tbody>
       </table>
     </div>
