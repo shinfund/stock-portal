@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>라운드 넘버 매매전략</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+b,strong{font-weight:500}
+:root {
+  --sky:#0366D6; --sky50:#E9F1FE; --sky100:#C7DCF6; --sky600:#005CC5; --sky800:#032F62;
+  --teal:#1D9E75; --teal50:#E1F5EE; --teal100:#9FE1CB; --teal600:#0F6E56;
+  --coral:#D85A30; --coral50:#FAECE7; --coral100:#F5C4B3;
+  --amber:#BA7517; --amber50:#FAEEDA; --amber100:#FAC775;
+  --purple:#534AB7; --purple50:#EEEDFE; --purple100:#CECBF6;
+  --gray50:#F1EFE8; --gray100:#D3D1C7; --gray600:#5F5E5A;
+  --bg:#FFFFFF; --card:#FFFFFF; --border:#E1E4E8; --border2:#F6F8FA;
+  --txt:#24292E; --txt2:#3A4453; --txt3:#6A737D;
+  --red:var(--coral); --red50:var(--coral50); --blue:var(--sky); --blue50:var(--sky50);
+  --hdrbg:#0B4A36; --hdr-text:#fff; --hdr-text-dim:rgba(255,255,255,.85);
+  --hdr-btn-bg:rgba(255,255,255,.15); --hdr-btn-border:rgba(255,255,255,.35);
+  --hdr-btn-hover-bg:rgba(255,255,255,.25); --hdr-btn-text:#fff;
+  --hdr-shadow:0 2px 8px rgba(11,74,54,.3);
+  --r6:6px; --r8:8px; --r10:10px; --r12:12px; --r14:14px; --r16:16px; --r20:20px;
+  --shadow:none;
+  --shadow-h:0 20px 60px rgba(0,0,0,.2);
+}
+html[data-theme="light"]{
+  --hdrbg:#FFFFFF; --hdr-text:#0B4A36; --hdr-text-dim:#2D6E56;
+  --hdr-btn-bg:#E4F5EE; --hdr-btn-border:#B7E2D0; --hdr-btn-hover-bg:#CDEEE0; --hdr-btn-text:#0F6E56;
+  --hdr-shadow:0 2px 8px rgba(11,74,54,.12);
+}
+html[data-theme="dark"]{
+  --bg:#24292E; --card:#1C2024;
+  --border:rgba(255,255,255,.13); --border2:rgba(255,255,255,.09);
+  --txt:rgba(255,255,255,.92); --txt2:rgba(255,255,255,.75); --txt3:rgba(255,255,255,.5);
+  --shadow:none; --shadow-h:0 20px 60px rgba(0,0,0,.5);
+  --hdrbg:#24292E; --hdr-shadow:0 2px 10px rgba(0,0,0,.4);
+  --sky:#2E8FFF; --sky50:rgba(46,143,255,.16); --sky100:rgba(46,143,255,.32); --sky600:#79B8FF; --sky800:#C8E1FF;
+  --teal:#4FD8AC; --teal50:rgba(29,158,117,.16); --teal100:rgba(29,158,117,.32); --teal600:#4FD8AC;
+  --coral:#F2896A; --coral50:rgba(216,90,48,.16); --coral100:rgba(216,90,48,.32);
+  --amber:#E8A93D; --amber50:rgba(186,117,23,.22); --amber100:rgba(186,117,23,.38);
+  --purple:#B4A6FF; --purple50:rgba(83,74,183,.26); --purple100:rgba(83,74,183,.4);
+  --gray50:rgba(255,255,255,.10); --gray600:#C9C7BF;
+  --red:var(--coral); --red50:var(--coral50); --blue:var(--sky); --blue50:var(--sky50);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Noto Sans KR','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14.5px;background:var(--bg);color:var(--txt);word-break:keep-all}
+html{scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+.hdr-wrap{position:fixed;top:0;left:0;right:0;z-index:50;box-shadow:var(--hdr-shadow);transition:background .18s ease}
+.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;transition:background .18s ease}
+.header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
+.logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#7FE4B4 0%,#1D9E75 55%,#0B4A36 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(29,158,117,.35)}
+.logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
+.logo-title{font-size:14.5px;font-weight:500;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.logo-sub{font-size:13px;color:var(--hdr-text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:10px}
+.hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
+.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:500;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
+.hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
+.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.top-nav::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;flex-shrink:0;min-width:64px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt);font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;padding:13px 6px;touch-action:manipulation;transition:color .15s;position:relative;white-space:nowrap}
+.tab-btn.on{color:var(--sky600)}
+.tab-btn.on::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:2.5px;background:var(--sky);border-radius:2px 2px 0 0}
+.nav-spacer{height:calc(104px + env(safe-area-inset-top,0px))}
+html.in-portal .hdr-wrap{position:static;box-shadow:none}
+html.in-portal .nav-spacer{display:none}
+.wrap{margin:0}
+.main{padding:0 16px max(20px,env(safe-area-inset-bottom))}
+.panel{display:none}
+.panel.on{display:block;animation:fade .22s}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.kpi-row{display:flex;gap:9px;margin-bottom:14px;padding-top:10px;flex-wrap:wrap}
+.kpi-card{flex:1;min-width:100px;background:var(--card);border:1px solid var(--border);border-radius:var(--r12);padding:10px 10px;text-align:center;box-shadow:var(--shadow)}
+.kpi-card .num{font-size:18px;font-weight:500;line-height:1.1}
+.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:500;color:var(--txt2)}
+.kpi-sky .num{color:var(--sky600)}
+.kpi-red .num{color:var(--red)}
+.kpi-teal .num{color:var(--teal600)}
+.kpi-coral .num{color:var(--coral)}
+.kpi-amber .num{color:var(--amber)}
+.kpi-purple .num{color:var(--purple)}
+.sc{background:var(--card);border-radius:var(--r12);border:1px solid var(--border);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.sc-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.sc-title .sub{font-size:13px;font-weight:400;color:var(--txt2)}
+.sc-note{font-size:14px;color:var(--txt2);margin-bottom:12px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r8);overscroll-behavior-x:contain;margin-bottom:8px}
+table{min-width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--sky50);color:var(--sky800);font-weight:400;font-size:14px;padding:9px 8px;text-align:right;white-space:nowrap}
+html[data-theme="dark"] thead th{color:#fff}
+thead th.l{text-align:left} thead th.c{text-align:center}
+tbody td{padding:9px 8px;border-bottom:1px solid var(--border2);text-align:right;white-space:nowrap;color:var(--txt)}
+tbody td.wrap{white-space:normal}
+th.shrink{width:1%}
+.tbl-fixed{table-layout:fixed}
+.tbl-fixed td{white-space:normal;word-break:break-word}
+tbody td.l{text-align:left} tbody td.c{text-align:center}
+tbody tr:hover{background:var(--teal50)}
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:20px}
+.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px 14px}
+.chart-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap}
+.chart-card-name{font-size:15px;font-weight:500;color:var(--txt)}
+.chart-card-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:14px;color:var(--txt);font-weight:400}
+.chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
+.chart-card-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);font-size:13.5px;color:var(--txt)}
+.chart-card-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.chart-card-legend i[style*="border-color"]{width:14px;height:0;border-radius:0;border-top:2px solid;background:none}
+.chart-card-legend i.dash{border-top-style:dashed}
+.chart-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--txt);margin-bottom:12px;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
+.chart-legend span{display:inline-flex;align-items:center;gap:5px}
+.chart-legend span:not(:last-child){border-right:1.5px solid var(--gray600);padding-right:12px}
+.chart-legend i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.chart-legend i.dash{border-top-style:dashed}
+.t-neg-hi{color:var(--blue);font-weight:400}
+.t-neg{color:var(--blue);font-weight:400}
+.t-pos{color:var(--red);font-weight:400}
+.t-flat{color:var(--txt2);font-weight:400}
+.badge{display:inline-flex;align-items:center;font-size:12.5px;font-weight:400;padding:2px 9px;border-radius:10px;white-space:nowrap;color:#fff;border:1px solid rgba(0,0,0,.18);margin:2px 0}
+.bdg-red{background:#B71C1C}
+.bdg-blue{background:#1565C0}
+.bdg-sky{background:#0277BD}
+.bdg-teal{background:#0D6D63}
+.bdg-amber{background:#8F5A00}
+.bdg-coral{background:#B23A12}
+.bdg-gray{background:#52606B}
+.bdg-purple{background:#5B4FBD}
+.ai-sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r12);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.ai-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ai-badge{margin-left:auto}
+.ai-list{display:flex;flex-direction:column;gap:7px}
+.ai-item{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--txt);line-height:1.55}
+.ai-dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:8px}
+.ai-dot-red{background:var(--red)} .ai-dot-teal{background:var(--teal)} .ai-dot-sky{background:var(--sky)}
+.ai-dot-amber{background:var(--amber)} .ai-dot-purple{background:var(--purple)} .ai-dot-gray{background:var(--gray600)}
+.rule-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px;margin-bottom:10px}
+.rule-box .rb-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:6px}
+.rule-box .rb-body{font-size:14px;color:var(--txt2);line-height:1.7}
+.rule-box .rb-body code{background:var(--border2);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--txt)}
+.rule-box ol,.rule-box ul{margin:6px 0 0;padding-left:20px}
+.rule-box li{margin-bottom:4px}
+.hist-item{display:flex;gap:8px;font-size:13.5px;line-height:1.6;color:var(--txt2);padding:5px 0;border-bottom:1px dashed var(--border)}
+.hist-item:last-child{border-bottom:none}
+.hist-v{flex-shrink:0;font-weight:500;color:var(--teal600);width:34px}
+#settingsModal{display:none;position:fixed;inset:0;z-index:100}
+#settingsModal.modal-open{display:block}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:var(--card);border-radius:var(--r16);padding:20px;width:100%;max-width:320px;box-shadow:var(--shadow-h)}
+.modal-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:14px}
+.modal-section{font-size:13.5px;font-weight:500;color:var(--txt2);margin-bottom:8px}
+.theme-opts{display:flex;gap:10px}
+.theme-opt{flex:1;cursor:pointer;text-align:center;padding:8px;border-radius:var(--r12);border:2px solid var(--border);position:relative;transition:border-color .12s}
+.theme-opt.on{border-color:var(--teal)}
+.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center}
+.theme-swatch{width:100%;height:50px;border-radius:8px;border:1px solid var(--border2);margin-bottom:6px;position:relative;overflow:hidden}
+.theme-swatch-dark{background:#24292E}
+.theme-swatch-light{background:#FFFFFF}
+.theme-swatch-dark .ts-side{background:#24292E;border-right:1px solid rgba(255,255,255,.08)}
+.theme-swatch-light .ts-side{background:#FFFFFF;border-right:1px solid #DCE9F7}
+.ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
+.theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
+html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
+html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub{display:none} .tab-btn{font-size:13px;padding:11px 2px;min-width:52px} .kpi-card .num{font-size:16px} .kpi-card .lbl{font-size:12px}}
+@media(max-width:600px){
+  .nav-spacer{height:calc(108px + env(safe-area-inset-top,0px))}
+  .main{padding:0 10px max(20px,env(safe-area-inset-bottom))}
+  .sc{padding:12px 12px} .tab-btn{font-size:13.5px;padding:12px 4px}
+  .kpi-card .num{font-size:17px} .kpi-card .lbl{font-size:12px}
+  thead th,tbody td{padding:8px 5px}
+  .hdr-date{display:none}
+}
+@media(min-width:769px){
+  .nav-spacer{height:calc(106px + env(safe-area-inset-top,0px))}
+  .main{padding:0 20px max(20px,env(safe-area-inset-bottom))}
+  .sc{padding:18px 20px} .sc-title{font-size:15px}
+  .kpi-card .lbl{font-size:13px}
+  thead th,tbody td{padding:10px 9px}
+}
+@media(min-width:1024px){.kpi-row{gap:12px} .tab-btn{flex:0 1 160px}}
+
+</style>
+</head>
+<body>
+<script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark');}catch(e){}})();</script>
+<script>
+(function(){
+  try{
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('in-portal');
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('hdrSettingsBtn');
+        if (btn) btn.style.display = 'none';
+      });
+    }
+  }catch(e){}
+  window.addEventListener('storage', function(e){
+    if (e.key === 'theme' && e.newValue) {
+      document.documentElement.setAttribute('data-theme', e.newValue);
+      if (typeof syncThemeOptUI === 'function') syncThemeOptUI();
+    }
+  });
+})();
+</script>
+
+<div id="settingsModal">
+  <div class="modal-backdrop" onclick="closeSettingsModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-title">설정</div>
+      <div class="modal-section">화면모드</div>
+      <div class="theme-opts">
+        <div class="theme-opt" id="theme-opt-dark" onclick="setTheme('dark')">
+          <div class="theme-swatch theme-swatch-dark"><span class="ts-side"></span></div>
+          <div class="theme-opt-label">다크</div>
+        </div>
+        <div class="theme-opt" id="theme-opt-light" onclick="setTheme('light')">
+          <div class="theme-swatch theme-swatch-light"><span class="ts-side"></span></div>
+          <div class="theme-opt-label">라이트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hdr-wrap">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo-info">
+        <div class="logo-title">라운드 넘버 매매전략</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hdr-date">Update 08.24 09:08</div>
+      <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
+    </div>
+  </div>
+  <nav class="top-nav">
+    <button class="tab-btn on" data-tab="0">최근신호(KS)</button>
+    <button class="tab-btn" data-tab="1">최근신호(KQ)</button>
+    <button class="tab-btn" data-tab="2">예상종목(KS)</button>
+    <button class="tab-btn" data-tab="3">예상종목(KQ)</button>
+    <button class="tab-btn" data-tab="4">보유종목</button>
+    <button class="tab-btn" data-tab="5">매매전략</button>
+    <button class="tab-btn" data-tab="6">백테스트</button>
+  </nav>
+</div>
+<div class="nav-spacer"></div>
+
+<div class="wrap"><div class="main">
+<div class="panel on" id="p0-ks">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">109</div><div class="lbl">최근45일 신호수</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">2</div><div class="lbl">현재 보유중</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">107</div><div class="lbl">청산완료</div></div>
+    <div class="kpi-card kpi-purple"><div class="num">79%</div><div class="lbl">청산 승률(TP비중)</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">라운드넘버 최근 45일 신호 상세 &middot; 코스피 TOP50 <span class="sub">라운드레벨 하향이탈 &rarr; 트랙레코드&middot;밀집도 검증 &rarr; 5거래일 이내 재돌파 시 매수</span></div>
+    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영).</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:9%">진입일</th><th class="l" style="width:13%">종목</th><th style="width:8%">진입가</th><th style="width:8%">레벨(L)</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="c" style="width:9%">지지일수</th><th class="c" style="width:7%">밀집도</th><th class="l" style="width:15%">상태</th><th style="width:9%">수익률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">2026-08-21</td><td class="l">SK텔레콤</td><td>102,200</td><td>97,500</td><td>100,000</td><td>95,550</td><td class="c">5/20일</td><td class="c">23봉</td><td class="l"><span class="badge bdg-teal">보유중 D+0</span></td><td class="t-flat">+0.00%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">SK하이닉스</td><td>1,691,000</td><td>1,600,000</td><td>1,700,000</td><td>1,568,000</td><td class="c">9/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.31%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">삼성화재</td><td>622,000</td><td>620,000</td><td>630,000</td><td>607,600</td><td class="c">12/20일</td><td class="c">28봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.27%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">미래에셋증권</td><td>36,100</td><td>36,000</td><td>38,000</td><td>35,280</td><td class="c">10/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-4.43%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">카카오</td><td>38,700</td><td>38,000</td><td>39,000</td><td>37,240</td><td class="c">8/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.49%</td></tr>
+          <tr><td class="l">2026-08-18</td><td class="l">삼성화재</td><td>626,000</td><td>620,000</td><td>630,000</td><td>607,600</td><td class="c">14/20일</td><td class="c">25봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.59%</td></tr>
+          <tr><td class="l">2026-08-14</td><td class="l">삼성생명</td><td>301,000</td><td>300,000</td><td>310,000</td><td>294,000</td><td class="c">10/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.16%</td></tr>
+          <tr><td class="l">2026-08-14</td><td class="l">HMM</td><td>21,250</td><td>21,250</td><td>21,500</td><td>20,825</td><td class="c">5/20일</td><td class="c">35봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.59%</td></tr>
+          <tr><td class="l">2026-08-14</td><td class="l">기업은행</td><td>20,400</td><td>20,250</td><td>20,500</td><td>19,845</td><td class="c">18/20일</td><td class="c">31봉</td><td class="l"><span class="badge bdg-teal">보유중 D+4</span></td><td class="t-neg">-1.96%</td></tr>
+          <tr><td class="l">2026-08-13</td><td class="l">신한지주</td><td>106,600</td><td>104,000</td><td>105,000</td><td>101,920</td><td class="c">11/20일</td><td class="c">20봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.75%</td></tr>
+          <tr><td class="l">2026-08-13</td><td class="l">현대글로비스</td><td>204,500</td><td>200,000</td><td>205,000</td><td>196,000</td><td class="c">9/20일</td><td class="c">15봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.18%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">삼성전자</td><td>255,500</td><td>240,000</td><td>250,000</td><td>235,200</td><td class="c">16/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.89%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">SK스퀘어</td><td>1,024,000</td><td>950,000</td><td>1,000,000</td><td>931,000</td><td class="c">17/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+9.08%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">삼성전기</td><td>1,335,000</td><td>1,300,000</td><td>1,400,000</td><td>1,274,000</td><td class="c">10/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.58%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">기아</td><td>135,600</td><td>135,000</td><td>137,500</td><td>132,300</td><td class="c">9/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.50%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">HD현대일렉트릭</td><td>782,000</td><td>750,000</td><td>775,000</td><td>735,000</td><td class="c">14/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.38%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">SK텔레콤</td><td>87,800</td><td>87,500</td><td>90,000</td><td>85,750</td><td class="c">9/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.76%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">미래에셋증권</td><td>36,500</td><td>36,000</td><td>38,000</td><td>35,280</td><td class="c">11/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.25%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">두산</td><td>1,254,000</td><td>1,200,000</td><td>1,250,000</td><td>1,176,000</td><td class="c">10/20일</td><td class="c">19봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.64%</td></tr>
+          <tr><td class="l">2026-08-11</td><td class="l">삼성물산</td><td>344,500</td><td>340,000</td><td>350,000</td><td>333,200</td><td class="c">13/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.77%</td></tr>
+          <tr><td class="l">2026-08-11</td><td class="l">삼성화재</td><td>641,000</td><td>640,000</td><td>650,000</td><td>627,200</td><td class="c">6/20일</td><td class="c">24봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-4.68%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">현대차</td><td>408,000</td><td>400,000</td><td>420,000</td><td>392,000</td><td class="c">12/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+11.03%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">삼성생명</td><td>280,500</td><td>280,000</td><td>290,000</td><td>274,400</td><td class="c">17/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+7.84%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">한미반도체</td><td>205,500</td><td>200,000</td><td>210,000</td><td>196,000</td><td class="c">16/20일</td><td class="c">21봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.65%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">미래에셋증권</td><td>36,400</td><td>34,000</td><td>36,000</td><td>33,320</td><td class="c">16/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.27%</td></tr>
+          <tr><td class="l">2026-08-07</td><td class="l">SK이노베이션</td><td>120,300</td><td>110,000</td><td>112,500</td><td>107,800</td><td class="c">12/20일</td><td class="c">27봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.49%</td></tr>
+          <tr><td class="l">2026-08-07</td><td class="l">S-Oil</td><td>137,600</td><td>125,000</td><td>127,500</td><td>122,500</td><td class="c">18/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.45%</td></tr>
+          <tr><td class="l">2026-08-07</td><td class="l">현대로템</td><td>146,900</td><td>145,000</td><td>150,000</td><td>142,100</td><td class="c">13/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.25%</td></tr>
+          <tr><td class="l">2026-08-06</td><td class="l">기업은행</td><td>20,350</td><td>20,250</td><td>20,500</td><td>19,845</td><td class="c">19/20일</td><td class="c">27봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.97%</td></tr>
+          <tr><td class="l">2026-08-05</td><td class="l">삼성생명</td><td>294,000</td><td>280,000</td><td>290,000</td><td>274,400</td><td class="c">18/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.89%</td></tr>
+          <tr><td class="l">2026-08-05</td><td class="l">기아</td><td>133,000</td><td>130,000</td><td>132,500</td><td>127,400</td><td class="c">17/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.45%</td></tr>
+          <tr><td class="l">2026-08-05</td><td class="l">SK</td><td>562,000</td><td>520,000</td><td>540,000</td><td>509,600</td><td class="c">18/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-9.43%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">HD현대중공업</td><td>483,000</td><td>480,000</td><td>490,000</td><td>470,400</td><td class="c">12/20일</td><td class="c">16봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.38%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">LG전자</td><td>165,500</td><td>160,000</td><td>170,000</td><td>156,800</td><td class="c">17/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+8.46%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">한화오션</td><td>87,500</td><td>85,000</td><td>87,500</td><td>83,300</td><td class="c">8/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.03%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">POSCO홀딩스</td><td>313,000</td><td>310,000</td><td>320,000</td><td>303,800</td><td class="c">10/20일</td><td class="c">25봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.75%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">SK이노베이션</td><td>111,300</td><td>110,000</td><td>112,500</td><td>107,800</td><td class="c">11/20일</td><td class="c">26봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+8.09%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">미래에셋증권</td><td>34,050</td><td>34,000</td><td>36,000</td><td>33,320</td><td class="c">17/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.90%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">LG화학</td><td>256,500</td><td>250,000</td><td>260,000</td><td>245,000</td><td class="c">17/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.75%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">삼성중공업</td><td>21,650</td><td>21,000</td><td>21,500</td><td>20,580</td><td class="c">15/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.54%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">LG</td><td>102,000</td><td>100,000</td><td>105,000</td><td>98,000</td><td class="c">8/20일</td><td class="c">25봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.71%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">현대로템</td><td>139,900</td><td>130,000</td><td>135,000</td><td>127,400</td><td class="c">17/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.58%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">현대차</td><td>388,000</td><td>360,000</td><td>380,000</td><td>352,800</td><td class="c">20/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.29%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">현대모비스</td><td>476,000</td><td>460,000</td><td>480,000</td><td>450,800</td><td class="c">20/20일</td><td class="c">17봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.68%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">삼성SDI</td><td>397,000</td><td>360,000</td><td>380,000</td><td>352,800</td><td class="c">20/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-1.89%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">LG전자</td><td>162,100</td><td>150,000</td><td>160,000</td><td>147,000</td><td class="c">20/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.10%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">LS ELECTRIC</td><td>184,800</td><td>160,000</td><td>170,000</td><td>156,800</td><td class="c">20/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.95%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">고려아연</td><td>999,000</td><td>950,000</td><td>1,000,000</td><td>931,000</td><td class="c">20/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.10%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">한미반도체</td><td>214,500</td><td>170,000</td><td>180,000</td><td>166,600</td><td class="c">20/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-5.59%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">SK텔레콤</td><td>81,400</td><td>80,000</td><td>82,500</td><td>78,400</td><td class="c">20/20일</td><td class="c">15봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.29%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">미래에셋증권</td><td>34,550</td><td>32,500</td><td>35,000</td><td>31,850</td><td class="c">20/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.88%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">두산</td><td>1,170,000</td><td>950,000</td><td>1,000,000</td><td>931,000</td><td class="c">20/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.81%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">삼성에스디에스</td><td>206,000</td><td>200,000</td><td>210,000</td><td>196,000</td><td class="c">5/20일</td><td class="c">16봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.55%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">하나금융지주</td><td>124,600</td><td>122,000</td><td>124,000</td><td>119,560</td><td class="c">16/20일</td><td class="c">30봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.64%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">HD현대</td><td>193,900</td><td>190,000</td><td>195,000</td><td>186,200</td><td class="c">19/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.94%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">LG</td><td>96,400</td><td>95,000</td><td>100,000</td><td>93,100</td><td class="c">20/20일</td><td class="c">20봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.88%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">S-Oil</td><td>130,100</td><td>127,500</td><td>130,000</td><td>124,950</td><td class="c">13/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-6.46%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">기업은행</td><td>20,450</td><td>20,250</td><td>20,500</td><td>19,845</td><td class="c">18/20일</td><td class="c">22봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.98%</td></tr>
+          <tr><td class="l">2026-07-30</td><td class="l">현대글로비스</td><td>191,700</td><td>190,000</td><td>195,000</td><td>186,200</td><td class="c">12/20일</td><td class="c">23봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.33%</td></tr>
+          <tr><td class="l">2026-07-24</td><td class="l">신한지주</td><td>104,400</td><td>104,000</td><td>105,000</td><td>101,920</td><td class="c">11/20일</td><td class="c">14봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.57%</td></tr>
+          <tr><td class="l">2026-07-24</td><td class="l">셀트리온</td><td>177,600</td><td>172,500</td><td>175,000</td><td>169,050</td><td class="c">16/20일</td><td class="c">24봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.62%</td></tr>
+          <tr><td class="l">2026-07-24</td><td class="l">하나금융지주</td><td>132,400</td><td>132,000</td><td>134,000</td><td>129,360</td><td class="c">5/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.10%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">삼성바이오로직스</td><td>1,379,000</td><td>1,375,000</td><td>1,400,000</td><td>1,347,500</td><td class="c">13/20일</td><td class="c">27봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+10.08%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">삼성SDI</td><td>467,000</td><td>420,000</td><td>440,000</td><td>411,600</td><td class="c">18/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-18.20%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">POSCO홀딩스</td><td>323,500</td><td>310,000</td><td>320,000</td><td>303,800</td><td class="c">15/20일</td><td class="c">24봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.57%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">한국전력</td><td>35,600</td><td>34,000</td><td>35,000</td><td>33,320</td><td class="c">18/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.56%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">LG</td><td>101,600</td><td>100,000</td><td>105,000</td><td>98,000</td><td class="c">11/20일</td><td class="c">20봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-3.64%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">LIG디펜스앤에어로스페이스</td><td>736,000</td><td>675,000</td><td>700,000</td><td>661,500</td><td class="c">19/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.53%</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">현대모비스</td><td>513,000</td><td>480,000</td><td>500,000</td><td>470,400</td><td class="c">18/20일</td><td class="c">15봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.14%</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">한화오션</td><td>83,900</td><td>82,500</td><td>85,000</td><td>80,850</td><td class="c">14/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+7.15%</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">HD한국조선해양</td><td>353,500</td><td>340,000</td><td>345,000</td><td>333,200</td><td class="c">17/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+7.78%</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">HD현대</td><td>212,000</td><td>200,000</td><td>205,000</td><td>196,000</td><td class="c">13/20일</td><td class="c">17봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+9.20%</td></tr>
+          <tr><td class="l">2026-07-22</td><td class="l">현대글로비스</td><td>194,800</td><td>190,000</td><td>195,000</td><td>186,200</td><td class="c">11/20일</td><td class="c">19봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.98%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">SK하이닉스</td><td>1,836,000</td><td>1,800,000</td><td>1,900,000</td><td>1,764,000</td><td class="c">20/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.52%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">SK스퀘어</td><td>1,253,000</td><td>1,200,000</td><td>1,250,000</td><td>1,176,000</td><td class="c">18/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-11.49%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">SK</td><td>596,000</td><td>580,000</td><td>600,000</td><td>568,400</td><td class="c">19/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.70%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">NAVER</td><td>193,000</td><td>190,000</td><td>195,000</td><td>186,200</td><td class="c">16/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.02%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">HD현대일렉트릭</td><td>778,000</td><td>775,000</td><td>800,000</td><td>759,500</td><td class="c">20/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+11.70%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">삼성에스디에스</td><td>191,500</td><td>190,000</td><td>200,000</td><td>186,200</td><td class="c">17/20일</td><td class="c">18봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+13.84%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">LG에너지솔루션</td><td>335,000</td><td>325,000</td><td>330,000</td><td>318,500</td><td class="c">18/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.30%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">삼성생명</td><td>337,500</td><td>320,000</td><td>330,000</td><td>313,600</td><td class="c">20/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-1.93%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">삼성물산</td><td>367,000</td><td>360,000</td><td>370,000</td><td>352,800</td><td class="c">20/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-5.72%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">현대모비스</td><td>489,500</td><td>480,000</td><td>500,000</td><td>470,400</td><td class="c">19/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.80%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">셀트리온</td><td>175,700</td><td>175,000</td><td>177,500</td><td>171,500</td><td class="c">8/20일</td><td class="c">31봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-3.19%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">SK</td><td>609,000</td><td>580,000</td><td>600,000</td><td>568,400</td><td class="c">20/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.46%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">삼성SDI</td><td>454,000</td><td>440,000</td><td>460,000</td><td>431,200</td><td class="c">17/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-11.67%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">삼성화재</td><td>661,000</td><td>630,000</td><td>640,000</td><td>617,400</td><td class="c">15/20일</td><td class="c">16봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.05%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">POSCO홀딩스</td><td>314,500</td><td>310,000</td><td>320,000</td><td>303,800</td><td class="c">17/20일</td><td class="c">24봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-3.82%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">우리금융지주</td><td>31,300</td><td>31,000</td><td>31,500</td><td>30,380</td><td class="c">8/20일</td><td class="c">25봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.64%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">SK텔레콤</td><td>85,000</td><td>85,000</td><td>87,500</td><td>83,300</td><td class="c">19/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.53%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">미래에셋증권</td><td>41,750</td><td>40,000</td><td>42,500</td><td>39,200</td><td class="c">20/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-11.26%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">LG화학</td><td>264,500</td><td>260,000</td><td>265,000</td><td>254,800</td><td class="c">18/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-4.35%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">HD현대</td><td>200,500</td><td>195,000</td><td>200,000</td><td>191,100</td><td class="c">17/20일</td><td class="c">16봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.00%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">LG</td><td>102,400</td><td>100,000</td><td>105,000</td><td>98,000</td><td class="c">13/20일</td><td class="c">17봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.23%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">카카오</td><td>34,900</td><td>34,000</td><td>35,000</td><td>33,320</td><td class="c">18/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.87%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">기업은행</td><td>21,250</td><td>21,250</td><td>21,500</td><td>20,825</td><td class="c">9/20일</td><td class="c">20봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.65%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">현대글로비스</td><td>191,200</td><td>185,000</td><td>190,000</td><td>181,300</td><td class="c">17/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.88%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">삼성바이오로직스</td><td>1,395,000</td><td>1,350,000</td><td>1,375,000</td><td>1,323,000</td><td class="c">12/20일</td><td class="c">17봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.36%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">현대모비스</td><td>488,000</td><td>480,000</td><td>500,000</td><td>470,400</td><td class="c">20/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-4.51%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">셀트리온</td><td>175,200</td><td>175,000</td><td>177,500</td><td>171,500</td><td class="c">6/20일</td><td class="c">28봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-2.91%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">POSCO홀딩스</td><td>313,500</td><td>300,000</td><td>310,000</td><td>294,000</td><td class="c">20/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+0.32%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">우리금융지주</td><td>31,450</td><td>30,500</td><td>31,000</td><td>29,890</td><td class="c">9/20일</td><td class="c">26봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.79%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">한국전력</td><td>36,200</td><td>36,000</td><td>37,000</td><td>35,280</td><td class="c">19/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-5.39%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">두산</td><td>1,382,000</td><td>1,250,000</td><td>1,300,000</td><td>1,225,000</td><td class="c">20/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-11.94%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">삼성에스디에스</td><td>199,600</td><td>190,000</td><td>200,000</td><td>186,200</td><td class="c">18/20일</td><td class="c">15봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-6.91%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">HD현대</td><td>199,500</td><td>190,000</td><td>195,000</td><td>186,200</td><td class="c">20/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.75%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">LIG디펜스앤에어로스페이스</td><td>749,000</td><td>700,000</td><td>725,000</td><td>686,000</td><td class="c">20/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-3.20%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">카카오</td><td>35,350</td><td>34,000</td><td>35,000</td><td>33,320</td><td class="c">19/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+1.56%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">기업은행</td><td>21,250</td><td>20,750</td><td>21,000</td><td>20,335</td><td class="c">11/20일</td><td class="c">37봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.47%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p0-kq">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">42</div><div class="lbl">최근45일 신호수</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">1</div><div class="lbl">현재 보유중</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">41</div><div class="lbl">청산완료</div></div>
+    <div class="kpi-card kpi-purple"><div class="num">61%</div><div class="lbl">청산 승률(TP비중)</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">라운드넘버 최근 45일 신호 상세 &middot; 코스닥 TOP20 <span class="sub">라운드레벨 하향이탈 &rarr; 트랙레코드&middot;밀집도 검증 &rarr; 5거래일 이내 재돌파 시 매수</span></div>
+    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영).</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:9%">진입일</th><th class="l" style="width:13%">종목</th><th style="width:8%">진입가</th><th style="width:8%">레벨(L)</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="c" style="width:9%">지지일수</th><th class="c" style="width:7%">밀집도</th><th class="l" style="width:15%">상태</th><th style="width:9%">수익률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">2026-08-20</td><td class="l">원익IPS</td><td>113,900</td><td>110,000</td><td>115,000</td><td>107,800</td><td class="c">7/20일</td><td class="c">29봉</td><td class="l"><span class="badge bdg-teal">보유중 D+1</span></td><td class="t-neg">-5.27%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">에이비엘바이오</td><td>82,500</td><td>80,000</td><td>85,000</td><td>78,400</td><td class="c">8/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-8.85%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">리가켐바이오</td><td>108,300</td><td>105,000</td><td>110,000</td><td>102,900</td><td class="c">9/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.66%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">피에스케이</td><td>130,100</td><td>130,000</td><td>135,000</td><td>127,400</td><td class="c">10/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-6.07%</td></tr>
+          <tr><td class="l">2026-08-20</td><td class="l">파두</td><td>65,900</td><td>65,000</td><td>70,000</td><td>63,700</td><td class="c">7/20일</td><td class="c">20봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-6.07%</td></tr>
+          <tr><td class="l">2026-08-14</td><td class="l">파두</td><td>65,500</td><td>65,000</td><td>70,000</td><td>63,700</td><td class="c">8/20일</td><td class="c">18봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-5.50%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">에코프로비엠</td><td>114,400</td><td>110,000</td><td>115,000</td><td>107,800</td><td class="c">7/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.01%</td></tr>
+          <tr><td class="l">2026-08-12</td><td class="l">피에스케이</td><td>132,800</td><td>130,000</td><td>135,000</td><td>127,400</td><td class="c">11/20일</td><td class="c">10봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.98%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">주성엔지니어링</td><td>144,800</td><td>130,000</td><td>140,000</td><td>127,400</td><td class="c">15/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.15%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">원익IPS</td><td>98,400</td><td>90,000</td><td>95,000</td><td>88,200</td><td class="c">17/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.40%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">이오테크닉스</td><td>357,000</td><td>330,000</td><td>340,000</td><td>323,400</td><td class="c">7/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.22%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">피에스케이</td><td>132,700</td><td>120,000</td><td>125,000</td><td>117,600</td><td class="c">18/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-2.71%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">ISC</td><td>142,100</td><td>135,000</td><td>140,000</td><td>132,300</td><td class="c">13/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.57%</td></tr>
+          <tr><td class="l">2026-08-10</td><td class="l">HPSP</td><td>36,950</td><td>36,000</td><td>38,000</td><td>35,280</td><td class="c">13/20일</td><td class="c">9봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.92%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">에코프로비엠</td><td>102,500</td><td>100,000</td><td>105,000</td><td>98,000</td><td class="c">18/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.39%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">원익IPS</td><td>96,500</td><td>95,000</td><td>100,000</td><td>93,100</td><td class="c">17/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-4.04%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">리노공업</td><td>64,400</td><td>62,500</td><td>65,000</td><td>61,250</td><td class="c">17/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.88%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">ISC</td><td>131,500</td><td>125,000</td><td>130,000</td><td>122,500</td><td class="c">17/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.62%</td></tr>
+          <tr><td class="l">2026-08-04</td><td class="l">HPSP</td><td>35,400</td><td>34,000</td><td>36,000</td><td>33,320</td><td class="c">17/20일</td><td class="c">13봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.39%</td></tr>
+          <tr><td class="l">2026-08-03</td><td class="l">펩트론</td><td>166,100</td><td>130,000</td><td>140,000</td><td>127,400</td><td class="c">10/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+4.64%</td></tr>
+          <tr><td class="l">2026-08-03</td><td class="l">파마리서치</td><td>372,000</td><td>340,000</td><td>350,000</td><td>333,200</td><td class="c">10/20일</td><td class="c">25봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.36%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">알테오젠</td><td>237,308</td><td>220,000</td><td>230,000</td><td>215,600</td><td class="c">15/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.92%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">HLB</td><td>30,600</td><td>30,000</td><td>32,000</td><td>29,400</td><td class="c">17/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.25%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">원익IPS</td><td>97,600</td><td>80,000</td><td>85,000</td><td>78,400</td><td class="c">20/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-4.00%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">심텍</td><td>82,900</td><td>65,000</td><td>70,000</td><td>63,700</td><td class="c">20/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.55%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">ISC</td><td>129,600</td><td>110,000</td><td>115,000</td><td>107,800</td><td class="c">20/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-4.32%</td></tr>
+          <tr><td class="l">2026-07-31</td><td class="l">파두</td><td>63,400</td><td>50,000</td><td>55,000</td><td>49,000</td><td class="c">20/20일</td><td class="c">15봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-0.16%</td></tr>
+          <tr><td class="l">2026-07-27</td><td class="l">에코프로</td><td>80,600</td><td>80,000</td><td>85,000</td><td>78,400</td><td class="c">14/20일</td><td class="c">7봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-9.80%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">알테오젠</td><td>235,769</td><td>210,000</td><td>220,000</td><td>205,800</td><td class="c">19/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-neg">-1.96%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">HLB</td><td>30,000</td><td>30,000</td><td>32,000</td><td>29,400</td><td class="c">18/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+14.50%</td></tr>
+          <tr><td class="l">2026-07-23</td><td class="l">이오테크닉스</td><td>328,500</td><td>310,000</td><td>320,000</td><td>303,800</td><td class="c">20/20일</td><td class="c">12봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-9.13%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">리노공업</td><td>70,000</td><td>70,000</td><td>72,500</td><td>68,600</td><td class="c">19/20일</td><td class="c">4봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+5.57%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">파마리서치</td><td>341,500</td><td>330,000</td><td>340,000</td><td>323,400</td><td class="c">7/20일</td><td class="c">26봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-5.56%</td></tr>
+          <tr><td class="l">2026-07-21</td><td class="l">파두</td><td>77,600</td><td>75,000</td><td>80,000</td><td>73,500</td><td class="c">14/20일</td><td class="c">8봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-9.28%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">에코프로</td><td>86,400</td><td>80,000</td><td>85,000</td><td>78,400</td><td class="c">18/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-14.93%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">에코프로비엠</td><td>120,900</td><td>115,000</td><td>120,000</td><td>112,700</td><td class="c">18/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.03%</td></tr>
+          <tr><td class="l">2026-07-15</td><td class="l">파두</td><td>79,900</td><td>75,000</td><td>80,000</td><td>73,500</td><td class="c">16/20일</td><td class="c">6봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg-hi">-11.89%</td></tr>
+          <tr><td class="l">2026-07-14</td><td class="l">주성엔지니어링</td><td>192,600</td><td>190,000</td><td>200,000</td><td>186,200</td><td class="c">11/20일</td><td class="c">19봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+8.77%</td></tr>
+          <tr><td class="l">2026-07-14</td><td class="l">원익IPS</td><td>127,100</td><td>125,000</td><td>130,000</td><td>122,500</td><td class="c">16/20일</td><td class="c">34봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.27%</td></tr>
+          <tr><td class="l">2026-07-14</td><td class="l">리노공업</td><td>73,100</td><td>72,500</td><td>75,000</td><td>71,050</td><td class="c">17/20일</td><td class="c">5봉</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+6.57%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">레인보우로보틱스</td><td>453,500</td><td>440,000</td><td>460,000</td><td>431,200</td><td class="c">20/20일</td><td class="c">11봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-8.49%</td></tr>
+          <tr><td class="l">2026-07-10</td><td class="l">리가켐바이오</td><td>120,300</td><td>120,000</td><td>125,000</td><td>117,600</td><td class="c">20/20일</td><td class="c">3봉</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-5.82%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p1-ks">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">49</div><div class="lbl">분석 유니버스(코스피TOP50)</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">21</div><div class="lbl">감시레벨 1%이내 근접</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">예상종목 리스트 <span class="sub">아직 이탈 전, 감시해야 할 라운드 레벨과의 거리 오름차순</span></div>
+    <div class="sc-note">"감시레벨(지지)"은 현재가 아래에서 트랙레코드(최근20거래일 중 5일 이상 그 레벨 위 유지)&middot;밀집도(최근150거래일 캔들 통과 3회 이상) 조건을 모두 충족하는 가장 가까운 라운드 레벨입니다. 이 레벨을 종가로 하향이탈한 뒤 5거래일 이내 재돌파하면 매수 신호가 발생합니다(아직 이탈 전이므로 참고용 관찰 대상입니다). TP&middot;STOP은 이탈&middot;재돌파가 실제로 발생했다고 가정했을 때의 예상 청산가입니다.</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:13%">종목명</th><th style="width:9%">현재가</th><th style="width:8%">step</th><th style="width:10%">감시레벨(지지)</th><th style="width:8%">거리</th><th class="c" style="width:10%">트랙레코드</th><th class="c" style="width:7%">밀집도</th><th style="width:9%">TP</th><th style="width:9%">STOP</th></tr></thead>
+        <tbody>
+          <tr><td class="l">POSCO홀딩스</td><td>310,000</td><td>10,000</td><td>310,000</td><td class="t-pos">0.0%</td><td class="c">16/20일</td><td class="c">23봉</td><td>320,000</td><td>303,800</td></tr>
+          <tr><td class="l">기업은행</td><td>20,000</td><td>250</td><td>20,000</td><td class="t-pos">0.0%</td><td class="c">19/20일</td><td class="c">19봉</td><td>20,250</td><td>19,600</td></tr>
+          <tr><td class="l">삼성바이오로직스</td><td>1,551,000</td><td>25,000</td><td>1,550,000</td><td class="t-pos">0.1%</td><td class="c">5/20일</td><td class="c">22봉</td><td>1,575,000</td><td>1,519,000</td></tr>
+          <tr><td class="l">현대로템</td><td>130,100</td><td>5,000</td><td>130,000</td><td class="t-pos">0.1%</td><td class="c">16/20일</td><td class="c">5봉</td><td>135,000</td><td>127,400</td></tr>
+          <tr><td class="l">신한지주</td><td>104,100</td><td>1,000</td><td>104,000</td><td class="t-pos">0.1%</td><td class="c">10/20일</td><td class="c">23봉</td><td>105,000</td><td>101,920</td></tr>
+          <tr><td class="l">KT&G</td><td>172,300</td><td>2,000</td><td>172,000</td><td class="t-pos">0.2%</td><td class="c">19/20일</td><td class="c">28봉</td><td>174,000</td><td>168,560</td></tr>
+          <tr><td class="l">HMM</td><td>21,600</td><td>250</td><td>21,500</td><td class="t-pos">0.5%</td><td class="c">5/20일</td><td class="c">28봉</td><td>21,750</td><td>21,070</td></tr>
+          <tr><td class="l">하나금융지주</td><td>128,800</td><td>2,000</td><td>128,000</td><td class="t-pos">0.6%</td><td class="c">10/20일</td><td class="c">32봉</td><td>130,000</td><td>125,440</td></tr>
+          <tr><td class="l">HD현대중공업</td><td>453,000</td><td>10,000</td><td>450,000</td><td class="t-pos">0.7%</td><td class="c">18/20일</td><td class="c">8봉</td><td>460,000</td><td>441,000</td></tr>
+          <tr><td class="l">기아</td><td>130,900</td><td>2,500</td><td>130,000</td><td class="t-pos">0.7%</td><td class="c">15/20일</td><td class="c">9봉</td><td>132,500</td><td>127,400</td></tr>
+          <tr><td class="l">효성중공업</td><td>2,721,000</td><td>100,000</td><td>2,700,000</td><td class="t-pos">0.8%</td><td class="c">12/20일</td><td class="c">19봉</td><td>2,800,000</td><td>2,646,000</td></tr>
+          <tr><td class="l">S-Oil</td><td>141,100</td><td>2,500</td><td>140,000</td><td class="t-pos">0.8%</td><td class="c">9/20일</td><td class="c">14봉</td><td>142,500</td><td>137,200</td></tr>
+          <tr><td class="l">우리금융지주</td><td>31,750</td><td>500</td><td>31,500</td><td class="t-pos">0.8%</td><td class="c">18/20일</td><td class="c">29봉</td><td>32,000</td><td>30,870</td></tr>
+          <tr><td class="l">현대글로비스</td><td>196,700</td><td>5,000</td><td>195,000</td><td class="t-pos">0.9%</td><td class="c">17/20일</td><td class="c">20봉</td><td>200,000</td><td>191,100</td></tr>
+          <tr><td class="l">NAVER</td><td>222,000</td><td>5,000</td><td>220,000</td><td class="t-pos">0.9%</td><td class="c">7/20일</td><td class="c">25봉</td><td>225,000</td><td>215,600</td></tr>
+          <tr><td class="l">한화에어로스페이스</td><td>1,085,000</td><td>25,000</td><td>1,075,000</td><td class="t-pos">0.9%</td><td class="c">9/20일</td><td class="c">12봉</td><td>1,100,000</td><td>1,053,500</td></tr>
+          <tr><td class="l">LG화학</td><td>252,500</td><td>10,000</td><td>250,000</td><td class="t-pos">1.0%</td><td class="c">16/20일</td><td class="c">9봉</td><td>260,000</td><td>245,000</td></tr>
+          <tr><td class="l">삼성중공업</td><td>20,200</td><td>500</td><td>20,000</td><td class="t-pos">1.0%</td><td class="c">19/20일</td><td class="c">4봉</td><td>20,500</td><td>19,600</td></tr>
+          <tr><td class="l">HD한국조선해양</td><td>348,500</td><td>5,000</td><td>345,000</td><td class="t-pos">1.0%</td><td class="c">19/20일</td><td class="c">15봉</td><td>350,000</td><td>338,100</td></tr>
+          <tr><td class="l">LG에너지솔루션</td><td>343,500</td><td>5,000</td><td>340,000</td><td class="t-pos">1.0%</td><td class="c">11/20일</td><td class="c">11봉</td><td>345,000</td><td>333,200</td></tr>
+          <tr><td class="l">SK</td><td>586,000</td><td>20,000</td><td>580,000</td><td class="t-pos">1.0%</td><td class="c">5/20일</td><td class="c">14봉</td><td>600,000</td><td>568,400</td></tr>
+          <tr><td class="l">두산에너빌리티</td><td>73,300</td><td>2,500</td><td>72,500</td><td class="t-flat">1.1%</td><td class="c">13/20일</td><td class="c">9봉</td><td>75,000</td><td>71,050</td></tr>
+          <tr><td class="l">KB금융</td><td>164,300</td><td>2,500</td><td>162,500</td><td class="t-flat">1.1%</td><td class="c">18/20일</td><td class="c">26봉</td><td>165,000</td><td>159,250</td></tr>
+          <tr><td class="l">셀트리온</td><td>192,300</td><td>2,500</td><td>190,000</td><td class="t-flat">1.2%</td><td class="c">12/20일</td><td class="c">21봉</td><td>192,500</td><td>186,200</td></tr>
+          <tr><td class="l">삼성전기</td><td>1,316,000</td><td>100,000</td><td>1,300,000</td><td class="t-flat">1.2%</td><td class="c">10/20일</td><td class="c">12봉</td><td>1,400,000</td><td>1,274,000</td></tr>
+          <tr><td class="l">HD현대</td><td>213,000</td><td>5,000</td><td>210,000</td><td class="t-flat">1.4%</td><td class="c">14/20일</td><td class="c">15봉</td><td>215,000</td><td>205,800</td></tr>
+          <tr><td class="l">미래에셋증권</td><td>34,500</td><td>2,000</td><td>34,000</td><td class="t-flat">1.4%</td><td class="c">15/20일</td><td class="c">9봉</td><td>36,000</td><td>33,320</td></tr>
+          <tr><td class="l">한미반도체</td><td>213,500</td><td>10,000</td><td>210,000</td><td class="t-flat">1.6%</td><td class="c">9/20일</td><td class="c">18봉</td><td>220,000</td><td>205,800</td></tr>
+          <tr><td class="l">SK이노베이션</td><td>124,800</td><td>2,500</td><td>122,500</td><td class="t-flat">1.8%</td><td class="c">8/20일</td><td class="c">31봉</td><td>125,000</td><td>120,050</td></tr>
+          <tr><td class="l">한화오션</td><td>84,200</td><td>2,500</td><td>82,500</td><td class="t-flat">2.0%</td><td class="c">17/20일</td><td class="c">12봉</td><td>85,000</td><td>80,850</td></tr>
+          <tr><td class="l">SK스퀘어</td><td>1,123,000</td><td>50,000</td><td>1,100,000</td><td class="t-flat">2.0%</td><td class="c">7/20일</td><td class="c">13봉</td><td>1,150,000</td><td>1,078,000</td></tr>
+          <tr><td class="l">카카오</td><td>35,800</td><td>1,000</td><td>35,000</td><td class="t-flat">2.2%</td><td class="c">20/20일</td><td class="c">20봉</td><td>36,000</td><td>34,300</td></tr>
+          <tr><td class="l">LG전자</td><td>194,500</td><td>10,000</td><td>190,000</td><td class="t-flat">2.3%</td><td class="c">7/20일</td><td class="c">17봉</td><td>200,000</td><td>186,200</td></tr>
+          <tr><td class="l">HD현대일렉트릭</td><td>718,000</td><td>25,000</td><td>700,000</td><td class="t-flat">2.5%</td><td class="c">16/20일</td><td class="c">4봉</td><td>725,000</td><td>686,000</td></tr>
+          <tr><td class="l">LG</td><td>107,700</td><td>5,000</td><td>105,000</td><td class="t-flat">2.5%</td><td class="c">10/20일</td><td class="c">23봉</td><td>110,000</td><td>102,900</td></tr>
+          <tr><td class="l">두산</td><td>1,078,000</td><td>50,000</td><td>1,050,000</td><td class="t-flat">2.6%</td><td class="c">17/20일</td><td class="c">13봉</td><td>1,100,000</td><td>1,029,000</td></tr>
+          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>695,000</td><td>25,000</td><td>675,000</td><td class="t-flat">2.9%</td><td class="c">18/20일</td><td class="c">18봉</td><td>700,000</td><td>661,500</td></tr>
+          <tr><td class="l">고려아연</td><td>1,237,000</td><td>50,000</td><td>1,200,000</td><td class="t-flat">3.0%</td><td class="c">7/20일</td><td class="c">14봉</td><td>1,250,000</td><td>1,176,000</td></tr>
+          <tr><td class="l">삼성화재</td><td>661,000</td><td>10,000</td><td>640,000</td><td class="t-neg">3.2%</td><td class="c">5/20일</td><td class="c">27봉</td><td>650,000</td><td>627,200</td></tr>
+          <tr><td class="l">현대모비스</td><td>496,000</td><td>20,000</td><td>480,000</td><td class="t-neg">3.2%</td><td class="c">15/20일</td><td class="c">22봉</td><td>500,000</td><td>470,400</td></tr>
+          <tr><td class="l">삼성에스디에스</td><td>228,000</td><td>10,000</td><td>220,000</td><td class="t-neg">3.5%</td><td class="c">11/20일</td><td class="c">13봉</td><td>230,000</td><td>215,600</td></tr>
+          <tr><td class="l">현대차</td><td>415,000</td><td>20,000</td><td>400,000</td><td class="t-neg">3.6%</td><td class="c">13/20일</td><td class="c">10봉</td><td>420,000</td><td>392,000</td></tr>
+          <tr><td class="l">LS ELECTRIC</td><td>187,000</td><td>10,000</td><td>180,000</td><td class="t-neg">3.7%</td><td class="c">17/20일</td><td class="c">10봉</td><td>190,000</td><td>176,400</td></tr>
+          <tr><td class="l">삼성SDI</td><td>478,000</td><td>20,000</td><td>460,000</td><td class="t-neg">3.8%</td><td class="c">8/20일</td><td class="c">19봉</td><td>480,000</td><td>450,800</td></tr>
+          <tr><td class="l">SK텔레콤</td><td>102,200</td><td>2,500</td><td>97,500</td><td class="t-neg">4.6%</td><td class="c">6/20일</td><td class="c">24봉</td><td>100,000</td><td>95,550</td></tr>
+          <tr><td class="l">삼성생명</td><td>328,500</td><td>10,000</td><td>310,000</td><td class="t-neg">5.6%</td><td class="c">5/20일</td><td class="c">16봉</td><td>320,000</td><td>303,800</td></tr>
+          <tr><td class="l">SK하이닉스</td><td>1,730,000</td><td>100,000</td><td>1,600,000</td><td class="t-neg">7.5%</td><td class="c">8/20일</td><td class="c">11봉</td><td>1,700,000</td><td>1,568,000</td></tr>
+          <tr><td class="l">삼성전자</td><td>281,500</td><td>10,000</td><td>260,000</td><td class="t-neg">7.6%</td><td class="c">6/20일</td><td class="c">12봉</td><td>270,000</td><td>254,800</td></tr>
+          <tr><td class="l">삼성물산</td><td>395,500</td><td>10,000</td><td>360,000</td><td class="t-neg">9.0%</td><td class="c">5/20일</td><td class="c">11봉</td><td>370,000</td><td>352,800</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p1-kq">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">20</div><div class="lbl">분석 유니버스(코스닥TOP20)</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">4</div><div class="lbl">감시레벨 1%이내 근접</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">예상종목 리스트 <span class="sub">아직 이탈 전, 감시해야 할 라운드 레벨과의 거리 오름차순</span></div>
+    <div class="sc-note">"감시레벨(지지)"은 현재가 아래에서 트랙레코드(최근20거래일 중 5일 이상 그 레벨 위 유지)&middot;밀집도(최근150거래일 캔들 통과 3회 이상) 조건을 모두 충족하는 가장 가까운 라운드 레벨입니다. 이 레벨을 종가로 하향이탈한 뒤 5거래일 이내 재돌파하면 매수 신호가 발생합니다(아직 이탈 전이므로 참고용 관찰 대상입니다). TP&middot;STOP은 이탈&middot;재돌파가 실제로 발생했다고 가정했을 때의 예상 청산가입니다.</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:13%">종목명</th><th style="width:9%">현재가</th><th style="width:8%">step</th><th style="width:10%">감시레벨(지지)</th><th style="width:8%">거리</th><th class="c" style="width:10%">트랙레코드</th><th class="c" style="width:7%">밀집도</th><th style="width:9%">TP</th><th style="width:9%">STOP</th></tr></thead>
+        <tbody>
+          <tr><td class="l">리가켐바이오</td><td>100,000</td><td>5,000</td><td>100,000</td><td class="t-pos">0.0%</td><td class="c">13/20일</td><td class="c">6봉</td><td>105,000</td><td>98,000</td></tr>
+          <tr><td class="l">파마리서치</td><td>400,500</td><td>10,000</td><td>400,000</td><td class="t-pos">0.1%</td><td class="c">5/20일</td><td class="c">7봉</td><td>410,000</td><td>392,000</td></tr>
+          <tr><td class="l">에이비엘바이오</td><td>75,200</td><td>5,000</td><td>75,000</td><td class="t-pos">0.3%</td><td class="c">12/20일</td><td class="c">5봉</td><td>80,000</td><td>73,500</td></tr>
+          <tr><td class="l">에코프로비엠</td><td>105,600</td><td>5,000</td><td>105,000</td><td class="t-pos">0.6%</td><td class="c">12/20일</td><td class="c">7봉</td><td>110,000</td><td>102,900</td></tr>
+          <tr><td class="l">리노공업</td><td>65,700</td><td>2,500</td><td>65,000</td><td class="t-flat">1.1%</td><td class="c">14/20일</td><td class="c">14봉</td><td>67,500</td><td>63,700</td></tr>
+          <tr><td class="l">로보티즈</td><td>254,000</td><td>10,000</td><td>250,000</td><td class="t-flat">1.6%</td><td class="c">5/20일</td><td class="c">38봉</td><td>260,000</td><td>245,000</td></tr>
+          <tr><td class="l">피에스케이</td><td>122,200</td><td>5,000</td><td>120,000</td><td class="t-flat">1.8%</td><td class="c">17/20일</td><td class="c">6봉</td><td>125,000</td><td>117,600</td></tr>
+          <tr><td class="l">에코프로</td><td>81,700</td><td>5,000</td><td>80,000</td><td class="t-flat">2.1%</td><td class="c">14/20일</td><td class="c">11봉</td><td>85,000</td><td>78,400</td></tr>
+          <tr><td class="l">원익IPS</td><td>107,900</td><td>5,000</td><td>105,000</td><td class="t-flat">2.7%</td><td class="c">8/20일</td><td class="c">18봉</td><td>110,000</td><td>102,900</td></tr>
+          <tr><td class="l">ISC</td><td>154,300</td><td>5,000</td><td>150,000</td><td class="t-flat">2.8%</td><td class="c">5/20일</td><td class="c">14봉</td><td>155,000</td><td>147,000</td></tr>
+          <tr><td class="l">파두</td><td>61,900</td><td>5,000</td><td>60,000</td><td class="t-neg">3.1%</td><td class="c">15/20일</td><td class="c">21봉</td><td>65,000</td><td>58,800</td></tr>
+          <tr><td class="l">레인보우로보틱스</td><td>454,000</td><td>20,000</td><td>440,000</td><td class="t-neg">3.1%</td><td class="c">15/20일</td><td class="c">12봉</td><td>460,000</td><td>431,200</td></tr>
+          <tr><td class="l">알테오젠</td><td>320,000</td><td>10,000</td><td>310,000</td><td class="t-neg">3.1%</td><td class="c">6/20일</td><td class="c">17봉</td><td>320,000</td><td>303,800</td></tr>
+          <tr><td class="l">심텍</td><td>99,700</td><td>5,000</td><td>95,000</td><td class="t-neg">4.7%</td><td class="c">13/20일</td><td class="c">6봉</td><td>100,000</td><td>93,100</td></tr>
+          <tr><td class="l">펩트론</td><td>178,600</td><td>10,000</td><td>170,000</td><td class="t-neg">4.8%</td><td class="c">12/20일</td><td class="c">6봉</td><td>180,000</td><td>166,600</td></tr>
+          <tr><td class="l">주성엔지니어링</td><td>168,600</td><td>10,000</td><td>160,000</td><td class="t-neg">5.1%</td><td class="c">8/20일</td><td class="c">10봉</td><td>170,000</td><td>156,800</td></tr>
+          <tr><td class="l">이오테크닉스</td><td>404,500</td><td>10,000</td><td>380,000</td><td class="t-neg">6.1%</td><td class="c">5/20일</td><td class="c">22봉</td><td>390,000</td><td>372,400</td></tr>
+          <tr><td class="l">HLB</td><td>38,650</td><td>2,000</td><td>36,000</td><td class="t-neg">6.9%</td><td class="c">9/20일</td><td class="c">3봉</td><td>38,000</td><td>35,280</td></tr>
+          <tr><td class="l">HPSP</td><td>44,900</td><td>2,000</td><td>40,000</td><td class="t-neg">10.9%</td><td class="c">5/20일</td><td class="c">12봉</td><td>42,000</td><td>39,200</td></tr>
+          <tr><td class="l">삼천당제약</td><td>168,700</td><td>50,000</td><td>150,000</td><td class="t-neg">11.1%</td><td class="c">14/20일</td><td class="c">4봉</td><td>200,000</td><td>147,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p2">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">11</div><div class="lbl">보유종목 수</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">7/11</div><div class="lbl">플러스 수익 종목</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">-0.22%</div><div class="lbl">평균수익률</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">보유종목 현황 <span class="sub">Notion 보유종목DB 연동 &middot; 라운드넘버 전략 관점 재판정(화면표시용 축스케일 window200/ticks10)</span></div>
+    <div class="sc-note">보유종목이 반드시 이 전략으로 매수한 포지션이라는 뜻은 아닙니다 &mdash; 다른 전략/재량매매로 보유 중인 종목도 오늘 시점 라운드넘버 전략 규칙을 대입하면 어떤 자리에 있는지 참고용으로 보여줍니다. "라운드지지"&middot;"라운드저항"은 현재가 기준 가장 가까운 아래&middot;위 라운드 레벨과의 거리&middot;밀집도(터치봉수)입니다. 이 표의 축 스케일(window200/ticks10)은 화면 표시용으로, 백테스트&middot;최근신호 탭의 매매용 스케일(window150/ticks30)과 다릅니다.</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:13%">종목명</th><th class="c" style="width:9%">현재가</th><th style="width:8%">등락률</th><th style="width:9%">평단가</th><th style="width:9%">수익률</th><th style="width:9%">200EMA괴리</th><th class="l" style="width:17%">라운드지지</th><th class="l" style="width:17%">라운드저항</th></tr></thead>
+        <tbody>
+          <tr><td class="l">두산에너빌리티</td><td class="c">72,000</td><td class="t-neg">-1.77%</td><td>66,300</td><td class="t-pos">+8.60%</td><td class="t-neg-hi">-15.10%</td><td class="l">70,000(-2.8%,6봉)</td><td class="l">80,000(+11.1%,19봉)</td></tr>
+          <tr><td class="l">기아</td><td class="c">131,400</td><td class="t-pos">+0.38%</td><td>127,033</td><td class="t-pos">+3.44%</td><td class="t-neg">-7.00%</td><td class="l">130,000(-1.1%,13봉)</td><td class="l">140,000(+6.5%,15봉)</td></tr>
+          <tr><td class="l">카카오</td><td class="c">35,400</td><td class="t-neg">-1.12%</td><td>34,250</td><td class="t-pos">+3.36%</td><td class="t-neg-hi">-22.34%</td><td class="l">35,000(-1.1%,22봉)</td><td class="l">40,000(+13.0%,11봉)</td></tr>
+          <tr><td class="l">POSCO홀딩스</td><td class="c">320,500</td><td class="t-pos">+3.39%</td><td>310,750</td><td class="t-pos">+3.14%</td><td class="t-neg">-7.03%</td><td class="l">300,000(-6.4%,19봉)</td><td class="l">325,000(+1.4%,24봉)</td></tr>
+          <tr><td class="l">현대로템</td><td class="c">132,000</td><td class="t-pos">+1.46%</td><td>129,200</td><td class="t-pos">+2.17%</td><td class="t-neg-hi">-27.67%</td><td class="l">120,000(-9.1%,2봉)</td><td class="l">140,000(+6.1%,3봉)</td></tr>
+          <tr><td class="l">LG화학</td><td class="c">261,500</td><td class="t-pos">+3.56%</td><td>258,250</td><td class="t-pos">+1.26%</td><td class="t-neg-hi">-16.11%</td><td class="l">260,000(-0.6%,18봉)</td><td class="l">280,000(+7.1%,13봉)</td></tr>
+          <tr><td class="l">한화오션</td><td class="c">83,600</td><td class="t-neg">-0.71%</td><td>83,500</td><td class="t-pos">+0.12%</td><td class="t-neg-hi">-22.53%</td><td class="l">80,000(-4.3%,8봉)</td><td class="l">90,000(+7.7%,10봉)</td></tr>
+          <tr><td class="l">리노공업</td><td class="c">66,600</td><td class="t-pos">+1.37%</td><td>68,000</td><td class="t-neg">-2.06%</td><td class="t-neg-hi">-17.28%</td><td class="l">60,000(-9.9%,11봉)</td><td class="l">70,000(+5.1%,13봉)</td></tr>
+          <tr><td class="l">HD현대중공업</td><td class="c">451,000</td><td class="t-neg">-0.44%</td><td>472,000</td><td class="t-neg">-4.45%</td><td class="t-neg-hi">-16.47%</td><td class="l">450,000(-0.2%,8봉)</td><td class="l">475,000(+5.3%,20봉)</td></tr>
+          <tr><td class="l">삼성중공업</td><td class="c">20,050</td><td class="t-neg">-0.74%</td><td>21,350</td><td class="t-neg">-6.09%</td><td class="t-neg-hi">-18.68%</td><td class="l">20,000(-0.2%,6봉)</td><td class="l">22,000(+9.7%,21봉)</td></tr>
+          <tr><td class="l">두산로보틱스</td><td class="c">70,200</td><td class="t-neg">-0.99%</td><td>79,706</td><td class="t-neg-hi">-11.93%</td><td class="t-neg-hi">-17.41%</td><td class="l">70,000(-0.3%,15봉)</td><td class="l">80,000(+14.0%,23봉)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p3">
+  <div class="sc">
+    <div class="sc-title">매수/매도 전략 예시 <span class="sub">합성 예시 곡선(설명용) : 실선=종가, 점선(회색)=라운드레벨(L)</span></div>
+    <div class="chart-legend"><span><i style="border-color:var(--txt)"></i>종가</span><span class="dash" style="color:var(--txt2)">- - 라운드레벨(L, L+step)</span><span style="color:var(--txt)">①하향이탈 ②트랙레코드&middot;밀집도 검증된 레벨 확인 ③5거래일 이내 재돌파(매수) ④TP(다음 레벨 도달) 또는 ⑤STOP(L&times;98% 이탈)</span></div>
+    <svg viewBox="0 0 680 300" width="100%" height="300" style="display:block;max-width:100%">
+    <line x1="40" y1="120" x2="660" y2="120" stroke="var(--gray600)" stroke-width="1.4" stroke-dasharray="6,3"/>
+    <text x="44" y="112" font-size="12" fill="var(--txt2)">라운드레벨 L</text>
+    <line x1="40" y1="70" x2="660" y2="70" stroke="var(--gray600)" stroke-width="1.4" stroke-dasharray="6,3"/>
+    <text x="44" y="62" font-size="12" fill="var(--txt2)">L+step(TP)</text>
+    <polyline points="40,100 100,108 160,118 200,135 240,160 270,185 300,168 330,140 360,122 390,132 420,148 450,120 480,95 520,80 560,70 600,55 660,40" fill="none" stroke="var(--txt)" stroke-width="2.2"/>
+    <line x1="200" y1="135" x2="200" y2="220" stroke="var(--red)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="200" cy="135" r="6" fill="var(--red)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="200" y="238" font-size="13" font-weight="500" fill="var(--red)" text-anchor="middle">①</text>
+    <text x="200" y="254" font-size="12" fill="var(--txt2)" text-anchor="middle">하향이탈</text>
+    <line x1="300" y1="168" x2="300" y2="240" stroke="var(--gray600)" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="300" y="258" font-size="13" font-weight="500" fill="var(--gray600)" text-anchor="middle">②</text>
+    <text x="300" y="274" font-size="12" fill="var(--txt2)" text-anchor="middle">트랙레코드&middot;밀집도 검증</text>
+    <line x1="390" y1="132" x2="390" y2="60" stroke="var(--teal)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="390" cy="132" r="6" fill="var(--teal)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="390" y="46" font-size="13" font-weight="500" fill="var(--teal)" text-anchor="middle">③</text>
+    <text x="390" y="30" font-size="12" fill="var(--txt2)" text-anchor="middle">재돌파(매수)</text>
+    <line x1="560" y1="70" x2="560" y2="20" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="560" cy="70" r="6" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="560" y="14" font-size="13" font-weight="500" fill="var(--sky600)" text-anchor="middle">④</text>
+    <text x="620" y="14" font-size="12" fill="var(--txt2)" text-anchor="middle">TP(전량매도)</text>
+  </svg>
+    <div class="sc-note">라운드레벨(L)을 종가로 하향이탈(①)한 뒤, 그 레벨이 최근 트랙레코드&middot;밀집도 조건을 충족하는 "검증된" 레벨인지 확인(②)하고, 5거래일 이내 종가가 L을 다시 회복(재돌파, ③)하면 그 종가로 매수합니다. 청산은 종가가 다음 라운드레벨(L+step)에 도달하는 TP(④), L&times;98% 아래로 하락하는 STOP(⑤, 그림 미도시), 60거래일 경과하는 TIME 중 먼저 오는 조건입니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-08-21 확정, 2026-08-24 사다리형 분할매도 검증(도입보류) : 5번째 확정 매매전략(라운드넘버 지지/저항 되돌림)</span></div>
+    <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l shrink">구분</th><th class="l">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="l">대상 유니버스</td><td class="l wrap">코스피 TOP50 + 코스닥 TOP20</td></tr>
+          <tr><td class="l">라운드레벨 산출</td><td class="l wrap">최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열, D3.js 축눈금 알고리즘과 동일 계열)으로 반올림. 트레일링 윈도우로 매일 재계산(미래데이터 미사용)</td></tr>
+          <tr><td class="l">① 이탈</td><td class="l wrap">라운드레벨 L을 종가 기준 하향이탈(전일종가&ge;L, 당일종가&lt;L)</td></tr>
+          <tr><td class="l">② 트랙레코드</td><td class="l wrap">이탈 직전 최근20거래일 중 5일 이상 L 위에서 머문 적 있어야 함(그냥 지나가던 레벨이 아니라 최근에 지지로 기능했던 레벨만 인정)</td></tr>
+          <tr><td class="l">③ 밀집도</td><td class="l wrap">이탈일 기준 과거150거래일 동안 저가~고가(캔들 실제 움직임)가 L을 통과한 봉의 개수&ge;3회여야 "검증된 라운드 레벨"로 인정</td></tr>
+          <tr><td class="l">진입 시점</td><td class="l wrap">①②③ 충족 후 5거래일 이내 종가가 L을 다시 회복(재돌파)하는 첫날 그 종가로 매수(그 사이 L-step 아래로 한 번 더 떨어지면 지지 완전붕괴로 보고 포기)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건 : 먼저 오는 조건</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="c shrink">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
+        <tbody>
+          <tr><td class="c"><b>TP</b></td><td class="l wrap">종가가 다음 라운드레벨(L+step, 저항)에 도달</td><td class="l wrap">전량 매도(발생비중 72%)</td></tr>
+          <tr><td class="c"><b>STOP</b></td><td class="l wrap">종가가 L&times;98% 아래로 하락(라운드 지지가 결국 무너짐)</td><td class="l wrap">전량 매도(발생비중 28%)</td></tr>
+          <tr><td class="c"><b>TIME</b></td><td class="l wrap">60거래일 경과</td><td class="l wrap">전량 매도(사실상 거의 미발생)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">참고 백테스트 성과(코스피50+코스닥20 &times; 7년, 확정 최종 설정) : n=7845, 평균 <b class="t-pos">+0.30%</b>, 중앙값 <b class="t-pos">+0.72%</b>, 승률 <b>59%</b>, 평균보유 <b>2.1거래일</b>. 근거 상세는 백테스트 탭 참조. 체결가는 트리거를 넘긴/이탈한 날의 종가 기준이지 정확한 목표가가 아닙니다(갭업/급등일엔 목표가보다 훨씬 좋은 가격에 체결될 수 있음). 실전 매매 시엔 장마감 동시호가(15:20~15:30 종가단일가) 주문을 쓰거나, 다음날 시가 체결(슬리피지 발생)을 감안해야 합니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">매수(진입) 조건 : 4가지 순차 충족</div>
+    <div class="rule-box">
+      <div class="rb-title">라운드레벨(L) 산출 : 최근구간 고저범위 기반 niceStep</div>
+      <div class="rb-body">처음엔 "가격 자릿수"만으로 단위를 정했으나, 삼성전자&middot;SK하이닉스 실제 키움 HTS 차트와 대조한 결과 실제 축 간격은 자릿수가 아니라 "화면에 보이는 최근 구간의 가격범위"로 정해짐을 확인했습니다. 최근<b>150거래일</b> 고가~저가 범위&divide;<b>30눈금</b>을 1/2/2.5/5/10 계열의 "보기 좋은 수"(<code>niceStep</code>, D3.js 축 눈금 알고리즘과 동일 계열)로 반올림합니다. 그날그날 트레일링 윈도우로 매일 다시 계산하므로 미래 데이터를 쓰지 않습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">① 이탈 : 라운드레벨 종가 하향이탈</div>
+      <div class="rb-body">전일종가&ge;L, 당일종가&lt;L : 지정가 주문이 라운드 넘버에 몰리는 습성(주문 클러스터링) 때문에 심리적 레벨이 실제 매물대와 겹치는 경우가 많다는 관찰에서 출발했습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">② 트랙레코드 : 최근20거래일 중 5일 이상 L 위 유지</div>
+      <div class="rb-body">그냥 지나가던 레벨이 아니라 최근에 실제로 지지로 기능했던 레벨만 인정합니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">③ 밀집도 : 최근150거래일 캔들 통과 &ge;3회</div>
+      <div class="rb-body">종가 근접이 아니라 캔들의 실제 움직임(저가~고가)이 그 레벨을 통과한 봉의 개수로 계산합니다(사용자 요청, "실제로 가격이 라운드 넘버 부근에서 형성됐는지" 실증 근거). 다만 밀집도 구간별(낮음3~5회/중간6~9회/높음10회+) 성과 차이는 백테스트에서 확인되지 않았습니다(밀집도 가설 기각, 백테스트 탭 참조) &mdash; 그래도 "무의미한 레벨" 필터링 역할은 하므로 조건은 유지합니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">④ 재돌파 : 5거래일 이내 종가 L 회복 시 매수</div>
+      <div class="rb-body">①②③ 충족 후 5거래일 이내 종가가 L을 다시 회복(재돌파)하는 첫날 그 종가로 매수합니다. 그 전에 L-step 아래로 한 번 더 떨어지면 지지 완전붕괴로 보고 진입을 포기합니다.</div>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">매도(청산) 조건 : 먼저 오는 조건 하나로 확정</div>
+    <div class="rule-box">
+      <div class="rb-title">TP : 다음 라운드레벨(L+step) 도달</div>
+      <div class="rb-body">종가가 저항으로 작용하는 다음 라운드레벨에 도달하면 전량 매도합니다(전체 청산의 72%).</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">STOP : L&times;98% 이탈</div>
+      <div class="rb-body">진입 근거였던 지지 레벨이 결국 무너졌다고 보고 전량 매도합니다(전체 청산의 28%). 손절폭(stopBufferPct) 0.5~3% 스윕 결과 넓힐수록 승률&middot;중앙값&middot;평균수익률 모두 개선되지만 보유일수도 늘어 일평균기대치(perDay)는 반대로 하락 &mdash; 2%가 "perDay 손실 거의 없이 승률&middot;중앙값을 크게 개선"하는 변곡점이라 채택했습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">TIME : 60거래일 경과</div>
+      <div class="rb-body">평균보유일수가 2.1거래일에 불과해 사실상 거의 발동되지 않는 안전판입니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">사다리형 분할매도(TP1/TP2/TP3 각25%+잔여25%) : 검증 후 도입보류(2026-08-24)</div>
+      <div class="rb-body">단일 TP 대신 다음 3개 라운드레벨(L+1/2/3&times;step)에서 25%씩 분할매도하고 잔여25%는 기존 STOP/TIME까지 보유하는 방식을 동일 이벤트셋(n=7,757건)으로 검증했습니다. 평균수익률은 개선(+0.26%&rarr;+1.27%)됐지만 이는 극단적 소수 트레이드가 견인한 결과이고, 중앙값(+0.70%&rarr;-0.74%)&middot;승률(58%&rarr;45%)은 오히려 악화됐습니다 &mdash; 잔여물량을 60거래일까지 들고가다 결국 STOP으로 복귀하는 비중이 74%(기존28%)로 급증하는데, 이 전략 자체가 평균회귀 성격이라 "이익을 계속 태우는" 방식과 궁합이 안 맞기 때문입니다. <b>단일 TP 방식을 그대로 유지</b>하기로 확정했습니다.</div>
+    </div>
+  </div>
+
+  <div class="ai-sc">
+    <div class="ai-title">🔍 설계 원칙 : 왜 이렇게 정했는가</div>
+    <div class="ai-list">
+      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>라운드레벨 산출 로직 실증 검증(2026-08-21) : 처음엔 "가격 자릿수"만으로 단위를 정했으나(예: 28만원대&rarr;10만원 단위), 삼성전자&middot;SK하이닉스 실제 키움 HTS 차트와 대조한 결과 실제 축 간격은 자릿수가 아니라 "화면에 보이는 최근 구간의 가격범위"로 정해짐을 확인 &mdash; 삼성전자 25,000원/SK하이닉스 250,000원 축 간격 모두 "최근 구간 고저범위&divide;목표눈금"을 niceStep으로 반올림하면 정확히 재현됩니다. 화면표시용(보유종목 탭)은 실제 HTS 축과 시각적으로 일치하는 window200/ticks10을 쓰지만, 매매용(백테스트&middot;최근신호&middot;예상종목 탭)은 파라미터 스윕에서 매매 성과 기준으로 별도 확정한 window150/ticks30(더 촘촘한 그리드)을 씁니다 &mdash; "차트에 보기 좋은 눈금"과 "매매에 유리한 눈금"은 목적이 달라 반드시 같을 필요가 없다는 것을 스윕으로 확인했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>35조합 파라미터 스윕(2026-08-21) : windowDays&times;targetTicks 15조합은 perDay 0.12~0.14%로 전 구간 안정적(전략의 하루당 edge는 특정 파라미터에 의존하지 않는 강건한 성질)이지만, targetTicks를 올릴수록(그리드가 촘촘해질수록) 승률이 오르고 중앙값이 마이너스에서 플러스로 전환. stopBufferPct는 넓힐수록 승률&middot;중앙값&middot;평균수익률 모두 단조 상승하지만 보유일수도 늘어 perDay는 반대로 하락 &mdash; 2%가 변곡점. 최종 window150/ticks30/stop2%/reclaim5일 조합이 승률(59%)&middot;중앙값(+0.72%)&middot;perDay(0.143%, 전체 스윕 최고) 세 지표 동시 최상위로 확정했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>밀집도(터치카운트) 가설 기각 : "터치 많은 레벨이 더 잘 작동한다"는 가설을 검증했으나 낮음(3~5회)&middot;중간(6~9회)&middot;높음(10회+) 구간별 성과 차이가 확인되지 않았습니다(백테스트 탭 참조). 그래도 "전혀 형성된 적 없는 레벨"을 걸러내는 최소 필터 역할은 하므로 조건 자체는 유지합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-coral"></div><div>SK하이닉스 개별종목 유의사항 : 삼성전자는 풀 평균보다 우수(+0.43%, 승률64%)한 반면, <b>SK하이닉스는 승률57%인데도 평균수익률이 마이너스(-0.09%)</b>입니다 &mdash; 손실크기가 이익크기보다 커서 기대값이 음수입니다. 주력 종목이라 사다리형 분할매도로 개선 가능한지 별도 검증했는데(2026-08-24), 평균은 +1.06%로 개선됐지만 승률이 38%까지 떨어져 이 종목도 결국 단일 TP 방식을 유지하기로 했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>사다리형 분할매도 도입보류(2026-08-24) : 진입은 그대로 두고 청산만 TP1/TP2/TP3(L+1/2/3&times;step) 각 25%+잔여25%(STOP/TIME)로 바꿔 동일 이벤트셋으로 비교한 결과, 평균수익률은 개선됐지만 중앙값&middot;승률이 뚜렷이 악화됐습니다. 평균회귀 성격의 전략에 "이익을 계속 태우는" 청산 방식이 상충한다는 판단으로 단일 TP를 그대로 유지합니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀, EMA5&middot;20 단기)&middot;눌림목(추세추종, EMA50&middot;100 상승국면)&middot;EMA래더(완전정배열 추세추종)&middot;기준선(EMA200 장기 파동스윙)에 이은 5번째 확정 전략입니다. 진입시점 EMA200 상승국면이 하락국면보다 근소 우위(승률58% 동일, 평균+0.32% vs +0.16%)로 나타났지만 조건에 실제로 넣지는 않았습니다(진단용 사후분리만, 향후 검증 과제).</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p4">
+  <div class="sc">
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피50+코스닥20 &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(windowDays=150, targetTicks=30, minTouches=3, recentLookback=20, priorAboveDays=5, reclaimWindow=5, stopBufferPct=2, maxHold=60)</span></div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sky"><div class="num">7845</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+0.30%</div><div class="lbl">평균수익률</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+0.72%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">59%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">2.1일</div><div class="lbl">평균보유</div></div>
+    </div>
+    <div class="sc-note">최고 <b class="t-pos">+30.00%</b> &middot; 최저 <b class="t-neg-hi">-22.52%</b>. 전체 신호(이벤트) 발생 7848건 중 미확정 최근 신호를 제외한 유효표본 7845건입니다. 이 탭의 모든 수치는 <code>scripts/project_roundnumber_strategy_backtest.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과입니다(Yahoo Finance 데이터가 이전 실행 시점과 소폭 달라졌을 수 있어 과거 기록값을 그대로 베끼지 않고 매번 새로 확인).</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">청산 사유별 발생 빈도</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">사유</th><th>건수</th><th>비중</th></tr></thead>
+        <tbody>
+          <tr><td class="l">TP(다음 라운드레벨 도달)</td><td>5642건</td><td>72%</td></tr>
+          <tr><td class="l">STOP(L&times;98% 이탈)</td><td>2203건</td><td>28%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">밀집도(터치카운트) 구간별 성과 <span class="sub">"검증된 라운드 레벨"일수록 성과가 나은지 실증 &mdash; 가설 기각</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구간</th><th>n</th><th>평균</th><th>승률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">낮음(3~5회)</td><td>969</td><td class="t-pos">+0.14%</td><td>57%</td></tr>
+          <tr><td class="l">중간(6~9회)</td><td>1543</td><td class="t-pos">+0.59%</td><td>59%</td></tr>
+          <tr><td class="l">높음(10회+)</td><td>5333</td><td class="t-pos">+0.24%</td><td>59%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">터치카운트(밀집도)가 높다고 성과가 더 좋아지는 경향은 확인되지 않았습니다 &mdash; 밀집도는 "전혀 형성된 적 없는 레벨"을 걸러내는 최소 필터로만 유효합니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">EMA200 국면별 성과 분리 <span class="sub">진입시점 종가가 EMA200 위/아래 (진단용 사후분리, 진입조건에는 미반영)</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">국면</th><th>n</th><th>평균</th><th>승률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">상승국면(종가&ge;EMA200)</td><td>4186</td><td class="t-pos">+0.32%</td><td>58%</td></tr>
+          <tr><td class="l">하락국면(종가&lt;EMA200)</td><td>3068</td><td class="t-pos">+0.16%</td><td>58%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">EMA200 상승국면이 하락국면보다 근소 우위(평균+0.32% vs +0.16%, 승률은 58%로 동일)입니다. 개선폭이 크지 않아 아직 진입조건에 실제로 넣지는 않았습니다(다음 검증 과제).</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">사다리형 분할매도 검증 <span class="sub">2026-08-24 신규, 진입은 동일 &middot; 청산만 TP1/TP2/TP3(L+1/2/3&times;step) 각25%+잔여25%(STOP/TIME) &middot; 동일 이벤트셋 n=7,757건 비교 후 도입보류</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">방식</th><th>평균</th><th>중앙값</th><th>승률</th><th>평균보유</th></tr></thead>
+        <tbody>
+          <tr><td class="l wrap"><b>기존 단일TP(다음 라운드레벨 100%, 채택)</b></td><td class="t-pos"><b>+0.26%</b></td><td class="t-pos"><b>+0.70%</b></td><td><b>58%</b></td><td><b>2.2일</b></td></tr>
+          <tr><td class="l wrap">사다리(TP1/TP2/TP3 각25%+잔여25%)</td><td class="t-pos">+1.27%</td><td class="t-neg">-0.74%</td><td>45%</td><td>24.3일</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">사다리 방식은 TP1/TP2/TP3 도달률이 72%/61%/53%로 준수했지만, 마지막 잔여25%를 60거래일까지 들고가다 결국 STOP으로 복귀하는 비중이 74%(기존28%)로 급증해 중앙값&middot;승률이 크게 악화됐습니다. 평균수익률 개선은 극단적 소수 트레이드(최고+130%)가 견인한 결과라 "전형적 트레이드의 경험"은 오히려 나빠집니다 &mdash; 평균회귀 성격 전략과 "이익 태우기" 방식의 상충으로 판단해 <b>단일 TP 방식을 그대로 유지</b>합니다. 개별검증에서 SK하이닉스는 평균 -0.11%&rarr;+1.06%로 개선됐으나 승률이 57%&rarr;38%로 떨어져 역시 유지 결정에 포함됩니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">종목별 백테스트 결과 <span class="sub">코스피50+코스닥20, 신호수 내림차순</span></div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:24%">종목명</th><th class="c" style="width:10%">시장</th><th style="width:16%">신호</th><th style="width:16%">유효n</th><th style="width:17%">평균</th><th style="width:17%">승률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">펩트론</td><td class="c">KQ</td><td>147</td><td>147</td><td class="t-pos">+0.34%</td><td>54%</td></tr>
+          <tr><td class="l">HLB</td><td class="c">KQ</td><td>138</td><td>138</td><td class="t-pos">+0.56%</td><td>59%</td></tr>
+          <tr><td class="l">HMM</td><td class="c">KS</td><td>134</td><td>134</td><td class="t-neg">-0.50%</td><td>49%</td></tr>
+          <tr><td class="l">한국전력</td><td class="c">KS</td><td>134</td><td>134</td><td class="t-pos">+0.17%</td><td>55%</td></tr>
+          <tr><td class="l">삼천당제약</td><td class="c">KQ</td><td>134</td><td>134</td><td class="t-pos">+0.42%</td><td>56%</td></tr>
+          <tr><td class="l">기아</td><td class="c">KS</td><td>131</td><td>131</td><td class="t-pos">+0.20%</td><td>63%</td></tr>
+          <tr><td class="l">POSCO홀딩스</td><td class="c">KS</td><td>130</td><td>130</td><td class="t-neg">-0.28%</td><td>49%</td></tr>
+          <tr><td class="l">리가켐바이오</td><td class="c">KQ</td><td>130</td><td>130</td><td class="t-neg">-0.10%</td><td>55%</td></tr>
+          <tr><td class="l">한화오션</td><td class="c">KS</td><td>127</td><td>127</td><td class="t-pos">+0.39%</td><td>54%</td></tr>
+          <tr><td class="l">삼성바이오로직스</td><td class="c">KS</td><td>126</td><td>126</td><td class="t-pos">+0.60%</td><td>63%</td></tr>
+          <tr><td class="l">LG전자</td><td class="c">KS</td><td>125</td><td>125</td><td class="t-pos">+0.35%</td><td>64%</td></tr>
+          <tr><td class="l">로보티즈</td><td class="c">KQ</td><td>124</td><td>124</td><td class="t-pos">+0.22%</td><td>54%</td></tr>
+          <tr><td class="l">NAVER</td><td class="c">KS</td><td>123</td><td>123</td><td class="t-neg">-0.20%</td><td>57%</td></tr>
+          <tr><td class="l">삼성에스디에스</td><td class="c">KS</td><td>122</td><td>122</td><td class="t-pos">+0.36%</td><td>59%</td></tr>
+          <tr><td class="l">하나금융지주</td><td class="c">KS</td><td>121</td><td>121</td><td class="t-pos">+0.35%</td><td>64%</td></tr>
+          <tr><td class="l">S-Oil</td><td class="c">KS</td><td>121</td><td>121</td><td class="t-neg">-0.25%</td><td>52%</td></tr>
+          <tr><td class="l">에코프로비엠</td><td class="c">KQ</td><td>121</td><td>121</td><td class="t-pos">+0.14%</td><td>55%</td></tr>
+          <tr><td class="l">심텍</td><td class="c">KQ</td><td>121</td><td>121</td><td class="t-pos">+0.53%</td><td>59%</td></tr>
+          <tr><td class="l">현대차</td><td class="c">KS</td><td>120</td><td>120</td><td class="t-pos">+0.60%</td><td>61%</td></tr>
+          <tr><td class="l">한화에어로스페이스</td><td class="c">KS</td><td>120</td><td>120</td><td class="t-pos">+0.70%</td><td>63%</td></tr>
+          <tr><td class="l">에이비엘바이오</td><td class="c">KQ</td><td>120</td><td>120</td><td class="t-pos">+0.27%</td><td>53%</td></tr>
+          <tr><td class="l">두산</td><td class="c">KS</td><td>119</td><td>119</td><td class="t-pos">+0.66%</td><td>56%</td></tr>
+          <tr><td class="l">카카오</td><td class="c">KS</td><td>119</td><td>119</td><td class="t-neg">-0.57%</td><td>49%</td></tr>
+          <tr><td class="l">알테오젠</td><td class="c">KQ</td><td>119</td><td>119</td><td class="t-flat">+0.00%</td><td>54%</td></tr>
+          <tr><td class="l">HD현대일렉트릭</td><td class="c">KS</td><td>118</td><td>118</td><td class="t-pos">+1.27%</td><td>70%</td></tr>
+          <tr><td class="l">현대글로비스</td><td class="c">KS</td><td>118</td><td>118</td><td class="t-pos">+0.86%</td><td>63%</td></tr>
+          <tr><td class="l">주성엔지니어링</td><td class="c">KQ</td><td>118</td><td>118</td><td class="t-pos">+0.72%</td><td>60%</td></tr>
+          <tr><td class="l">셀트리온</td><td class="c">KS</td><td>117</td><td>117</td><td class="t-pos">+0.37%</td><td>59%</td></tr>
+          <tr><td class="l">삼성중공업</td><td class="c">KS</td><td>117</td><td>117</td><td class="t-neg">-0.22%</td><td>56%</td></tr>
+          <tr><td class="l">파마리서치</td><td class="c">KQ</td><td>117</td><td>117</td><td class="t-pos">+0.28%</td><td>58%</td></tr>
+          <tr><td class="l">삼성물산</td><td class="c">KS</td><td>116</td><td>116</td><td class="t-pos">+0.37%</td><td>59%</td></tr>
+          <tr><td class="l">현대모비스</td><td class="c">KS</td><td>116</td><td>116</td><td class="t-pos">+0.83%</td><td>66%</td></tr>
+          <tr><td class="l">리노공업</td><td class="c">KQ</td><td>115</td><td>115</td><td class="t-pos">+0.27%</td><td>59%</td></tr>
+          <tr><td class="l">SK텔레콤</td><td class="c">KS</td><td>115</td><td>114</td><td class="t-pos">+0.39%</td><td>67%</td></tr>
+          <tr><td class="l">미래에셋증권</td><td class="c">KS</td><td>114</td><td>114</td><td class="t-pos">+0.19%</td><td>62%</td></tr>
+          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td class="c">KS</td><td>114</td><td>114</td><td class="t-pos">+0.46%</td><td>61%</td></tr>
+          <tr><td class="l">피에스케이</td><td class="c">KQ</td><td>114</td><td>114</td><td class="t-pos">+0.39%</td><td>55%</td></tr>
+          <tr><td class="l">우리금융지주</td><td class="c">KS</td><td>111</td><td>111</td><td class="t-pos">+0.23%</td><td>63%</td></tr>
+          <tr><td class="l">KB금융</td><td class="c">KS</td><td>110</td><td>110</td><td class="t-pos">+0.18%</td><td>57%</td></tr>
+          <tr><td class="l">SK</td><td class="c">KS</td><td>110</td><td>110</td><td class="t-neg">-0.15%</td><td>59%</td></tr>
+          <tr><td class="l">삼성화재</td><td class="c">KS</td><td>110</td><td>110</td><td class="t-pos">+0.76%</td><td>65%</td></tr>
+          <tr><td class="l">두산에너빌리티</td><td class="c">KS</td><td>109</td><td>109</td><td class="t-pos">+0.41%</td><td>56%</td></tr>
+          <tr><td class="l">삼성SDI</td><td class="c">KS</td><td>109</td><td>109</td><td class="t-neg">-0.13%</td><td>57%</td></tr>
+          <tr><td class="l">삼성생명</td><td class="c">KS</td><td>108</td><td>108</td><td class="t-pos">+0.47%</td><td>60%</td></tr>
+          <tr><td class="l">신한지주</td><td class="c">KS</td><td>108</td><td>108</td><td class="t-pos">+0.34%</td><td>63%</td></tr>
+          <tr><td class="l">기업은행</td><td class="c">KS</td><td>109</td><td>108</td><td class="t-pos">+0.12%</td><td>71%</td></tr>
+          <tr><td class="l">에코프로</td><td class="c">KQ</td><td>108</td><td>108</td><td class="t-pos">+0.51%</td><td>55%</td></tr>
+          <tr><td class="l">고려아연</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-pos">+0.23%</td><td>55%</td></tr>
+          <tr><td class="l">SK이노베이션</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-neg">-0.04%</td><td>52%</td></tr>
+          <tr><td class="l">한미반도체</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-pos">+0.43%</td><td>58%</td></tr>
+          <tr><td class="l">LG화학</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-pos">+0.16%</td><td>60%</td></tr>
+          <tr><td class="l">HD현대</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-pos">+0.16%</td><td>60%</td></tr>
+          <tr><td class="l">LG</td><td class="c">KS</td><td>107</td><td>107</td><td class="t-neg">-0.15%</td><td>62%</td></tr>
+          <tr><td class="l">원익IPS</td><td class="c">KQ</td><td>108</td><td>107</td><td class="t-pos">+1.01%</td><td>57%</td></tr>
+          <tr><td class="l">SK하이닉스</td><td class="c">KS</td><td>105</td><td>105</td><td class="t-neg">-0.09%</td><td>57%</td></tr>
+          <tr><td class="l">삼성전기</td><td class="c">KS</td><td>105</td><td>105</td><td class="t-neg">-0.10%</td><td>58%</td></tr>
+          <tr><td class="l">KT&G</td><td class="c">KS</td><td>104</td><td>104</td><td class="t-pos">+0.34%</td><td>71%</td></tr>
+          <tr><td class="l">현대로템</td><td class="c">KS</td><td>104</td><td>104</td><td class="t-pos">+0.31%</td><td>62%</td></tr>
+          <tr><td class="l">ISC</td><td class="c">KQ</td><td>104</td><td>104</td><td class="t-neg">-0.07%</td><td>50%</td></tr>
+          <tr><td class="l">삼성전자</td><td class="c">KS</td><td>103</td><td>103</td><td class="t-pos">+0.43%</td><td>64%</td></tr>
+          <tr><td class="l">HD한국조선해양</td><td class="c">KS</td><td>103</td><td>103</td><td class="t-pos">+0.47%</td><td>58%</td></tr>
+          <tr><td class="l">이오테크닉스</td><td class="c">KQ</td><td>100</td><td>100</td><td class="t-pos">+0.56%</td><td>58%</td></tr>
+          <tr><td class="l">레인보우로보틱스</td><td class="c">KQ</td><td>97</td><td>97</td><td class="t-pos">+0.68%</td><td>57%</td></tr>
+          <tr><td class="l">효성중공업</td><td class="c">KS</td><td>88</td><td>88</td><td class="t-pos">+0.38%</td><td>61%</td></tr>
+          <tr><td class="l">HD현대중공업</td><td class="c">KS</td><td>84</td><td>84</td><td class="t-pos">+0.86%</td><td>58%</td></tr>
+          <tr><td class="l">LG에너지솔루션</td><td class="c">KS</td><td>77</td><td>77</td><td class="t-pos">+0.37%</td><td>62%</td></tr>
+          <tr><td class="l">HPSP</td><td class="c">KQ</td><td>73</td><td>73</td><td class="t-pos">+0.15%</td><td>56%</td></tr>
+          <tr><td class="l">SK스퀘어</td><td class="c">KS</td><td>63</td><td>63</td><td class="t-pos">+1.08%</td><td>67%</td></tr>
+          <tr><td class="l">파두</td><td class="c">KQ</td><td>49</td><td>49</td><td class="t-neg">-2.11%</td><td>39%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">SK하이닉스는 승률57%인데도 평균수익률이 마이너스(-0.09%)로, 개별 종목 중 유일하게 "승률은 준수한데 기대값이 음수"인 사례입니다(손실크기&gt;이익크기). 매매전략 탭 설계원칙 참조.</div>
+  </div>
+</div>
+
+</div></div>
+
+<script>
+function openSettingsModal(){ document.getElementById('settingsModal').classList.add('modal-open'); syncThemeOptUI(); }
+function closeSettingsModal(){ document.getElementById('settingsModal').classList.remove('modal-open'); }
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  try{ localStorage.setItem('theme', t); }catch(e){}
+  syncThemeOptUI();
+}
+function syncThemeOptUI(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  document.getElementById('theme-opt-dark')?.classList.toggle('on', cur === 'dark');
+  document.getElementById('theme-opt-light')?.classList.toggle('on', cur === 'light');
+}
+function showTab(i){
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('on',j===i));
+  document.querySelectorAll('.tab-btn').forEach((t,j)=>t.classList.toggle('on',j===i));
+}
+document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>showTab(parseInt(btn.dataset.tab)));
+  btn.addEventListener('touchend',e=>{e.preventDefault();showTab(parseInt(btn.dataset.tab));});
+});
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@
 - `stock-pullback.html` — 눌림목 매매전략 (추세추종·상승추세, V3_RETEST) — 스킬 `stock-pullback`
 - `stock-valuechain.html` — 주식 밸류체인 (업종별 실적·이슈 정리, 데이터는 JS 객체로 파일에 직접 하드코딩) — 스킬 `stock-valuechain`. 갱신은 Claude가 요청받을 때 노션 DB 등 자료를 참고해 이 파일의 데이터를 수동으로 고쳐 쓰는 방식(런타임 연동 아님).
 - `stock-baseline.html` — 기준선 매매전략 (EMA200 기준선 파동 전략, 되돌림·파동스윙) — 스킬 미정(신규), 생성 스크립트 `scripts/project_baseline_strategy_backtest.mjs` / `scripts/project_baseline_recent_signals.mjs` / `scripts/project_baseline_holdings_check.mjs`
+- `stock-roundnumber.html` — 라운드 넘버(피겨라운드) 매매전략 (라운드레벨 지지/저항 되돌림, 5번째 확정) — 스킬 미정(신규), 생성 스크립트 `scripts/project_roundnumber_strategy_backtest.mjs` / `scripts/project_roundnumber_recent_signals.mjs` / `scripts/project_roundnumber_recent_trades.mjs` / `scripts/project_holdings_quote_table.mjs`(보유종목 라운드지지/저항 컬럼)
 
 **파일명 규칙(2026-08-13 통일)**: 스킬명·스크립트명·앱 파일명이 전부 같은 슬러그를 공유한다 — 스킬 `stock-<slug>`, 종합생성 스크립트 `scripts/project_stock_<slug>.mjs`, 앱파일 `stock-<slug>.html`. 신규 전략 추가 시 이 규칙을 그대로 따를 것.
 
