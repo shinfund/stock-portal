@@ -255,7 +255,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
   <div class="sc">
     <div class="sc-title">라운드넘버 최근 45일 신호 상세 &middot; 코스피 TOP50 <span class="sub">라운드레벨 하향이탈 &rarr; 트랙레코드&middot;밀집도 검증 &rarr; 5거래일 이내 재돌파 시 매수</span></div>
-    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "우선순위"는 같은 날 진입신호가 3건 이상 몰릴 때만 표시되며(2건 이하는 &ndash;), 트레이드당10%&middot;총노출상한30%(=3건) 규칙에 따라 밀집도&rarr;지지일수 순으로 정렬한 순위입니다 &mdash; 1~3순위(보라)는 상한 이내, 4순위 이상(주황 "초과")은 자금 배분상 스킵을 권장하는 초과분입니다. 같은 진입일 내 행 순서도 이 우선순위(1&rarr;2&rarr;3&rarr;초과) 기준으로 정렬되어 있습니다.</div>
+    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "우선순위"는 같은 날 진입신호가 3건 이상 몰릴 때만 표시되며(2건 이하는 &ndash;), 트레이드당10%&middot;총노출상한30%(=3건) 규칙에 따라 밀집도&rarr;지지일수 순으로 정렬한 순위입니다 &mdash; 1~3순위(보라)는 상한 이내, 4순위 이상(주황 "초과")은 자금 배분상 스킵을 권장하는 초과분입니다. 같은 진입일 내 행 순서도 이 우선순위(1&rarr;2&rarr;3&rarr;초과) 기준으로 정렬되어 있습니다. <b>이 표와 아래 차트는 2026-08-24 장마감 기준 스냅샷으로, 2026-08-25 추가된 ⑥ 진입가 위치 필터(레벨가 근접 진입 제외) 적용 전 신호까지 포함합니다</b> &mdash; 다음 장마감 갱신 때 필터 적용된 목록으로 교체됩니다(참고: 이 필터를 적용하면 2026-08-20 미래에셋증권 STOP손절(-4.43%) 등 일부 저품질 신호가 목록에서 제외됩니다).</div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:8%">진입일</th><th class="l" style="width:12%">종목</th><th style="width:8%">현재가</th><th style="width:8%">진입가</th><th style="width:8%">레벨(L)</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="c" style="width:8%">지지일수</th><th class="c" style="width:6%">밀집도</th><th class="c" style="width:7%">우선순위</th><th class="l" style="width:11%">상태</th><th style="width:8%">수익률</th></tr></thead>
@@ -824,7 +824,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 
   <div class="sc">
-    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-08-21 확정, 2026-08-24 사다리형 분할매도 검증(도입보류)&middot;오버슈트 필터&middot;코스피 전용 전환&middot;포지션 사이징 확정 : 5번째 확정 매매전략(라운드넘버 지지/저항 되돌림)</span></div>
+    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-08-21 확정, 2026-08-24 사다리형 분할매도 검증(도입보류)&middot;오버슈트 필터&middot;코스피 전용 전환&middot;포지션 사이징 확정, 2026-08-25 진입가 위치 필터 추가 : 5번째 확정 매매전략(라운드넘버 지지/저항 되돌림)</span></div>
     <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건</b></div>
     <div class="tbl-wrap">
       <table>
@@ -837,6 +837,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
           <tr><td class="l">③ 밀집도</td><td class="l wrap">이탈일 기준 과거150거래일 동안 저가~고가(캔들 실제 움직임)가 L을 통과한 봉의 개수&ge;3회여야 "검증된 라운드 레벨"로 인정</td></tr>
           <tr><td class="l">진입 시점</td><td class="l wrap">①②③ 충족 후 5거래일 이내 종가가 L을 다시 회복(재돌파)하는 첫날 그 종가로 매수(그 사이 L-step 아래로 한 번 더 떨어지면 지지 완전붕괴로 보고 포기)</td></tr>
           <tr><td class="l">⑤ 오버슈트 필터</td><td class="l wrap">재돌파일 종가가 갭업으로 다음 라운드레벨(L+step, TP가)까지 이미 넘겨버린 경우는 진입 제외(2026-08-24 추가)</td></tr>
+          <tr><td class="l">⑥ 진입가 위치 필터</td><td class="l wrap">진입가가 레벨가(L, 0%)~TP가(L+step, 100%) 구간 내 하위 20% 미만(레벨가에 바짝 붙어 진입)이면 제외(2026-08-25 추가)</td></tr>
         </tbody>
       </table>
     </div>
@@ -845,13 +846,13 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table>
         <thead><tr><th class="c shrink">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
         <tbody>
-          <tr><td class="c"><b>TP</b></td><td class="l wrap">종가가 다음 라운드레벨(L+step, 저항)에 도달</td><td class="l wrap">전량 매도(발생비중 61%)</td></tr>
-          <tr><td class="c"><b>STOP</b></td><td class="l wrap">종가가 L&times;98% 아래로 하락(라운드 지지가 결국 무너짐)</td><td class="l wrap">전량 매도(발생비중 39%)</td></tr>
+          <tr><td class="c"><b>TP</b></td><td class="l wrap">종가가 다음 라운드레벨(L+step, 저항)에 도달</td><td class="l wrap">전량 매도(발생비중 67%)</td></tr>
+          <tr><td class="c"><b>STOP</b></td><td class="l wrap">종가가 L&times;98% 아래로 하락(라운드 지지가 결국 무너짐)</td><td class="l wrap">전량 매도(발생비중 33%)</td></tr>
           <tr><td class="c"><b>TIME</b></td><td class="l wrap">60거래일 경과</td><td class="l wrap">전량 매도(사실상 거의 미발생)</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="sc-note">참고 백테스트 성과(코스피50 전용 &times; 7년, 오버슈트 필터+코스피 전용 적용 확정 최종 설정, 2026-08-24 갱신) : n=3337, 평균 <b class="t-pos">+0.35%</b>, 중앙값 <b class="t-pos">+1.13%</b>, 승률 <b>63%</b>, 평균보유 <b>2.7거래일</b>(코스피+코스닥 통합 시절 n=4660&middot;승률61%&middot;중앙값+1.13%에서 코스닥 제외로 승률 개선). 근거 상세는 백테스트 탭 참조. 체결가는 트리거를 넘긴/이탈한 날의 종가 기준이지 정확한 목표가가 아닙니다(갭업/급등일엔 목표가보다 훨씬 좋은 가격에 체결될 수 있음). 실전 매매 시엔 장마감 동시호가(15:20~15:30 종가단일가) 주문을 쓰거나, 다음날 시가 체결(슬리피지 발생)을 감안해야 합니다.</div>
+    <div class="sc-note">참고 백테스트 성과(코스피50 전용 &times; 7년, 오버슈트 필터+코스피 전용+진입가 위치 필터 적용 확정 최종 설정, 2026-08-25 갱신) : n=2313, 평균 <b class="t-pos">+0.36%</b>, 중앙값 <b class="t-pos">+1.12%</b>, 승률 <b>67%</b>, 평균보유 <b>2.6거래일</b>(진입가 위치 필터 적용 전 n=3337&middot;승률63%&middot;중앙값+1.13%에서 STOP비율만 낮아지는 신호를 걸러내 승률 개선). 근거 상세는 백테스트 탭 참조. 체결가는 트리거를 넘긴/이탈한 날의 종가 기준이지 정확한 목표가가 아닙니다(갭업/급등일엔 목표가보다 훨씬 좋은 가격에 체결될 수 있음). 실전 매매 시엔 장마감 동시호가(15:20~15:30 종가단일가) 주문을 쓰거나, 다음날 시가 체결(슬리피지 발생)을 감안해야 합니다.</div>
   </div>
 
   <div class="sc">
@@ -881,6 +882,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="rb-body">재돌파일에 갭업이 크면 종가가 라운드레벨 L뿐 아니라 다음 레벨(L+step, TP가)까지도 하루 만에 넘어버릴 수 있습니다. 이런 "오버슈트" 진입은 상단(TP)이 이미 소진되고 하단(STOP)만 열려있는 리스크 구조라, 정상 진입과 성과를 분리 백테스트한 결과 뚜렷이 열위(오버슈트 승률55%&middot;중앙값+0.28% vs 정상 승률61%&middot;중앙값+1.13%, project_roundnumber_entry_overshoot_backtest.mjs)로 확인돼 신호에서 제외합니다.</div>
     </div>
     <div class="rule-box">
+      <div class="rb-title">⑥ 진입가 위치 필터 : 레벨가~TP가 구간 하위 20% 미만 제외(2026-08-25 추가)</div>
+      <div class="rb-body">진입가(재돌파일 종가)가 레벨가(L, 0%)~TP가(L+step, 100%) 구간 중 어디 위치하는지 계산해보니, 레벨가에 바짝 붙어서 "딱 회복만 하고" 진입하는 신호일수록 STOP 확률이 뚜렷이 높았습니다(위치0~20%: 승률55%&middot;STOP비율45% vs 20~100%: 승률63~73%&middot;STOP비율27~37%, 단조 패턴). 손실종목 축소를 위해 그동안 시도한 9개 신호단위 필터(터치카운트&middot;재돌파소요일&middot;이탈깊이&middot;EMA200국면&middot;TP고가터치&middot;변동성&middot;STOP밀집도&middot;되돌림폭&middot;거래량급증)가 전부 무력했던 것과 달리, 이 조건만 유일하게 뚜렷한 단조 패턴을 보였습니다. 임계값 스윕 결과 20%가 perDay(하루당 기대치)까지 개선되는 균형점이라(신호31%감소, 승률63%&rarr;67%, STOP비율37%&rarr;33%, perDay 0.132%&rarr;0.138%) 확정 조건으로 채택했습니다(project_roundnumber_entry_position_backtest.mjs).</div>
+    </div>
+    <div class="rule-box">
       <div class="rb-title">대상 유니버스 : 코스피 전용(코스닥 제외, 2026-08-24 추가)</div>
       <div class="rb-body">시장별(코스피/코스닥) 성과 분리 결과 코스피 승률63%(n=3,337) vs 코스닥 승률56%(n=1,323)로 뚜렷한 격차가 확인됐습니다. 중앙값(+1.13%/+1.12%)은 거의 동일해 "이긴 트레이드 크기"는 같지만, 코스닥이 변동성이 커서 STOP에 더 자주 먼저 닿는 것으로 판단됩니다. 코스닥 전용 STOP버퍼 스윕(2~5%)으로 개선을 시도했으나 승률은 56%&rarr;64%(4%버퍼)까지 올라도 평균수익률은 거의 그대로(+0.21%&rarr;+0.23%)고 하루당 기대치(perDay)는 오히려 하락(0.091%&rarr;0.072%, 코스피 기준값 0.130%에 한참 못 미침)해 파라미터 조정으로는 해소되지 않는 구조적 문제로 판단, 코스닥을 기본 유니버스에서 완전히 제외했습니다.</div>
     </div>
@@ -890,15 +895,15 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
     <div class="sc-title">매도(청산) 조건 : 먼저 오는 조건 하나로 확정</div>
     <div class="rule-box">
       <div class="rb-title">TP : 다음 라운드레벨(L+step) 도달</div>
-      <div class="rb-body">종가가 저항으로 작용하는 다음 라운드레벨에 도달하면 전량 매도합니다(전체 청산의 61%).</div>
+      <div class="rb-body">종가가 저항으로 작용하는 다음 라운드레벨에 도달하면 전량 매도합니다(전체 청산의 67%).</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">STOP : L&times;98% 이탈</div>
-      <div class="rb-body">진입 근거였던 지지 레벨이 결국 무너졌다고 보고 전량 매도합니다(전체 청산의 39%). 손절폭(stopBufferPct) 0.5~3% 스윕 결과 넓힐수록 승률&middot;중앙값&middot;평균수익률 모두 개선되지만 보유일수도 늘어 일평균기대치(perDay)는 반대로 하락 &mdash; 2%가 "perDay 손실 거의 없이 승률&middot;중앙값을 크게 개선"하는 변곡점이라 채택했습니다.</div>
+      <div class="rb-body">진입 근거였던 지지 레벨이 결국 무너졌다고 보고 전량 매도합니다(전체 청산의 33%). 손절폭(stopBufferPct) 0.5~3% 스윕 결과 넓힐수록 승률&middot;중앙값&middot;평균수익률 모두 개선되지만 보유일수도 늘어 일평균기대치(perDay)는 반대로 하락 &mdash; 2%가 "perDay 손실 거의 없이 승률&middot;중앙값을 크게 개선"하는 변곡점이라 채택했습니다.</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">TIME : 60거래일 경과</div>
-      <div class="rb-body">평균보유일수가 2.5거래일에 불과해 사실상 거의 발동되지 않는 안전판입니다.</div>
+      <div class="rb-body">평균보유일수가 2.6거래일에 불과해 사실상 거의 발동되지 않는 안전판입니다.</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">사다리형 분할매도(TP1/TP2/TP3 각25%+잔여25%) : 검증 후 도입보류(2026-08-24)</div>
@@ -932,7 +937,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>라운드레벨 산출 로직 실증 검증(2026-08-21) : 처음엔 "가격 자릿수"만으로 단위를 정했으나(예: 28만원대&rarr;10만원 단위), 삼성전자&middot;SK하이닉스 실제 키움 HTS 차트와 대조한 결과 실제 축 간격은 자릿수가 아니라 "화면에 보이는 최근 구간의 가격범위"로 정해짐을 확인 &mdash; 삼성전자 25,000원/SK하이닉스 250,000원 축 간격 모두 "최근 구간 고저범위&divide;목표눈금"을 niceStep으로 반올림하면 정확히 재현됩니다. 화면표시용(보유종목 탭)은 실제 HTS 축과 시각적으로 일치하는 window200/ticks10을 쓰지만, 매매용(백테스트&middot;최근신호&middot;예상종목 탭)은 파라미터 스윕에서 매매 성과 기준으로 별도 확정한 window150/ticks30(더 촘촘한 그리드)을 씁니다 &mdash; "차트에 보기 좋은 눈금"과 "매매에 유리한 눈금"은 목적이 달라 반드시 같을 필요가 없다는 것을 스윕으로 확인했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>35조합 파라미터 스윕(2026-08-21) : windowDays&times;targetTicks 15조합은 perDay 0.12~0.14%로 전 구간 안정적(전략의 하루당 edge는 특정 파라미터에 의존하지 않는 강건한 성질)이지만, targetTicks를 올릴수록(그리드가 촘촘해질수록) 승률이 오르고 중앙값이 마이너스에서 플러스로 전환. stopBufferPct는 넓힐수록 승률&middot;중앙값&middot;평균수익률 모두 단조 상승하지만 보유일수도 늘어 perDay는 반대로 하락 &mdash; 2%가 변곡점. 최종 window150/ticks30/stop2%/reclaim5일 조합이 승률(59%)&middot;중앙값(+0.72%)&middot;perDay(0.143%, 전체 스윕 최고) 세 지표 동시 최상위로 확정했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>밀집도(터치카운트) 가설 기각 : "터치 많은 레벨이 더 잘 작동한다"는 가설을 검증했으나 낮음(3~5회)&middot;중간(6~9회)&middot;높음(10회+) 구간별 성과 차이가 확인되지 않았습니다(백테스트 탭 참조). 그래도 "전혀 형성된 적 없는 레벨"을 걸러내는 최소 필터 역할은 하므로 조건 자체는 유지합니다.</div></div>
-      <div class="ai-item"><div class="ai-dot ai-dot-coral"></div><div>SK하이닉스 개별종목 유의사항 : 삼성전자는 풀 평균보다 우수(+0.43%, 승률64%)한 반면, <b>SK하이닉스는 승률57%인데도 평균수익률이 마이너스(-0.09%)</b>입니다 &mdash; 손실크기가 이익크기보다 커서 기대값이 음수입니다. 주력 종목이라 사다리형 분할매도로 개선 가능한지 별도 검증했는데(2026-08-24), 평균은 +1.06%로 개선됐지만 승률이 38%까지 떨어져 이 종목도 결국 단일 TP 방식을 유지하기로 했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>손실종목(STOP) 축소 필터 탐색(2026-08-25) : 사용자 요청으로 "손실종목을 사전에 걸러낼 수 있는지" 신호단위 특성 9종(터치카운트&middot;재돌파소요일&middot;이탈깊이&middot;EMA200국면&middot;TP가 고가터치&middot;진입시점변동성ATR%&middot;STOP가 자체 밀집도&middot;이탈~재돌파 되돌림폭&middot;거래량급증)을 차례로 검증했으나 전부 STOP/TP를 구분하지 못했습니다(구간별 STOP비율 차이 5%p 미만). 마지막으로 "진입가가 레벨가~TP가 구간 중 어디 위치하는지"를 검증하자 뚜렷한 단조 패턴이 발견돼(레벨가 근접=위험, TP가 근접=안전) 위 ⑥번 필터로 확정 반영했습니다(project_roundnumber_entry_position_backtest.mjs).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-coral"></div><div>SK하이닉스 등 개별종목 유의사항(진입가 위치 필터 적용 후 재확인) : 필터 적용 후에도 종목별 편차는 여전히 큽니다 &mdash; HMM(-0.92%&middot;승률44%)&middot;SK하이닉스(-0.61%&middot;승률53%)&middot;삼성SDI(-0.63%&middot;승률60%)&middot;카카오(-0.63%&middot;승률56%)는 평균수익률이 마이너스인 반면, LS ELECTRIC(+1.94%&middot;승률76%)&middot;삼성화재(+1.45%&middot;승률78%)&middot;현대차(+1.50%&middot;승률73%) 등은 크게 우수합니다. 종목단위 배제는 인샘플 편향 우려로 아직 보류 중입니다(다음 검증 과제, 아웃오브샘플 검증 필요).</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>사다리형 분할매도 도입보류(2026-08-24) : 진입은 그대로 두고 청산만 TP1/TP2/TP3(L+1/2/3&times;step) 각 25%+잔여25%(STOP/TIME)로 바꿔 동일 이벤트셋으로 비교한 결과, 평균수익률은 개선됐지만 중앙값&middot;승률이 뚜렷이 악화됐습니다. 평균회귀 성격의 전략에 "이익을 계속 태우는" 청산 방식이 상충한다는 판단으로 단일 TP를 그대로 유지합니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>오버슈트 필터 추가(2026-08-24) : 보유종목 시세표에서 삼성SDI 신규 진입신호의 진입가가 이미 TP가를 넘긴 상태로 포착된 것을 계기로, "재돌파일 종가가 갭업으로 TP가(L+step)까지 이미 넘긴" 오버슈트 이벤트를 정상 이벤트와 분리 백테스트했습니다. 오버슈트(n=3,187)는 TP도달률(88%)은 오히려 높지만 진입가 자체가 이미 목표 근처/위라 실제로 남는 이익폭이 작아 승률(55%)&middot;중앙값(+0.28%)이 정상(n=4,660, 승률61%&middot;중앙값+1.13%)보다 뚜렷이 낮았습니다 &mdash; 사용자 승인으로 오버슈트를 진입 대상에서 제외해 확정 전략에 반영했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>코스피 전용 전환(2026-08-24) : "코스닥 승률이 낮아 보인다"는 사용자 문제제기로 시장별 성과를 분리한 결과 코스피 승률63% vs 코스닥 승률56%로 뚜렷한 격차를 확인했습니다. 중앙값은 거의 동일해 "이긴 트레이드 크기"는 같았고, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮았습니다. 코스닥 전용 STOP버퍼를 2%&rarr;5%까지 스윕해 해소를 시도했으나 승률은 개선돼도(56%&rarr;64%) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%)해 파라미터로 풀리는 문제가 아니라고 판단, 사용자 승인으로 코스닥을 기본 유니버스에서 완전히 제외했습니다(최근신호&middot;예상종목 KQ 탭 자체를 삭제, 근거는 이 탭의 "시장별 성과 분리" 섹션 및 매매전략 탭 참고).</div></div>
@@ -944,15 +950,15 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 
 <div class="panel" id="p4">
   <div class="sc">
-    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피50 전용(코스닥 제외, 2026-08-24) &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(windowDays=150, targetTicks=30, minTouches=3, recentLookback=20, priorAboveDays=5, reclaimWindow=5, stopBufferPct=2, maxHold=60)</span></div>
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피50 전용(코스닥 제외, 2026-08-24) &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(windowDays=150, targetTicks=30, minTouches=3, recentLookback=20, priorAboveDays=5, reclaimWindow=5, stopBufferPct=2, maxHold=60, minEntryPositionPct=20)</span></div>
     <div class="kpi-row">
-      <div class="kpi-card kpi-sky"><div class="num">3337</div><div class="lbl">표본(n)</div></div>
-      <div class="kpi-card kpi-teal"><div class="num">+0.35%</div><div class="lbl">평균수익률</div></div>
-      <div class="kpi-card kpi-purple"><div class="num">+1.13%</div><div class="lbl">중앙값</div></div>
-      <div class="kpi-card kpi-coral"><div class="num">63%</div><div class="lbl">승률</div></div>
-      <div class="kpi-card kpi-amber"><div class="num">2.7일</div><div class="lbl">평균보유</div></div>
+      <div class="kpi-card kpi-sky"><div class="num">2313</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+0.36%</div><div class="lbl">평균수익률</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+1.12%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">67%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">2.6일</div><div class="lbl">평균보유</div></div>
     </div>
-    <div class="sc-note">최고 <b class="t-pos">+26.61%</b> &middot; 최저 <b class="t-neg-hi">-15.50%</b>. 오버슈트 필터+코스피 전용(코스닥 제외, 2026-08-24 추가) 적용 후 유효표본 3337건입니다(코스피+코스닥 통합 시절 n=4,660&middot;승률61%&middot;중앙값+1.13%에서 코스닥 제외로 승률 개선). 이 탭의 모든 수치는 <code>scripts/project_roundnumber_strategy_backtest.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과입니다(Yahoo Finance 데이터가 이전 실행 시점과 소폭 달라졌을 수 있어 과거 기록값을 그대로 베끼지 않고 매번 새로 확인).</div>
+    <div class="sc-note">최고 <b class="t-pos">+26.61%</b> &middot; 최저 <b class="t-neg-hi">-15.50%</b>. 오버슈트 필터+코스피 전용+진입가 위치 필터(2026-08-25 추가) 적용 후 유효표본 2313건입니다(진입가 위치 필터 적용 전 n=3,337&middot;승률63%&middot;중앙값+1.13%에서 레벨가에 바짝 붙어 진입하는 저품질 신호를 제외해 승률 개선). 이 탭의 모든 수치는 <code>scripts/project_roundnumber_strategy_backtest.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과입니다(Yahoo Finance 데이터가 이전 실행 시점과 소폭 달라졌을 수 있어 과거 기록값을 그대로 베끼지 않고 매번 새로 확인).</div>
   </div>
 
   <div class="sc">
@@ -961,15 +967,15 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table>
         <thead><tr><th class="l">사유</th><th>건수</th><th>비중</th></tr></thead>
         <tbody>
-          <tr><td class="l">TP(다음 라운드레벨 도달)</td><td>2106건</td><td>63%</td></tr>
-          <tr><td class="l">STOP(L&times;98% 이탈)</td><td>1231건</td><td>37%</td></tr>
+          <tr><td class="l">TP(다음 라운드레벨 도달)</td><td>1548건</td><td>67%</td></tr>
+          <tr><td class="l">STOP(L&times;98% 이탈)</td><td>765건</td><td>33%</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">시장별(코스피/코스닥) 성과 분리 <span class="sub">코스닥 제외 결정의 근거(2026-08-24) &middot; 코스닥 포함 전체 유니버스로 별도 재실행한 결과</span></div>
+    <div class="sc-title">시장별(코스피/코스닥) 성과 분리 <span class="sub">코스닥 제외 결정의 근거(2026-08-24, 진입가 위치 필터 적용 전 수치) &middot; 코스닥 포함 전체 유니버스로 별도 재실행한 결과</span></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">구분</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>TP비율</th></tr></thead>
@@ -988,9 +994,9 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table>
         <thead><tr><th class="l">구간</th><th>n</th><th>평균</th><th>승률</th></tr></thead>
         <tbody>
-          <tr><td class="l">낮음(3~5회)</td><td>410</td><td class="t-pos">+0.38%</td><td>64%</td></tr>
-          <tr><td class="l">중간(6~9회)</td><td>676</td><td class="t-pos">+0.57%</td><td>62%</td></tr>
-          <tr><td class="l">높음(10회+)</td><td>2251</td><td class="t-pos">+0.28%</td><td>63%</td></tr>
+          <tr><td class="l">낮음(3~5회)</td><td>289</td><td class="t-pos">+0.32%</td><td>69%</td></tr>
+          <tr><td class="l">중간(6~9회)</td><td>472</td><td class="t-pos">+0.64%</td><td>67%</td></tr>
+          <tr><td class="l">높음(10회+)</td><td>1552</td><td class="t-pos">+0.28%</td><td>67%</td></tr>
         </tbody>
       </table>
     </div>
@@ -1003,12 +1009,12 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table>
         <thead><tr><th class="l">국면</th><th>n</th><th>평균</th><th>승률</th></tr></thead>
         <tbody>
-          <tr><td class="l">상승국면(종가&ge;EMA200)</td><td>1688</td><td class="t-pos">+0.30%</td><td>62%</td></tr>
-          <tr><td class="l">하락국면(종가&lt;EMA200)</td><td>1420</td><td class="t-pos">+0.31%</td><td>64%</td></tr>
+          <tr><td class="l">상승국면(종가&ge;EMA200)</td><td>1180</td><td class="t-pos">+0.28%</td><td>66%</td></tr>
+          <tr><td class="l">하락국면(종가&lt;EMA200)</td><td>988</td><td class="t-pos">+0.28%</td><td>68%</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="sc-note">EMA200 하락국면이 상승국면보다 근소 우위(승률64%&middot;평균+0.31% vs 승률62%&middot;평균+0.30%)입니다 &mdash; 코스닥 포함 시절(상승국면이 근소 우위)과 우열이 뒤바뀌었으나 차이 자체가 크지 않습니다. 진입조건에 실제로 넣지는 않았습니다(다음 검증 과제).</div>
+    <div class="sc-note">EMA200 하락국면이 상승국면보다 근소 우위(승률68% vs 승률66%, 평균수익률은 동일)입니다 &mdash; 진입가 위치 필터 적용 후에도 우열관계는 유지됩니다. 진입조건에 실제로 넣지는 않았습니다(다음 검증 과제).</div>
   </div>
 
   <div class="sc">
@@ -1031,60 +1037,60 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:30%">종목명</th><th style="width:17%">신호</th><th style="width:17%">유효n</th><th style="width:18%">평균</th><th style="width:18%">승률</th></tr></thead>
         <tbody>
-          <tr><td class="l">기아</td><td>84</td><td>84</td><td class="t-neg">-0.03%</td><td>60%</td></tr>
-          <tr><td class="l">카카오</td><td>82</td><td>82</td><td class="t-neg">-0.80%</td><td>48%</td></tr>
-          <tr><td class="l">POSCO홀딩스</td><td>82</td><td>81</td><td class="t-neg">-0.23%</td><td>47%</td></tr>
-          <tr><td class="l">한화오션</td><td>79</td><td>79</td><td class="t-pos">+0.72%</td><td>56%</td></tr>
-          <tr><td class="l">HMM</td><td>79</td><td>79</td><td class="t-neg">-0.67%</td><td>46%</td></tr>
-          <tr><td class="l">기업은행</td><td>80</td><td>79</td><td class="t-pos">+0.26%</td><td>77%</td></tr>
-          <tr><td class="l">한국전력</td><td>78</td><td>78</td><td class="t-neg">-0.14%</td><td>60%</td></tr>
-          <tr><td class="l">하나금융지주</td><td>77</td><td>77</td><td class="t-pos">+0.49%</td><td>66%</td></tr>
-          <tr><td class="l">삼성에스디에스</td><td>77</td><td>77</td><td class="t-pos">+0.90%</td><td>70%</td></tr>
-          <tr><td class="l">S-Oil</td><td>76</td><td>76</td><td class="t-neg">-0.27%</td><td>53%</td></tr>
-          <tr><td class="l">한화에어로스페이스</td><td>75</td><td>75</td><td class="t-pos">+1.03%</td><td>67%</td></tr>
-          <tr><td class="l">현대차</td><td>74</td><td>74</td><td class="t-pos">+0.84%</td><td>62%</td></tr>
-          <tr><td class="l">신한지주</td><td>74</td><td>74</td><td class="t-pos">+0.36%</td><td>65%</td></tr>
-          <tr><td class="l">삼성중공업</td><td>74</td><td>74</td><td class="t-neg">-0.10%</td><td>58%</td></tr>
-          <tr><td class="l">SK</td><td>73</td><td>73</td><td class="t-neg">-0.06%</td><td>63%</td></tr>
-          <tr><td class="l">SK텔레콤</td><td>73</td><td>73</td><td class="t-pos">+0.46%</td><td>74%</td></tr>
-          <tr><td class="l">LG전자</td><td>72</td><td>72</td><td class="t-pos">+0.39%</td><td>69%</td></tr>
-          <tr><td class="l">우리금융지주</td><td>72</td><td>72</td><td class="t-pos">+0.22%</td><td>68%</td></tr>
-          <tr><td class="l">두산</td><td>72</td><td>72</td><td class="t-pos">+0.82%</td><td>58%</td></tr>
-          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>71</td><td>71</td><td class="t-pos">+0.47%</td><td>61%</td></tr>
-          <tr><td class="l">현대모비스</td><td>70</td><td>70</td><td class="t-pos">+0.81%</td><td>73%</td></tr>
-          <tr><td class="l">NAVER</td><td>70</td><td>70</td><td class="t-neg">-0.10%</td><td>63%</td></tr>
-          <tr><td class="l">미래에셋증권</td><td>70</td><td>70</td><td class="t-neg">-0.09%</td><td>61%</td></tr>
-          <tr><td class="l">삼성바이오로직스</td><td>69</td><td>69</td><td class="t-pos">+1.01%</td><td>74%</td></tr>
-          <tr><td class="l">LG화학</td><td>70</td><td>69</td><td class="t-neg">-0.07%</td><td>54%</td></tr>
-          <tr><td class="l">현대글로비스</td><td>69</td><td>69</td><td class="t-pos">+0.95%</td><td>70%</td></tr>
-          <tr><td class="l">고려아연</td><td>68</td><td>68</td><td class="t-pos">+0.17%</td><td>57%</td></tr>
-          <tr><td class="l">현대로템</td><td>67</td><td>67</td><td class="t-pos">+0.25%</td><td>60%</td></tr>
-          <tr><td class="l">삼성생명</td><td>66</td><td>66</td><td class="t-pos">+0.70%</td><td>68%</td></tr>
-          <tr><td class="l">삼성물산</td><td>66</td><td>66</td><td class="t-pos">+0.41%</td><td>65%</td></tr>
-          <tr><td class="l">LS ELECTRIC</td><td>66</td><td>66</td><td class="t-pos">+1.33%</td><td>67%</td></tr>
-          <tr><td class="l">삼성전자</td><td>64</td><td>64</td><td class="t-pos">+0.34%</td><td>64%</td></tr>
-          <tr><td class="l">LG</td><td>64</td><td>64</td><td class="t-pos">+0.18%</td><td>69%</td></tr>
-          <tr><td class="l">두산에너빌리티</td><td>63</td><td>63</td><td class="t-pos">+0.27%</td><td>59%</td></tr>
-          <tr><td class="l">HD현대</td><td>63</td><td>63</td><td class="t-pos">+0.23%</td><td>67%</td></tr>
-          <tr><td class="l">HD현대일렉트릭</td><td>62</td><td>62</td><td class="t-pos">+1.07%</td><td>69%</td></tr>
-          <tr><td class="l">삼성전기</td><td>61</td><td>61</td><td class="t-neg">-0.15%</td><td>62%</td></tr>
-          <tr><td class="l">삼성SDI</td><td>60</td><td>60</td><td class="t-neg">-0.22%</td><td>60%</td></tr>
-          <tr><td class="l">삼성화재</td><td>60</td><td>60</td><td class="t-pos">+0.99%</td><td>72%</td></tr>
-          <tr><td class="l">SK하이닉스</td><td>59</td><td>59</td><td class="t-neg">-0.47%</td><td>54%</td></tr>
-          <tr><td class="l">KB금융</td><td>59</td><td>59</td><td class="t-pos">+0.36%</td><td>68%</td></tr>
-          <tr><td class="l">한미반도체</td><td>59</td><td>59</td><td class="t-pos">+0.59%</td><td>58%</td></tr>
-          <tr><td class="l">셀트리온</td><td>58</td><td>57</td><td class="t-pos">+0.73%</td><td>63%</td></tr>
-          <tr><td class="l">KT&amp;G</td><td>57</td><td>57</td><td class="t-pos">+0.40%</td><td>75%</td></tr>
-          <tr><td class="l">HD한국조선해양</td><td>56</td><td>56</td><td class="t-pos">+0.39%</td><td>61%</td></tr>
-          <tr><td class="l">SK이노베이션</td><td>55</td><td>55</td><td class="t-pos">+0.38%</td><td>58%</td></tr>
-          <tr><td class="l">HD현대중공업</td><td>46</td><td>46</td><td class="t-pos">+0.54%</td><td>65%</td></tr>
-          <tr><td class="l">효성중공업</td><td>44</td><td>44</td><td class="t-pos">+1.13%</td><td>70%</td></tr>
-          <tr><td class="l">LG에너지솔루션</td><td>42</td><td>42</td><td class="t-pos">+0.75%</td><td>69%</td></tr>
-          <tr><td class="l">SK스퀘어</td><td>34</td><td>34</td><td class="t-pos">+1.90%</td><td>74%</td></tr>
+          <tr><td class="l">카카오</td><td>61</td><td>61</td><td class="t-neg">-0.63%</td><td>56%</td></tr>
+          <tr><td class="l">하나금융지주</td><td>60</td><td>60</td><td class="t-pos">+0.31%</td><td>67%</td></tr>
+          <tr><td class="l">POSCO홀딩스</td><td>60</td><td>59</td><td class="t-pos">+0.17%</td><td>54%</td></tr>
+          <tr><td class="l">기아</td><td>58</td><td>58</td><td class="t-neg">-0.12%</td><td>64%</td></tr>
+          <tr><td class="l">한화에어로스페이스</td><td>54</td><td>54</td><td class="t-pos">+1.50%</td><td>76%</td></tr>
+          <tr><td class="l">한화오션</td><td>54</td><td>54</td><td class="t-pos">+0.11%</td><td>54%</td></tr>
+          <tr><td class="l">HMM</td><td>54</td><td>54</td><td class="t-neg">-0.92%</td><td>44%</td></tr>
+          <tr><td class="l">한국전력</td><td>54</td><td>54</td><td class="t-neg">-0.14%</td><td>63%</td></tr>
+          <tr><td class="l">신한지주</td><td>53</td><td>53</td><td class="t-pos">+0.52%</td><td>70%</td></tr>
+          <tr><td class="l">미래에셋증권</td><td>53</td><td>53</td><td class="t-neg">-0.12%</td><td>66%</td></tr>
+          <tr><td class="l">현대차</td><td>52</td><td>52</td><td class="t-pos">+1.50%</td><td>73%</td></tr>
+          <tr><td class="l">삼성생명</td><td>52</td><td>52</td><td class="t-pos">+0.77%</td><td>73%</td></tr>
+          <tr><td class="l">고려아연</td><td>52</td><td>52</td><td class="t-pos">+0.30%</td><td>62%</td></tr>
+          <tr><td class="l">두산</td><td>52</td><td>52</td><td class="t-pos">+0.64%</td><td>60%</td></tr>
+          <tr><td class="l">기업은행</td><td>52</td><td>51</td><td class="t-pos">+0.72%</td><td>88%</td></tr>
+          <tr><td class="l">LG전자</td><td>50</td><td>50</td><td class="t-pos">+0.42%</td><td>74%</td></tr>
+          <tr><td class="l">HD현대일렉트릭</td><td>50</td><td>50</td><td class="t-pos">+0.95%</td><td>72%</td></tr>
+          <tr><td class="l">우리금융지주</td><td>49</td><td>49</td><td class="t-pos">+0.19%</td><td>71%</td></tr>
+          <tr><td class="l">SK</td><td>48</td><td>48</td><td class="t-pos">+0.01%</td><td>67%</td></tr>
+          <tr><td class="l">삼성SDI</td><td>48</td><td>48</td><td class="t-neg">-0.63%</td><td>60%</td></tr>
+          <tr><td class="l">NAVER</td><td>48</td><td>48</td><td class="t-pos">+0.15%</td><td>71%</td></tr>
+          <tr><td class="l">SK텔레콤</td><td>48</td><td>48</td><td class="t-pos">+0.25%</td><td>75%</td></tr>
+          <tr><td class="l">삼성에스디에스</td><td>48</td><td>48</td><td class="t-pos">+0.87%</td><td>77%</td></tr>
+          <tr><td class="l">HD현대</td><td>48</td><td>48</td><td class="t-pos">+0.57%</td><td>73%</td></tr>
+          <tr><td class="l">LG</td><td>48</td><td>48</td><td class="t-neg">-0.15%</td><td>69%</td></tr>
+          <tr><td class="l">삼성중공업</td><td>47</td><td>47</td><td class="t-pos">+0.54%</td><td>72%</td></tr>
+          <tr><td class="l">현대글로비스</td><td>47</td><td>47</td><td class="t-pos">+0.88%</td><td>72%</td></tr>
+          <tr><td class="l">삼성전기</td><td>46</td><td>46</td><td class="t-pos">+0.02%</td><td>65%</td></tr>
+          <tr><td class="l">삼성바이오로직스</td><td>46</td><td>46</td><td class="t-pos">+1.12%</td><td>76%</td></tr>
+          <tr><td class="l">현대모비스</td><td>45</td><td>45</td><td class="t-pos">+1.19%</td><td>80%</td></tr>
+          <tr><td class="l">S-Oil</td><td>45</td><td>45</td><td class="t-neg">-0.26%</td><td>56%</td></tr>
+          <tr><td class="l">현대로템</td><td>45</td><td>45</td><td class="t-neg">-0.30%</td><td>60%</td></tr>
+          <tr><td class="l">삼성전자</td><td>44</td><td>44</td><td class="t-neg">-0.05%</td><td>59%</td></tr>
+          <tr><td class="l">LG화학</td><td>44</td><td>44</td><td class="t-neg">-0.40%</td><td>55%</td></tr>
+          <tr><td class="l">SK하이닉스</td><td>43</td><td>43</td><td class="t-neg">-0.61%</td><td>53%</td></tr>
+          <tr><td class="l">삼성물산</td><td>43</td><td>43</td><td class="t-neg">-0.08%</td><td>63%</td></tr>
+          <tr><td class="l">KB금융</td><td>43</td><td>43</td><td class="t-pos">+0.18%</td><td>67%</td></tr>
+          <tr><td class="l">KT&amp;G</td><td>43</td><td>43</td><td class="t-pos">+0.38%</td><td>77%</td></tr>
+          <tr><td class="l">LS ELECTRIC</td><td>42</td><td>41</td><td class="t-pos">+1.94%</td><td>76%</td></tr>
+          <tr><td class="l">삼성화재</td><td>41</td><td>41</td><td class="t-pos">+1.45%</td><td>78%</td></tr>
+          <tr><td class="l">두산에너빌리티</td><td>40</td><td>40</td><td class="t-pos">+0.81%</td><td>68%</td></tr>
+          <tr><td class="l">한미반도체</td><td>40</td><td>40</td><td class="t-pos">+1.01%</td><td>63%</td></tr>
+          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>40</td><td>40</td><td class="t-pos">+0.73%</td><td>70%</td></tr>
+          <tr><td class="l">셀트리온</td><td>40</td><td>39</td><td class="t-pos">+0.24%</td><td>59%</td></tr>
+          <tr><td class="l">SK이노베이션</td><td>38</td><td>38</td><td class="t-neg">-0.37%</td><td>55%</td></tr>
+          <tr><td class="l">HD현대중공업</td><td>33</td><td>33</td><td class="t-pos">+0.24%</td><td>67%</td></tr>
+          <tr><td class="l">효성중공업</td><td>32</td><td>32</td><td class="t-pos">+0.88%</td><td>72%</td></tr>
+          <tr><td class="l">HD한국조선해양</td><td>31</td><td>31</td><td class="t-pos">+0.28%</td><td>68%</td></tr>
+          <tr><td class="l">LG에너지솔루션</td><td>29</td><td>29</td><td class="t-pos">+1.08%</td><td>79%</td></tr>
+          <tr><td class="l">SK스퀘어</td><td>24</td><td>24</td><td class="t-pos">+0.83%</td><td>75%</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="sc-note">SK하이닉스는 승률54%인데도 평균수익률이 마이너스(-0.47%)로, 개별 종목 중 유일하게 "승률은 준수한데 기대값이 음수"인 사례입니다(손실크기&gt;이익크기). 매매전략 탭 설계원칙 참조.</div>
+    <div class="sc-note">HMM(-0.92%&middot;승률44%)&middot;SK하이닉스(-0.61%&middot;승률53%)&middot;삼성SDI(-0.63%&middot;승률60%)&middot;카카오(-0.63%&middot;승률56%)는 진입가 위치 필터 적용 후에도 평균수익률이 마이너스인 종목입니다(손실크기&gt;이익크기). 매매전략 탭 설계원칙 참조.</div>
   </div>
 </div>
 
