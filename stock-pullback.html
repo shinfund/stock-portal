@@ -229,18 +229,16 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 08.26 16:10</div>
+      <div class="hdr-date">Update 08.26 16:00</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
   <nav class="top-nav">
-    <button class="tab-btn on" data-tab="0">최근신호(KS)</button>
-    <button class="tab-btn" data-tab="1">최근신호(KQ)</button>
-    <button class="tab-btn" data-tab="2">예상종목(KS)</button>
-    <button class="tab-btn" data-tab="3">예상종목(KQ)</button>
-    <button class="tab-btn" data-tab="4">보유종목</button>
-    <button class="tab-btn" data-tab="5">매매전략</button>
-    <button class="tab-btn" data-tab="6">백테스트</button>
+    <button class="tab-btn on" data-tab="0">최근신호</button>
+    <button class="tab-btn" data-tab="1">예상종목</button>
+    <button class="tab-btn" data-tab="2">보유종목</button>
+    <button class="tab-btn" data-tab="3">매매전략</button>
+    <button class="tab-btn" data-tab="4">백테스트</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -256,7 +254,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
     <div class="kpi-card kpi-purple"><div class="num">59%</div><div class="lbl">청산 승률</div></div>
   </div>
   <div class="sc">
-    <div class="sc-title">v13 최근 120일 신호 상세 <span class="sub">코스피 TOP50 · SL8%/TRAIL8%·KOSPI변동성≤4%·지수병행확인·개별ATR%≤6%·손절후재진입쿨다운5거래일</span></div>
+    <div class="sc-title">v14 최근 120일 신호 상세 <span class="sub">코스피 TOP50(코스닥 제외) · SL8%/TRAIL8%·KOSPI변동성≤4%·지수병행확인·개별ATR%≤6%·손절후재진입쿨다운5거래일</span></div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:9%">날짜</th><th class="l" style="width:12%">종목</th><th style="width:8%">현재가</th><th style="width:8%">EMA50대비</th><th style="width:8%">진입가</th><th class="c" style="width:8%">우선순위</th><th class="l" style="width:12%">상태</th><th class="c" style="width:6%">경과</th><th style="width:8%">수익률</th><th class="l" style="width:21%">비고</th></tr></thead>
@@ -475,67 +473,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 </div>
 
-<div class="panel" id="p0-kq">
-  <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">2</div><div class="lbl">최근120일 신호수</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">0</div><div class="lbl">현재 보유중</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">2</div><div class="lbl">청산완료</div></div>
-    <div class="kpi-card kpi-purple"><div class="num">50%</div><div class="lbl">청산 승률</div></div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">v13 최근 120일 신호 상세 <span class="sub">코스닥 TOP20 · SL18%/TRAIL18%·코스닥지수변동성≤4%·지수병행확인·개별ATR%≤6%·손절후재진입쿨다운5거래일</span></div>
-    <div class="tbl-wrap">
-      <table class="tbl-fixed">
-        <thead><tr><th class="l" style="width:9%">날짜</th><th class="l" style="width:12%">종목</th><th style="width:8%">현재가</th><th style="width:8%">EMA50대비</th><th style="width:8%">진입가</th><th class="c" style="width:8%">우선순위</th><th class="l" style="width:12%">상태</th><th class="c" style="width:6%">경과</th><th style="width:8%">수익률</th><th class="l" style="width:21%">비고</th></tr></thead>
-        <tbody>
-          <tr><td class="l">2026-05-04</td><td class="l">HPSP</td><td>48,700</td><td class="t-pos">+12.50%</td><td>54,400</td><td class="c"><span class="t-flat">&mdash;</span></td><td class="l"><span class="badge bdg-gray">EMA50이탈</span> <span class="badge bdg-sky">TP</span></td><td class="c">D+17</td><td class="t-neg">-0.05%</td><td class="l"><span class="t-flat">&mdash;</span></td></tr>
-          <tr><td class="l">2026-04-28</td><td class="l">HPSP</td><td>48,700</td><td class="t-pos">+12.50%</td><td>53,700</td><td class="c"><span class="t-flat">&mdash;</span></td><td class="l"><span class="badge bdg-gray">EMA50이탈</span> <span class="badge bdg-sky">TP</span></td><td class="c">D+20</td><td class="t-pos">+1.26%</td><td class="l"><span class="t-flat">&mdash;</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-note">EMA50대비는 현재가가 눌림목 전략의 기준선(EMA50) 대비 얼마나 위/아래에 있는지를 나타내며, 이 선을 하향 이탈하면 청산(EMA50이탈) 조건에 해당합니다.</div>
-    <div class="sc-note"><b>우선순위(2026-08-26 신설)</b> : 같은 날 진입 신호가 3건을 넘으면 추세강도(장기EMA100 기울기)desc·눌림폭(ATR정규화)asc(얕을수록 우선) 기준으로 <span class="badge bdg-purple">1순위</span>~<span class="badge bdg-purple">3순위</span>만 배지를 표시하고, 그 이상은 <span class="badge bdg-coral">N순위 초과</span>로 표시합니다(라운드넘버 전략과 동일 방식). 3건 미만인 날짜는 배지 없음.</div>
-    <div class="sc-note"><b>손절후 재진입쿨다운(v13, 2026-08-26 신설)</b> : 동일종목이 손절로 청산되면 이후 5거래일 이내엔 같은 종목의 재진입 신호를 인정하지 않습니다. 손절 직후 며칠 안에 같은 눌림구간이 재발생해 다시 손절당하는 "휩소 재진입"을 배제하기 위한 규칙으로, 도입 후 전체구간 승률 60%→63%·SL비율 15%→11%·Sharpe 0.474→0.543로 개선(IS0.566/OOS0.539로 견고성 확인).</div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">최근신호 차트 <span class="sub">최신 10건</span></div>
-    <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">HPSP</span><span class="badge bdg-gray">EMA50이탈</span><span class="badge bdg-sky">TP</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,185.9 9.4,185.0 12.8,184.2 16.2,183.4 19.7,182.6 23.1,181.8 26.5,181.1 29.9,180.5 33.3,180.0 36.7,179.5 40.2,178.7 43.6,178.0 47.0,177.4 50.4,177.0 53.8,176.7 57.2,176.2 60.7,175.6 64.1,175.1 67.5,175.0 70.9,174.4 74.3,173.6 77.7,173.2 81.2,172.6 84.6,172.2 88.0,171.7 91.4,171.4 94.8,170.9 98.2,170.5 101.6,169.7 105.1,168.8 108.5,167.9 111.9,167.2 115.3,166.6 118.7,165.8 122.1,165.4 125.6,165.0 129.0,164.8 132.4,164.6 135.8,164.3 139.2,164.2 142.6,164.0 146.1,163.9 149.5,163.7 152.9,163.3 156.3,163.0 159.7,162.6 163.1,162.5 166.6,162.3 170.0,162.2 173.4,161.9 176.8,161.6 180.2,161.2 183.6,160.8 187.1,160.3 190.5,159.7 193.9,158.9 197.3,158.0 200.7,157.2 204.1,156.4 207.5,155.7 211.0,154.9 214.4,154.0 217.8,153.2 221.2,152.5 224.6,151.7 228.0,151.2 231.5,150.4 234.9,149.7 238.3,149.3 241.7,148.8 245.1,148.5 248.5,148.2 252.0,147.6 255.4,146.9 258.8,145.9 262.2,145.3 265.6,144.9 269.0,144.7 272.5,144.6 275.9,144.7 279.3,144.5 282.7,144.2 286.1,144.1 289.5,143.4 292.9,142.9 296.4,142.3 299.8,140.7 303.2,138.3 306.6,137.1 310.0,136.1 313.4,135.4 316.9,134.9 320.3,134.1 323.7,133.8 327.1,133.7 330.5,133.6 333.9,133.3 337.4,133.0 340.8,132.7 344.2,132.6 347.6,132.9 351.0,133.0 354.4,133.2 357.9,133.7 361.3,134.4 364.7,135.0 368.1,135.2 371.5,135.6 374.9,136.0 378.4,136.1 381.8,136.5 385.2,137.0 388.6,137.6 392.0,138.1 395.4,138.6 398.8,139.4 402.3,140.0 405.7,140.9 409.1,141.9 412.5,143.1 415.9,143.8 419.3,144.6 422.8,145.2 426.2,145.7 429.6,146.3 433.0,147.0 436.4,147.5 439.8,147.9 443.3,148.2 446.7,148.4 450.1,148.7 453.5,148.8 456.9,148.7 460.3,148.4 463.8,148.4 467.2,148.4 470.6,148.1 474.0,147.8" fill="none" stroke="var(--gray600)" stroke-width="1.3" stroke-dasharray="6,3"/><polyline points="6.0,179.9 9.4,178.3 12.8,176.9 16.2,175.7 19.7,174.4 23.1,173.1 26.5,172.1 29.9,171.3 33.3,170.6 36.7,169.9 40.2,168.8 43.6,167.8 47.0,166.9 50.4,166.6 53.8,166.3 57.2,165.7 60.7,165.0 64.1,164.4 67.5,164.6 70.9,163.9 74.3,162.8 77.7,162.3 81.2,161.6 84.6,161.1 88.0,160.8 91.4,160.5 94.8,160.0 98.2,159.6 101.6,158.4 105.1,157.1 108.5,155.8 111.9,154.9 115.3,154.1 118.7,153.1 122.1,152.8 125.6,152.5 129.0,152.5 132.4,152.7 135.8,152.5 139.2,152.8 142.6,152.9 146.1,153.0 149.5,153.2 152.9,152.8 156.3,152.5 159.7,152.2 163.1,152.4 166.6,152.4 170.0,152.5 173.4,152.3 176.8,152.1 180.2,151.8 183.6,151.4 187.1,150.8 190.5,149.8 193.9,148.6 197.3,147.2 200.7,146.1 204.1,145.0 207.5,144.0 211.0,142.9 214.4,141.5 217.8,140.5 221.2,139.6 224.6,138.5 228.0,138.0 231.5,137.0 234.9,136.1 238.3,135.9 241.7,135.3 245.1,135.2 248.5,135.2 252.0,134.6 255.4,133.8 258.8,132.3 262.2,131.6 265.6,131.4 269.0,131.5 272.5,131.8 275.9,132.5 279.3,132.7 282.7,132.5 286.1,132.8 289.5,131.7 292.9,131.3 296.4,130.6 299.8,127.8 303.2,123.6 306.6,121.8 310.0,120.4 313.4,119.6 316.9,119.1 320.3,118.3 323.7,118.3 327.1,118.7 330.5,119.0 333.9,119.1 337.4,119.0 340.8,118.9 344.2,119.3 347.6,120.5 351.0,121.1 354.4,122.1 357.9,123.5 361.3,125.2 364.7,126.7 368.1,127.5 371.5,128.7 374.9,129.7 378.4,130.1 381.8,131.0 385.2,132.3 388.6,133.6 392.0,134.9 395.4,136.0 398.8,137.5 402.3,138.8 405.7,140.7 409.1,142.8 412.5,145.0 415.9,146.4 419.3,147.7 422.8,148.9 426.2,149.8 429.6,150.8 433.0,152.0 436.4,152.8 439.8,153.3 443.3,153.8 446.7,154.0 450.1,154.3 453.5,154.2 456.9,153.8 460.3,153.1 463.8,152.8 467.2,152.7 470.6,152.0 474.0,151.3" fill="none" stroke="var(--teal)" stroke-width="1.3" stroke-dasharray="6,3"/><polyline points="6.0,153.4 9.4,139.9 12.8,143.0 16.2,145.4 19.7,143.0 23.1,141.0 26.5,148.0 29.9,151.6 33.3,153.9 36.7,153.5 40.2,141.7 43.6,142.8 47.0,145.7 50.4,158.9 53.8,158.7 57.2,151.3 60.7,146.2 64.1,151.6 67.5,168.6 70.9,145.9 74.3,136.5 77.7,150.6 81.2,143.5 84.6,150.3 88.0,151.4 91.4,153.4 94.8,149.5 98.2,148.8 101.6,129.5 105.1,124.0 108.5,125.6 111.9,132.1 115.3,133.6 118.7,130.3 122.1,143.6 125.6,145.3 129.0,152.6 132.4,159.0 135.8,147.4 139.2,159.2 142.6,155.5 146.1,156.8 149.5,156.6 152.9,142.8 156.3,146.7 159.7,144.0 163.1,157.4 166.6,153.4 170.0,153.7 173.4,148.5 176.8,147.4 180.2,143.5 183.6,140.6 187.1,136.0 190.5,126.3 193.9,118.5 197.3,114.0 200.7,117.5 204.1,118.5 207.5,121.1 211.0,115.3 214.4,108.1 217.8,114.3 221.2,116.9 224.6,112.0 228.0,125.3 231.5,112.4 234.9,114.3 238.3,131.2 241.7,122.4 245.1,132.8 248.5,134.7 252.0,118.5 255.4,114.3 258.8,96.8 262.2,112.7 265.6,126.6 269.0,133.9 272.5,140.6 275.9,148.5 279.3,137.6 282.7,128.6 286.1,138.8 289.5,106.8 292.9,119.5 296.4,113.3 299.8,59.8 303.2,20.9 306.6,76.7 310.0,88.0 313.4,99.1 316.9,108.1 320.3,97.1 323.7,119.8 327.1,127.6 330.5,126.3 333.9,120.8 337.4,117.5 340.8,116.6 344.2,128.9 347.6,150.0 351.0,134.4 354.4,147.4 357.9,157.1 361.3,167.6 364.7,164.2 368.1,147.7 371.5,155.8 374.9,155.5 378.4,140.2 381.8,153.9 385.2,163.6 388.6,164.9 392.0,165.9 395.4,163.1 398.8,176.1 402.3,170.1 405.7,185.6 409.1,195.5 412.5,199.1 415.9,179.5 419.3,181.6 422.8,176.9 426.2,173.0 429.6,175.6 433.0,180.1 436.4,171.9 439.8,167.2 443.3,166.3 446.7,158.1 450.1,160.7 453.5,153.4 456.9,143.5 460.3,136.0 463.8,146.1 467.2,149.2 470.6,134.4 474.0,133.8" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="115.3" x2="474" y2="115.3" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="211.0" y1="12" x2="211.0" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="211.0" cy="115.3" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="133.8" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-02-02</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-05-04 <span class="sep">|</span> 진입가 <span>54,400</span> <span class="sep">|</span> 현재가 <span>48,700</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+17 <span class="sep">|</span> 수익률 <span class="t-neg">-0.05%</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA50대비 <span class="t-pos">+12.50%</span> <span class="sep">|</span> 기준선(EMA50) <span>43,288</span></span>
-        </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--gray600)"></i>상태 <span>EMA50이탈</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">HPSP</span><span class="badge bdg-gray">EMA50이탈</span><span class="badge bdg-sky">TP</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,188.3 9.3,187.5 12.7,186.6 16.0,185.9 19.4,185.0 22.7,184.2 26.1,183.4 29.4,182.6 32.7,181.8 36.1,181.1 39.4,180.5 42.8,180.0 46.1,179.5 49.5,178.7 52.8,178.0 56.1,177.4 59.5,177.0 62.8,176.7 66.2,176.2 69.5,175.6 72.9,175.1 76.2,175.0 79.5,174.4 82.9,173.6 86.2,173.2 89.6,172.6 92.9,172.2 96.3,171.7 99.6,171.4 102.9,170.9 106.3,170.5 109.6,169.7 113.0,168.8 116.3,167.9 119.7,167.2 123.0,166.6 126.3,165.8 129.7,165.4 133.0,165.0 136.4,164.8 139.7,164.6 143.1,164.3 146.4,164.2 149.7,164.0 153.1,163.9 156.4,163.7 159.8,163.3 163.1,163.0 166.5,162.6 169.8,162.5 173.1,162.3 176.5,162.2 179.8,161.9 183.2,161.6 186.5,161.2 189.9,160.8 193.2,160.3 196.5,159.7 199.9,158.9 203.2,158.0 206.6,157.2 209.9,156.4 213.3,155.7 216.6,154.9 219.9,154.0 223.3,153.2 226.6,152.5 230.0,151.7 233.3,151.2 236.7,150.4 240.0,149.7 243.3,149.3 246.7,148.8 250.0,148.5 253.4,148.2 256.7,147.6 260.1,146.9 263.4,145.9 266.7,145.3 270.1,144.9 273.4,144.7 276.8,144.6 280.1,144.7 283.5,144.5 286.8,144.2 290.1,144.1 293.5,143.4 296.8,142.9 300.2,142.3 303.5,140.7 306.9,138.3 310.2,137.1 313.5,136.1 316.9,135.4 320.2,134.9 323.6,134.1 326.9,133.8 330.3,133.7 333.6,133.6 336.9,133.3 340.3,133.0 343.6,132.7 347.0,132.6 350.3,132.9 353.7,133.0 357.0,133.2 360.3,133.7 363.7,134.4 367.0,135.0 370.4,135.2 373.7,135.6 377.1,136.0 380.4,136.1 383.7,136.5 387.1,137.0 390.4,137.6 393.8,138.1 397.1,138.6 400.5,139.4 403.8,140.0 407.1,140.9 410.5,141.9 413.8,143.1 417.2,143.8 420.5,144.6 423.9,145.2 427.2,145.7 430.5,146.3 433.9,147.0 437.2,147.5 440.6,147.9 443.9,148.2 447.3,148.4 450.6,148.7 453.9,148.8 457.3,148.7 460.6,148.4 464.0,148.4 467.3,148.4 470.7,148.1 474.0,147.8" fill="none" stroke="var(--gray600)" stroke-width="1.3" stroke-dasharray="6,3"/><polyline points="6.0,184.0 9.3,182.6 12.7,180.9 16.0,179.9 19.4,178.3 22.7,176.9 26.1,175.7 29.4,174.4 32.7,173.1 36.1,172.1 39.4,171.3 42.8,170.6 46.1,169.9 49.5,168.8 52.8,167.8 56.1,166.9 59.5,166.6 62.8,166.3 66.2,165.7 69.5,165.0 72.9,164.4 76.2,164.6 79.5,163.9 82.9,162.8 86.2,162.3 89.6,161.6 92.9,161.1 96.3,160.8 99.6,160.5 102.9,160.0 106.3,159.6 109.6,158.4 113.0,157.1 116.3,155.8 119.7,154.9 123.0,154.1 126.3,153.1 129.7,152.8 133.0,152.5 136.4,152.5 139.7,152.7 143.1,152.5 146.4,152.8 149.7,152.9 153.1,153.0 156.4,153.2 159.8,152.8 163.1,152.5 166.5,152.2 169.8,152.4 173.1,152.4 176.5,152.5 179.8,152.3 183.2,152.1 186.5,151.8 189.9,151.4 193.2,150.8 196.5,149.8 199.9,148.6 203.2,147.2 206.6,146.1 209.9,145.0 213.3,144.0 216.6,142.9 219.9,141.5 223.3,140.5 226.6,139.6 230.0,138.5 233.3,138.0 236.7,137.0 240.0,136.1 243.3,135.9 246.7,135.3 250.0,135.2 253.4,135.2 256.7,134.6 260.1,133.8 263.4,132.3 266.7,131.6 270.1,131.4 273.4,131.5 276.8,131.8 280.1,132.5 283.5,132.7 286.8,132.5 290.1,132.8 293.5,131.7 296.8,131.3 300.2,130.6 303.5,127.8 306.9,123.6 310.2,121.8 313.5,120.4 316.9,119.6 320.2,119.1 323.6,118.3 326.9,118.3 330.3,118.7 333.6,119.0 336.9,119.1 340.3,119.0 343.6,118.9 347.0,119.3 350.3,120.5 353.7,121.1 357.0,122.1 360.3,123.5 363.7,125.2 367.0,126.7 370.4,127.5 373.7,128.7 377.1,129.7 380.4,130.1 383.7,131.0 387.1,132.3 390.4,133.6 393.8,134.9 397.1,136.0 400.5,137.5 403.8,138.8 407.1,140.7 410.5,142.8 413.8,145.0 417.2,146.4 420.5,147.7 423.9,148.9 427.2,149.8 430.5,150.8 433.9,152.0 437.2,152.8 440.6,153.3 443.9,153.8 447.3,154.0 450.6,154.3 453.9,154.2 457.3,153.8 460.6,153.1 464.0,152.8 467.3,152.7 470.7,152.0 474.0,151.3" fill="none" stroke="var(--teal)" stroke-width="1.3" stroke-dasharray="6,3"/><polyline points="6.0,149.0 9.3,147.9 12.7,140.9 16.0,153.4 19.4,139.9 22.7,143.0 26.1,145.4 29.4,143.0 32.7,141.0 36.1,148.0 39.4,151.6 42.8,153.9 46.1,153.5 49.5,141.7 52.8,142.8 56.1,145.7 59.5,158.9 62.8,158.7 66.2,151.3 69.5,146.2 72.9,151.6 76.2,168.6 79.5,145.9 82.9,136.5 86.2,150.6 89.6,143.5 92.9,150.3 96.3,151.4 99.6,153.4 102.9,149.5 106.3,148.8 109.6,129.5 113.0,124.0 116.3,125.6 119.7,132.1 123.0,133.6 126.3,130.3 129.7,143.6 133.0,145.3 136.4,152.6 139.7,159.0 143.1,147.4 146.4,159.2 149.7,155.5 153.1,156.8 156.4,156.6 159.8,142.8 163.1,146.7 166.5,144.0 169.8,157.4 173.1,153.4 176.5,153.7 179.8,148.5 183.2,147.4 186.5,143.5 189.9,140.6 193.2,136.0 196.5,126.3 199.9,118.5 203.2,114.0 206.6,117.5 209.9,118.5 213.3,121.1 216.6,115.3 219.9,108.1 223.3,114.3 226.6,116.9 230.0,112.0 233.3,125.3 236.7,112.4 240.0,114.3 243.3,131.2 246.7,122.4 250.0,132.8 253.4,134.7 256.7,118.5 260.1,114.3 263.4,96.8 266.7,112.7 270.1,126.6 273.4,133.9 276.8,140.6 280.1,148.5 283.5,137.6 286.8,128.6 290.1,138.8 293.5,106.8 296.8,119.5 300.2,113.3 303.5,59.8 306.9,20.9 310.2,76.7 313.5,88.0 316.9,99.1 320.2,108.1 323.6,97.1 326.9,119.8 330.3,127.6 333.6,126.3 336.9,120.8 340.3,117.5 343.6,116.6 347.0,128.9 350.3,150.0 353.7,134.4 357.0,147.4 360.3,157.1 363.7,167.6 367.0,164.2 370.4,147.7 373.7,155.8 377.1,155.5 380.4,140.2 383.7,153.9 387.1,163.6 390.4,164.9 393.8,165.9 397.1,163.1 400.5,176.1 403.8,170.1 407.1,185.6 410.5,195.5 413.8,199.1 417.2,179.5 420.5,181.6 423.9,176.9 427.2,173.0 430.5,175.6 433.9,180.1 437.2,171.9 440.6,167.2 443.9,166.3 447.3,158.1 450.6,160.7 453.9,153.4 457.3,143.5 460.6,136.0 464.0,146.1 467.3,149.2 470.7,134.4 474.0,133.8" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="117.5" x2="474" y2="117.5" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="206.6" y1="12" x2="206.6" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="206.6" cy="117.5" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="133.8" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-01-28</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-04-28 <span class="sep">|</span> 진입가 <span>53,700</span> <span class="sep">|</span> 현재가 <span>48,700</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+20 <span class="sep">|</span> 수익률 <span class="t-pos">+1.26%</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA50대비 <span class="t-pos">+12.50%</span> <span class="sep">|</span> 기준선(EMA50) <span>43,288</span></span>
-        </div>
-        <div class="chart-card-legend"><span><i style="background:var(--sky600)"></i>진입가</span><span><i class="dash" style="border-color:var(--teal)"></i>기준선(EMA50)</span><span><i class="dash" style="border-color:var(--gray600)"></i>EMA100</span><span><i style="background:var(--gray600)"></i>상태 <span>EMA50이탈</span></span></div>
-      </div>
-    </div>
-    <div class="sc-note">청록색 점선은 기준선(EMA50), 회색 점선은 EMA100입니다. 세로 점선·하늘색 점은 진입 시점, 가로 하늘색 점선은 진입가 수준을 나타내며 현재 종가와의 위치를 한눈에 비교할 수 있습니다. 우측 끝 빨간 점은 오늘(또는 청산일) 종가입니다.</div>
-  </div>
-</div>
+
 
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
@@ -565,33 +503,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 </div>
 
-<div class="panel" id="p1-kq">
-  <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">20</div><div class="lbl">분석 유니버스(TOP20)</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">3</div><div class="lbl">정배열(EMA50&gt;EMA100) 종목</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">0</div><div class="lbl">초근접 예상종목</div></div>
-  </div>
 
-  <div class="sc">
-    <div class="sc-title">예상종목 리스트 <span class="sub">정배열(EMA50&gt;EMA100 상승기울기) + 되돌림밴드(ATR%×0.4) + 개별ATR%≤6%(v12) 진입조건을 이미 충족한 초근접 종목만, 코스피·코스닥 지수 병행 상승국면(v12)일 때만 표시</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th class="c">시장</th><th>현재가</th><th>EMA50대비</th><th>눌림폭</th><th>밴드대비</th><th class="c">보유</th></tr></thead>
-        <tbody>
-          <tr><td class="l" colspan="7" style="text-align:center;color:var(--txt3)">초근접 후보 없음(코스피·코스닥 지수 병행 상승국면 미충족 — v12 시장국면 병행확인 조건)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-note">"밴드대비"가 1.00배 이하인 종목만 표시합니다(진입조건 그대로 — 눌림폭이 종목별 ATR%×0.4 이내). 밴드 밖(1.00배 초과) 종목은 아직 진입조건에서 먼 상태라 표시하지 않으며, 초근접 후보가 없으면 빈 목록 그대로 보여줍니다. v12(2026-08-20)부터 코스피·코스닥 지수가 둘 다 상승국면(지속≥10일·변동성≤4%)일 때만, 그리고 개별종목 ATR%가 6% 이하인 종목만 표시합니다.</div>
-  </div>
-
-  <div class="sc">
-    <div class="sc-title">예상종목 차트</div>
-    <div class="chart-grid">
-<div style="color:var(--txt3);padding:20px">초근접 후보 없음</div>
-    </div>
-  </div>
-</div>
 
 <div class="panel" id="p2">
   <div class="kpi-row">
@@ -731,13 +643,13 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 
   <div class="sc">
-    <div class="sc-title">확정 진입·청산 조건 요약표 <span class="sub">v13 : 아래 상세 조건·백테스트 근거를 규칙만 압축 정리</span></div>
+    <div class="sc-title">확정 진입·청산 조건 요약표 <span class="sub">v14 : 아래 상세 조건·백테스트 근거를 규칙만 압축 정리</span></div>
     <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건 : 8가지 전부 충족</b></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">구분</th><th class="l">내용</th></tr></thead>
         <tbody>
-          <tr><td class="l">대상 유니버스</td><td class="l">시가총액 TOP50</td></tr>
+          <tr><td class="l">대상 유니버스</td><td class="l">코스피 시가총액 TOP50(코스닥 제외, v14)</td></tr>
           <tr><td class="l">① 시장국면(자기 시장 지수)</td><td class="l">종가 &gt; EMA100 AND EMA100이 10거래일 전보다 상승중</td></tr>
           <tr><td class="l">② 국면 지속성</td><td class="l">위 상승국면이 최소 10거래일 연속 유지</td></tr>
           <tr><td class="l">③ 시장 변동성</td><td class="l">자기 시장 지수 14일 ATR% ≤ 4%(초과 시 신규진입 금지)</td></tr>
@@ -763,14 +675,15 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
         </tbody>
       </table>
     </div>
-    <div class="sc-note">참고 백테스트 성과(TOP50 × 최근1100일, v13) : n=579, 평균 <b class="t-pos">+7.98%</b>, 중앙값 <b class="t-pos">+7.45%</b>, 승률 <b>63%</b>, Sharpe <b>0.543</b>(v12 대비 승률 60%→63%, Sharpe 0.474→0.543, SL비율 15%→11% 전부 개선). 근거 상세는 아래 항목 및 백테스트 탭 참조.</div>
+    <div class="sc-note">참고 백테스트 성과(코스피TOP50 × 최근1100일, v14) : n=569, 평균 <b class="t-pos">+8.29%</b>, 중앙값 <b class="t-pos">+7.76%</b>, 승률 <b>64%</b>, Sharpe <b>0.568</b>(v13 대비 알테오젠(코스닥) 제외로 n 579→569, 승률 63%→64%, Sharpe 0.543→0.568 소폭 개선). 근거 상세는 아래 항목 및 백테스트 탭 참조.</div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">매수(진입) 조건 : 8가지 전부 충족 <span class="sub">v13 확정</span></div>
+    <div class="sc-title">매수(진입) 조건 : 8가지 전부 충족 <span class="sub">v14 확정</span></div>
+    <div class="sc-note" style="margin-bottom:10px">v14(2026-08-26) : 코스닥 종목을 유니버스에서 완전 제외, 코스피 전용으로 전환. 3전략 통합 월별 집계표를 분석한 사용자가 코스닥이 코스피보다 불안정하다고 판단 → 실측 시장별 리스크 지표(눌림목 코스피 평균+6.87%·최악-11.51% vs 코스닥 평균+3.13%·최악-18.09%)로 확인 후 확정. 아래 ①·④ 조건에 등장하는 "코스닥 지수"는 종목이 아니라 시장 breadth 확인 신호라 계속 유지된다(코스닥 종목을 매매하지 않는 것과는 별개).</div>
     <div class="rule-box">
       <div class="rb-title">① 시장국면(자기 시장 지수)</div>
-      <div class="rb-body">코스피종목은 KOSPI, 코스닥종목은 KOSDAQ 지수 종가 &gt; <code>EMA100</code> <b>AND</b> EMA100이 10거래일 전보다 상승중 : 지수 자체가 상승추세일 때만 진입 허용</div>
+      <div class="rb-body">KOSPI 지수 종가 &gt; <code>EMA100</code> <b>AND</b> EMA100이 10거래일 전보다 상승중 : 지수 자체가 상승추세일 때만 진입 허용(v14부터 코스피 전용 유니버스)</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">② 국면 지속성</div>
@@ -781,8 +694,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="rb-body">자기 시장 지수의 14일 <code>ATR%</code>가 <b>4% 이하</b> : 추세 도중의 급변(크래시)장 배제. 2026-05~07월 KOSPI가 하루±5~10%씩 흔들린 이례적 고변동장에서 손절비율이 2배로 치솟은 걸 계기로 도입(v10 캡2%→실전검증 후 v11 캡4%로 완화)</div>
     </div>
     <div class="rule-box">
-      <div class="rb-title">④ 시장국면 병행확인(신규, v12)</div>
-      <div class="rb-body">코스피종목이면 코스닥지수도, 코스닥종목이면 코스피지수도 동시에 상승국면(①과 동일 정의)이어야 진입 : 한쪽 지수만 상승하고 다른 쪽은 아닌 "쏠림장"의 거짓신호를 배제. 2026-08-20 승률·SL비율 재정비 그리드서치에서 채택 — 단독 적용 시 표본 761→667(-12%)로 IS Sharpe0.400→OOS Sharpe0.488(OOS가 IS보다 개선돼 과최적화 위험 낮음)</div>
+      <div class="rb-title">④ 시장국면 병행확인(v12)</div>
+      <div class="rb-body">코스피지수와 코스닥지수가 동시에 상승국면(①과 동일 정의)이어야 진입 : 한쪽 지수만 상승하고 다른 쪽은 아닌 "쏠림장"의 거짓신호를 배제. 2026-08-20 승률·SL비율 재정비 그리드서치에서 채택 — 단독 적용 시 표본 761→667(-12%)로 IS Sharpe0.400→OOS Sharpe0.488(OOS가 IS보다 개선돼 과최적화 위험 낮음). v14(코스닥 종목 유니버스 제외) 이후에도 코스닥지수 자체는 시장 breadth 확인 신호로 계속 조회한다</div>
     </div>
     <div class="rule-box">
       <div class="rb-title">⑤ 종목 추세</div>
@@ -836,11 +749,12 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>리스크는 종목보다 시장국면이 좌우하지만, 개별종목 변동성 상한은 예외적으로 유효 : RSI·거래량 필터는 전부 효과가 없었지만(v11 검증), 진입일 개별종목 ATR% 자체를 상한(6%)으로 제한하는 건 유효했습니다(v12). "지표를 조건으로 추가"와 "변동성 자체를 직접 캡"은 다른 접근이라는 뜻 — 전자는 실패, 후자는 성공.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>SL비율 낮추기 = 손절폭을 넓히는 게 아님 : 손절폭을 넓히면 SL로 잡히는 건수는 줄어도 손실이 다른 청산사유로 이름만 바뀔 뿐입니다. 실제 개선은 진입품질을 높이는 방향(시장국면 필터)으로만 가능했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>손절 직후의 재진입은 별도로 제한할 가치가 있음(v13) : 같은 눌림구간이 손절 직후 며칠 안에 재발생해 같은 종목에 다시 진입 → 또 손절되는 "휩소 재진입"은 진입조건 자체가 놓치는 실패 패턴입니다. 진입품질 필터(시장국면·변동성)와는 별개로, 최근 트레이드 이력(동일종목 손절 여부)을 진입 판정에 반영하는 것도 유효했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>단독 전략 지표 개선이 반드시 5슬롯 포트폴리오 헤드라인 개선으로 이어지지는 않음(v14) : 코스닥 제외로 눌림목·괴리율 단독 지표(최악사례·평균수익률)는 개선되지만, 5슬롯 공유자본 구조에서는 빈 슬롯이 건당 수익이 훨씬 작은 라운드넘버로 채워져 3전략 통합 헤드라인은 오히려 하락(+1503.93%→+1280.85%)했습니다. 슬롯 경쟁 구조가 있는 포트폴리오에서는 "개별 리스크 개선"과 "전체 수익률"이 서로 다른 방향으로 움직일 수 있다는 뜻입니다.</div></div>
     </div>
   </div>
 
   <div class="sc">
-    <div class="sc-title">버전 이력 (v1 → v13)</div>
+    <div class="sc-title">버전 이력 (v1 → v14)</div>
     <div class="hist-item"><span class="hist-v">v1~v5</span><span>진입조건 5종 비교(V3_RETEST 채택) → SL/TRAIL 그리드(8%/8%) → OOS+부분익절(TP+10%50%) → 결측치 fillForward 버그 정정 → 되돌림밴드 고정%→ATR%×0.4 정규화</span></div>
     <div class="hist-item"><span class="hist-v">v6~v7</span><span>추세필터 SMA60/120→EMA50/100 재교체(사용자 이평체계 통일) → 신고가lookback 10일→6일·상승판정lookback 20일→10일 재탐색</span></div>
     <div class="hist-item"><span class="hist-v">v9</span><span>시장국면 지속일수≥10거래일 필터 추가(2026-06월 국면전환 직후 손절 쏠림 발견)</span></div>
@@ -850,20 +764,46 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
     <div class="hist-item"><span class="hist-v">v12 재검증</span><span>v12 진입조건(n=603, 코스피)으로 SL/TRAIL 재그리드서치(30개 조합, scripts/project_pullback_sltrail_regrid_v12.mjs) — 현행 SL8%/TRAIL8%가 여전히 그리드 1위(Sharpe0.495, IS0.505/OOS0.502)로 변경불필요 확인. SL을 10%로 완화해도 평균·중앙값·승률·Sharpe는 거의 동일한데 SL비율(라벨)만 15%→5%로 급감 — SL비율 인상은 실손실 확대가 아니라 다른 청산조건과 겹치는 라벨링 효과에 가까움. 코스닥은 v12 필터 적용 시 표본이 n=10으로 급감해 재조정 판단 보류(현행 18%/18% 유지)</span></div>
     <div class="hist-item"><span class="hist-v">섹터 로테이션 검증(기각)</span><span>2026-08-26 v12 이후 추가 개선 재검증 요청으로 섹터 상대강도 필터를 신규 검증(scripts/project_pullback_sector_rotation_sweep.mjs, 48종목 14개업종 정적분류) — 전체구간 Sharpe는 개선(0.474→0.542)돼 보였으나 IS/OOS 분리검증에서 IS0.635 vs OOS0.452(-29%, v12 baseline OOS0.484보다도 낮음)로 전형적 과최적화 확인돼 기각</span></div>
     <div class="hist-item"><span class="hist-v">v13</span><span>stock-portal 최근신호 표에서 "손실난 종목이 많다"는 사용자 지적으로 원인 진단 — LG화학(05-06/05-07/05-11 3연속 손절)·삼성SDI(05-04/05-06 2연속 손절)처럼 손절 직후 며칠 안에 재진입해 다시 손절되는 "휩소 재진입" 패턴 발견. 동일종목 손절후 재진입쿨다운을 0/5/10/20/40거래일로 그리드서치(scripts/project_pullback_sl_cooldown_sweep.mjs) 결과 5거래일부터 효과 대부분 포화(10/20/40일과 거의 동일)돼 5일 채택 — n=613→579(-6%), 승률60%→63%, SL비율15%→11%, Sharpe0.474→0.543, IS0.566/OOS0.539(둘 다 baseline OOS0.484보다 우수, 격차도 작아 견고). ⑧ 재진입 제한 조건 신설. 다만 3전략 통합 5슬롯 포트폴리오 시뮬(project_3strategy_combined_portfolio_backtest.mjs)에서는 슬롯 경합이 이미 일부 재진입을 자연스럽게 걸러내고 있어, 전체 포트폴리오 헤드라인 수익률(+1507.71%→+1503.93%)에 미치는 영향은 미미함 — 단독 전략 지표(승률·Sharpe·SL비율) 개선이 이번 채택의 핵심 근거</span></div>
+    <div class="hist-item"><span class="hist-v">v14</span><span>2026-08-26 같은 날, 3전략 통합 월별 집계표를 분석한 사용자가 코스닥 종목이 코스피보다 불안정하다고 판단 — 3전략 통합 포트폴리오 실측 시장별 리스크 지표(project_3strategy_combined_portfolio_backtest.mjs)로 확인 결과 눌림목 코스피(126건, 승률55%, 평균+6.87%, 최악-11.51%, 손절15건) vs 코스닥(48건, 승률52%, 평균+3.13%, 최악-18.09%, 손절1건)로 코스닥이 최악사례·평균수익률 모두 열위. 코스닥 종목(알테오젠 등 유니버스 20종목)을 완전 제외, 코스피 전용으로 전환 — 단독 전략은 n=579→569, 승률63%→64%, Sharpe0.543→0.568로 개선(알테오젠 제외 효과)되었으나, <b>3전략 통합 5슬롯 포트폴리오 헤드라인은 오히려 +1503.93%→+1280.85%로 하락</b>(청산 496건→528건, 라운드넘버 204→247건으로 증가 — 빈 슬롯이 건당 수익이 작은 라운드넘버로 채워짐). 이 트레이드오프를 사용자에게 명시적으로 보고한 뒤 "개별 종목 리스크 관리 우선"으로 코스닥 제외를 그대로 진행하기로 확정. 반대쪽 지수(코스닥지수) 병행확인(④)은 종목이 아닌 breadth 신호라 계속 유지</span></div>
   </div>
 </div>
 
 <div class="panel" id="p4">
   <div class="sc">
-    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">TOP50 · 최근1100일 · v13 전체조건</span></div>
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피TOP50(코스닥제외) · 최근1100일 · v14 전체조건</span></div>
     <div class="kpi-row">
-      <div class="kpi-card kpi-sky"><div class="num">579</div><div class="lbl">표본(n)</div></div>
-      <div class="kpi-card kpi-teal"><div class="num">+7.98%</div><div class="lbl">평균(TP전략)</div></div>
-      <div class="kpi-card kpi-purple"><div class="num">+7.45%</div><div class="lbl">중앙값</div></div>
-      <div class="kpi-card kpi-coral"><div class="num">63%</div><div class="lbl">승률</div></div>
-      <div class="kpi-card kpi-amber"><div class="num">0.543</div><div class="lbl">Sharpe</div></div>
+      <div class="kpi-card kpi-sky"><div class="num">569</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+8.29%</div><div class="lbl">평균(TP전략)</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+7.76%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">64%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">0.568</div><div class="lbl">Sharpe</div></div>
     </div>
-    <div class="sc-note">baseline(전량매도만) 평균 +10.26%·중앙값 +2.82%·승률59%·Sharpe0.455 → TP+10%/50%매도 적용 시 중앙값·승률·Sharpe 전부 개선. v12(n=613, 승률60%, Sharpe0.474) 대비 표본은 -6% 줄지만 승률·Sharpe·SL비율(15%→11%) 전부 개선(⑧ 재진입쿨다운 5거래일 신설).</div>
+    <div class="sc-note">baseline(전량매도만) 평균 +10.62%·중앙값 +3.06%·승률60%·Sharpe0.471 → TP+10%/50%매도 적용 시 중앙값·승률·Sharpe 전부 개선. v13(n=579, 승률63%, Sharpe0.543) 대비 코스닥 종목(알테오젠) 제외로 표본 -10건 줄지만 승률·Sharpe 소폭 개선(IS0.600/OOS0.558로 IS/OOS 견고성도 유지). 코스닥 제외는 개별 리스크(최악사례·평균수익률) 관리가 목적이며, 3전략 통합 5슬롯 포트폴리오 헤드라인은 아래 항목 참고.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">v14 코스닥 유니버스 제외 검증 <span class="sub">2026-08-26 · project_3strategy_combined_portfolio_backtest.mjs 실측</span></div>
+    <div class="sc-note" style="margin-bottom:10px">3전략 통합 월별 집계표를 분석한 사용자가 코스닥이 코스피보다 불안정하다고 판단 → 실측 시장별 리스크 지표로 확인.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th>건수</th><th>승률</th><th>평균수익률</th><th>최악사례</th><th>손절/스탑</th></tr></thead>
+        <tbody>
+          <tr><td class="l">눌림목 · 코스피</td><td>126건</td><td>55%</td><td class="t-pos">+6.87%</td><td class="t-neg-hi">-11.51%</td><td>15건</td></tr>
+          <tr><td class="l">눌림목 · 코스닥</td><td>48건</td><td>52%</td><td class="t-pos">+3.13%</td><td class="t-neg-hi">-18.09%</td><td>1건</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:10px 0">코스닥이 평균수익률·최악사례 모두 열위 확인 후 코스닥 유니버스(알테오젠 등 20종목) 완전 제외, 코스피 전용으로 전환. 단, 3전략 통합 5슬롯 공유자본 포트폴리오로 재검증하면 트레이드오프가 있다 — 빈 슬롯이 건당 수익이 작은 라운드넘버로 채워지면서 헤드라인 수익률은 오히려 하락한다:</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구성</th><th>최종자본</th><th>총수익률</th><th>청산건수</th></tr></thead>
+        <tbody>
+          <tr><td class="l">코스닥 포함(v13)</td><td>160,392,961원</td><td class="t-pos">+1503.93%</td><td>496건(눌림목174·괴리율118·라운드넘버204)</td></tr>
+          <tr><td class="l"><b>코스닥 제외(v14, 채택)</b></td><td><b>138,085,276원</b></td><td class="t-pos"><b>+1280.85%</b></td><td><b>528건(눌림목173·괴리율108·라운드넘버247)</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">사용자에게 이 트레이드오프를 명시적으로 보고한 뒤, "개별 종목 리스크 관리 우선"으로 코스닥 제외를 그대로 진행하기로 확정(2026-08-26).</div>
   </div>
 
   <div class="sc">

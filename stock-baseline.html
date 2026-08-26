@@ -230,18 +230,16 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 08.25 16:00</div>
+      <div class="hdr-date">Update 08.26 16:00</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
   <nav class="top-nav">
-    <button class="tab-btn on" data-tab="0">최근신호(KS)</button>
-    <button class="tab-btn" data-tab="1">최근신호(KQ)</button>
-    <button class="tab-btn" data-tab="2">예상종목(KS)</button>
-    <button class="tab-btn" data-tab="3">예상종목(KQ)</button>
-    <button class="tab-btn" data-tab="4">보유종목</button>
-    <button class="tab-btn" data-tab="5">매매전략</button>
-    <button class="tab-btn" data-tab="6">백테스트</button>
+    <button class="tab-btn on" data-tab="0">최근신호</button>
+    <button class="tab-btn" data-tab="1">예상종목</button>
+    <button class="tab-btn" data-tab="2">보유종목</button>
+    <button class="tab-btn" data-tab="3">매매전략</button>
+    <button class="tab-btn" data-tab="4">백테스트</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -546,299 +544,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 </div>
 
-<div class="panel" id="p0-kq">
-  <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">23</div><div class="lbl">최근365일 신호수</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">9</div><div class="lbl">현재 보유중</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">14</div><div class="lbl">청산완료</div></div>
-    <div class="kpi-card kpi-purple"><div class="num">57%</div><div class="lbl">청산 승률</div></div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">기준선(EMA200) 최근 365일 신호 상세 &middot; 코스닥 TOP20 <span class="sub">2025-08-26 ~ 2026-08-26 &middot; Z&le;-1.25 AND 최저점갱신 후 첫 EMA5 상향돌파, 최대 2회 분할매수</span></div>
-    <div class="sc-note">종목당 동시에 1사이클만 보유합니다(같은 종목이 청산되기 전 재신호는 휩소로 간주해 표에서 자동 생략). 회복(EMA200 재상향돌파) 전 상태는 "회복 전 · 매수N/2회"로, 회복 후에는 "회복후 보유100%"로 표기하다가 첫 5EMA 하향돌파에 전량매도됩니다. 2회 매수가 발생한 종목은 각 회차의 실제 매수일&middot;매수가를 별도로 표기합니다.</div>
-    <div class="tbl-wrap">
-      <table class="tbl-fixed">
-        <thead><tr><th class="l" style="width:8%">날짜</th><th class="l" style="width:11%">종목</th><th style="width:7%">현재가</th><th style="width:7%">괴리율</th><th style="width:7%">진입가</th><th class="l" style="width:9%">상태</th><th class="c" style="width:5%">경과</th><th class="c" style="width:8%">돌파확률</th><th style="width:7%">수익률</th><th class="l" style="width:12%">매수현황</th><th class="l" style="width:19%">신호일자</th></tr></thead>
-        <tbody>
-          <tr><td class="l">2026-07-31</td><td class="l">삼천당제약</td><td>171,100</td><td class="t-neg-hi">-45.11%</td><td>149,600</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+17</td><td class="c"><span title="괴리율구간 -20% 이하, 표본 n=75">69%</span></td><td class="t-pos">+14.37%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-07-31(149,600)</td></tr>
-          <tr><td class="l">2026-07-31</td><td class="l">로보티즈</td><td>254,500</td><td class="t-pos">+7.35%</td><td>183,800</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-06</span></td><td class="c">D+4</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+3</span></td><td class="t-pos">+27.04%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-31(183,800)</td></tr>
-          <tr><td class="l">2026-07-31</td><td class="l">ISC</td><td>163,700</td><td class="t-pos">+3.20%</td><td>129,600</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-21</span></td><td class="c">D+14</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+9</span></td><td class="t-pos">+19.06%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-31(129,600)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">알테오젠</td><td>312,500</td><td class="t-pos">+7.79%</td><td>235,769</td><td class="l"><span class="badge bdg-sky">1파매도(전량)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-14</span></td><td class="c">D+16</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+10</span></td><td class="t-pos">+33.18%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-23(235,769)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">에코프로</td><td>86,600</td><td class="t-neg">-18.44%</td><td>81,700</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+23</td><td class="c"><span title="괴리율구간 -15%~-20%, 표본 n=111">40%</span></td><td class="t-pos">+6.00%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(84,300) &middot; 2차 2026-07-31(79,100)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">에이비엘바이오</td><td>74,900</td><td class="t-neg-hi">-35.37%</td><td>70,550</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+23</td><td class="c"><span title="괴리율구간 -20% 이하, 표본 n=25">80%</span></td><td class="t-pos">+6.17%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(74,300) &middot; 2차 2026-07-31(66,800)</td></tr>
-          <tr><td class="l">2026-07-23</td><td class="l">리가켐바이오</td><td>98,600</td><td class="t-neg-hi">-32.03%</td><td>94,600</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+23</td><td class="c"><span title="괴리율구간 -20% 이하, 표본 n=40">100%</span></td><td class="t-pos">+4.23%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-23(101,700) &middot; 2차 2026-07-31(87,500)</td></tr>
-          <tr><td class="l">2026-07-22</td><td class="l">리노공업</td><td>66,100</td><td class="t-neg">-17.60%</td><td>67,950</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+24</td><td class="c"><span title="괴리율구간 -15%~-20%, 표본 n=51">37%</span></td><td class="t-neg">-2.72%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-22(71,800) &middot; 2차 2026-07-31(64,100)</td></tr>
-          <tr><td class="l">2026-07-16</td><td class="l">HLB</td><td>36,950</td><td class="t-neg">-22.54%</td><td>35,300</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+27</td><td class="c"><span title="괴리율구간 -20% 이하, 표본 n=193">48%</span></td><td class="t-pos">+4.67%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수1/2회)</span></td><td class="l">신호: 1차 2026-07-16(35,300)</td></tr>
-          <tr><td class="l">2026-07-15</td><td class="l">레인보우로보틱스</td><td>452,500</td><td class="t-neg">-13.16%</td><td>420,750</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+28</td><td class="c"><span title="괴리율구간 -10%~-15%, 표본 n=32">100%</span></td><td class="t-pos">+7.55%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-15(430,000) &middot; 2차 2026-07-21(411,500) &middot; <span style="opacity:.65">3차(신호만) 2026-07-31(433,000)</span></td></tr>
-          <tr><td class="l">2026-07-15</td><td class="l">펩트론</td><td>185,500</td><td class="t-neg">-16.53%</td><td>121,650</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+28</td><td class="c"><span title="괴리율구간 -15%~-20%, 표본 n=152">12%</span></td><td class="t-pos">+52.49%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-15(130,000) &middot; 2차 2026-07-24(113,300)</td></tr>
-          <tr><td class="l">2026-07-10</td><td class="l">에코프로비엠</td><td>111,900</td><td class="t-neg-hi">-27.61%</td><td>119,900</td><td class="l"><span class="badge bdg-teal">보유중</span></td><td class="c">D+31</td><td class="c"><span title="괴리율구간 -20% 이하, 표본 n=198">18%</span></td><td class="t-neg">-6.67%</td><td class="l"><span style="color:var(--txt3);font-size:12.5px">(회복 전 · 매수2/2회)</span></td><td class="l">신호: 1차 2026-07-10(121,600) &middot; 2차 2026-07-23(118,200) &middot; <span style="opacity:.65">3차(신호만) 2026-07-31(103,500)</span></td></tr>
-          <tr><td class="l">2026-07-10</td><td class="l">삼천당제약</td><td>171,100</td><td class="t-neg-hi">-45.11%</td><td>195,600</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-28</span></td><td class="c">D+11</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-28.68%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-07-10(199,600) &middot; 2차 2026-07-15(191,600)</td></tr>
-          <tr><td class="l">2026-06-29</td><td class="l">펩트론</td><td>185,500</td><td class="t-neg">-16.53%</td><td>199,800</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-10</span></td><td class="c">D+9</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-44.14%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-29(199,800)</td></tr>
-          <tr><td class="l">2026-06-15</td><td class="l">에이비엘바이오</td><td>74,900</td><td class="t-neg-hi">-35.37%</td><td>95,900</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-20</span></td><td class="c">D+24</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-26.80%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-15(95,900)</td></tr>
-          <tr><td class="l">2026-06-15</td><td class="l">삼천당제약</td><td>171,100</td><td class="t-neg-hi">-45.11%</td><td>252,250</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-08</span></td><td class="c">D+17</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-25.07%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-15(266,000) &middot; 2차 2026-06-29(238,500)</td></tr>
-          <tr><td class="l">2026-06-11</td><td class="l">리가켐바이오</td><td>98,600</td><td class="t-neg-hi">-32.03%</td><td>134,800</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-06-30</span></td><td class="c">D+13</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+12</span></td><td class="t-pos">+11.20%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-11(134,800)</td></tr>
-          <tr><td class="l">2026-06-10</td><td class="l">실리콘투</td><td>52,000</td><td class="t-pos">+29.22%</td><td>33,575</td><td class="l"><span class="badge bdg-sky">1파매도(전량)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-13</span></td><td class="c">D+45</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+43</span></td><td class="t-pos">+21.52%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-06-10(34,500) &middot; 2차 2026-06-29(32,650)</td></tr>
-          <tr><td class="l">2026-05-22</td><td class="l">에이비엘바이오</td><td>74,900</td><td class="t-neg-hi">-35.37%</td><td>120,200</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-06-08</span></td><td class="c">D+9</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-26.29%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-05-22(120,200)</td></tr>
-          <tr><td class="l">2026-03-10</td><td class="l">알테오젠</td><td>312,500</td><td class="t-pos">+7.79%</td><td>281,154</td><td class="l"><span class="badge bdg-red">손절매도(-25%)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-20</span></td><td class="c">D+89</td><td class="c"><span class="t-neg">미돌파</span></td><td class="t-neg-hi">-26.27%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-03-10(288,846) &middot; 2차 2026-03-24(273,462) &middot; <span style="opacity:.65">3차(신호만) 2026-05-13(272,308)</span></td></tr>
-          <tr><td class="l">2026-03-06</td><td class="l">파마리서치</td><td>444,500</td><td class="t-pos">+20.72%</td><td>313,750</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-07-30</span></td><td class="c">D+99</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+96</span></td><td class="t-pos">+10.92%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2026-03-06(333,000) &middot; 2차 2026-04-08(294,500)</td></tr>
-          <tr><td class="l">2025-12-12</td><td class="l">파마리서치</td><td>444,500</td><td class="t-pos">+20.72%</td><td>387,750</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-01-12</span></td><td class="c">D+18</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+16</span></td><td class="t-pos">+16.44%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2025-12-12(394,000) &middot; 2차 2025-12-19(381,500)</td></tr>
-          <tr><td class="l">2025-09-01</td><td class="l">HLB</td><td>36,950</td><td class="t-neg">-22.54%</td><td>38,700</td><td class="l"><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2025-11-06</span></td><td class="c">D+42</td><td class="c"><span title="진입 후 실제 기준선(EMA200) 돌파까지 걸린 거래일수">D+40</span></td><td class="t-pos">+30.49%</td><td class="l"><span class="t-flat">&mdash;</span></td><td class="l">신호: 1차 2025-09-01(38,700)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-note">괴리율은 현재가의 EMA200(기준선) 대비 이격도로, 음수면 기준선 아래·양수면 기준선 위에 있다는 뜻입니다(2026-08-18 추가). 기준선이탈매도(BASELINE_BREAK)는 회복 후 기준선을 다시 하향이탈할 때 잔량 전량매도, 회복실패시간청산(RECOVER_TIMEOUT)은 120거래일 내 회복하지 못해 조기청산, 1파매도(전량)는 회복 후 첫 5EMA 하향돌파(첫 눌림목)에 잔량 전량매도(2026-08-18 확정)를 뜻합니다. 보유중인 종목이 오늘 기준선(EMA200)을 상향돌파(회복)하면 "보유중" 상태는 유지한 채 그 앞에 "기준선돌파 날짜"를 함께 표기해 회복 시점(이벤트)&rarr;보유중(현재 상태) 순으로 보여줍니다. 이 표기는 회복이 일어난 당일에만 붙고(2026-08-18 정정 — 예전엔 회복 후 며칠이 지나도 계속 붙어 있어 마치 오늘 막 돌파한 것처럼 보이는 문제가 있었습니다), 다음날부터는 "보유중"만 남습니다. 청산된 건은 청산 시점의 최종 상태(뱃지)와 확정일자만 표기하며, 청산 전 회복 여부는 표시하지 않습니다. 진입가는 2회 매수가 체결된 경우 1·2차 평단가입니다(수익률도 동일하게 평단가 기준, 2026-08-18 진입가 표시 버그 수정). 차트의 세로 점선은 매수 시점(진입·추가매수)을 표시합니다(2026-08-18 추가 — 기존엔 1차 진입 시점에만 리더선이 있어 2차 매수 시점이 눈에 잘 띄지 않던 문제 수정, 가독성을 위해 보라색 대신 1차와 동일한 색으로 통일). 가로 하늘색 점선은 1차 진입가, 가로 보라색 점선은 2차(추가매수) 진입가 수준을 나타내며 현재 종가와의 위치를 한눈에 비교할 수 있습니다(2026-08-19 추가). "돌파확률" 컬럼은 회복 전(미회복 보유중)이면 해당 종목 동일 괴리율구간의 60거래일 상향돌파 확률(예측치, %), 회복됐으면 진입 후 실제 돌파까지 걸린 거래일수(실측, D+N), 회복 못하고 회복실패시간청산으로 끝났으면 "미돌파"를 표시합니다(2026-08-20 추가, 확정 매매판단 기준이 아니라 참고용).</div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">최근신호 차트 <span class="sub">최신 10건</span></div>
-    <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">삼천당제약</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 20.6,22.1 35.3,23.5 49.9,24.8 64.5,26.1 79.1,27.4 93.8,28.2 108.4,29.6 123.0,31.1 137.6,32.5 152.3,34.0 166.9,35.4 181.5,37.0 196.1,38.6 210.8,40.2 225.4,41.6 240.0,42.9 254.6,44.2 269.3,45.4 283.9,46.6 298.5,47.9 313.1,48.9 327.8,49.9 342.4,51.0 357.0,52.0 371.6,53.0 386.3,54.0 400.9,55.0 415.5,56.0 430.1,57.1 444.8,58.2 459.4,59.3 474.0,60.4" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,144.5 20.6,144.5 35.3,148.1 49.9,151.7 64.5,151.3 79.1,152.8 93.8,140.2 108.4,149.5 123.0,159.5 137.6,162.8 152.3,169.3 166.9,173.5 181.5,178.8 196.1,185.6 210.8,189.2 225.4,186.7 240.0,182.9 254.6,178.1 269.3,175.1 283.9,173.5 298.5,172.5 313.1,165.8 327.8,160.6 342.4,158.5 357.0,156.2 371.6,154.9 386.3,155.1 400.9,156.5 415.5,156.6 430.1,160.3 444.8,162.3 459.4,163.8 474.0,164.1" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,149.4 20.6,144.3 35.3,155.3 49.9,159.0 64.5,150.3 79.1,155.9 93.8,114.8 108.4,168.2 123.0,179.4 137.6,169.4 152.3,182.4 166.9,181.9 181.5,189.4 196.1,199.1 210.8,196.5 225.4,181.8 240.0,175.3 254.6,168.5 269.3,169.1 283.9,170.2 298.5,170.5 313.1,152.4 327.8,150.2 342.4,154.4 357.0,151.7 371.6,152.3 386.3,155.5 400.9,159.3 415.5,156.9 430.1,167.5 444.8,166.4 459.4,166.8 474.0,165.7" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="181.8" x2="474" y2="181.8" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="225.4" y1="12" x2="225.4" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="225.4" cy="181.8" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="165.7" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-31 <span class="sep">|</span> 진입가 <span>149,600</span> <span class="sep">|</span> 현재가 <span>171,100</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+17 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+14.37%</span> <span class="sep">|</span> 매수 1/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg-hi">-45.11%</span> <span class="sep">|</span> 기준선(EMA200) <span>311,689</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -20% 이하) 20D <b>10%(n=114)</b> <span class="sep">|</span> 60D <b>69%(n=75)</b> <span class="sep">|</span> 120D <b>96%(n=75)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-31(149,600)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">로보티즈</span><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-06</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,78.3 20.6,78.7 35.3,79.2 49.9,79.8 64.5,80.1 79.1,80.7 93.8,81.5 108.4,82.1 123.0,82.3 137.6,82.7 152.3,83.3 166.9,83.9 181.5,84.7 196.1,85.6 210.8,86.7 225.4,87.5 240.0,87.8 254.6,87.8 269.3,87.7 283.9,87.7 298.5,87.8 313.1,87.6 327.8,87.5 342.4,87.3 357.0,86.9 371.6,86.2 386.3,85.6 400.9,85.1 415.5,84.8 430.1,84.5 444.8,84.3 459.4,84.1 474.0,83.8" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,120.3 20.6,117.4 35.3,121.4 49.9,129.2 64.5,121.2 79.1,126.9 93.8,138.3 108.4,139.7 123.0,129.7 137.6,124.4 152.3,133.2 166.9,134.4 181.5,145.1 196.1,155.8 210.8,170.2 225.4,167.4 240.0,150.1 254.6,130.2 269.3,112.4 283.9,104.6 298.5,101.4 313.1,90.7 327.8,85.2 342.4,79.7 357.0,69.4 371.6,53.2 386.3,42.9 400.9,41.9 415.5,43.5 430.1,48.7 444.8,55.3 459.4,56.0 474.0,56.8" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,132.3 20.6,111.8 35.3,129.3 49.9,144.7 64.5,105.2 79.1,138.3 93.8,161.3 108.4,142.5 123.0,109.6 137.6,114.0 152.3,150.7 166.9,136.7 181.5,166.6 196.1,177.1 210.8,199.1 225.4,161.9 240.0,115.4 254.6,90.5 269.3,76.6 283.9,89.0 298.5,94.9 313.1,69.3 327.8,74.4 342.4,68.5 357.0,48.8 371.6,20.9 386.3,22.4 400.9,40.0 415.5,46.6 430.1,59.0 444.8,68.5 459.4,57.5 474.0,58.3" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="161.9" x2="474" y2="161.9" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="225.4" y1="12" x2="225.4" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="225.4" cy="161.9" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="58.3" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-31 <span class="sep">|</span> 진입가 <span>183,800</span> <span class="sep">|</span> 현재가 <span>254,500</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+4 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+27.04%</span> <span class="sep">|</span> 매수 1/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-pos">+7.35%</span> <span class="sep">|</span> 기준선(EMA200) <span>237,071</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복(D+3)</span>
-        </div>
-        
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-31(183,800)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--red)"></i>상태 <span>기준선이탈매도</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">ISC</span><span class="badge bdg-red">기준선이탈매도</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-21</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,55.5 20.6,55.8 35.3,56.0 49.9,56.4 64.5,56.5 79.1,56.9 93.8,57.6 108.4,58.2 123.0,58.8 137.6,59.1 152.3,59.8 166.9,60.5 181.5,61.5 196.1,62.7 210.8,64.1 225.4,64.8 240.0,65.7 254.6,66.4 269.3,66.9 283.9,67.5 298.5,68.2 313.1,68.6 327.8,68.8 342.4,69.1 357.0,69.0 371.6,69.0 386.3,68.7 400.9,68.3 415.5,68.0 430.1,68.1 444.8,68.2 459.4,68.0 474.0,67.9" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,92.7 20.6,90.7 35.3,87.4 49.9,88.1 64.5,81.5 79.1,88.4 93.8,100.9 108.4,106.2 123.0,108.6 137.6,104.6 152.3,112.6 166.9,115.8 181.5,131.4 196.1,150.3 210.8,166.5 225.4,158.0 240.0,157.0 254.6,150.1 269.3,138.1 283.9,133.5 298.5,134.8 313.1,126.4 327.8,115.3 342.4,107.4 357.0,93.2 371.6,82.6 386.3,70.6 400.9,54.0 415.5,50.2 430.1,59.7 444.8,66.2 459.4,61.1 474.0,59.1" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,110.3 20.6,86.6 35.3,80.8 49.9,89.6 64.5,68.2 79.1,102.2 93.8,125.9 108.4,116.8 123.0,113.5 137.6,96.7 152.3,128.4 166.9,122.3 181.5,162.6 196.1,188.0 210.8,199.1 225.4,141.0 240.0,155.0 254.6,136.2 269.3,114.3 283.9,124.1 298.5,137.4 313.1,109.5 327.8,93.1 342.4,91.6 357.0,65.0 371.6,61.2 386.3,46.6 400.9,20.9 415.5,42.6 430.1,78.8 444.8,79.0 459.4,51.1 474.0,55.1" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="141.0" x2="474" y2="141.0" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="225.4" y1="12" x2="225.4" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="225.4" cy="141.0" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="55.1" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-31 <span class="sep">|</span> 진입가 <span>129,600</span> <span class="sep">|</span> 현재가 <span>163,700</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+14 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+19.06%</span> <span class="sep">|</span> 매수 1/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-pos">+3.20%</span> <span class="sep">|</span> 기준선(EMA200) <span>158,623</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복(D+9)</span>
-        </div>
-        
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-31(129,600)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--red)"></i>상태 <span>기준선이탈매도</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">알테오젠</span><span class="badge bdg-sky">1파매도(전량)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-14</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,81.9 18.3,82.3 30.6,82.7 42.9,83.3 55.3,83.8 67.6,84.5 79.9,85.3 92.2,85.9 104.5,86.6 116.8,87.6 129.2,88.5 141.5,89.5 153.8,90.6 166.1,91.6 178.4,92.7 190.7,93.4 203.1,94.1 215.4,94.7 227.7,95.5 240.0,96.4 252.3,97.3 264.6,97.9 276.9,98.5 289.3,98.7 301.6,98.8 313.9,98.7 326.2,98.5 338.5,97.7 350.8,97.2 363.2,96.8 375.5,96.4 387.8,96.1 400.1,96.0 412.4,95.8 424.7,95.2 437.1,94.8 449.4,94.4 461.7,94.2 474.0,93.9" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,110.0 18.3,112.8 30.6,117.9 42.9,124.7 55.3,127.1 67.6,136.4 79.9,147.0 92.2,146.3 104.5,148.3 116.8,161.5 129.2,167.4 141.5,175.3 153.8,182.7 166.1,186.6 178.4,190.7 190.7,181.1 203.1,176.6 215.4,170.0 227.7,170.5 240.0,175.4 252.3,179.6 264.6,173.0 276.9,165.8 289.3,151.4 301.6,137.7 313.9,121.6 326.2,106.0 338.5,77.6 350.8,67.3 363.2,64.6 375.5,62.8 387.8,63.1 400.1,70.0 412.4,72.2 424.7,58.7 437.1,57.8 449.4,57.0 461.7,62.8 474.0,63.1" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,112.1 18.3,118.4 30.6,128.1 42.9,138.2 55.3,131.9 67.6,155.1 79.9,168.2 92.2,145.0 104.5,152.2 116.8,188.0 129.2,179.3 141.5,190.9 153.8,197.6 166.1,194.3 178.4,199.1 190.7,161.9 203.1,167.7 215.4,156.6 227.7,171.6 240.0,185.1 252.3,188.0 264.6,160.0 276.9,151.3 289.3,122.8 301.6,110.1 313.9,89.4 326.2,74.9 338.5,20.9 350.8,46.7 363.2,59.2 375.5,59.2 387.8,63.6 400.1,83.7 412.4,76.8 424.7,31.6 437.1,56.1 449.4,55.5 461.7,74.3 474.0,65.5" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="161.9" x2="474" y2="161.9" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="190.7" y1="12" x2="190.7" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="190.7" cy="161.9" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="65.5" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-01</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-23 <span class="sep">|</span> 진입가 <span>235,769</span> <span class="sep">|</span> 현재가 <span>312,500</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+16 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+33.18%</span> <span class="sep">|</span> 매수 1/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-pos">+7.79%</span> <span class="sep">|</span> 기준선(EMA200) <span>289,909</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복(D+10)</span>
-        </div>
-        
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-23(235,769)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--gray600)"></i>상태 <span>1파매도(전량)</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">에코프로</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 18.3,22.0 30.6,23.0 42.9,24.1 55.3,25.3 67.6,26.6 79.9,27.9 92.2,28.9 104.5,30.1 116.8,31.3 129.2,32.3 141.5,33.5 153.8,34.9 166.1,36.3 178.4,37.6 190.7,38.6 203.1,39.8 215.4,40.9 227.7,42.3 240.0,43.8 252.3,45.3 264.6,46.4 276.9,47.5 289.3,48.5 301.6,49.5 313.9,50.4 326.2,51.2 338.5,51.7 350.8,52.4 363.2,53.0 375.5,53.6 387.8,54.1 400.1,54.8 412.4,55.6 424.7,56.2 437.1,57.2 449.4,57.8 461.7,58.6 474.0,59.3" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,71.1 18.3,90.4 30.6,102.7 42.9,113.1 55.3,121.3 67.6,134.5 79.9,141.6 92.2,138.7 104.5,139.3 116.8,145.2 129.2,140.3 141.5,144.8 153.8,155.6 166.1,160.7 178.4,161.8 190.7,153.9 203.1,156.1 215.4,154.6 227.7,163.1 240.0,175.1 252.3,179.2 264.6,171.8 276.9,168.9 289.3,161.4 301.6,156.1 313.9,150.9 326.2,144.6 338.5,131.4 350.8,126.5 363.2,122.0 375.5,118.0 387.8,113.5 400.1,118.4 412.4,122.7 424.7,123.3 437.1,131.4 449.4,129.3 461.7,131.2 474.0,130.6" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,106.8 18.3,128.8 30.6,127.4 42.9,133.8 55.3,137.8 67.6,160.9 79.9,155.8 92.2,132.8 104.5,140.7 116.8,156.9 129.2,130.6 141.5,153.7 153.8,177.1 166.1,171.0 178.4,164.1 190.7,138.2 203.1,160.5 215.4,151.5 227.7,180.0 240.0,199.1 252.3,187.6 264.6,156.9 276.9,163.0 289.3,146.5 301.6,145.4 313.9,140.7 326.2,132.0 338.5,105.0 350.8,116.5 363.2,112.9 375.5,110.1 387.8,104.6 400.1,128.1 412.4,131.3 424.7,124.5 437.1,147.5 449.4,125.2 461.7,134.9 474.0,129.9" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="138.2" x2="474" y2="138.2" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="190.7" y1="12" x2="190.7" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="190.7" cy="138.2" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><line x1="6" y1="156.9" x2="474" y2="156.9" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="264.6" y1="12" x2="264.6" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="264.6" cy="156.9" r="3.5" fill="var(--purple)" stroke="var(--card)" stroke-width="1"/><circle cx="474.0" cy="129.9" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-01</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-23 <span class="sep">|</span> 진입가 <span>81,700</span> <span class="sep">|</span> 현재가 <span>86,600</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+23 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+6.00%</span> <span class="sep">|</span> 매수 2/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg">-18.44%</span> <span class="sep">|</span> 기준선(EMA200) <span>106,176</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -15%~-20%) 20D <b>24%(n=111)</b> <span class="sep">|</span> 60D <b>40%(n=111)</b> <span class="sep">|</span> 120D <b>40%(n=111)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-23(84,300) <span class="sep">|</span> 2차 2026-07-31(79,100)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--purple)"></i>2차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">에이비엘바이오</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 18.3,21.8 30.6,22.7 42.9,23.7 55.3,24.7 67.6,25.9 79.9,27.1 92.2,28.3 104.5,29.6 116.8,30.9 129.2,32.1 141.5,33.4 153.8,34.9 166.1,36.3 178.4,37.7 190.7,39.0 203.1,40.3 215.4,41.6 227.7,42.9 240.0,44.4 252.3,46.0 264.6,47.3 276.9,48.6 289.3,49.6 301.6,50.6 313.9,51.6 326.2,52.4 338.5,53.0 350.8,53.8 363.2,54.6 375.5,55.4 387.8,56.3 400.1,57.2 412.4,58.2 424.7,59.0 437.1,60.1 449.4,61.1 461.7,62.1 474.0,63.1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,103.3 18.3,105.5 30.6,107.6 42.9,113.9 55.3,115.1 67.6,126.1 79.9,134.2 92.2,138.5 104.5,143.7 116.8,151.0 129.2,151.8 141.5,155.4 153.8,162.2 166.1,167.5 178.4,171.0 190.7,169.2 203.1,169.6 215.4,169.7 227.7,172.9 240.0,179.6 252.3,186.1 264.6,185.5 276.9,181.6 289.3,171.3 301.6,164.6 313.9,157.6 326.2,150.2 338.5,139.5 350.8,136.1 363.2,135.7 375.5,135.4 387.8,137.5 400.1,142.4 412.4,145.7 424.7,145.7 437.1,151.6 449.4,155.1 461.7,158.4 474.0,160.1" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,98.6 18.3,109.7 30.6,112.0 42.9,126.5 55.3,117.4 67.6,148.0 79.9,150.5 92.2,147.3 104.5,153.9 116.8,165.5 129.2,153.4 141.5,162.6 153.8,175.9 166.1,178.1 178.4,177.9 190.7,165.8 203.1,170.5 215.4,170.0 227.7,179.3 240.0,192.9 252.3,199.1 264.6,184.3 276.9,173.9 289.3,150.7 301.6,151.2 313.9,143.6 326.2,135.4 338.5,118.1 350.8,129.2 363.2,134.9 375.5,134.9 387.8,141.6 400.1,152.2 412.4,152.4 424.7,145.5 437.1,163.5 449.4,162.1 461.7,165.0 474.0,164.3" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="165.8" x2="474" y2="165.8" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="190.7" y1="12" x2="190.7" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="190.7" cy="165.8" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><line x1="6" y1="184.3" x2="474" y2="184.3" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="264.6" y1="12" x2="264.6" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="264.6" cy="184.3" r="3.5" fill="var(--purple)" stroke="var(--card)" stroke-width="1"/><circle cx="474.0" cy="164.3" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-01</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-23 <span class="sep">|</span> 진입가 <span>70,550</span> <span class="sep">|</span> 현재가 <span>74,900</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+23 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+6.17%</span> <span class="sep">|</span> 매수 2/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg-hi">-35.37%</span> <span class="sep">|</span> 기준선(EMA200) <span>115,885</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -20% 이하) 20D <b>9%(n=65)</b> <span class="sep">|</span> 60D <b>80%(n=25)</b> <span class="sep">|</span> 120D <b>100%(n=20)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-23(74,300) <span class="sep">|</span> 2차 2026-07-31(66,800)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--purple)"></i>2차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">리가켐바이오</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 18.3,21.3 30.6,21.9 42.9,22.6 55.3,23.2 67.6,24.0 79.9,24.9 92.2,25.8 104.5,26.8 116.8,27.9 129.2,28.9 141.5,30.1 153.8,31.4 166.1,32.7 178.4,34.0 190.7,35.2 203.1,36.4 215.4,37.6 227.7,39.0 240.0,40.5 252.3,42.0 264.6,43.4 276.9,44.6 289.3,45.5 301.6,46.3 313.9,47.2 326.2,47.9 338.5,48.6 350.8,49.2 363.2,49.9 375.5,50.7 387.8,51.4 400.1,52.3 412.4,53.2 424.7,54.0 437.1,55.0 449.4,55.9 461.7,56.9 474.0,57.8" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,46.5 18.3,51.8 30.6,61.8 42.9,72.6 55.3,73.9 67.6,85.8 79.9,95.3 92.2,100.2 104.5,108.3 116.8,120.1 129.2,123.2 141.5,130.4 153.8,139.9 166.1,148.6 178.4,154.2 190.7,152.5 203.1,155.3 215.4,156.1 227.7,161.5 240.0,170.5 252.3,180.0 264.6,179.7 276.9,173.9 289.3,159.8 301.6,150.8 313.9,143.8 326.2,137.5 338.5,128.6 350.8,124.7 363.2,123.4 375.5,123.1 387.8,123.2 400.1,129.4 412.4,134.1 424.7,134.4 437.1,140.5 449.4,142.5 461.7,146.1 474.0,148.9" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,47.5 18.3,62.4 30.6,81.8 42.9,94.2 55.3,76.5 67.6,109.7 79.9,114.3 92.2,109.9 104.5,124.6 116.8,143.6 129.2,129.5 141.5,144.8 153.8,158.7 166.1,166.1 178.4,165.4 190.7,149.0 203.1,160.8 215.4,157.7 227.7,172.4 240.0,188.6 252.3,199.1 264.6,178.9 276.9,162.3 289.3,131.8 301.6,132.6 313.9,129.7 326.2,124.9 338.5,110.8 350.8,117.1 363.2,120.9 375.5,122.3 387.8,123.4 400.1,141.9 412.4,143.4 424.7,135.2 437.1,152.6 449.4,146.5 461.7,153.2 474.0,155.6" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="149.0" x2="474" y2="149.0" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="190.7" y1="12" x2="190.7" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="190.7" cy="149.0" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><line x1="6" y1="178.9" x2="474" y2="178.9" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="264.6" y1="12" x2="264.6" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="264.6" cy="178.9" r="3.5" fill="var(--purple)" stroke="var(--card)" stroke-width="1"/><circle cx="474.0" cy="155.6" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-01</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-23 <span class="sep">|</span> 진입가 <span>94,600</span> <span class="sep">|</span> 현재가 <span>98,600</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+23 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+4.23%</span> <span class="sep">|</span> 매수 2/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg-hi">-32.03%</span> <span class="sep">|</span> 기준선(EMA200) <span>145,069</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -20% 이하) 20D <b>16%(n=55)</b> <span class="sep">|</span> 60D <b>100%(n=40)</b> <span class="sep">|</span> 120D <b>100%(n=40)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-23(101,700) <span class="sep">|</span> 2차 2026-07-31(87,500)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--purple)"></i>2차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">리노공업</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,22.1 18.0,22.3 30.0,22.9 42.0,23.3 54.0,23.9 66.0,24.7 78.0,25.6 90.0,26.5 102.0,27.1 114.0,27.8 126.0,28.5 138.0,28.9 150.0,29.6 162.0,30.5 174.0,31.3 186.0,32.0 198.0,32.6 210.0,33.4 222.0,34.2 234.0,35.5 246.0,37.0 258.0,38.6 270.0,39.7 282.0,40.9 294.0,41.9 306.0,42.8 318.0,43.7 330.0,44.6 342.0,45.3 354.0,45.8 366.0,46.4 378.0,47.0 390.0,47.6 402.0,48.4 414.0,49.2 426.0,49.8 438.0,50.7 450.0,51.6 462.0,52.4 474.0,53.2" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,20.9 18.0,28.8 30.0,46.9 42.0,52.1 54.0,62.8 66.0,75.8 78.0,89.7 90.0,97.4 102.0,95.1 114.0,96.5 126.0,95.9 138.0,86.2 150.0,90.6 162.0,99.7 174.0,104.1 186.0,103.5 198.0,99.0 210.0,106.3 222.0,108.9 234.0,126.5 246.0,144.9 258.0,162.9 270.0,157.7 282.0,159.4 294.0,154.8 306.0,146.8 318.0,141.5 330.0,140.3 342.0,129.8 354.0,121.2 366.0,115.7 378.0,112.2 390.0,110.8 402.0,115.8 414.0,118.8 426.0,117.8 438.0,124.5 450.0,131.1 462.0,130.0 474.0,131.7" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,31.2 18.0,44.6 30.0,83.0 42.0,62.6 54.0,84.2 66.0,101.7 78.0,117.5 90.0,112.8 102.0,90.6 114.0,99.4 126.0,94.7 138.0,66.7 150.0,99.4 162.0,118.0 174.0,112.8 186.0,102.3 198.0,90.0 210.0,121.0 222.0,114.0 234.0,161.8 246.0,181.6 258.0,199.1 270.0,147.2 282.0,162.9 294.0,145.4 306.0,130.9 318.0,130.9 330.0,137.9 342.0,108.7 354.0,104.0 366.0,104.6 378.0,105.2 390.0,108.1 402.0,125.6 414.0,125.0 426.0,115.7 438.0,137.9 450.0,144.3 462.0,128.0 474.0,135.5" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="102.3" x2="474" y2="102.3" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="186.0" y1="12" x2="186.0" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="186.0" cy="102.3" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><line x1="6" y1="147.2" x2="474" y2="147.2" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="270.0" y1="12" x2="270.0" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="270.0" cy="147.2" r="3.5" fill="var(--purple)" stroke="var(--card)" stroke-width="1"/><circle cx="474.0" cy="135.5" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-30</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-22 <span class="sep">|</span> 진입가 <span>67,950</span> <span class="sep">|</span> 현재가 <span>66,100</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+24 <span class="sep">|</span> 수익률(가중) <span class="t-neg">-2.72%</span> <span class="sep">|</span> 매수 2/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg">-17.60%</span> <span class="sep">|</span> 기준선(EMA200) <span>80,216</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -15%~-20%) 20D <b>9%(n=58)</b> <span class="sep">|</span> 60D <b>37%(n=51)</b> <span class="sep">|</span> 120D <b>100%(n=51)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-22(71,800) <span class="sep">|</span> 2차 2026-07-31(64,100)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--purple)"></i>2차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">HLB</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 17.1,21.2 28.3,21.3 39.4,21.4 50.6,21.5 61.7,21.9 72.9,22.1 84.0,22.4 95.1,22.4 106.3,22.6 117.4,22.6 128.6,23.6 139.7,25.3 150.9,27.0 162.0,28.1 173.1,29.2 184.3,30.6 195.4,31.9 206.6,33.4 217.7,34.8 228.9,36.0 240.0,37.3 251.1,38.6 262.3,39.8 273.4,41.1 284.6,42.3 295.7,43.6 306.9,44.5 318.0,45.5 329.1,46.4 340.3,47.1 351.4,47.6 362.6,48.1 373.7,48.5 384.9,48.9 396.0,49.2 407.1,49.6 418.3,50.0 429.4,50.5 440.6,51.1 451.7,51.8 462.9,52.4 474.0,53.2" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,43.2 17.1,46.5 28.3,41.5 39.4,35.9 50.6,36.1 61.7,42.6 72.9,44.7 84.0,45.2 95.1,39.0 106.3,38.4 117.4,33.4 128.6,64.5 139.7,109.4 150.9,136.9 162.0,137.7 173.1,136.9 184.3,146.8 195.4,153.8 206.6,163.0 217.7,165.4 228.9,164.2 240.0,163.0 251.1,164.6 262.3,163.7 273.4,166.0 284.6,166.1 295.7,165.5 306.9,157.5 318.0,151.0 329.1,145.9 340.3,138.0 351.4,125.1 362.6,113.8 373.7,107.1 384.9,100.0 396.0,94.4 407.1,90.7 418.3,90.5 429.4,95.3 440.6,101.2 451.7,106.9 462.9,109.7 474.0,114.3" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,44.6 17.1,53.2 28.3,31.3 39.4,24.7 50.6,36.6 61.7,55.5 72.9,48.9 84.0,46.2 95.1,26.7 106.3,37.3 117.4,23.4 128.6,126.6 139.7,199.1 150.9,192.1 162.0,139.2 173.1,135.2 184.3,166.7 195.4,167.7 206.6,181.6 217.7,170.3 228.9,161.7 240.0,160.7 251.1,167.7 262.3,162.0 273.4,170.6 284.6,166.3 295.7,164.3 306.9,141.5 318.0,137.9 329.1,135.9 340.3,122.0 351.4,99.5 362.6,91.2 373.7,93.5 384.9,85.9 396.0,83.3 407.1,83.3 418.3,90.2 429.4,104.8 440.6,113.1 451.7,118.3 462.9,115.4 474.0,124.3" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="135.2" x2="474" y2="135.2" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="173.1" y1="12" x2="173.1" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="173.1" cy="135.2" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="124.3" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-25</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-16 <span class="sep">|</span> 진입가 <span>35,300</span> <span class="sep">|</span> 현재가 <span>36,950</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+27 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+4.67%</span> <span class="sep">|</span> 매수 1/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg">-22.54%</span> <span class="sep">|</span> 기준선(EMA200) <span>47,701</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -20% 이하) 20D <b>12%(n=205)</b> <span class="sep">|</span> 60D <b>48%(n=193)</b> <span class="sep">|</span> 120D <b>85%(n=193)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-16(35,300)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">레인보우로보틱스</span><span class="badge bdg-teal">보유중</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <polyline points="6.0,20.9 16.9,21.3 27.8,22.0 38.7,22.4 49.5,22.7 60.4,23.1 71.3,23.7 82.2,24.3 93.1,25.0 104.0,25.9 114.8,27.1 125.7,28.2 136.6,29.1 147.5,30.4 158.4,31.8 169.3,32.9 180.1,34.3 191.0,36.0 201.9,37.2 212.8,37.8 223.7,38.1 234.6,39.2 245.4,40.1 256.3,41.4 267.2,42.6 278.1,44.2 289.0,45.2 299.9,45.9 310.7,46.5 321.6,46.9 332.5,47.3 343.4,47.9 354.3,48.3 365.2,48.7 376.0,49.1 386.9,49.4 397.8,49.6 408.7,50.1 419.6,50.8 430.5,51.3 441.3,52.0 452.2,52.7 463.1,53.4 474.0,54.1" fill="none" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,25.8 16.9,36.9 27.8,56.0 38.7,57.0 49.5,56.7 60.4,56.5 71.3,67.5 82.2,72.3 93.1,79.7 104.0,91.2 114.8,109.1 125.7,120.1 136.6,120.2 147.5,132.8 158.4,145.9 169.3,145.0 180.1,155.2 191.0,169.2 201.9,166.6 212.8,143.0 223.7,117.6 234.6,129.9 245.4,129.1 256.3,143.5 267.2,149.8 278.1,166.2 289.0,157.6 299.9,143.5 310.7,131.4 321.6,117.7 332.5,106.8 343.4,107.5 354.3,100.2 365.2,98.2 376.0,93.6 386.9,88.3 397.8,83.5 408.7,90.3 419.6,97.4 430.5,99.1 441.3,106.0 452.2,113.7 463.1,115.6 474.0,117.6" fill="none" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,60.0 16.9,59.0 27.8,94.3 38.7,59.0 49.5,56.1 60.4,56.1 71.3,89.4 82.2,82.1 93.1,94.3 104.0,114.4 114.8,144.7 125.7,142.3 136.6,120.3 147.5,158.0 158.4,172.2 169.3,143.3 180.1,175.6 191.0,197.1 201.9,161.4 212.8,95.8 223.7,66.9 234.6,154.5 245.4,127.6 256.3,172.2 267.2,162.4 278.1,199.1 289.0,140.3 299.9,115.4 310.7,107.0 321.6,90.4 332.5,85.0 343.4,109.0 354.3,85.5 365.2,94.3 376.0,84.5 386.9,77.7 397.8,73.7 408.7,104.1 419.6,111.4 430.5,102.6 441.3,119.8 452.2,129.1 463.1,119.3 474.0,121.2" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="143.3" x2="474" y2="143.3" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="169.3" y1="12" x2="169.3" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="169.3" cy="143.3" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><line x1="6" y1="161.4" x2="474" y2="161.4" stroke="var(--purple)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="201.9" y1="12" x2="201.9" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="201.9" cy="161.4" r="3.5" fill="var(--purple)" stroke="var(--card)" stroke-width="1"/><circle cx="474.0" cy="121.2" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-24</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-26</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>진입일 2026-07-15 <span class="sep">|</span> 진입가 <span>420,750</span> <span class="sep">|</span> 현재가 <span>452,500</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>D+28 <span class="sep">|</span> 수익률(가중) <span class="t-pos">+7.55%</span> <span class="sep">|</span> 매수 2/2회</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>EMA200괴리 <span class="t-neg">-13.16%</span> <span class="sep">|</span> 기준선(EMA200) <span>521,084</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>회복전</span>
-        </div>
-        <div class="chart-card-stats">
-          <span>200EMA 상향돌파확률(동구간 -10%~-15%) 20D <b>57%(n=37)</b> <span class="sep">|</span> 60D <b>100%(n=32)</b> <span class="sep">|</span> 120D <b>100%(n=32)</b></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>신호일 1차 2026-07-15(430,000) <span class="sep">|</span> 2차 2026-07-21(411,500) <span class="sep">|</span> <span style="opacity:.65">3차(신호만) 2026-07-31(433,000)</span></span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>EMA5</span><span><i class="dash" style="border-color:var(--amber)"></i>EMA200(기준선)</span><span><i style="background:var(--sky600)"></i>1차 진입가</span><span><i style="background:var(--purple)"></i>2차 진입가</span><span><i style="background:var(--teal)"></i>상태 <span>보유중</span></span></div>
-      </div>
-    </div>
-    <div class="sc-note">보라색 점은 분할매수(진입+추가매수) 시점, 우측 끝 빨간 점은 오늘(또는 청산일) 종가입니다. 점선은 EMA5(하늘색)·EMA200(주황, 기준선)입니다.</div>
-  </div>
-</div>
+
 
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
@@ -886,32 +592,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
 </div>
 
-<div class="panel" id="p1-kq">
-  <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">20</div><div class="lbl">분석 유니버스(코스닥TOP20)</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">0</div><div class="lbl">관찰대상(스트릭&ge;16일)</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">0</div><div class="lbl">Z조건충족(&le;-1.25)</div></div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">예상종목 리스트 <span class="sub">종가&lt;EMA200 16거래일 이상 연속 이탈 중인 관찰대상 전종목, 롤링Z(250일) 낮은 순</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th>현재가</th><th>기준선(EMA200)</th><th>EMA200괴리</th><th>롤링Z</th><th class="c">이탈일수</th><th class="c">돌파확률(60D)</th><th class="c">상태</th></tr></thead>
-        <tbody>
 
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-note">"Z충족&middot;돌파대기"는 롤링Z가 이미 -1.25 이하로 내려간 상태로, 종가가 최근 최저점을 갱신한 뒤 EMA5를 상향돌파하는 순간 매수신호가 발생합니다(최저점을 갱신하지 않은 채 EMA5만 넘는 경우는 신호로 인정되지 않습니다). "관찰"은 스트릭(16거래일 이상 기준선 이탈)만 충족한 상태로, Z조건까지 충족하려면 추가 하락 또는 시간 경과가 더 필요합니다. "돌파확률(60D)"은 해당 종목 자신의 과거 이력 중 지금과 같은 EMA200 괴리율 구간에서 하회 상태였던 날들이 이후 60거래일 안에 실제로 재상향돌파한 비율입니다(2026-08-20 추가, 표본 부족 시 &mdash; 표시). 여러 종목이 동시에 조건을 충족했을 때 참고용 우선순위로만 활용할 것 — 백테스트 결과 슬롯제약 포트폴리오 시뮬레이션에서 개선폭이 크지 않고 경쟁일 표본이 작아 확정된 선별기준은 아닙니다.</div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">예상종목 차트</div>
-    <div class="chart-grid">
-
-    </div>
-    <div class="sc-note">Z&le;-1.25 예상가는 현재 롤링 평균&middot;표준편차를 그대로 유지한다고 가정할 때 Z=-1.25에 도달하는 근사 가격입니다(변동성이 바뀌면 실제 도달가는 달라집니다). 종가-EMA5 관계가 "EMA5 위"인 종목은 Z조건 재확인만 되면 즉시 신호가 발생할 수 있는 근접 후보입니다.</div>
-  </div>
-</div>
 
 <div class="panel" id="p2">
   <div class="kpi-row">
@@ -1083,7 +764,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table>
         <thead><tr><th class="l shrink">구분</th><th class="l">내용</th></tr></thead>
         <tbody>
-          <tr><td class="l">대상 유니버스</td><td class="l wrap">시가총액 TOP50</td></tr>
+          <tr><td class="l">대상 유니버스</td><td class="l wrap">코스피 시가총액 TOP50(코스닥 제외, 2026-08-26 확정)</td></tr>
           <tr><td class="l">① 이탈 스트릭</td><td class="l wrap">종가 &lt; EMA200 상태가 연속 16거래일 이상 유지</td></tr>
           <tr><td class="l">② 괴리율 조건</td><td class="l wrap">EMA200 대비 괴리율(dev200)의 롤링(250거래일) Z-score &le; -1.25</td></tr>
           <tr><td class="l">③ 반등 신호(2026-08-14 개선)</td><td class="l wrap">기준선 아래에서 종가가 새로운 최저점을 갱신한 뒤, 그 이후 첫 EMA5 상향돌파만 신호로 인정(최저점을 다시 갱신하기 전까지 잦은 휩쏘 재신호 방지)</td></tr>
@@ -1167,20 +848,25 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 
 <div class="panel" id="p4">
   <div class="sc">
-    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">TOP50 &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(min-streak=16, z=-1.25, rebound-mode=vlow, exit-mode=full1, max-buy-legs=2, recover-timeout=120, post-recover-hold=60)</span></div>
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피TOP50(코스닥제외) &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(min-streak=16, z=-1.25, rebound-mode=vlow, exit-mode=full1, max-buy-legs=2, recover-timeout=120, post-recover-hold=60, sl=25)</span></div>
     <div class="kpi-row">
-      <div class="kpi-card kpi-sky"><div class="num">275</div><div class="lbl">표본(n)</div></div>
-      <div class="kpi-card kpi-teal"><div class="num">+8.51%</div><div class="lbl">가중평균</div></div>
-      <div class="kpi-card kpi-purple"><div class="num">+9.45%</div><div class="lbl">중앙값</div></div>
-      <div class="kpi-card kpi-coral"><div class="num">76%</div><div class="lbl">승률</div></div>
-      <div class="kpi-card kpi-amber"><div class="num">75.5일</div><div class="lbl">평균종결일</div></div>
+      <div class="kpi-card kpi-sky"><div class="num">273</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+6.99%</div><div class="lbl">가중평균</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+9.01%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">73%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">71.0일</div><div class="lbl">평균종결일</div></div>
     </div>
-    <div class="sc-note">최고 <b class="t-pos">+80.37%</b> &middot; 최악 <b class="t-neg-hi">-38.03%</b>. 2026-08-18 청산방식을 파동별 분할매도&rarr;회복 후 첫 눌림목(첫 5EMA 하향돌파) 전량매도로 변경했습니다(아래 청산방식 비교 참조). 가중평균 +8.31%&rarr;+8.51%, 중앙값 +8.79%&rarr;+9.45%로 개선됐습니다. 이 탭의 모든 수치는 <code>scripts/project_baseline_strategy_backtest.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과이며, Yahoo Finance 데이터가 이전 실행 시점과 소폭 달라졌을 수 있어 과거 기록값을 그대로 베끼지 않고 매번 새로 확인했습니다.</div>
+    <div class="sc-note">최고 <b class="t-pos">+80.37%</b> &middot; 최악 <b class="t-neg-hi">-29.53%</b> &middot; 손절(SL) 26건. 2026-08-26 : 코스닥 종목(알테오젠) 제외 + 손절-25% 안전장치를 반영해 전체 재검증(직전 n=275, 가중평균+8.51%, 승률76%, SL 미반영치 대비) — SL-25% 반영으로 최악손실이 -38.03%→-29.53%로 크게 개선되고, 코스닥 제외로 표본이 소폭 줄어듭니다(승률·평균은 SL 반영 효과로 다소 낮아지나, 이는 무손절 대비 이미 알려진 트레이드오프입니다). 이 탭의 모든 수치는 <code>scripts/project_baseline_strategy_backtest.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과이며, Yahoo Finance 데이터가 이전 실행 시점과 소폭 달라졌을 수 있어 과거 기록값을 그대로 베끼지 않고 매번 새로 확인했습니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">&#9733;2026-08-26 : 코스닥 종목 유니버스 제외 확정&#9733;</div>
+    <div class="sc-note">3전략 통합 월별 집계표를 분석한 사용자가 코스닥이 코스피보다 불안정하다고 판단 — 3전략 통합 포트폴리오 실측 시장별 리스크 지표(project_3strategy_combined_portfolio_backtest.mjs, 눌림목·괴리율 기준)로 확인 후 코스닥 종목(알테오젠 등)을 유니버스에서 완전 제외, 코스피 전용으로 전환. 기준선 전략은 3전략 통합 실전 운용에서 이미 제외된 상태([[project_trading_plan_3strategy_portfolio]] 참고)라 이 변경이 실제 매매에 직접 영향을 주지는 않지만, 스크립트·앱의 유니버스 정의를 다른 전략과 일관되게 맞추기 위해 동일하게 반영했습니다. "최근신호(KQ)"·"예상종목(KQ)" 탭도 함께 폐지.</div>
   </div>
 
   <div class="sc">
     <div class="sc-title">&#9733;2026-08-26 추가&#9733; : 손절 -25% 안전장치 신설 확정</div>
-    <div class="sc-note">전체 로직(매수 3조건·WAVE1_FULL·BASELINE_BREAK·RECOVER_TIMEOUT·POST_RECOVER_HOLD 등, 위 확정 설정 전부)은 그대로 두고, 회복 전/후 무관하게 평단가 대비 -25% 도달 시 최우선으로 잔량 전량매도하는 규칙만 추가했습니다. 먼저 괴리율(하락추세) 전략의 5단계 청산 트리거를 그대로 이식하는 방안을 검토했으나(<code>project_baseline_deviation_exit_backtest.mjs</code>), 20거래일 시간청산이 이 전략의 실제 회복 중앙값(48~57거래일)과 시간축이 맞지 않아 성과가 크게 열위(n=289, 평균+2.95% vs 기존 로직 n=242, 평균+8.10%)로 나와 기각했습니다. 대신 기존 청산 로직은 100% 유지한 채 SL만 추가하는 하이브리드로 전환해 SL 절충점을 스윕(<code>project_baseline_sl_hybrid_backtest.mjs</code>, SL=[12,15,18,20,25,30,35]+무손절 비교): 무손절 대비 평균수익률 8.54%&rarr;7.29%(SL25%)&middot;중앙값 9.47%&rarr;9.08%&middot;승률 76%&rarr;74%로 소폭 하락하지만 최악손실 -38.03%&rarr;-29.53%로 꼬리위험이 크게 개선되는 지점을 절충점으로 채택했습니다. 라이브 스크립트(<code>project_baseline_strategy_backtest.mjs</code> --sl 25 기본값·<code>project_baseline_recent_signals.mjs</code>·<code>project_baseline_holdings_check.mjs</code>) 전부 반영 완료. 위 표들의 대규모(TOP50×7년) 수치 자체는 아직 SL25 재적용 후 전체 재검증 전이라 그대로 유지 — 필요시 추가 예정.</div>
+    <div class="sc-note">전체 로직(매수 3조건·WAVE1_FULL·BASELINE_BREAK·RECOVER_TIMEOUT·POST_RECOVER_HOLD 등, 위 확정 설정 전부)은 그대로 두고, 회복 전/후 무관하게 평단가 대비 -25% 도달 시 최우선으로 잔량 전량매도하는 규칙만 추가했습니다. 먼저 괴리율(하락추세) 전략의 5단계 청산 트리거를 그대로 이식하는 방안을 검토했으나(<code>project_baseline_deviation_exit_backtest.mjs</code>), 20거래일 시간청산이 이 전략의 실제 회복 중앙값(48~57거래일)과 시간축이 맞지 않아 성과가 크게 열위(n=289, 평균+2.95% vs 기존 로직 n=242, 평균+8.10%)로 나와 기각했습니다. 대신 기존 청산 로직은 100% 유지한 채 SL만 추가하는 하이브리드로 전환해 SL 절충점을 스윕(<code>project_baseline_sl_hybrid_backtest.mjs</code>, SL=[12,15,18,20,25,30,35]+무손절 비교): 무손절 대비 평균수익률 8.54%&rarr;7.29%(SL25%)&middot;중앙값 9.47%&rarr;9.08%&middot;승률 76%&rarr;74%로 소폭 하락하지만 최악손실 -38.03%&rarr;-29.53%로 꼬리위험이 크게 개선되는 지점을 절충점으로 채택했습니다. 라이브 스크립트(<code>project_baseline_strategy_backtest.mjs</code> --sl 25 기본값·<code>project_baseline_recent_signals.mjs</code>·<code>project_baseline_holdings_check.mjs</code>) 전부 반영 완료. 위 "최종 확정 백테스트 결과" 박스는 2026-08-26 코스닥 제외와 함께 SL25 반영 전체 재검증치로 갱신 완료.</div>
   </div>
 
   <div class="sc">
