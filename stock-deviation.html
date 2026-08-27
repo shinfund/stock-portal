@@ -752,6 +752,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}.chart-card-stats .sep{color:var(
     <div class="sc-note">코스피 유니버스 확장 실험이 역효과로 판명된 뒤(TOP50 유지 확정), 사용자가 진입/청산 트리거 재튜닝을 요청 — SL 8~20%·TP% 12~30%·최대보유일 15~30 그리드서치(scripts/project_deviation_exit_grid_v15.mjs, 240개 조합) 진행. 1차로 트레이드당 Sharpe 기준 SL16%/최대보유일25일을 채택했으나, 3전략 통합포트폴리오 재검증(project_3strategy_combined_portfolio_backtest.mjs)에서 헤드라인이 +1221%→+1090%로 하락하는 역효과 발견(최대보유일 연장으로 슬롯 회전율 저하). perDay(하루당 기대수익률) 기준으로 재평가해 정정 — 최대보유일 20일은 그대로 유지(평균보유일 불변)한 채 SL만 12%→18%로 조정(17%부터 손절이 거의 발생하지 않아 포화). n=173(불변), 가중평균+6.29%→+6.62%, perDay 0.338%→0.346%, Sharpe0.583→0.638, IS0.391→0.424(더 건강)/OOS0.900→1.020. 3전략 통합 재검증 결과 헤드라인 +1221.39%→+1765.80%로 개선.</div>
   </div>
   <div class="sc">
+    <div class="sc-title">★2026-08-27 : 베타(KOSPI상관) 타이브레이커 도입 확정★</div>
+    <div class="sc-note">사용자가 "종목별 점수를 매겨 진입 판단에 참고" 제안 — 매매결과와 무관한 정적 팩터(유동성·변동성·베타·시총순위)를 워크포워드 3구간(scripts/project_stock_factor_score_backtest.mjs)으로 검증한 결과 베타(KOSPI상관)만 3구간 전부 재현(spread +2.84~+5.07%p, 베타×시총 스피어 0.077로 무관). 이를 "베타 하위33% 완전제외"(50→34종목)로 반영해 3전략 통합 5슬롯 포트폴리오 A/B 테스트하자 헤드라인이 +1814.72%→+1445.49%로 오히려 하락(유니버스 축소로 신호량 감소, 슬롯 회전율 저하가 종목품질 개선을 압도) — 기각. 유니버스는 50종목 그대로 두고 "그날 후보수가 빈슬롯보다 많을 때만" 전략우선순위 대신 베타 높은 순으로 슬롯을 배정하는 타이브레이커만 도입하자 +1814.72%→<b>+2200.44%</b>로 개선(청산 506→517건, 실현손익 180.8M→219.7M원), 2020~2026 전 연도 개선 확인(2019년만 무변화). project_3strategy_combined_portfolio_backtest.mjs(기본 ON)·project_portfolio3_entry_scan.mjs(라이브 진입스캔) 양쪽 반영 완료.</div>
+  </div>
+  <div class="sc">
     <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">TOP50 · 7년(calendarDays 2555) · 2026-08-10 최종 청산규칙(+20%익절)</span></div>
     <div class="kpi-row">
       <div class="kpi-card kpi-sky"><div class="num">177</div><div class="lbl">표본(n)</div></div>

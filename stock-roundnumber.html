@@ -885,6 +885,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>오버슈트 필터 추가(2026-08-24) : 보유종목 시세표에서 삼성SDI 신규 진입신호의 진입가가 이미 TP가를 넘긴 상태로 포착된 것을 계기로, "재돌파일 종가가 갭업으로 TP가(L+step)까지 이미 넘긴" 오버슈트 이벤트를 정상 이벤트와 분리 백테스트했습니다. 오버슈트(n=3,187)는 TP도달률(88%)은 오히려 높지만 진입가 자체가 이미 목표 근처/위라 실제로 남는 이익폭이 작아 승률(55%)&middot;중앙값(+0.28%)이 정상(n=4,660, 승률61%&middot;중앙값+1.13%)보다 뚜렷이 낮았습니다 &mdash; 사용자 승인으로 오버슈트를 진입 대상에서 제외해 확정 전략에 반영했습니다.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>코스피 전용 전환(2026-08-24) : "코스닥 승률이 낮아 보인다"는 사용자 문제제기로 시장별 성과를 분리한 결과 코스피 승률63% vs 코스닥 승률56%로 뚜렷한 격차를 확인했습니다. 중앙값은 거의 동일해 "이긴 트레이드 크기"는 같았고, 코스닥이 STOP에 더 자주 먼저 닿아 승률만 낮았습니다. 코스닥 전용 STOP버퍼를 2%&rarr;5%까지 스윕해 해소를 시도했으나 승률은 개선돼도(56%&rarr;64%) 하루당 기대치(perDay)가 오히려 하락(0.091%&rarr;0.072%)해 파라미터로 풀리는 문제가 아니라고 판단, 사용자 승인으로 코스닥을 기본 유니버스에서 완전히 제외했습니다(최근신호&middot;예상종목 KQ 탭 자체를 삭제, 근거는 이 탭의 "시장별 성과 분리" 섹션 및 매매전략 탭 참고).</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>stopBufferPct 재검증 : perDay가 진짜 최적점(2026-08-26, v15) : 2026-08-21 원 스윕은 0.5~3%만 테스트해 2%를 변곡점으로 확정했었습니다. 코스피 유니버스 확장 실험(TOP50&rarr;TOP100)이 3전략 통합포트폴리오 기준 역효과로 판명된 뒤 사용자가 재튜닝을 요청, 범위를 1.5~15%로 넓혀 재검증하자 승률·평균수익률·Sharpe는 15%까지 계속 개선됐지만 perDay(하루당 기대수익률)는 3%에서 정점(0.403%)을 찍고 이후 하락(평균보유일이 2.6일&rarr;6.9일로 늘어 슬롯 회전율 악화)했습니다. 원 스윕이 테스트 범위를 3%까지만 좁게 잡아 진짜 최적점을 놓쳤던 셈 &mdash; stopBufferPct 2%&rarr;3%로 소폭 상향 재확정, 3전략 통합 헤드라인 +1221.39%&rarr;+1765.80% 개선에 기여했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>베타(KOSPI상관) 타이브레이커 도입 : "완전제외"는 역효과, "타이브레이커"만 채택(2026-08-27, v16) : 매매결과와 무관한 정적 팩터(유동성·변동성·베타·시총순위)를 워크포워드 3구간으로 검증한 결과 베타만 3구간 전부 재현(spread +2.84~+5.07%p). 베타 하위33% 완전제외(50&rarr;34종목)로 반영하자 3전략 통합 헤드라인이 +1814.72%&rarr;+1445.49%로 오히려 하락(신호량 감소로 슬롯 회전율 저하)해 기각. 유니버스는 그대로 두고 그날 후보수가 빈슬롯보다 많을 때만 베타 높은 순으로 슬롯을 배정하는 타이브레이커만 도입하자 +1814.72%&rarr;<b>+2200.44%</b>로 개선(청산 506&rarr;517건, 라운드넘버 234&rarr;248건 포함), 2020~2026 전 연도 개선 확인. 라이브 진입스캔(project_portfolio3_entry_scan.mjs)에도 반영.</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀, EMA5&middot;20 단기)&middot;눌림목(추세추종, EMA50&middot;100 상승국면)&middot;EMA래더(완전정배열 추세추종)&middot;기준선(EMA200 장기 파동스윙)에 이은 5번째 확정 전략입니다. 진입시점 EMA200 국면별 성과는 코스피 전용 재집계 후 하락국면(n=1,420, 승률64%&middot;평균+0.31%)이 상승국면(n=1,688, 승률62%&middot;평균+0.30%)보다 근소 우위로 나타났지만(코스닥 포함 시절과 우열이 뒤바뀜, 차이는 근소) 조건에 실제로 넣지는 않았습니다(진단용 사후분리만, 향후 검증 과제).</div></div>
       <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>포지션 사이징 확정(2026-08-24) : 손절 시 베팅금액 전부를 잃는다고 가정하는 고전적 켈리공식(<code>f*=승률-(1-승률)/손익비</code>)으로 계산하면 12.4%가 나오지만, 실제 매매는 손절 시 진입가 대비 -3.91%만 손실이라 이 공식을 위험도 기준으로 쓰는 건 부적절합니다. 실제 손실구조(진입금의 일부%만 손실)에 맞게 계산을 정정하면 트레이드당 10%는 오히려 순자본위험(0.39%, 최악단일트레이드 적용시 1.55%) 관점에서 여유 있는 보수적 설정입니다. 대신 진짜 리스크는 켈리 수식으로 안 잡히는 두 가지 &mdash; ①갭 리스크(하한가&middot;급락뉴스로 손절가를 지나쳐 체결) ②동시신호 상관관계(일평균2.78건&middot;최대14건, 시장전체가 흔들릴 때 몰림) &mdash; 라 판단, 트레이드당10%&middot;총노출상한30%을 채택하되 동시신호 몰림 시 밀집도&middot;트랙레코드 우선순위 규칙과 갭리스크 버퍼링(-6~8% 가정)을 추가하고, 초기엔 절반 규모(5%/15%)로 실전 검증 후 확대하는 단계적 도입을 권장합니다.</div></div>
     </div>
@@ -918,6 +919,34 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </table>
     </div>
     <div class="sc-note">5% 이상 구간은 승률·평균수익률·트레이드당 Sharpe가 15%까지 계속 개선되는 것처럼 보이지만, 평균보유일이 늘어(2.6일&rarr;6.9일) 5슬롯 공유자본 포트폴리오의 슬롯 회전율(자본효율)을 갉아먹는다 &mdash; perDay 기준으로 보면 오히려 하락한다. 또한 손절 버퍼를 그만큼 넓히면 "라운드레벨 붕괴 판정"이라는 전략 본연의 조기경보 기능이 사실상 무력화된다. 3%는 원 스윕(2%)보다 소폭 넓히면서도 이 두 문제를 피하는 지점이다. n=508(동일), 평균+1.00%&rarr;+1.23%, 승률66%&rarr;71%, Sharpe0.184&rarr;0.217. 3전략 통합포트폴리오(눌림목·괴리율 재튜닝 포함) 재검증 결과 헤드라인은 +1221.39%&rarr;<b>+1765.80%</b>로 개선(라운드넘버 실현손익 9.2M&rarr;12.4M원, 232건).</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">v16 베타(KOSPI상관) 타이브레이커 도입 <span class="sub">2026-08-27 &middot; scripts/project_stock_factor_score_backtest.mjs</span></div>
+    <div class="sc-note" style="margin-bottom:10px">사용자가 "종목별 점수를 매겨 진입 판단에 참고" 제안 &mdash; 매매결과와 무관한 정적 팩터(유동성&middot;변동성&middot;베타&middot;시총순위)를 캘린더 4분위 워크포워드 3구간(exp1~exp3)으로 검증했다.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">팩터</th><th>exp1</th><th>exp2</th><th>exp3</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td class="l"><b>베타(KOSPI상관)</b></td><td class="t-pos">+2.84%p</td><td class="t-pos">+2.95%p</td><td class="t-pos">+5.07%p</td><td><b>3구간 전부 재현(채택 후보)</b></td></tr>
+          <tr><td class="l">유동성(거래대금)</td><td class="t-neg-hi">-5.24%p</td><td class="t-neg-hi">-2.68%p</td><td class="t-neg-hi">-2.73%p</td><td>재현되나 저유동성 우세(슬리피지 리스크로 보류)</td></tr>
+          <tr><td class="l">변동성(ATR%)</td><td>+2.36%p</td><td>+4.21%p</td><td class="t-neg-hi">-1.03%p</td><td>부호 불일치, 기각</td></tr>
+          <tr><td class="l">시총순위</td><td class="t-neg-hi">-3.18%p</td><td class="t-neg-hi">-1.52%p</td><td>+4.76%p</td><td>부호 불일치, 기각</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:10px 0">베타&times;시총순위 스피어만 상관계수 0.077(사실상 무관), 대형주&times;베타 이중정렬 교호작용은 exp1&middot;exp2에서 발견됐으나 exp3에서 깨져(대형주+고베타가 오히려 최고) 복합 필터는 기각 &mdash; 베타 단독이 더 견고했다. 이 베타 단독 팩터를 3전략 통합 5슬롯 포트폴리오(project_3strategy_combined_portfolio_backtest.mjs)에 실제로 반영해 A/B 검증했다:</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">반영 방식</th><th>3전략 통합 헤드라인</th><th>청산건수</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td class="l">기존(전략우선순위만)</td><td class="t-pos">+1814.72%</td><td>506건</td><td>—</td></tr>
+          <tr><td class="l">완전제외(베타 하위33%, 50&rarr;34종목)</td><td class="t-neg-hi">+1445.49%(하락)</td><td>482건</td><td>신호량 감소로 슬롯 회전율 저하, 기각</td></tr>
+          <tr><td class="l"><b>타이브레이커(유니버스 불변, 후보&gt;빈슬롯일 때만 베타순 배정)</b></td><td class="t-pos"><b>+2200.44%(개선)</b></td><td><b>517건</b></td><td><b>채택, 기본 ON</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">완전제외는 종목단위 성과가 좋아도 유니버스를 좁히면 3전략 전체 신호 발생량이 줄어 5슬롯의 자본 회전율이 나빠지는 효과가 종목품질 개선을 압도한다(TOP50&rarr;TOP100 확장 실험과 반대 방향의 같은 함정). 반면 유니버스는 그대로 두고 "자본이 실제로 제약되는 순간(후보&gt;빈슬롯)"에만 베타 우선순위를 적용하면 신호량 손실 없이 종목 품질만 개선된다. 2020~2026 전 연도에서 고르게 개선 확인(2019년은 슬롯경합 자체가 거의 없어 무변화). 라이브 진입스캔(project_portfolio3_entry_scan.mjs)에도 동일 로직 반영 완료.</div>
   </div>
 
   <div class="sc">
