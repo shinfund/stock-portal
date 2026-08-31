@@ -575,52 +575,26 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 
 <div class="panel" id="p2">
   <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">2</div><div class="lbl">보유종목 수</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">0/2</div><div class="lbl">플러스 수익 종목</div></div>
-    <div class="kpi-card kpi-amber"><div class="num t-neg">-6.52%</div><div class="lbl">평균수익률</div></div>
+    <div class="kpi-card kpi-sky"><div class="num">0</div><div class="lbl">보유종목 수</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">&mdash;</div><div class="lbl">플러스 수익 종목</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">&mdash;</div><div class="lbl">평균수익률</div></div>
   </div>
   <div class="sc">
     <div class="sc-title">보유종목 현황 <span class="sub">Notion 보유종목DB 연동(2026-08-31 기준, KIS 현재가) &middot; 라운드넘버 전략 관점 재판정(화면표시용 축스케일 window200/ticks10)</span></div>
-    <div class="sc-note">보유종목이 반드시 이 전략으로 매수한 포지션이라는 뜻은 아닙니다 &mdash; 다른 전략/재량매매로 보유 중인 종목도 오늘 시점 라운드넘버 전략 규칙을 대입하면 어떤 자리에 있는지 참고용으로 보여줍니다. "라운드지지"&middot;"라운드저항"은 현재가 기준 가장 가까운 아래&middot;위 라운드 레벨과의 거리&middot;밀집도(터치봉수)입니다. 이 표의 축 스케일(window200/ticks10)은 화면 표시용으로, 백테스트&middot;최근신호 탭의 매매용 스케일(window150/ticks30)과 다릅니다. "판단"은 라운드지지&middot;라운드저항까지 거리가 2% 이내로 근접했는지를 기준으로 한 참고용 신호입니다 &mdash; 지지가 2%이내면 "지지 임박&middot;이탈시 손절검토"(하방 리스크 우선 표시, 둘 다 근접해도 지지 우선), 지지는 아니고 저항만 2%이내면 "저항 근접&middot;돌파시 익절검토", 둘 다 2% 초과면 "박스권 홀드"입니다(2026-08-24 저항근접 배지 신규 추가) &mdash; 매매 판단의 유일한 근거가 아니라 참고 지표입니다.</div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:12%">종목명</th><th class="c" style="width:8%">현재가</th><th style="width:7%">등락률</th><th style="width:8%">평단가</th><th style="width:8%">수익률</th><th style="width:8%">200EMA괴리</th><th class="l" style="width:15%">라운드지지</th><th class="l" style="width:15%">라운드저항</th><th class="l" style="width:19%">판단</th></tr></thead>
         <tbody>
-          <tr><td class="l">삼성중공업</td><td class="c">20,900</td><td class="t-neg">-1.42%</td><td>21,350</td><td class="t-neg">-2.11%</td><td class="t-neg">-14.57%</td><td class="l">20,000(-4.31%,7봉)</td><td class="l">22,000(+5.26%,21봉)</td><td class="l"><span class="badge bdg-gray">박스권 홀드</span></td></tr>
-          <tr><td class="l">두산로보틱스</td><td class="c">71,000</td><td class="t-neg">-0.84%</td><td>79,706</td><td class="t-neg">-10.92%</td><td class="t-neg-hi">-15.81%</td><td class="l">70,000(-1.41%,18봉)</td><td class="l">80,000(+12.68%,20봉)</td><td class="l"><span class="badge bdg-red">지지 임박·이탈시 손절검토</span></td></tr>
-</tbody>
+          <tr><td class="l" colspan="9" style="text-align:center;color:var(--txt3)">보유종목 없음(2026-08-31 기준 &middot; 라운드넘버 전략 보유종목 0건 &mdash; 삼성중공업&middot;두산로보틱스는 기준선 전략 보유종목)</td></tr>
+        </tbody>
       </table>
     </div>
+    <div class="sc-note">현재 라운드넘버 전략 기준으로 보유중인 종목이 없습니다. 신규 매수 신호가 발생하면 이 탭에 자동으로 반영됩니다.</div>
   </div>
   <div class="sc">
-    <div class="sc-title">보유종목 차트 <span class="sub">전체 2종목</span></div>
+    <div class="sc-title">보유종목 차트</div>
     <div class="chart-grid">
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">삼성중공업</span><span class="badge bdg-gray">박스권 홀드</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <line x1="6" y1="187.9" x2="474" y2="187.9" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="150.6" x2="474" y2="150.6" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="162.7" x2="474" y2="162.7" stroke="var(--purple)" stroke-width="1.6" stroke-dasharray="4,2"/><polyline points="6.0,43.3 13.9,74.1 21.9,78.7 29.8,75.9 37.7,89.0 45.7,59.2 53.6,26.5 61.5,36.8 69.5,20.9 77.4,44.2 85.3,47.0 93.3,72.2 101.2,107.7 109.1,102.1 117.1,117.0 125.0,131.9 132.9,104.9 140.8,126.3 148.8,117.9 156.7,132.9 164.6,122.6 172.6,118.9 180.5,142.2 188.4,166.4 196.4,170.2 204.3,144.1 212.2,149.6 220.2,164.6 228.1,153.4 236.0,145.0 244.0,170.2 251.9,164.6 259.8,158.0 267.8,119.8 275.7,133.8 283.6,138.5 291.6,174.8 299.5,199.1 307.4,177.6 315.4,162.7 323.3,171.1 331.2,157.1 339.2,146.8 347.1,148.7 355.0,149.6 362.9,140.3 370.9,154.3 378.8,155.2 386.7,150.6 394.7,145.0 402.6,164.6 410.5,176.7 418.5,173.0 426.4,184.2 434.3,186.0 442.3,179.5 450.2,174.8 458.1,169.2 466.1,165.5 474.0,171.1" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="171.1" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-05</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-31</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>현재가 <span>20,900</span> <span class="sep">|</span> 평단가 <span>21,350</span> <span class="sep">|</span> 수익률 <span class="t-neg">-2.11%</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>라운드지지 <span>20,000</span>(-4.3%) <span class="sep">|</span> 라운드저항 <span>22,000</span>(+5.3%)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>라운드지지</span><span><i class="dash" style="border-color:var(--sky)"></i>라운드저항</span><span><i class="dash" style="border-color:var(--purple)"></i>평단가</span></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-card-head"><span class="chart-card-name">두산로보틱스</span><span class="badge bdg-red">지지 임박·이탈시 손절검토</span></div>
-        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
-    <line x1="6" y1="168.4" x2="474" y2="168.4" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="147.5" x2="474" y2="147.5" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="148.1" x2="474" y2="148.1" stroke="var(--purple)" stroke-width="1.6" stroke-dasharray="4,2"/><polyline points="6.0,20.9 13.9,48.4 21.9,70.6 29.8,91.6 37.7,86.0 45.7,83.7 53.6,81.6 61.5,86.6 69.5,92.5 77.4,99.8 85.3,101.7 93.3,104.6 101.2,129.0 109.1,116.0 117.1,121.6 125.0,137.0 132.9,123.1 140.8,125.8 148.8,127.9 156.7,140.5 164.6,137.8 172.6,142.2 180.5,150.0 188.4,163.2 196.4,167.6 204.3,159.0 212.2,168.2 220.2,175.4 228.1,167.2 236.0,174.7 244.0,185.7 251.9,181.3 259.8,173.5 267.8,168.9 275.7,179.6 283.6,176.4 291.6,188.6 299.5,194.7 307.4,199.1 315.4,186.1 323.3,180.2 331.2,171.6 339.2,162.2 347.1,167.0 355.0,167.0 362.9,158.6 370.9,159.8 378.8,155.2 386.7,151.7 394.7,149.1 402.6,159.2 410.5,165.3 418.5,163.6 426.4,166.6 434.3,169.1 442.3,168.0 450.2,164.7 458.1,161.9 466.1,165.1 474.0,166.4" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="166.4" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-05</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-08-31</text>
-  </svg>
-        <div class="chart-card-stats">
-          <span>현재가 <span>71,000</span> <span class="sep">|</span> 평단가 <span>79,706</span> <span class="sep">|</span> 수익률 <span class="t-neg">-10.92%</span></span>
-        </div>
-        <div class="chart-card-stats">
-          <span>라운드지지 <span>70,000</span>(-1.4%) <span class="sep">|</span> 라운드저항 <span>80,000</span>(+12.7%)</span>
-        </div>
-        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>라운드지지</span><span><i class="dash" style="border-color:var(--sky)"></i>라운드저항</span><span><i class="dash" style="border-color:var(--purple)"></i>평단가</span></div>
-      </div>
+<div style="color:var(--txt3);padding:20px">보유종목 없음</div>
     </div>
   </div>
 </div>
