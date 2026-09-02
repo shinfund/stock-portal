@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>장대양봉 매매전략</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+b,strong{font-weight:500}
+:root {
+  --sky:#0366D6; --sky50:#E9F1FE; --sky100:#C7DCF6; --sky600:#005CC5; --sky800:#032F62;
+  --teal:#1D9E75; --teal50:#E1F5EE; --teal100:#9FE1CB; --teal600:#0F6E56;
+  --coral:#D85A30; --coral50:#FAECE7; --coral100:#F5C4B3;
+  --amber:#BA7517; --amber50:#FAEEDA; --amber100:#FAC775;
+  --purple:#534AB7; --purple50:#EEEDFE; --purple100:#CECBF6;
+  --gray50:#F1EFE8; --gray100:#D3D1C7; --gray600:#5F5E5A;
+  --bg:#FFFFFF; --card:#FFFFFF; --border:#E1E4E8; --border2:#F6F8FA;
+  --txt:#24292E; --txt2:#3A4453; --txt3:#6A737D;
+  --red:var(--coral); --red50:var(--coral50); --blue:var(--sky); --blue50:var(--sky50);
+  --hdrbg:#0B4A36; --hdr-text:#fff; --hdr-text-dim:rgba(255,255,255,.85);
+  --hdr-btn-bg:rgba(255,255,255,.15); --hdr-btn-border:rgba(255,255,255,.35);
+  --hdr-btn-hover-bg:rgba(255,255,255,.25); --hdr-btn-text:#fff;
+  --hdr-shadow:0 2px 8px rgba(11,74,54,.3);
+  --r6:6px; --r8:8px; --r10:10px; --r12:12px; --r14:14px; --r16:16px; --r20:20px;
+  --shadow:none;
+  --shadow-h:0 20px 60px rgba(0,0,0,.2);
+}
+html[data-theme="light"]{
+  --hdrbg:#FFFFFF; --hdr-text:#0B4A36; --hdr-text-dim:#2D6E56;
+  --hdr-btn-bg:#E4F5EE; --hdr-btn-border:#B7E2D0; --hdr-btn-hover-bg:#CDEEE0; --hdr-btn-text:#0F6E56;
+  --hdr-shadow:0 2px 8px rgba(11,74,54,.12);
+}
+html[data-theme="dark"]{
+  --bg:#24292E; --card:#1C2024;
+  --border:rgba(255,255,255,.13); --border2:rgba(255,255,255,.09);
+  --txt:rgba(255,255,255,.92); --txt2:rgba(255,255,255,.75); --txt3:rgba(255,255,255,.5);
+  --shadow:none; --shadow-h:0 20px 60px rgba(0,0,0,.5);
+  --hdrbg:#24292E; --hdr-shadow:0 2px 10px rgba(0,0,0,.4);
+  --sky:#2E8FFF; --sky50:rgba(46,143,255,.16); --sky100:rgba(46,143,255,.32); --sky600:#79B8FF; --sky800:#C8E1FF;
+  --teal:#4FD8AC; --teal50:rgba(29,158,117,.16); --teal100:rgba(29,158,117,.32); --teal600:#4FD8AC;
+  --coral:#F2896A; --coral50:rgba(216,90,48,.16); --coral100:rgba(216,90,48,.32);
+  --amber:#E8A93D; --amber50:rgba(186,117,23,.22); --amber100:rgba(186,117,23,.38);
+  --purple:#B4A6FF; --purple50:rgba(83,74,183,.26); --purple100:rgba(83,74,183,.4);
+  --gray50:rgba(255,255,255,.10); --gray600:#C9C7BF;
+  --red:var(--coral); --red50:var(--coral50); --blue:var(--sky); --blue50:var(--sky50);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Noto Sans KR','Pretendard',-apple-system,BlinkMacSystemFont,sans-serif;font-size:14.5px;background:var(--bg);color:var(--txt);word-break:keep-all}
+html{scrollbar-width:none}
+html::-webkit-scrollbar{display:none}
+.hdr-wrap{position:fixed;top:0;left:0;right:0;z-index:50;box-shadow:var(--hdr-shadow);transition:background .18s ease}
+.header{background:var(--hdrbg);padding:max(12px,env(safe-area-inset-top)) 16px 12px;display:flex;align-items:center;justify-content:space-between;transition:background .18s ease}
+.header-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;overflow:hidden}
+.logo-mark{width:34px;height:34px;background:linear-gradient(155deg,#7FE4B4 0%,#1D9E75 55%,#0B4A36 100%);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(29,158,117,.35)}
+.logo-info{display:flex;flex-direction:column;gap:1px;min-width:0;overflow:hidden}
+.logo-title{font-size:14.5px;font-weight:500;color:var(--hdr-text);letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.logo-sub{font-size:13px;color:var(--hdr-text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:color .18s ease}
+.header-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:10px}
+.hdr-date{font-size:11px;font-weight:400;color:var(--hdr-text-dim);white-space:nowrap;transition:color .18s ease}
+.hdr-btn{background:var(--hdr-btn-bg);border:1px solid var(--hdr-btn-border);color:var(--hdr-btn-text);font-size:13px;font-weight:500;padding:6px 12px;border-radius:16px;cursor:pointer;white-space:nowrap;font-family:inherit;transition:background .12s}
+.hdr-btn:hover{background:var(--hdr-btn-hover-bg)}
+.top-nav{background:var(--card);border-bottom:1.5px solid var(--border);display:flex;padding:0 4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;overscroll-behavior-x:contain}
+.top-nav::-webkit-scrollbar{display:none}
+.tab-btn{flex:1;flex-shrink:0;min-width:64px;display:flex;align-items:center;justify-content:center;border:none;background:transparent;color:var(--txt);font-size:14px;font-weight:400;font-family:inherit;cursor:pointer;padding:13px 6px;touch-action:manipulation;transition:color .15s;position:relative;white-space:nowrap}
+.tab-btn.on{color:var(--sky600)}
+.tab-btn.on::after{content:'';position:absolute;bottom:0;left:8%;right:8%;height:2.5px;background:var(--sky);border-radius:2px 2px 0 0}
+.nav-spacer{height:calc(104px + env(safe-area-inset-top,0px))}
+html.in-portal .hdr-wrap{position:static;box-shadow:none}
+html.in-portal .nav-spacer{display:none}
+.wrap{margin:0}
+.main{padding:0 16px max(20px,env(safe-area-inset-bottom))}
+.panel{display:none}
+.panel.on{display:block;animation:fade .22s}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.kpi-row{display:flex;gap:9px;margin-bottom:14px;padding-top:10px;flex-wrap:wrap}
+.kpi-card{flex:1;min-width:100px;background:var(--card);border:1px solid var(--border);border-radius:var(--r12);padding:10px 10px;text-align:center;box-shadow:var(--shadow)}
+.kpi-card .num{font-size:18px;font-weight:500;line-height:1.1}
+.kpi-card .lbl{font-size:12.5px;margin-top:4px;font-weight:500;color:var(--txt2)}
+.kpi-sky .num{color:var(--sky600)}
+.kpi-red .num{color:var(--red)}
+.kpi-teal .num{color:var(--teal600)}
+.kpi-coral .num{color:var(--coral)}
+.kpi-amber .num{color:var(--amber)}
+.kpi-purple .num{color:var(--purple)}
+.sc{background:var(--card);border-radius:var(--r12);border:1px solid var(--border);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.sc-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.sc-title .sub{font-size:13px;font-weight:400;color:var(--txt2)}
+.sc-note{font-size:14px;color:var(--txt2);margin-bottom:12px;line-height:1.6;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r8);overscroll-behavior-x:contain;margin-bottom:8px}
+table{min-width:100%;border-collapse:collapse;font-size:13px}
+thead th{background:var(--sky50);color:var(--sky800);font-weight:400;font-size:14px;padding:9px 8px;text-align:right;white-space:nowrap}
+html[data-theme="dark"] thead th{color:#fff}
+thead th.l{text-align:left} thead th.c{text-align:center}
+tbody td{padding:9px 8px;border-bottom:1px solid var(--border2);text-align:right;white-space:nowrap;color:var(--txt)}
+tbody td.wrap{white-space:normal}
+th.shrink{width:1%}
+.tbl-fixed{table-layout:fixed}
+.tbl-fixed td{white-space:normal;word-break:break-word}
+tbody td.l{text-align:left} tbody td.c{text-align:center}
+tbody tr:hover{background:var(--teal50)}
+.chart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:20px}
+.chart-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px 14px}
+.chart-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:6px;flex-wrap:wrap}
+.chart-card-name{font-size:15px;font-weight:500;color:var(--txt)}
+.chart-card-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:9px;font-size:14px;color:var(--txt);font-weight:400}
+.chart-card-stats .sep{color:var(--gray600);font-weight:400;margin:0 1px}
+.chart-card-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:7px;padding-top:7px;border-top:1px solid var(--border);font-size:13.5px;color:var(--txt)}
+.chart-card-legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.chart-card-legend i[style*="border-color"]{width:14px;height:0;border-radius:0;border-top:2px solid;background:none}
+.chart-card-legend i.dash{border-top-style:dashed}
+.chart-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--txt);margin-bottom:12px;padding:8px 10px;background:var(--bg);border-radius:var(--r8)}
+.chart-legend span{display:inline-flex;align-items:center;gap:5px}
+.chart-legend span:not(:last-child){border-right:1.5px solid var(--gray600);padding-right:12px}
+.chart-legend i{display:inline-block;width:22px;height:0;border-top:3px solid}
+.chart-legend i.dash{border-top-style:dashed}
+.t-neg-hi{color:var(--blue);font-weight:400}
+.t-neg{color:var(--blue);font-weight:400}
+.t-pos{color:var(--red);font-weight:400}
+.t-flat{color:var(--txt2);font-weight:400}
+.badge{display:inline-flex;align-items:center;font-size:12.5px;font-weight:400;padding:2px 9px;border-radius:10px;white-space:nowrap;color:#fff;border:1px solid rgba(0,0,0,.18);margin:2px 0}
+.bdg-red{background:#B71C1C}
+.bdg-blue{background:#1565C0}
+.bdg-sky{background:#0277BD}
+.bdg-teal{background:#0D6D63}
+.bdg-amber{background:#8F5A00}
+.bdg-coral{background:#B23A12}
+.bdg-gray{background:#52606B}
+.bdg-purple{background:#5B4FBD}
+.ai-sc{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--teal);border-radius:var(--r12);padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.ai-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.ai-badge{margin-left:auto}
+.ai-list{display:flex;flex-direction:column;gap:7px}
+.ai-item{display:flex;gap:8px;align-items:flex-start;font-size:14px;color:var(--txt);line-height:1.55}
+.ai-dot{flex-shrink:0;width:6px;height:6px;border-radius:50%;margin-top:8px}
+.ai-dot-red{background:var(--red)} .ai-dot-teal{background:var(--teal)} .ai-dot-sky{background:var(--sky)}
+.ai-dot-amber{background:var(--amber)} .ai-dot-purple{background:var(--purple)} .ai-dot-gray{background:var(--gray600)}
+.rule-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--r12);padding:12px 14px;margin-bottom:10px}
+.rule-box .rb-title{font-size:14.5px;font-weight:500;color:var(--txt);margin-bottom:6px}
+.rule-box .rb-body{font-size:14px;color:var(--txt2);line-height:1.7}
+.rule-box .rb-body code{background:var(--border2);padding:1px 6px;border-radius:5px;font-size:13px;color:var(--txt)}
+.rule-box ol,.rule-box ul{margin:6px 0 0;padding-left:20px}
+.rule-box li{margin-bottom:4px}
+.hist-item{display:flex;gap:8px;font-size:13.5px;line-height:1.6;color:var(--txt2);padding:5px 0;border-bottom:1px dashed var(--border)}
+.hist-item:last-child{border-bottom:none}
+.hist-v{flex-shrink:0;font-weight:500;color:var(--teal600);width:34px}
+#settingsModal{display:none;position:fixed;inset:0;z-index:100}
+#settingsModal.modal-open{display:block}
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:var(--card);border-radius:var(--r16);padding:20px;width:100%;max-width:320px;box-shadow:var(--shadow-h)}
+.modal-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:14px}
+.modal-section{font-size:13.5px;font-weight:500;color:var(--txt2);margin-bottom:8px}
+.theme-opts{display:flex;gap:10px}
+.theme-opt{flex:1;cursor:pointer;text-align:center;padding:8px;border-radius:var(--r12);border:2px solid var(--border);position:relative;transition:border-color .12s}
+.theme-opt.on{border-color:var(--teal)}
+.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center}
+.theme-swatch{width:100%;height:50px;border-radius:8px;border:1px solid var(--border2);margin-bottom:6px;position:relative;overflow:hidden}
+.theme-swatch-dark{background:#24292E}
+.theme-swatch-light{background:#FFFFFF}
+.theme-swatch-dark .ts-side{background:#24292E;border-right:1px solid rgba(255,255,255,.08)}
+.theme-swatch-light .ts-side{background:#FFFFFF;border-right:1px solid #DCE9F7}
+.ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
+.theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
+html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
+html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub{display:none} .tab-btn{font-size:13px;padding:11px 2px;min-width:52px} .kpi-card .num{font-size:16px} .kpi-card .lbl{font-size:12px}}
+@media(max-width:600px){
+  .nav-spacer{height:calc(108px + env(safe-area-inset-top,0px))}
+  .main{padding:0 10px max(20px,env(safe-area-inset-bottom))}
+  .sc{padding:12px 12px} .tab-btn{font-size:13.5px;padding:12px 4px}
+  .kpi-card .num{font-size:17px} .kpi-card .lbl{font-size:12px}
+  thead th,tbody td{padding:8px 5px}
+  .hdr-date{display:none}
+}
+@media(min-width:769px){
+  .nav-spacer{height:calc(106px + env(safe-area-inset-top,0px))}
+  .main{padding:0 20px max(20px,env(safe-area-inset-bottom))}
+  .sc{padding:18px 20px} .sc-title{font-size:15px}
+  .kpi-card .lbl{font-size:13px}
+  thead th,tbody td{padding:10px 9px}
+}
+@media(min-width:1024px){.kpi-row{gap:12px} .tab-btn{flex:0 1 160px}}
+
+</style>
+</head>
+<body>
+<script>(function(){try{document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'dark');}catch(e){}})();</script>
+<script>
+(function(){
+  try{
+    if (window.self !== window.top) {
+      document.documentElement.classList.add('in-portal');
+      document.addEventListener('DOMContentLoaded', function(){
+        var btn = document.getElementById('hdrSettingsBtn');
+        if (btn) btn.style.display = 'none';
+      });
+    }
+  }catch(e){}
+  window.addEventListener('storage', function(e){
+    if (e.key === 'theme' && e.newValue) {
+      document.documentElement.setAttribute('data-theme', e.newValue);
+      if (typeof syncThemeOptUI === 'function') syncThemeOptUI();
+    }
+  });
+})();
+</script>
+
+<div id="settingsModal">
+  <div class="modal-backdrop" onclick="closeSettingsModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div class="modal-title">설정</div>
+      <div class="modal-section">화면모드</div>
+      <div class="theme-opts">
+        <div class="theme-opt" id="theme-opt-dark" onclick="setTheme('dark')">
+          <div class="theme-swatch theme-swatch-dark"><span class="ts-side"></span></div>
+          <div class="theme-opt-label">다크</div>
+        </div>
+        <div class="theme-opt" id="theme-opt-light" onclick="setTheme('light')">
+          <div class="theme-swatch theme-swatch-light"><span class="ts-side"></span></div>
+          <div class="theme-opt-label">라이트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hdr-wrap">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo-info">
+        <div class="logo-title">장대양봉 매매전략</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hdr-date">Update 09.02 09:50</div>
+      <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
+    </div>
+  </div>
+  <nav class="top-nav">
+    <button class="tab-btn on" data-tab="0">최근신호</button>
+    <button class="tab-btn" data-tab="1">예상종목</button>
+    <button class="tab-btn" data-tab="2">보유종목</button>
+    <button class="tab-btn" data-tab="3">매매전략</button>
+    <button class="tab-btn" data-tab="4">백테스트</button>
+  </nav>
+</div>
+<div class="nav-spacer"></div>
+
+<div class="wrap"><div class="main">
+<div class="panel on" id="p0">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">2</div><div class="lbl">최근20거래일 신호수</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">0</div><div class="lbl">현재 진행중(OPEN)</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">2</div><div class="lbl">청산완료</div></div>
+    <div class="kpi-card kpi-purple"><div class="num">100%</div><div class="lbl">청산 승률</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">장대양봉 최근 20거래일 신호 상세 &middot; 코스피 TOP50 <span class="sub">장대양봉(몸통5%&uarr;) &rarr; 중간값 눌림대기(20거래일) &rarr; 터치일고가 재돌파확인(5거래일) 시 매수</span></div>
+    <div class="sc-note">몸통 5% 이상 양봉(장대양봉) 발생 후, 20거래일 이내 저가가 캔들 중간값((시가+종가)/2)에 닿는 "눌림"이 나오면, 그 눌림일 고가를 5거래일 이내 종가로 재돌파하는 날 매수합니다. 청산은 TP(캔들고가 도달)/STOP(캔들저가&times;99.5% 이탈)/TIME(15거래일) 중 먼저 오는 조건이며, 상승국면필터(진입일 종가&ge;EMA200)가 적용됩니다. <b>2026-09-02 2차 로직결함 수정 반영</b> &mdash; 눌림터치일 고가가 이미 TP가(캔들고가)를 넘거나, 재돌파확인 시점의 진입가 자체가 이미 TP가를 넘거나 같으면 무효셋업으로 배제합니다(둘 다 "이미 목표를 초과한 상태로 진입"하는 논리결함 방지, 상세는 매매전략 탭 참고). <b>이 표는 2026-09-02 기준입니다.</b></div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:9%">진입일</th><th class="l" style="width:12%">종목</th><th style="width:8%">현재가</th><th style="width:8%">진입가</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="l" style="width:9%">장대양봉일</th><th class="l" style="width:9%">눌림터치일</th><th class="l" style="width:11%">상태</th><th style="width:8%">수익률</th></tr></thead>
+        <tbody>
+<tr><td class="l">2026-08-24</td><td class="l">LG전자</td><td>200,500</td><td>199,800</td><td>212,500</td><td>183,279</td><td class="l">2026-08-12</td><td class="l">2026-08-21</td><td class="l"><span class="badge bdg-sky">TP익절(5일)</span></td><td class="t-pos">+8.36%</td></tr>
+<tr><td class="l">2026-08-05</td><td class="l">셀트리온</td><td>189,300</td><td>190,300</td><td>191,700</td><td>179,001</td><td class="l">2026-07-30</td><td class="l">2026-07-31</td><td class="l"><span class="badge bdg-sky">TP익절(1일)</span></td><td class="t-pos">+2.47%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">최근신호 차트 <span class="sub">최신 2건</span></div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">LG전자</span><span class="badge bdg-sky">TP익절(5일)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-24</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="33.3" x2="474" y2="33.3" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="123.5" x2="474" y2="123.5" stroke="var(--coral)" stroke-width="1.3" stroke-dasharray="2,2"/><polyline points="6.0,188.9 27.3,199.1 48.5,178.4 69.8,135.2 91.1,148.4 112.4,118.2 133.6,102.7 154.9,128.4 176.2,56.4 197.5,51.8 218.7,25.5 240.0,47.2 261.3,67.2 282.5,64.1 303.8,88.8 325.1,72.5 346.4,70.3 367.6,70.3 388.9,77.1 410.2,67.2 431.5,20.9 452.7,51.8 474.0,70.3" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="72.5" x2="474" y2="72.5" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="325.1" y1="12" x2="325.1" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="325.1" cy="72.5" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="70.3" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-31</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>진입가 <span>199,800</span> <span class="sep">|</span> 현재가 <span>200,500</span> <span class="sep">|</span> 수익률 <span class="t-pos">+8.36%</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>TP <span>212,500</span> <span class="sep">|</span> STOP <span>183,279</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-12</span> <span class="sep">|</span> 눌림터치일 <span>2026-08-21</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span><span><i class="dash" style="border-color:var(--coral)"></i>STOP</span><span><i style="background:var(--sky600)"></i>진입가</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">셀트리온</span><span class="badge bdg-sky">TP익절(1일)</span>&nbsp;<span style="color:var(--txt3);font-size:12.5px">2026-08-05</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="103.8" x2="474" y2="103.8" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="159.8" x2="474" y2="159.8" stroke="var(--coral)" stroke-width="1.3" stroke-dasharray="2,2"/><polyline points="6.0,187.2 19.8,174.4 33.5,174.0 47.3,188.1 61.1,192.5 74.8,199.1 88.6,189.8 102.4,166.0 116.1,161.2 129.9,166.9 143.6,155.4 157.4,111.3 171.2,125.9 184.9,145.7 198.7,129.8 212.5,110.0 226.2,89.3 240.0,70.3 253.8,62.8 267.5,20.9 281.3,58.4 295.1,58.4 308.8,62.8 322.6,87.1 336.4,93.2 350.1,93.2 363.9,101.2 377.6,93.7 391.4,113.1 405.2,96.3 418.9,105.6 432.7,108.2 446.5,116.2 460.2,120.1 474.0,114.4" fill="none" stroke="var(--txt)" stroke-width="1.7"/><line x1="6" y1="110.0" x2="474" y2="110.0" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2" opacity="0.85"/><line x1="212.5" y1="12" x2="212.5" y2="208" stroke="var(--txt2)" stroke-width="1" stroke-dasharray="2,2"/><circle cx="212.5" cy="110.0" r="4" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.2"/><circle cx="474.0" cy="114.4" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-07-14</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>진입가 <span>190,300</span> <span class="sep">|</span> 현재가 <span>189,300</span> <span class="sep">|</span> 수익률 <span class="t-pos">+2.47%</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>TP <span>191,700</span> <span class="sep">|</span> STOP <span>179,001</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-07-30</span> <span class="sep">|</span> 눌림터치일 <span>2026-07-31</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span><span><i class="dash" style="border-color:var(--coral)"></i>STOP</span><span><i style="background:var(--sky600)"></i>진입가</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p1">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-amber"><div class="num">4</div><div class="lbl">재돌파대기</div></div>
+    <div class="kpi-card kpi-coral"><div class="num">7</div><div class="lbl">눌림대기</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">① 재돌파대기 <span class="sub">눌림(중간값 터치) 완료, 터치일 고가를 종가로 재돌파하면 즉시 매수 &mdash; 확인창(5거래일) 잔여순</span></div>
+    <div class="sc-note">이 구간 종목은 "돌파기준" 가격을 종가가 넘는 순간 다음 장마감 기준 최근신호(신규진입) 탭으로 이동합니다. 확인창을 넘기면(잔여 0일 경과) 셋업이 폐기됩니다.</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:16%">종목명</th><th style="width:12%">현재가</th><th style="width:14%">돌파기준(터치일고가)</th><th style="width:12%">TP가</th><th class="l" style="width:14%">장대양봉일</th><th class="l" style="width:14%">눌림터치일</th><th class="c" style="width:10%">확인창잔여</th></tr></thead>
+        <tbody>
+<tr><td class="l">SK스퀘어</td><td>1,016,000</td><td>1,024,000</td><td>1,072,000</td><td class="l">2026-09-01</td><td class="l">2026-09-02</td><td class="c">5일</td></tr>
+<tr><td class="l">SK</td><td>558,000</td><td>571,000</td><td>587,000</td><td class="l">2026-09-01</td><td class="l">2026-09-02</td><td class="c">5일</td></tr>
+<tr><td class="l">LG전자</td><td>200,500</td><td>212,500</td><td>217,000</td><td class="l">2026-08-31</td><td class="l">2026-09-01</td><td class="c">4일</td></tr>
+<tr><td class="l">삼성생명</td><td>300,000</td><td>311,000</td><td>316,500</td><td class="l">2026-08-26</td><td class="l">2026-08-28</td><td class="c">2일</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">① 재돌파대기 차트 <span class="sub">전체 4건</span></div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">SK스퀘어</span><span class="badge bdg-amber">재돌파대기 5일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="164.9" x2="474" y2="164.9" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="157.6" x2="474" y2="157.6" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,127.6 13.9,140.7 21.9,133.8 29.8,114.0 37.7,105.7 45.7,92.3 53.6,77.8 61.5,62.0 69.5,49.8 77.4,20.9 85.3,41.9 93.3,46.9 101.2,31.7 109.1,58.9 117.1,71.1 125.0,62.4 132.9,53.3 140.8,88.6 148.8,78.9 156.7,93.2 164.6,114.3 172.6,127.4 180.5,118.7 188.4,106.3 196.4,144.0 204.3,139.6 212.2,110.4 220.2,136.2 228.1,141.6 236.0,130.0 244.0,133.5 251.9,134.9 259.8,151.9 267.8,153.9 275.7,179.9 283.6,191.3 291.6,199.1 299.5,162.7 307.4,164.7 315.4,159.4 323.3,150.4 331.2,173.1 339.2,177.8 347.1,176.3 355.0,176.9 362.9,164.9 370.9,150.7 378.8,145.1 386.7,148.0 394.7,167.9 402.6,149.8 410.5,149.8 418.5,156.9 426.4,159.4 434.3,159.7 442.3,158.2 450.2,164.2 458.1,162.9 466.1,158.3 474.0,166.1" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="166.1" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>1,016,000</span> <span class="sep">|</span> 돌파기준(터치일고가) <span>1,024,000</span> <span class="sep">|</span> TP <span>1,072,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-09-01</span> <span class="sep">|</span> 눌림터치일 <span>2026-09-02</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>돌파기준(터치일고가)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">SK</span><span class="badge bdg-amber">재돌파대기 5일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="152.2" x2="474" y2="152.2" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="144.9" x2="474" y2="144.9" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,141.7 13.9,148.5 21.9,150.4 29.8,142.1 37.7,117.9 45.7,105.5 53.6,89.5 61.5,99.1 69.5,82.2 77.4,79.5 85.3,90.9 93.3,87.7 101.2,20.9 109.1,40.6 117.1,54.3 125.0,31.9 132.9,64.4 140.8,101.0 148.8,97.8 156.7,108.3 164.6,127.0 172.6,140.8 180.5,134.4 188.4,112.9 196.4,146.7 204.3,156.3 212.2,134.8 220.2,148.1 228.1,148.5 236.0,140.8 244.0,128.0 251.9,113.8 259.8,125.2 267.8,128.4 275.7,165.9 283.6,189.7 291.6,199.1 299.5,158.6 307.4,174.2 315.4,176.4 323.3,156.3 331.2,180.6 339.2,181.0 347.1,178.7 355.0,173.7 362.9,164.1 370.9,160.4 378.8,145.8 386.7,143.5 394.7,161.4 402.6,153.6 410.5,145.3 418.5,162.3 426.4,159.1 434.3,160.0 442.3,159.1 450.2,165.0 458.1,164.1 466.1,145.3 474.0,158.1" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="158.1" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>558,000</span> <span class="sep">|</span> 돌파기준(터치일고가) <span>571,000</span> <span class="sep">|</span> TP <span>587,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-09-01</span> <span class="sep">|</span> 눌림터치일 <span>2026-09-02</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>돌파기준(터치일고가)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">LG전자</span><span class="badge bdg-amber">재돌파대기 4일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="84.2" x2="474" y2="84.2" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="76.1" x2="474" y2="76.1" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,20.9 13.9,63.7 21.9,60.1 29.8,61.0 37.7,28.9 45.7,45.9 53.6,45.0 61.5,55.7 69.5,85.9 77.4,57.4 85.3,102.9 93.3,98.4 101.2,101.1 109.1,113.7 117.1,112.3 125.0,101.1 132.9,118.4 140.8,120.2 148.8,122.5 156.7,131.9 164.6,125.9 172.6,113.9 180.5,145.6 188.4,137.8 196.4,132.1 204.3,132.5 212.2,117.1 220.2,143.9 228.1,164.9 236.0,154.2 244.0,137.3 251.9,128.7 259.8,161.3 267.8,155.8 275.7,182.2 283.6,194.6 291.6,199.1 299.5,174.0 307.4,179.8 315.4,167.9 323.3,143.0 331.2,150.6 339.2,133.2 347.1,124.3 355.0,139.0 362.9,97.5 370.9,94.9 378.8,79.7 386.7,92.2 394.7,103.8 402.6,102.0 410.5,116.2 418.5,106.8 426.4,105.5 434.3,105.5 442.3,109.5 450.2,103.8 458.1,77.0 466.1,94.9 474.0,105.5" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="105.5" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>200,500</span> <span class="sep">|</span> 돌파기준(터치일고가) <span>212,500</span> <span class="sep">|</span> TP <span>217,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-31</span> <span class="sep">|</span> 눌림터치일 <span>2026-09-01</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>돌파기준(터치일고가)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">삼성생명</span><span class="badge bdg-amber">재돌파대기 2일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="163.1" x2="474" y2="163.1" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="158.9" x2="474" y2="158.9" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,100.4 13.9,119.6 21.9,121.9 29.8,106.2 37.7,77.5 45.7,71.4 53.6,59.1 61.5,42.3 69.5,20.9 77.4,56.5 85.3,76.0 93.3,69.9 101.2,59.1 109.1,70.2 117.1,88.6 125.0,94.3 132.9,105.0 140.8,117.6 148.8,108.1 156.7,100.1 164.6,114.2 172.6,136.4 180.5,151.7 188.4,140.6 196.4,151.7 204.3,158.6 212.2,142.9 220.2,147.9 228.1,170.4 236.0,159.3 244.0,156.3 251.9,149.0 259.8,157.8 267.8,162.8 275.7,183.0 283.6,197.9 291.6,199.1 299.5,162.8 307.4,181.1 315.4,188.4 323.3,176.1 331.2,181.1 339.2,190.3 347.1,186.5 355.0,179.6 362.9,169.6 370.9,178.1 378.8,170.8 386.7,163.5 394.7,189.9 402.6,173.9 410.5,149.8 418.5,182.6 426.4,183.0 434.3,164.3 442.3,166.2 450.2,163.9 458.1,167.0 466.1,164.3 474.0,171.6" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="171.6" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>300,000</span> <span class="sep">|</span> 돌파기준(터치일고가) <span>311,000</span> <span class="sep">|</span> TP <span>316,500</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-26</span> <span class="sep">|</span> 눌림터치일 <span>2026-08-28</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>돌파기준(터치일고가)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">② 눌림대기 <span class="sub">장대양봉 발생, 중간값 눌림 아직 미발생 &mdash; 대기창(20거래일) 잔여순</span></div>
+    <div class="sc-note">저가가 중간값(눌림목표)에 닿으면 ①재돌파대기 구간으로 이동합니다. 대기창을 넘기면 셋업이 폐기됩니다.</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:18%">종목명</th><th style="width:14%">현재가</th><th style="width:16%">중간값(눌림목표)</th><th style="width:14%">TP가</th><th class="l" style="width:16%">장대양봉일</th><th class="c" style="width:12%">대기창잔여</th></tr></thead>
+        <tbody>
+<tr><td class="l">SK이노베이션</td><td>135,200</td><td>131,100</td><td>138,500</td><td class="l">2026-09-01</td><td class="c">19일</td></tr>
+<tr><td class="l">S-Oil</td><td>149,500</td><td>145,400</td><td>150,700</td><td class="l">2026-08-28</td><td class="c">17일</td></tr>
+<tr><td class="l">삼성SDI</td><td>558,000</td><td>547,500</td><td>571,000</td><td class="l">2026-08-27</td><td class="c">16일</td></tr>
+<tr><td class="l">두산에너빌리티</td><td>79,100</td><td>77,700</td><td>81,600</td><td class="l">2026-08-25</td><td class="c">14일</td></tr>
+<tr><td class="l">두산</td><td>1,163,000</td><td>1,074,000</td><td>1,105,000</td><td class="l">2026-08-25</td><td class="c">14일</td></tr>
+<tr><td class="l">한화에어로스페이스</td><td>1,042,000</td><td>961,500</td><td>1,014,000</td><td class="l">2026-08-04</td><td class="c">0일</td></tr>
+<tr><td class="l">HD현대</td><td>214,500</td><td>202,450</td><td>210,500</td><td class="l">2026-08-04</td><td class="c">0일</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">② 눌림대기 차트 <span class="sub">전체 7건</span></div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">SK이노베이션</span><span class="badge bdg-gray">눌림대기 19일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="47.8" x2="474" y2="47.8" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="20.9" x2="474" y2="20.9" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,140.2 13.9,147.5 21.9,149.3 29.8,138.7 37.7,114.7 45.7,115.5 53.6,128.2 61.5,148.2 69.5,152.2 77.4,160.2 85.3,183.8 93.3,166.7 101.2,181.3 109.1,199.1 117.1,166.7 125.0,179.5 132.9,168.2 140.8,182.4 148.8,179.1 156.7,173.6 164.6,147.1 172.6,161.6 180.5,164.5 188.4,150.4 196.4,123.8 204.3,143.1 212.2,99.1 220.2,83.1 228.1,99.5 236.0,101.6 244.0,94.0 251.9,43.8 259.8,51.5 267.8,100.2 275.7,114.7 283.6,126.4 291.6,100.5 299.5,122.7 307.4,131.8 315.4,119.8 323.3,127.5 331.2,129.6 339.2,87.1 347.1,71.8 355.0,73.3 362.9,79.5 370.9,82.0 378.8,56.5 386.7,46.4 394.7,55.8 402.6,66.7 410.5,70.7 418.5,51.5 426.4,70.0 434.3,120.2 442.3,117.3 450.2,99.5 458.1,68.2 466.1,32.5 474.0,32.9" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="32.9" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>135,200</span> <span class="sep">|</span> 중간값(눌림목표) <span>131,100</span> <span class="sep">|</span> TP <span>138,500</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-09-01</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">S-Oil</span><span class="badge bdg-gray">눌림대기 17일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="45.1" x2="474" y2="45.1" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="29.5" x2="474" y2="29.5" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,146.9 13.9,147.2 21.9,140.4 29.8,145.4 37.7,138.6 45.7,137.4 53.6,150.1 61.5,164.0 69.5,163.4 77.4,158.4 85.3,174.6 93.3,157.5 101.2,184.3 109.1,199.1 117.1,168.1 125.0,160.2 132.9,150.7 140.8,151.9 148.8,148.9 156.7,129.2 164.6,98.2 172.6,85.8 180.5,80.2 188.4,84.3 196.4,62.5 204.3,86.4 212.2,59.8 220.2,46.6 228.1,41.3 236.0,56.3 244.0,56.0 251.9,32.1 259.8,28.0 267.8,71.6 275.7,92.0 283.6,101.1 291.6,90.2 299.5,98.5 307.4,115.0 315.4,102.9 323.3,112.7 331.2,105.6 339.2,68.1 347.1,62.2 355.0,56.3 362.9,56.6 370.9,58.4 378.8,38.6 386.7,20.9 394.7,26.8 402.6,53.4 410.5,57.8 418.5,57.5 426.4,61.3 434.3,58.1 442.3,70.8 450.2,33.9 458.1,31.2 466.1,26.5 474.0,33.0" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="33.0" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>149,500</span> <span class="sep">|</span> 중간값(눌림목표) <span>145,400</span> <span class="sep">|</span> TP <span>150,700</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-28</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">삼성SDI</span><span class="badge bdg-gray">눌림대기 16일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="45.0" x2="474" y2="45.0" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="25.8" x2="474" y2="25.8" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,71.5 13.9,86.6 21.9,84.9 29.8,51.9 37.7,40.5 45.7,43.7 53.6,42.9 61.5,65.8 69.5,38.8 77.4,56.8 85.3,109.0 93.3,92.7 101.2,99.2 109.1,120.4 117.1,73.9 125.0,94.3 132.9,91.0 140.8,107.8 148.8,110.2 156.7,123.3 164.6,128.6 172.6,155.5 180.5,164.0 188.4,137.5 196.4,132.6 204.3,142.8 212.2,121.2 220.2,137.1 228.1,164.4 236.0,151.8 244.0,149.8 251.9,110.6 259.8,142.4 267.8,140.0 275.7,179.9 283.6,194.6 291.6,199.1 299.5,167.7 307.4,173.8 315.4,149.3 323.3,141.6 331.2,143.2 339.2,117.1 347.1,98.8 355.0,116.7 362.9,95.5 370.9,94.3 378.8,70.7 386.7,93.5 394.7,94.3 402.6,84.1 410.5,101.6 418.5,71.5 426.4,68.2 434.3,70.7 442.3,27.4 450.2,25.8 458.1,20.9 466.1,27.4 474.0,36.4" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="36.4" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>558,000</span> <span class="sep">|</span> 중간값(눌림목표) <span>547,500</span> <span class="sep">|</span> TP <span>571,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-27</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">두산에너빌리티</span><span class="badge bdg-gray">눌림대기 14일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="126.7" x2="474" y2="126.7" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="110.6" x2="474" y2="110.6" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,66.4 13.9,71.3 21.9,81.7 29.8,63.1 37.7,35.4 45.7,20.9 53.6,21.3 61.5,36.2 69.5,43.2 77.4,58.5 85.3,79.2 93.3,73.4 101.2,85.0 109.1,112.7 117.1,84.2 125.0,89.1 132.9,82.1 140.8,92.4 148.8,91.6 156.7,94.5 164.6,110.6 172.6,142.0 180.5,145.3 188.4,125.1 196.4,145.3 204.3,154.9 212.2,146.2 220.2,159.8 228.1,180.1 236.0,171.8 244.0,161.9 251.9,145.3 259.8,149.9 267.8,154.9 275.7,180.5 283.6,196.6 291.6,199.1 299.5,170.6 307.4,168.1 315.4,146.2 323.3,129.6 331.2,132.1 339.2,129.2 347.1,117.6 355.0,125.9 362.9,116.0 370.9,113.5 378.8,106.5 386.7,125.9 394.7,132.9 402.6,134.2 410.5,144.9 418.5,146.2 426.4,114.3 434.3,93.3 442.3,92.8 450.2,83.3 458.1,106.9 466.1,111.4 474.0,121.0" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="121.0" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>79,100</span> <span class="sep">|</span> 중간값(눌림목표) <span>77,700</span> <span class="sep">|</span> TP <span>81,600</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-25</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">두산</span><span class="badge bdg-gray">눌림대기 14일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="168.0" x2="474" y2="168.0" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="162.4" x2="474" y2="162.4" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,79.9 13.9,76.7 21.9,70.1 29.8,20.9 37.7,54.4 45.7,56.2 53.6,69.6 61.5,67.8 69.5,68.3 77.4,68.3 85.3,86.2 93.3,83.7 101.2,90.3 109.1,102.1 117.1,95.7 125.0,94.1 132.9,75.7 140.8,101.2 148.8,103.7 156.7,107.9 164.6,124.0 172.6,133.3 180.5,144.9 188.4,112.9 196.4,138.6 204.3,142.4 212.2,129.5 220.2,145.1 228.1,159.9 236.0,159.2 244.0,142.7 251.9,131.8 259.8,147.0 267.8,146.0 275.7,173.0 283.6,181.4 291.6,199.1 299.5,150.8 307.4,138.6 315.4,132.2 323.3,134.7 331.2,147.6 339.2,147.0 347.1,139.5 355.0,149.5 362.9,135.8 370.9,134.3 378.8,131.8 386.7,136.5 394.7,146.7 402.6,149.4 410.5,167.2 418.5,166.0 426.4,163.1 434.3,149.0 442.3,142.9 450.2,138.6 458.1,134.2 466.1,144.3 474.0,152.0" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="152.0" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>1,163,000</span> <span class="sep">|</span> 중간값(눌림목표) <span>1,074,000</span> <span class="sep">|</span> TP <span>1,105,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-25</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">한화에어로스페이스</span><span class="badge bdg-gray">눌림대기 0일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="133.9" x2="474" y2="133.9" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="111.3" x2="474" y2="111.3" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,110.4 13.9,104.0 21.9,111.3 29.8,83.7 37.7,81.2 45.7,38.6 53.6,20.9 61.5,36.0 69.5,64.8 77.4,63.5 85.3,85.9 93.3,76.9 101.2,87.6 109.1,112.6 117.1,108.7 125.0,119.5 132.9,78.2 140.8,67.4 148.8,42.0 156.7,48.9 164.6,64.8 172.6,99.7 180.5,137.5 188.4,131.5 196.4,144.9 204.3,172.4 212.2,147.9 220.2,141.8 228.1,171.1 236.0,160.8 244.0,164.2 251.9,135.4 259.8,126.4 267.8,160.8 275.7,171.1 283.6,199.1 291.6,175.4 299.5,153.0 307.4,152.2 315.4,115.6 323.3,114.3 331.2,94.1 339.2,75.6 347.1,51.9 355.0,75.1 362.9,50.2 370.9,37.7 378.8,48.5 386.7,54.5 394.7,41.1 402.6,45.4 410.5,80.7 418.5,72.1 426.4,73.4 434.3,79.9 442.3,52.8 450.2,49.7 458.1,73.4 466.1,92.4 474.0,99.2" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="99.2" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>1,042,000</span> <span class="sep">|</span> 중간값(눌림목표) <span>961,500</span> <span class="sep">|</span> TP <span>1,014,000</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-04</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-card-head"><span class="chart-card-name">HD현대</span><span class="badge bdg-gray">눌림대기 0일</span></div>
+        <svg viewBox="0 0 480 220" width="100%" height="220" style="display:block;max-width:100%">
+    <line x1="6" y1="167.9" x2="474" y2="167.9" stroke="var(--amber)" stroke-width="1.8" stroke-dasharray="6,3"/><line x1="6" y1="150.9" x2="474" y2="150.9" stroke="var(--sky)" stroke-width="1.8" stroke-dasharray="6,3"/><polyline points="6.0,86.4 13.9,83.3 21.9,76.9 29.8,80.1 37.7,29.4 45.7,20.9 53.6,41.0 61.5,91.7 69.5,108.6 77.4,122.4 85.3,149.8 93.3,155.1 101.2,167.8 109.1,188.5 117.1,166.8 125.0,174.1 132.9,152.0 140.8,157.2 148.8,159.4 156.7,154.1 164.6,150.9 172.6,186.4 180.5,195.5 188.4,174.1 196.4,177.3 204.3,194.0 212.2,172.0 220.2,163.6 228.1,178.2 236.0,177.3 244.0,147.7 251.9,106.5 259.8,125.5 267.8,150.9 275.7,184.5 283.6,199.1 291.6,186.0 299.5,173.9 307.4,176.1 315.4,155.1 323.3,132.9 331.2,132.9 339.2,120.3 347.1,118.1 355.0,121.3 362.9,108.6 370.9,111.8 378.8,98.1 386.7,100.2 394.7,113.9 402.6,127.6 410.5,145.6 418.5,147.7 426.4,140.3 434.3,137.2 442.3,139.3 450.2,135.0 458.1,132.9 466.1,132.9 474.0,142.4" fill="none" stroke="var(--txt)" stroke-width="1.7"/><circle cx="474.0" cy="142.4" r="4.5" fill="var(--red)" stroke="var(--card)" stroke-width="1.3"/><text x="6" y="214" font-size="13.5" fill="var(--txt)">2026-06-09</text><text x="474" y="214" font-size="13.5" fill="var(--txt)" text-anchor="end">2026-09-02</text>
+  </svg>
+        <div class="chart-card-stats">
+          <span>현재가 <span>214,500</span> <span class="sep">|</span> 중간값(눌림목표) <span>202,450</span> <span class="sep">|</span> TP <span>210,500</span></span>
+        </div>
+        <div class="chart-card-stats">
+          <span>장대양봉일 <span>2026-08-04</span></span>
+        </div>
+        <div class="chart-card-legend"><span><i class="dash" style="border-color:var(--amber)"></i>중간값(눌림목표)</span><span><i class="dash" style="border-color:var(--sky)"></i>TP(캔들고가)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="p2">
+  <div class="kpi-row">
+    <div class="kpi-card kpi-sky"><div class="num">0</div><div class="lbl">보유종목 수</div></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">보유종목 현황 <span class="sub">장대양봉 전략 실보유 종목만 표시</span></div>
+    <div class="sc-note">2026-09-02 기준 장대양봉 전략으로 실제 매수한 보유종목이 없습니다(최근신호 탭 참고 &mdash; 현재 진행중(OPEN)인 포지션도 없음). 4전략 통합 5슬롯 운용에서 장대양봉 신호가 발생하고 빈슬롯이 있을 때 신규 매수되면 이 탭에 표시됩니다. 삼성중공업&middot;두산로보틱스(기준선 전략)&middot;SK스퀘어&middot;한국전력(라운드넘버 전략) 등 다른 전략으로 매수한 보유종목은 각 전략 앱의 보유종목 탭을 참고하세요.</div>
+  </div>
+</div>
+
+<div class="panel" id="p3">
+  <div class="sc">
+    <div class="sc-title">매수/매도 전략 예시 <span class="sub">합성 예시 곡선(설명용) : 실선=종가, 점선(하늘색)=TP(캔들고가), 점선(코랄)=STOP</span></div>
+    <div class="chart-legend"><span><i style="border-color:var(--txt)"></i>종가</span><span style="color:var(--txt)">①장대양봉(몸통5%↑) ②중간값 눌림 ③터치일고가 재돌파(매수) ④TP(캔들고가 도달) 또는 ⑤STOP(캔들저가×99.5% 이탈)</span></div>
+    <svg viewBox="0 0 680 300" width="100%" height="300" style="display:block;max-width:100%">
+    <line x1="40" y1="80" x2="660" y2="80" stroke="var(--sky)" stroke-width="1.4" stroke-dasharray="6,3"/>
+    <text x="44" y="72" font-size="12" fill="var(--txt2)">TP(캔들고가)</text>
+    <line x1="40" y1="180" x2="660" y2="180" stroke="var(--coral)" stroke-width="1.4" stroke-dasharray="6,3"/>
+    <text x="44" y="196" font-size="12" fill="var(--txt2)">STOP(캔들저가×99.5%)</text>
+    <polyline points="40,220 90,140 130,90 160,130 190,160 220,175 250,178 280,165 310,150 340,158 370,168 400,155 430,140 460,150 490,145 520,130 550,110 580,95 610,80 660,60" fill="none" stroke="var(--txt)" stroke-width="2.2"/>
+    <line x1="130" y1="90" x2="130" y2="30" stroke="var(--gray600)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="130" cy="90" r="6" fill="var(--gray600)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="130" y="24" font-size="13" font-weight="500" fill="var(--gray600)" text-anchor="middle">①</text>
+    <text x="130" y="18" font-size="12" fill="var(--txt2)" text-anchor="middle">장대양봉</text>
+    <line x1="250" y1="178" x2="250" y2="240" stroke="var(--red)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="250" cy="178" r="6" fill="var(--red)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="250" y="258" font-size="13" font-weight="500" fill="var(--red)" text-anchor="middle">②</text>
+    <text x="250" y="274" font-size="12" fill="var(--txt2)" text-anchor="middle">중간값 눌림</text>
+    <line x1="370" y1="168" x2="370" y2="240" stroke="var(--teal)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="370" cy="168" r="6" fill="var(--teal)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="370" y="258" font-size="13" font-weight="500" fill="var(--teal)" text-anchor="middle">③</text>
+    <text x="370" y="274" font-size="12" fill="var(--txt2)" text-anchor="middle">재돌파(매수)</text>
+    <line x1="610" y1="80" x2="610" y2="30" stroke="var(--sky600)" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="610" cy="80" r="6" fill="var(--sky600)" stroke="var(--card)" stroke-width="1.5"/>
+    <text x="610" y="24" font-size="13" font-weight="500" fill="var(--sky600)" text-anchor="middle">④</text>
+    <text x="610" y="18" font-size="12" fill="var(--txt2)" text-anchor="middle">TP(전량매도)</text>
+  </svg>
+    <div class="sc-note">몸통 5% 이상 장대양봉(①) 발생 후, 20거래일 이내 저가가 캔들 중간값((시가+종가)/2)에 닿는 눌림(②)이 나오면, 그 눌림일(터치일) 고가를 5거래일 이내 종가로 재돌파하는 날(③) 그 종가로 매수합니다. 청산은 종가가 캔들고가에 도달하는 TP(④), 캔들저가×99.5% 아래로 하락하는 STOP(⑤, 그림 미도시), 15거래일 경과하는 TIME 중 먼저 오는 조건입니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">확정 진입&middot;청산 조건 요약표 <span class="sub">2026-09-01 확정(4번째 확정전략) &middot; 2026-09-01 저녁 1차 가드수정(touchHigh) &middot; 2026-09-02 2차 가드수정(entryPrice)</span></div>
+    <div class="sc-note" style="margin-bottom:10px"><b>매수 진입 조건</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l shrink">구분</th><th class="l">내용</th></tr></thead>
+        <tbody>
+          <tr><td class="l">대상 유니버스</td><td class="l wrap">코스피 TOP50 전용</td></tr>
+          <tr><td class="l">① 장대양봉 탐지</td><td class="l wrap">종가&gt;시가이고 몸통((종가&minus;시가)/시가)&ge;5%인 날</td></tr>
+          <tr><td class="l">② 눌림 대기</td><td class="l wrap">장대양봉 발생 후 20거래일 이내 저가가 캔들 중간값((시가+종가)/2)에 닿는 날(터치일). 그 사이 종가가 캔들저가 아래로 붕괴하면 셋업 폐기</td></tr>
+          <tr><td class="l">③ 재돌파확인</td><td class="l wrap">터치일 고가를 5거래일 이내 종가가 재돌파하는 첫날 그 종가로 매수. 그 사이 종가가 캔들저가 아래로 붕괴하면 셋업 폐기</td></tr>
+          <tr><td class="l">④ touchHigh 가드(1차, 2026-09-01)</td><td class="l wrap">터치일 고가가 이미 캔들고가(TP목표)를 넘거나 같으면 무효셋업으로 배제</td></tr>
+          <tr><td class="l">⑤ entryPrice 가드(2차, 2026-09-02)</td><td class="l wrap">재돌파확인일 종가(진입가)가 이미 캔들고가(TP목표)를 넘거나 같으면 무효셋업으로 배제</td></tr>
+          <tr><td class="l">상승국면필터</td><td class="l wrap">진입일 종가&ge;EMA200</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note" style="margin:12px 0 10px"><b>매도(청산) 조건 : 먼저 오는 조건</b></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="c shrink">단계</th><th class="l">트리거</th><th class="l">액션</th></tr></thead>
+        <tbody>
+          <tr><td class="c"><b>TP</b></td><td class="l wrap">종가가 캔들고가(진입 근거가 됐던 장대양봉의 고점)에 도달</td><td class="l wrap">전량 매도(발생비중 78%)</td></tr>
+          <tr><td class="c"><b>STOP</b></td><td class="l wrap">종가가 캔들저가&times;99.5% 아래로 하락</td><td class="l wrap">전량 매도(발생비중 15%)</td></tr>
+          <tr><td class="c"><b>TIME</b></td><td class="l wrap">15거래일 경과</td><td class="l wrap">전량 매도(발생비중 7%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">참고 백테스트 성과(코스피50 &times; 약7년, 2026-09-02 2차 가드수정 반영 최종 확정치) : n=173, 평균 <b class="t-pos">+2.14%</b>, 중앙값 <b class="t-pos">+2.69%</b>, 승률 <b>80%</b>, 평균보유 <b>4.1거래일</b>, perDay <b class="t-pos">+0.524%</b>. 근거 상세는 백테스트 탭 참조.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">매수(진입) 조건 : 3단계 순차 충족 + 2개 가드</div>
+    <div class="rule-box">
+      <div class="rb-title">① 장대양봉 탐지 : 몸통((종가&minus;시가)/시가) 5% 이상</div>
+      <div class="rb-body">장대양봉은 강한 매수세가 하루 만에 유입됐다는 신호입니다. 몸통길이·되돌림기간·STOP버퍼·최대보유·확인창 5단계 그리드서치로 재검증한 결과 몸통 5%가 최적으로 확인됐습니다. maxHold5일+확인창1일 조합(perDay 더 높음)은 OOS 3.5배 격차&middot;상위10건 51% 수익집중으로 과적합 판정 후 기각, 몸통길이만 5%로 조정한 보수적 조합만 채택했습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">② 눌림 대기 : 20거래일 이내 저가가 중간값((시가+종가)/2)에 닿는 날</div>
+      <div class="rb-body">장대양봉 직후 추격매수하지 않고, 상승분의 절반을 반납하는 되돌림(눌림)을 기다립니다. 즉시터치매수(원안, n=2,026&middot;perDay+0.291%) 대비 사용자 제안으로 "재돌파확인"을 도입해 큰 폭으로 개선했습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">③ 재돌파확인 : 눌림일(터치일) 고가를 5거래일 이내 종가로 재돌파</div>
+      <div class="rb-body">단순히 눌림목에서 즉시 매수(baseline)하지 않고, 그 저항(터치일 고가)을 실제로 다시 넘어서는 힘을 확인한 뒤 매수합니다. 확인창(재돌파를 기다리는 기간)을 0~20일로 스윕한 결과 5일 조합이 승률&middot;perDay 균형점으로 확정됐습니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">④ touchHigh 가드(1차, 2026-09-01) : 터치일 고가&ge;캔들고가 무효</div>
+      <div class="rb-body">사용자가 "최근신호표에서 진입가가 TP가보다 높은 경우가 있다"고 지적해 발견. 재돌파 판정 기준인 터치일 고가가 이미 장대양봉의 TP목표(캔들고가)를 넘어버린 경우가 있었습니다(실사례: SK이노베이션 2026-08-14 캔들 TP목표129,800원 → 08-20 터치일고가 이미129,900원(TP초과) → 08-24 재돌파확정 매수(진입가130,100, 이미 TP초과 상태) → 익일 급락 STOP-14.53%). 재돌파 목표가 애초에 TP를 넘지 않는 정상 케이스만 채택하도록 수정했습니다. 수정 전후 비교(n=585&rarr;351): 평균+0.92%&rarr;+1.25%, 중앙값+0.96%&rarr;+1.68%, 승률62%&rarr;70%.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">⑤ entryPrice 가드(2차, 2026-09-02) : 진입가&ge;캔들고가 무효</div>
+      <div class="rb-body">stock-portal "장대양봉" 앱을 만들며 최근신호를 재확인하던 중 사용자의 재질문("9/1 진입신호가 맞냐")을 계기로 발견 &mdash; 1차 가드는 터치일 고가만 검사했을 뿐, <b>재돌파확인창(최대5일) 동안 급등해 진입가 자체가 TP가를 넘거나 같아지는 경우는 그대로 통과</b>시키고 있었습니다. 실제 최근신호 11건 중 9건이 이 결함에 해당(SK하이닉스 2026-09-01 진입가1,693,000&ge;TP1,687,000 등)했고, 이런 셋업은 진입 익일 종가만 유지돼도 바로 "TP 달성"으로 오판정돼 승률&middot;perDay가 부풀려집니다. 진입가가 TP가를 넘거나 같은 셋업도 무효로 배제하도록 수정했습니다. 수정 전후 비교(확정조합 n=351&rarr;173): perDay+0.411%&rarr;<b>+0.524%(최종확정)</b>, 승률&rarr;80%. 관련 스크립트 6개 전부 반영(재검증 스크립트 1개 포함, 매매전략 탭 하단 설계원칙 참고).</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">상승국면필터 : 진입일 종가&ge;EMA200</div>
+      <div class="rb-body">장기 추세가 하락 국면일 때의 되돌림 매수를 배제해, 추세 순응적인 셋업만 채택합니다.</div>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">매도(청산) 조건 : 먼저 오는 조건 하나로 확정</div>
+    <div class="rule-box">
+      <div class="rb-title">TP : 캔들고가 도달</div>
+      <div class="rb-body">진입 근거였던 장대양봉의 고점을 되찾으면 전량 매도합니다(전체 청산의 78%).</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">STOP : 캔들저가&times;99.5% 이탈</div>
+      <div class="rb-body">눌림 지지선(캔들저가)이 결국 무너졌다고 보고 전량 매도합니다(전체 청산의 15%). 파라미터 재검증 그리드서치에서 확정된 값입니다.</div>
+    </div>
+    <div class="rule-box">
+      <div class="rb-title">TIME : 15거래일 경과</div>
+      <div class="rb-body">평균보유일수가 4.1거래일에 불과해 대부분 TP/STOP으로 먼저 청산되고, TIME은 전체의 7%에 불과한 안전판입니다.</div>
+    </div>
+  </div>
+
+  <div class="ai-sc">
+    <div class="ai-title">🔍 설계 원칙 : 왜 이렇게 정했는가</div>
+    <div class="ai-list">
+      <div class="ai-item"><div class="ai-dot ai-dot-teal"></div><div>재돌파확인 도입(사용자 제안) : 즉시터치매수(원안, n=2,026&middot;perDay+0.291%)는 눌림목에서 곧바로 매수하는 방식이었으나, 눌림 저항선(터치일 고가)을 실제로 재돌파하는 힘을 확인한 뒤 매수하는 방식으로 바꾸자 크게 개선(n=964&middot;perDay+0.317%, OOS 전/후반부 0.297%/0.339%로 안정적)됐습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-sky"></div><div>파라미터 그리드서치(몸통길이&middot;되돌림기간&middot;STOP버퍼&middot;최대보유&middot;확인창 5단계) : maxHold5일+확인창1일 조합은 OOS 3.5배 격차&middot;상위10건 51% 수익집중으로 명백한 과적합 판정 후 기각, 몸통길이만 5%로 조정한 보수적 조합만 채택했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-amber"></div><div>피보나치 되돌림 레벨 검증 : 최상위 조합(변동폭12%+Fib23.6%)은 OOS 2.2배 격차&middot;상위10건 64%로 명백한 과적합 기각. 중간후보(변동폭6%+Fib38.2%, perDay+0.417%)는 4구간 시간분할에서 단조증가(0.36%&rarr;0.22%&rarr;0.44%&rarr;0.74%) 확인 &mdash; 최근 강세장 프리미엄이 섞여있다고 판단, 참고후보로만 보류하고 몸통50%(중간값) 설계를 최종 확정했습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-purple"></div><div>돌파추격형(캔들고가 재돌파시 즉시 추격매수) 기각 : 승률&middot;중앙값은 더 좋았지만 평균보유가 8.5일로 2배 이상 길어져 perDay가 오히려 낮음(+0.153% vs 확정조합). "회전율이 트레이드당 수익보다 중요"하다는 이 계정의 반복 확인 교훈이 여기서도 재현됐습니다.</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-red"></div><div>touchHigh 가드 발견(1차, 2026-09-01) : 사용자가 최근신호표에서 "진입가가 TP가보다 높은 경우가 있다"고 지적 &mdash; 재돌파 판정 기준(터치일 고가)이 이미 TP목표를 넘어버린 무효셋업이 섞여있었음을 확인하고 배제했습니다(SK이노베이션 실사례로 STOP-14.53% 확인).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-coral"></div><div>entryPrice 가드 발견(2차, 2026-09-02) : stock-portal "장대양봉" 앱 신설 작업 중 사용자의 재확인 질문을 계기로 재검토 &mdash; 1차 가드는 터치일 고가만 막았을 뿐, 재돌파확인창(최대5일) 동안 급등해 <b>진입가 자체</b>가 TP가를 넘는 경우는 여전히 통과되고 있었습니다. 최근신호 11건 중 9건이 이 결함에 해당할 정도로 흔했고(SK하이닉스&middot;SK이노베이션&middot;삼성전기&middot;삼성화재&middot;두산&middot;SK텔레콤&times;2&middot;삼성SDI&middot;LIG디펜스앤에어로스페이스), 관련 스크립트 6개(백테스트 4개+라이브 진입스캔1개+재검증스크립트1개)에 동일 가드를 추가했습니다. 결과는 트레이드오프 없는 순수 개선 &mdash; 1차 가드 때(perDay+0.411%&rarr;4전략+2377.57%, 순증분+78.86%p)와 달리, 이번엔 트레이드당 품질(perDay+0.411%&rarr;+0.524%)과 4전략 통합 기여도(순증분+78.86%p&rarr;+158.12%p)가 동시에 개선됐습니다(저품질 "즉시TP" 트레이드가 슬롯을 헛되이 점유하던 문제가 완전히 해소됐기 때문).</div></div>
+      <div class="ai-item"><div class="ai-dot ai-dot-gray"></div><div>다른 확정 전략과의 관계 : 괴리율(평균회귀)&middot;눌림목(추세추종)&middot;라운드넘버(지지/저항 되돌림)&middot;기준선(EMA200 장기 파동스윙, 현재 실전운용 제외)에 이은 6번째 확정 전략입니다. 2026-09-01 4전략(눌림목+괴리율+라운드넘버+장대양봉) 통합 5슬롯 포트폴리오에 편입 확정됐습니다.</div></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="panel" id="p4">
+  <div class="sc">
+    <div class="sc-title">최종 확정 백테스트 결과 <span class="sub">코스피50 전용 &middot; 약 7년(calendarDays 2555) &middot; 확정 최종 설정(bodyPct=5%, retestWindow=20일, confirmWindow=5일, stopBufferPct=0.5%, maxHold=15일, requireUptrend=true) &middot; 2026-09-02 2차 가드수정 반영</span></div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sky"><div class="num">173</div><div class="lbl">표본(n)</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">+2.14%</div><div class="lbl">평균수익률</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">+2.69%</div><div class="lbl">중앙값</div></div>
+      <div class="kpi-card kpi-coral"><div class="num">80%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">4.1일</div><div class="lbl">평균보유</div></div>
+    </div>
+    <div class="sc-note">perDay(하루당 기대수익률) <b class="t-pos">+0.524%</b>. OOS 분기점(2024-08-16) 전/후반부 <b class="t-pos">+0.546%</b>/<b class="t-pos">+0.501%</b>로 안정적, 상위10건 수익기여도 41.6%, 상위15건 11개 종목 분산(과적합 아님). 이 탭의 모든 수치는 <code>scripts/project_bigcandle_final_combo_robustness.mjs</code>를 이 세션에서 직접 재실행해 얻은 결과입니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">1차 가드수정 : touchHigh&ge;candleHigh 무효셋업 배제 <span class="sub">2026-09-01 저녁 &middot; 사용자가 "진입가가 TP가보다 높다" 지적으로 발견</span></div>
+    <div class="sc-note" style="margin-bottom:10px">재돌파 판정 기준인 터치일 고가(touchHigh)가 이미 장대양봉의 TP목표(candleHigh)를 넘어버린 셋업이 섞여있었음을 발견 &mdash; 재돌파 목표가 애초에 TP를 넘지 않는 정상 케이스만 채택하도록 수정.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>평균보유</th><th>perDay</th></tr></thead>
+        <tbody>
+          <tr><td class="l">수정 전(무가드, bodyPct4%)</td><td>585</td><td>+0.92%</td><td>+0.96%</td><td>62%</td><td>2.5일</td><td>+0.366%</td></tr>
+          <tr><td class="l"><b>1차 수정 후(touchHigh가드, bodyPct4%)</b></td><td><b>351</b></td><td class="t-pos"><b>+1.25%</b></td><td class="t-pos"><b>+1.68%</b></td><td><b>70%</b></td><td><b>3.0일</b></td><td class="t-pos"><b>+0.411%</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">배제된 잠재 셋업 712건. 배제된 트레이드만 따로 보면(entryPrice&ge;candleHigh 412건) 평균+0.40%&middot;승률55%로 확실히 저품질군이었음이 확인됐습니다. 실사례: SK이노베이션 2026-08-14 캔들(TP목표129,800원) &rarr; 08-20 터치일고가 이미129,900원(TP초과) &rarr; 08-24 재돌파확정 매수(진입가130,100) &rarr; 익일 급락 STOP-14.53%.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">2차 가드수정 : entryPrice&ge;candleHigh 무효셋업 배제 <span class="sub">2026-09-02 &middot; stock-portal "장대양봉" 앱 신설 중 재확인 질문으로 발견</span></div>
+    <div class="sc-note" style="margin-bottom:10px">1차 가드는 터치일 고가만 검사했을 뿐, <b>재돌파확인창(최대5일) 동안 급등해 진입가 자체가 TP가를 넘거나 같아지는 경우</b>는 그대로 통과시키고 있었습니다. 최근신호 11건 중 9건이 이 결함에 해당(SK하이닉스 진입가1,693,000&ge;TP1,687,000 등)했습니다.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구분</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>평균보유</th><th>perDay</th></tr></thead>
+        <tbody>
+          <tr><td class="l">1차 수정 후(touchHigh가드만, bodyPct5%)</td><td>351</td><td>+1.25%</td><td>+1.68%</td><td>70%</td><td>3.0일</td><td>+0.411%</td></tr>
+          <tr><td class="l"><b>2차 수정 후(양쪽 가드, bodyPct5%, 최종확정)</b></td><td><b>173</b></td><td class="t-pos"><b>+2.14%</b></td><td class="t-pos"><b>+2.69%</b></td><td><b>80%</b></td><td><b>4.1일</b></td><td class="t-pos"><b>+0.524%(최고)</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">관련 스크립트 6개 전부 반영: <code>project_bigcandle_pullback_reconfirm_backtest.mjs</code>&middot;<code>project_bigcandle_recent_signals.mjs</code>&middot;<code>project_bigcandle_5slot_portfolio_backtest.mjs</code>&middot;<code>project_4strategy_combined_portfolio_backtest.mjs</code>&middot;<code>project_portfolio3_entry_scan.mjs</code>&middot;<code>project_bigcandle_final_combo_robustness.mjs</code>(이 스크립트는 touchHigh 가드조차 없어 둘 다 신규 추가). 2026-09-02 기준 실시간 최근신호(최근20거래일)는 LG전자(진입08-24, TP+8.36%)&middot;셀트리온(진입08-05, TP+2.47%) 2건뿐이며 둘 다 청산완료, 진행중(OPEN) 포지션 없음.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">5슬롯 단독 실측 포트폴리오 <span class="sub">2019-09-04~2026-09-02, 1,000만원 시작 &middot; 2차 가드수정 반영</span></div>
+    <div class="kpi-row">
+      <div class="kpi-card kpi-sky"><div class="num">+89.16%</div><div class="lbl">총수익률</div></div>
+      <div class="kpi-card kpi-teal"><div class="num">170건</div><div class="lbl">청산건수</div></div>
+      <div class="kpi-card kpi-amber"><div class="num">79%</div><div class="lbl">승률</div></div>
+      <div class="kpi-card kpi-purple"><div class="num">4.1일</div><div class="lbl">평균보유</div></div>
+    </div>
+    <div class="sc-note">최종자본 18,916,389원. 청산사유: TP 133건(78%)&middot;STOP 25건(15%)&middot;TIME 12건(7%). 슬롯부족 스킵 0건(신호빈도가 슬롯을 상시 채울 만큼 넉넉하지는 않음). 1차 가드수정 후치(+122.05%)보다 낮아졌는데, 이는 신호량이 173건까지 더 줄어 5슬롯 자본가동률이 낮아졌기 때문입니다 &mdash; 트레이드당 품질은 개선됐지만 단독 운용시엔 회전율 감소가 그 개선을 상쇄합니다.</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">연도</th><th>청산건수</th><th>실현손익</th><th>승률</th></tr></thead>
+        <tbody>
+          <tr><td class="l">2020</td><td>16건</td><td>911,315원</td><td>81%</td></tr>
+          <tr><td class="l">2021</td><td>22건</td><td>942,605원</td><td>82%</td></tr>
+          <tr><td class="l">2022</td><td>6건</td><td>296,664원</td><td>67%</td></tr>
+          <tr><td class="l">2023</td><td>18건</td><td>229,169원</td><td>67%</td></tr>
+          <tr><td class="l">2024</td><td>33건</td><td>2,334,729원</td><td>82%</td></tr>
+          <tr><td class="l">2025</td><td>41건</td><td>933,870원</td><td>78%</td></tr>
+          <tr><td class="l">2026</td><td>34건</td><td>3,268,038원</td><td>85%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">4전략 통합(눌림목+괴리율+라운드넘버+장대양봉) 실측 <span class="sub">2019-08-27~2026-09-02, 5슬롯 공유자본 1,000만원 시작 &middot; 2차 가드수정 반영, 편입 확정의 결정적 근거</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">구성</th><th>최종자본</th><th>총수익률</th><th>청산건수</th></tr></thead>
+        <tbody>
+          <tr><td class="l">3전략(눌림목+괴리율+라운드넘버)만</td><td>236,893,200원</td><td class="t-pos">+2268.93%</td><td>521건</td></tr>
+          <tr><td class="l"><b>4전략(장대양봉 편입)</b></td><td><b>252,705,258원</b></td><td class="t-pos"><b>+2427.05%(개선)</b></td><td><b>602건</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">순증분 <b class="t-pos">+158.12%p</b>(1차 가드수정 후치 +78.86%p보다 두 배 이상 확대). 장대양봉 자체 청산 81건&middot;실현손익 15,433,040원. 전략별 청산실적: 눌림목170건&middot;144.7M원 &gt; 괴리율100건&middot;64.6M원 &gt; 라운드넘버251건&middot;21.0M원 &gt; 장대양봉81건&middot;15.4M원. <b>1차 가드수정 때와 달리 이번엔 트레이드오프 없는 순수 개선</b> &mdash; 저품질 "즉시TP" 트레이드가 슬롯을 헛되이 점유하던 문제가 해소되면서, 5슬롯 단독 운용에선 회전율 저하로 헤드라인이 하락(+122.05%&rarr;+89.16%)했지만 4전략 통합에선 다른 전략들이 그 빈 슬롯을 더 좋은 신호로 채워주며 오히려 개선됐습니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">청산 사유별 발생 빈도 <span class="sub">5슬롯 단독 실측(170건) 기준</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">사유</th><th>건수</th><th>비중</th></tr></thead>
+        <tbody>
+          <tr><td class="l">TP(캔들고가 도달)</td><td>133건</td><td>78%</td></tr>
+          <tr><td class="l">STOP(캔들저가&times;99.5% 이탈)</td><td>25건</td><td>15%</td></tr>
+          <tr><td class="l">TIME(15거래일 경과)</td><td>12건</td><td>7%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">확인창(confirmWindow) 스윕 <span class="sub">bodyPct4%(1차 가드수정 시점 참고치) &middot; project_bigcandle_pullback_reconfirm_backtest.mjs</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">확인창</th><th>n</th><th>평균</th><th>중앙값</th><th>승률</th><th>평균보유</th><th>perDay</th></tr></thead>
+        <tbody>
+          <tr><td class="l">기존(터치즉시매수)</td><td>2028</td><td>+1.15%</td><td>+3.21%</td><td>56%</td><td>4.0일</td><td>+0.291%</td></tr>
+          <tr><td class="l">1일</td><td>99</td><td>+2.25%</td><td>+3.09%</td><td>83%</td><td>3.3일</td><td>+0.684%</td></tr>
+          <tr><td class="l">3일</td><td>204</td><td>+2.32%</td><td>+2.92%</td><td>81%</td><td>3.7일</td><td>+0.629%</td></tr>
+          <tr><td class="l"><b>5일(채택)</b></td><td><b>242</b></td><td><b>+2.23%</b></td><td><b>+2.74%</b></td><td><b>80%</b></td><td><b>3.8일</b></td><td><b>+0.587%</b></td></tr>
+          <tr><td class="l">10일</td><td>279</td><td>+1.84%</td><td>+2.57%</td><td>77%</td><td>4.2일</td><td>+0.442%</td></tr>
+          <tr><td class="l">20일</td><td>290</td><td>+1.74%</td><td>+2.49%</td><td>77%</td><td>4.3일</td><td>+0.409%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">확인창이 짧을수록(1일) perDay는 더 높지만(+0.684%) 표본이 극히 작고(n=99) 상위 소수 트레이드 의존도가 큰 편이라, 표본크기와 안정성을 함께 고려해 5일을 채택했습니다. bodyPct5%로 조정한 최종확정 조합(위 "최종 확정 백테스트 결과" 섹션)에서는 n=173&middot;perDay+0.524%로 재확인됩니다.</div>
+  </div>
+
+  <div class="sc">
+    <div class="sc-title">돌파추격형(즉시추격매수) 검증 <span class="sub">진입은 캔들고가 재돌파시 즉시, TP=측정이동 &mdash; 기각</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">방식</th><th>평균보유</th><th>perDay</th><th>판정</th></tr></thead>
+        <tbody>
+          <tr><td class="l"><b>확정조합(재돌파확인형)</b></td><td><b>4.1일</b></td><td class="t-pos"><b>+0.524%</b></td><td><b>채택</b></td></tr>
+          <tr><td class="l">돌파추격형(즉시 추격매수)</td><td>8.5일</td><td>+0.153%</td><td>기각(평균보유 2배 이상, perDay 저조)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="sc-note">승률&middot;중앙값은 돌파추격형이 더 좋았지만 평균보유가 2배 이상 길어져 perDay가 오히려 낮음 &mdash; "회전율이 트레이드당 수익보다 중요"하다는 이 계정의 반복 확인 교훈이 여기서도 재현됐습니다.</div>
+  </div>
+</div>
+
+
+</div></div>
+
+<script>
+function openSettingsModal(){ document.getElementById('settingsModal').classList.add('modal-open'); syncThemeOptUI(); }
+function closeSettingsModal(){ document.getElementById('settingsModal').classList.remove('modal-open'); }
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  try{ localStorage.setItem('theme', t); }catch(e){}
+  syncThemeOptUI();
+}
+function syncThemeOptUI(){
+  const cur = document.documentElement.getAttribute('data-theme');
+  document.getElementById('theme-opt-dark')?.classList.toggle('on', cur === 'dark');
+  document.getElementById('theme-opt-light')?.classList.toggle('on', cur === 'light');
+}
+function showTab(i){
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('on',j===i));
+  document.querySelectorAll('.tab-btn').forEach((t,j)=>t.classList.toggle('on',j===i));
+}
+document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
+  btn.addEventListener('click',()=>showTab(parseInt(btn.dataset.tab)));
+  btn.addEventListener('touchend',e=>{e.preventDefault();showTab(parseInt(btn.dataset.tab));});
+});
+</script>
+</body>
+</html>
