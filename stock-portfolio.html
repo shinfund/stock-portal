@@ -117,6 +117,8 @@ tbody tr.total-row:hover{background:var(--border2)}
 html[data-theme="dark"] .date-sel select.flt-active{background:#0C447C;border-color:#0C447C}
 .hist-date-col{display:none}
 #hist-table.show-date-col .hist-date-col{display:table-cell}
+.dt-date-col{display:none}
+#dt-table.show-date-col .dt-date-col{display:table-cell}
 .pill{border:1.5px solid var(--border);background:var(--card);color:var(--txt2);font-size:13px;font-weight:500;padding:6px 13px;border-radius:99px;cursor:pointer;font-family:inherit;transition:all .12s;white-space:nowrap}
 .pill:hover{border-color:var(--sky100)}
 .pill.on{background:var(--sky800);border-color:var(--sky800);color:#fff}
@@ -238,15 +240,17 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div id="daytrade-body" style="display:none">
     <div class="date-sel">
       <label style="font-size:13.5px;font-weight:500;color:var(--txt2)">날짜</label>
-      <select id="dt-date-sel" onchange="renderDaytrade()"></select>
+      <select id="dt-year-sel" onchange="onDtYearChange()"></select>
+      <select id="dt-month-sel" onchange="onDtMonthChange()"></select>
+      <select id="dt-day-sel" onchange="renderDaytrade()"></select>
     </div>
     <div class="kpi-row" id="dt-kpi"></div>
     <div class="sc">
       <div class="sc-title">당일매매 내역 <span class="sub" id="dt-date-label"></span></div>
       <div class="tbl-wrap">
-        <table>
+        <table id="dt-table">
           <thead><tr>
-            <th class="l">종목명</th><th class="l">종목코드</th><th>손익금액</th><th>수익률</th>
+            <th class="l dt-date-col">날짜</th><th class="l">종목명</th><th class="l">종목코드</th><th>손익금액</th><th>수익률</th>
             <th>매수평균가</th><th>매수수량</th><th>매입금액</th>
             <th>매도평균가</th><th>매도수량</th><th>매도금액</th>
             <th>수수료제세금</th>
@@ -663,12 +667,11 @@ function renderHistory(){
   const m = document.getElementById('hist-month-sel').value;
   const d = document.getElementById('hist-day-sel').value;
   updateHistSelColors();
-  const isAll = (y === 'ALL');
-  const date = (!isAll && y && m && d) ? `${y}-${m}-${d}` : '';
-  document.getElementById('hist-date-label').textContent = isAll ? '전체' : (date || '');
-  document.getElementById('hist-table').classList.toggle('show-date-col', isAll);
-  const rows = (isAll ? HOLDINGS.slice() : HOLDINGS.filter(r=>r.date===date))
-    .sort((a,b)=> isAll ? (b.date<a.date?-1:b.date>a.date?1:b.pnlPct-a.pnlPct) : (b.pnlPct-a.pnlPct));
+  const multi = (y==='ALL' || m==='ALL' || d==='ALL');
+  document.getElementById('hist-date-label').textContent = multi ? '전체' : `${y}-${m}-${d}`;
+  document.getElementById('hist-table').classList.toggle('show-date-col', multi);
+  const rows = HOLDINGS.filter(r=>periodMatches(r.date,y,m,d))
+    .sort((a,b)=> multi ? (b.date<a.date?-1:b.date>a.date?1:b.pnlPct-a.pnlPct) : (b.pnlPct-a.pnlPct));
   const tbody = document.getElementById('hist-tbody');
   if(!rows.length){
     tbody.innerHTML = '<tr><td colspan="12" class="empty-box">해당 날짜 데이터 없음</td></tr>';
@@ -692,33 +695,89 @@ function renderHistory(){
   }
 }
 
+let DT_DATES = [];
+function periodMatches(rowDate, y, m, d){
+  if(!rowDate) return false;
+  if(y!=='ALL' && rowDate.slice(0,4)!==y) return false;
+  if(m!=='ALL' && rowDate.slice(5,7)!==m) return false;
+  if(d!=='ALL' && rowDate.slice(8,10)!==d) return false;
+  return true;
+}
 function buildDaytradeDateSel(){
-  const dates = [...new Set(DAYTRADES.map(r=>r.date).filter(Boolean))].sort().reverse();
-  const sel = document.getElementById('dt-date-sel');
-  sel.innerHTML = dates.map(d=>`<option value="${d}">${d}</option>`).join('');
-  if(dates.length) sel.value = dates[0];
+  DT_DATES = [...new Set(DAYTRADES.map(r=>r.date).filter(Boolean))].sort();
+  const years = [...new Set(DT_DATES.map(d=>d.slice(0,4)))].sort().reverse();
+  const ySel = document.getElementById('dt-year-sel');
+  ySel.innerHTML = '<option value="ALL">전체</option>' + years.map(y=>`<option value="${y}">${y}년</option>`).join('');
+  if(years.length) ySel.value = years[0];
+  populateDtMonths();
+}
+function populateDtMonths(){
+  const y = document.getElementById('dt-year-sel').value;
+  const mSel = document.getElementById('dt-month-sel');
+  if(y === 'ALL'){
+    mSel.innerHTML = '<option value="ALL">전체</option>';
+    mSel.value = 'ALL';
+    mSel.disabled = true;
+  } else {
+    const months = [...new Set(DT_DATES.filter(d=>d.slice(0,4)===y).map(d=>d.slice(5,7)))].sort().reverse();
+    mSel.disabled = false;
+    mSel.innerHTML = '<option value="ALL">전체</option>' + months.map(m=>`<option value="${m}">${parseInt(m,10)}월</option>`).join('');
+    if(months.length) mSel.value = months[0];
+  }
+  populateDtDays();
+}
+function populateDtDays(){
+  const y = document.getElementById('dt-year-sel').value;
+  const m = document.getElementById('dt-month-sel').value;
+  const dSel = document.getElementById('dt-day-sel');
+  if(y === 'ALL' || m === 'ALL'){
+    dSel.innerHTML = '<option value="ALL">전체</option>';
+    dSel.value = 'ALL';
+    dSel.disabled = true;
+  } else {
+    const days = [...new Set(DT_DATES.filter(d=>d.slice(0,4)===y && d.slice(5,7)===m).map(d=>d.slice(8,10)))].sort().reverse();
+    dSel.disabled = false;
+    dSel.innerHTML = '<option value="ALL">전체</option>' + days.map(d=>`<option value="${d}">${parseInt(d,10)}일</option>`).join('');
+    if(days.length) dSel.value = days[0];
+  }
+}
+function onDtYearChange(){ populateDtMonths(); renderDaytrade(); }
+function onDtMonthChange(){ populateDtDays(); renderDaytrade(); }
+function updateDtSelColors(){
+  const ySel = document.getElementById('dt-year-sel');
+  const mSel = document.getElementById('dt-month-sel');
+  const dSel = document.getElementById('dt-day-sel');
+  ySel.classList.toggle('flt-active', ySel.value !== 'ALL');
+  mSel.classList.toggle('flt-active', mSel.value !== 'ALL');
+  dSel.classList.toggle('flt-active', dSel.value !== 'ALL');
 }
 function renderDaytrade(){
-  const sel = document.getElementById('dt-date-sel');
-  const date = sel.value;
-  const rows = DAYTRADES.filter(r=>r.date===date);
-  document.getElementById('dt-date-label').textContent = date || '';
+  const y = document.getElementById('dt-year-sel').value;
+  const m = document.getElementById('dt-month-sel').value;
+  const d = document.getElementById('dt-day-sel').value;
+  updateDtSelColors();
+  const multi = (y==='ALL' || m==='ALL' || d==='ALL');
+  const rows = DAYTRADES.filter(r=>periodMatches(r.date,y,m,d));
+  document.getElementById('dt-date-label').textContent = multi ? '전체' : `${y}-${m}-${d}`;
+  document.getElementById('dt-table').classList.toggle('show-date-col', multi);
 
   const totalPnl = rows.reduce((s,r)=>s+r.pnl,0);
   const wins = rows.filter(r=>r.pnl>0).length;
   const winRate = rows.length ? (wins/rows.length*100) : 0;
   document.getElementById('dt-kpi').innerHTML = `
     <div class="kpi-card kpi-sky"><div class="num">${rows.length}</div><div class="lbl">거래 종목수</div></div>
-    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">당일 손익합계(원)</div></div>
+    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">${multi?'선택기간':'당일'} 손익합계(원)</div></div>
     <div class="kpi-card kpi-purple"><div class="num">${winRate.toFixed(0)}%</div><div class="lbl">승률</div></div>
   `;
 
   const tbody = document.getElementById('dt-tbody');
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 날짜 당일매매 내역 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="12" class="empty-box">해당 날짜 당일매매 내역 없음</td></tr>';
   } else {
-    tbody.innerHTML = rows.slice().sort((a,b)=>b.pnl-a.pnl).map(r=>`
+    const sorted = rows.slice().sort((a,b)=> multi ? (b.date<a.date?-1:b.date>a.date?1:b.pnl-a.pnl) : (b.pnl-a.pnl));
+    tbody.innerHTML = sorted.map(r=>`
       <tr>
+        <td class="l dt-date-col">${esc(r.date)}</td>
         <td class="l">${esc(r.name)}</td>
         <td class="l">${esc(r.code)}</td>
         <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
