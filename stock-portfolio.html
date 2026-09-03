@@ -112,6 +112,7 @@ tbody tr.total-row:hover{background:var(--border2)}
 .h-toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .h-toolbar-row .filter-row{margin-bottom:0}
 .h-quote-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.h-quote-toolbar .sub{font-size:11.5px;color:var(--txt2)}
 .date-sel select.flt-active{background:var(--sky800);border-color:var(--sky800);color:#fff}
 html[data-theme="dark"] .date-sel select.flt-active{background:#0C447C;border-color:#0C447C}
 .hist-date-col{display:none}
@@ -501,7 +502,9 @@ async function loadData(){
     document.getElementById('lastUpdate').textContent = 'Update '+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0')+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     refreshLiveQuotes();
   }catch(e){
-    document.getElementById('h-note').textContent = '⚠ 데이터 로드 실패: '+e.message;
+    const noteEl = document.getElementById('h-note');
+    noteEl.textContent = '⚠ 데이터 로드 실패: '+e.message;
+    noteEl.style.display = '';
   }
 }
 
@@ -596,11 +599,14 @@ function renderHoldings(){
     `;
   }
   const noteLatestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
-  const anyLive = current.some(r=>r.live);
-  document.getElementById('h-note').textContent = !noteLatestDate ? '데이터 없음'
-    : anyLive
-      ? `기준일 ${noteLatestDate} · 현재가·평가손익·수익률·평가금액·보유비중은 장중 실시간(KIS, ${LIVE_QUOTES_TIME?LIVE_QUOTES_TIME.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}):''} 기준) · 매입가·보유수량은 노션 스냅샷 · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`
-      : `기준일 ${noteLatestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`;
+  const noteEl = document.getElementById('h-note');
+  if(!noteLatestDate){
+    noteEl.textContent = '데이터 없음';
+    noteEl.style.display = '';
+  } else {
+    noteEl.textContent = '';
+    noteEl.style.display = 'none';
+  }
 }
 
 let HIST_DATES = [];
