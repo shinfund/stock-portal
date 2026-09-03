@@ -220,6 +220,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <nav class="top-nav">
     <button class="tab-btn on" data-tab="0">보유종목</button>
     <button class="tab-btn" data-tab="1">당일매매</button>
+    <button class="tab-btn" data-tab="2">보유이력</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -241,7 +242,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div id="holdings-body" style="display:none">
     <div class="kpi-row" id="h-kpi"></div>
     <div class="sc">
-      <div class="sc-title">보유종목 현황 <span class="sub">Notion 보유종목DB 실시간 연동 · 전략은 노션에 태깅된 확정값</span></div>
+      <div class="sc-title">보유종목 현황 <span class="sub">Notion 보유종목DB 실시간 연동 · 최신 스냅샷 기준 현재 보유만 표시 · 전략은 노션에 태깅된 확정값</span></div>
       <div class="filter-row" id="h-filter"></div>
       <div class="tbl-wrap">
         <table>
@@ -276,15 +277,43 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th class="l">종목명</th><th class="l">종목코드</th>
+            <th class="l">종목명</th><th class="l">종목코드</th><th>손익금액</th><th>수익률</th>
             <th>매수평균가</th><th>매수수량</th><th>매입금액</th>
             <th>매도평균가</th><th>매도수량</th><th>매도금액</th>
-            <th>수수료제세금</th><th>손익금액</th><th>수익률</th>
+            <th>수수료제세금</th>
           </tr></thead>
           <tbody id="dt-tbody"></tbody>
         </table>
       </div>
-      <div class="sc-note" id="dt-note"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 2. 보유이력 ═══════════════ -->
+<div class="panel" id="p2">
+  <div id="hist-login" class="sc" style="display:none">
+    <div class="login-box">
+      <div class="lb-title">🔐 Notion 연동 로그인 필요</div>
+      <div class="lb-sub">보유종목 탭에서 먼저 로그인해주세요.</div>
+    </div>
+  </div>
+  <div id="hist-body" style="display:none">
+    <div class="date-sel">
+      <label style="font-size:13.5px;font-weight:500;color:var(--txt2)">날짜</label>
+      <select id="hist-date-sel" onchange="renderHistory()"></select>
+    </div>
+    <div class="sc">
+      <div class="sc-title">해당일 보유종목 스냅샷 <span class="sub" id="hist-date-label"></span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th class="l">전략</th><th class="l">종목명</th><th class="l">종목코드</th>
+            <th>현재가</th><th>평가손익</th><th>수익률</th><th>매입가</th><th>보유수량</th><th>매입금액</th><th>평가금액</th><th>보유비중</th>
+          </tr></thead>
+          <tbody id="hist-tbody"></tbody>
+        </table>
+      </div>
+      <div class="sc-note">보유종목DB는 매일 스냅샷을 새 레코드로 누적하는 이력 로그입니다. "보유종목" 탭은 최신 날짜만 표시하는 현재 보유 현황이고, 이 탭에서는 원하는 과거 날짜를 골라 그날의 보유 스냅샷을 조회할 수 있습니다.</div>
     </div>
   </div>
 </div>
@@ -355,6 +384,8 @@ function applyAuthUI(){
   document.getElementById('holdings-body').style.display = authed ? 'block' : 'none';
   document.getElementById('daytrade-login').style.display = authed ? 'none' : 'block';
   document.getElementById('daytrade-body').style.display = authed ? 'block' : 'none';
+  document.getElementById('hist-login').style.display = authed ? 'none' : 'block';
+  document.getElementById('hist-body').style.display = authed ? 'block' : 'none';
   document.getElementById('cfgAuthHint').textContent = authed
     ? '로그인됨 · '+new Date(AUTH.expires).toLocaleDateString('ko-KR')+'까지 유지'
     : '로그인되어 있지 않습니다. 보유종목 탭에서 로그인하세요.';
@@ -442,6 +473,8 @@ async function loadData(){
     renderHoldings();
     buildDaytradeDateSel();
     renderDaytrade();
+    buildHistDateSel();
+    renderHistory();
     const now = new Date();
     document.getElementById('lastUpdate').textContent = 'Update '+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0')+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
   }catch(e){
@@ -455,29 +488,33 @@ function setHFilter(s){
   renderHoldings();
 }
 function renderHoldings(){
+  // 보유종목DB는 매일 스냅샷을 새 레코드로 쌓는 이력 로그이므로, "현재 보유"는 최신 날짜 스냅샷만 취한다.
+  const latestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
+  const current = latestDate ? HOLDINGS.filter(r=>r.date===latestDate) : [];
+
   const strategies = ['전체','눌림목','괴리율','라운드넘버','기준선','장대양봉','미분류'];
   const counts = {};
-  HOLDINGS.forEach(r=>{ counts[r.strategy] = (counts[r.strategy]||0)+1; });
+  current.forEach(r=>{ counts[r.strategy] = (counts[r.strategy]||0)+1; });
   const filterEl = document.getElementById('h-filter');
   filterEl.innerHTML = strategies.map(s=>{
     const val = s==='전체' ? 'ALL' : s;
-    const cnt = s==='전체' ? HOLDINGS.length : (counts[s]||0);
+    const cnt = s==='전체' ? current.length : (counts[s]||0);
     if(s!=='전체' && cnt===0) return '';
     return `<button class="pill${hFilter===val?' on':''}" data-val="${val}" onclick="setHFilter('${val}')">${s} (${cnt})</button>`;
   }).join('');
 
-  const rows = (hFilter==='ALL' ? HOLDINGS : HOLDINGS.filter(r=>r.strategy===hFilter))
+  const rows = (hFilter==='ALL' ? current : current.filter(r=>r.strategy===hFilter))
     .slice().sort((a,b)=>b.pnlPct-a.pnlPct);
 
-  const totalEval = HOLDINGS.reduce((s,r)=>s+r.evalAmt,0);
-  const totalPnl = HOLDINGS.reduce((s,r)=>s+r.pnl,0);
-  const totalBuy = HOLDINGS.reduce((s,r)=>s+r.buyAmt,0);
+  const totalEval = current.reduce((s,r)=>s+r.evalAmt,0);
+  const totalPnl = current.reduce((s,r)=>s+r.pnl,0);
+  const totalBuy = current.reduce((s,r)=>s+r.buyAmt,0);
   const avgPct = totalBuy ? totalPnl/totalBuy : 0;
   document.getElementById('h-kpi').innerHTML = `
     <div class="kpi-card kpi-sky"><div class="num">${fmtNum(totalEval)}</div><div class="lbl">총 평가금액(원)</div></div>
     <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">총 평가손익(원)</div></div>
     <div class="kpi-card kpi-amber"><div class="num ${pctClass(avgPct)}">${fmtPct(avgPct)}</div><div class="lbl">전체 평균수익률</div></div>
-    <div class="kpi-card kpi-purple"><div class="num">${HOLDINGS.length}</div><div class="lbl">보유종목 수</div></div>
+    <div class="kpi-card kpi-purple"><div class="num">${current.length}</div><div class="lbl">보유종목 수</div></div>
   `;
 
   const tbody = document.getElementById('h-tbody');
@@ -500,10 +537,43 @@ function renderHoldings(){
       </tr>
     `).join('');
   }
-  const latestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
-  document.getElementById('h-note').textContent = latestDate
-    ? `데이터소스 : Notion 보유종목DB(실시간 연동) · 기준일 ${latestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`
+  const noteLatestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
+  document.getElementById('h-note').textContent = noteLatestDate
+    ? `기준일 ${noteLatestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`
     : '데이터 없음';
+}
+
+function buildHistDateSel(){
+  const dates = [...new Set(HOLDINGS.map(r=>r.date).filter(Boolean))].sort().reverse();
+  const sel = document.getElementById('hist-date-sel');
+  sel.innerHTML = dates.map(d=>`<option value="${d}">${d}</option>`).join('');
+  if(dates.length) sel.value = dates[0];
+}
+function renderHistory(){
+  const sel = document.getElementById('hist-date-sel');
+  const date = sel.value;
+  document.getElementById('hist-date-label').textContent = date || '';
+  const rows = HOLDINGS.filter(r=>r.date===date).slice().sort((a,b)=>b.pnlPct-a.pnlPct);
+  const tbody = document.getElementById('hist-tbody');
+  if(!rows.length){
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 날짜 데이터 없음</td></tr>';
+  } else {
+    tbody.innerHTML = rows.map(r=>`
+      <tr>
+        <td class="l">${strategyBadge(r.strategy)}</td>
+        <td class="l">${esc(r.name)}</td>
+        <td class="l">${esc(r.code)}</td>
+        <td>${fmtNum(r.price)}</td>
+        <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
+        <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
+        <td>${fmtNum(r.buyPrice)}</td>
+        <td>${fmtNum(r.qty)}</td>
+        <td>${fmtNum(r.buyAmt)}</td>
+        <td>${fmtNum(r.evalAmt)}</td>
+        <td>${(r.weight*100).toFixed(2)}%</td>
+      </tr>
+    `).join('');
+  }
 }
 
 function buildDaytradeDateSel(){
@@ -535,6 +605,8 @@ function renderDaytrade(){
       <tr>
         <td class="l">${esc(r.name)}</td>
         <td class="l">${esc(r.code)}</td>
+        <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
+        <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
         <td>${fmtNum(r.buyAvg)}</td>
         <td>${fmtNum(r.buyQty)}</td>
         <td>${fmtNum(r.buyAmt)}</td>
@@ -542,14 +614,9 @@ function renderDaytrade(){
         <td>${fmtNum(r.sellQty)}</td>
         <td>${fmtNum(r.sellAmt)}</td>
         <td>${fmtNum(r.fee)}</td>
-        <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
-        <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
       </tr>
     `).join('');
   }
-  document.getElementById('dt-note').textContent = date
-    ? `데이터소스 : Notion 당일매매DB(실시간 연동) · HTS 거래내역 export 기반`
-    : '데이터 없음';
 }
 
 // ── 설정모달 / 테마 ──────────────────────────────────────────
