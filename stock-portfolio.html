@@ -319,11 +319,14 @@ let LIVE_QUOTES = {};      // {종목코드: {현재가,등락률,...}}
 let LIVE_QUOTES_TIME = null;
 let liveQuoteInFlight = false;
 function isMarketOpenKST(){
-  const now = new Date();
-  const kst = new Date(now.getTime() + (9*60 - now.getTimezoneOffset())*60000);
-  const day = kst.getDay();
+  // getTime()은 로컬 시간대와 무관한 절대 UTC ms이므로, 여기에 9시간을 더한 뒤
+  // getUTC* 게터로 읽으면 브라우저의 로컬 시간대 설정과 무관하게 항상 정확한 KST가 나온다.
+  // (이전 버전은 getTimezoneOffset()으로 로컬 게터를 보정하려다, 로컬 시간대가 이미
+  // KST(UTC+9)인 환경—즉 한국 사용자 대부분의 PC—에서 9시간이 중복 반영되는 버그가 있었음)
+  const kst = new Date(Date.now() + 9*60*60000);
+  const day = kst.getUTCDay();
   if(day===0 || day===6) return false;
-  const hm = kst.getHours()*100 + kst.getMinutes();
+  const hm = kst.getUTCHours()*100 + kst.getUTCMinutes();
   return hm >= 900 && hm <= 1530;
 }
 function fmtDateTime(d){
