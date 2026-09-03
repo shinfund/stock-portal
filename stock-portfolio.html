@@ -93,6 +93,8 @@ thead th.l{text-align:left} thead th.c{text-align:center}
 tbody td{padding:9px 8px;border-bottom:1px solid var(--border2);text-align:right;white-space:nowrap;color:var(--txt)}
 tbody td.l{text-align:left} tbody td.c{text-align:center}
 tbody tr:hover{background:var(--teal50)}
+tbody tr.total-row td{font-weight:700;border-top:1.5px solid var(--border);background:var(--border2)}
+tbody tr.total-row:hover{background:var(--border2)}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
@@ -521,6 +523,11 @@ function renderHoldings(){
   if(!rows.length){
     tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 전략 보유종목 없음</td></tr>';
   } else {
+    const rTotalPnl = rows.reduce((s,r)=>s+r.pnl,0);
+    const rTotalBuy = rows.reduce((s,r)=>s+r.buyAmt,0);
+    const rTotalEval = rows.reduce((s,r)=>s+r.evalAmt,0);
+    const rAvgPct = rTotalBuy ? rTotalPnl/rTotalBuy : 0;
+    const rTotalWeight = rows.reduce((s,r)=>s+r.weight,0)*100;
     tbody.innerHTML = rows.map(r=>`
       <tr>
         <td class="l">${strategyBadge(r.strategy)}</td>
@@ -535,7 +542,21 @@ function renderHoldings(){
         <td>${fmtNum(r.evalAmt)}</td>
         <td>${(r.weight*100).toFixed(2)}%</td>
       </tr>
-    `).join('');
+    `).join('') + `
+      <tr class="total-row">
+        <td class="l"></td>
+        <td class="l">합계</td>
+        <td class="l"></td>
+        <td></td>
+        <td class="${pctClass(rTotalPnl)}">${rTotalPnl>=0?'+':''}${fmtNum(rTotalPnl)}</td>
+        <td class="${pctClass(rAvgPct)}">${fmtPct(rAvgPct)}</td>
+        <td></td>
+        <td></td>
+        <td>${fmtNum(rTotalBuy)}</td>
+        <td>${fmtNum(rTotalEval)}</td>
+        <td>${rTotalWeight.toFixed(2)}%</td>
+      </tr>
+    `;
   }
   const noteLatestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
   document.getElementById('h-note').textContent = noteLatestDate
