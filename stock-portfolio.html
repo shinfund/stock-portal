@@ -218,7 +218,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div class="tbl-wrap">
         <table>
           <thead><tr>
-            <th class="l">전략</th><th class="l">종목명</th><th class="l">종목코드</th>
+            <th class="l">전략</th><th class="l">종목명</th>
             <th>현재가</th><th>평가손익</th><th>수익률</th><th>매입가</th><th>보유수량</th><th>매입금액</th><th>평가금액</th><th>보유비중</th>
           </tr></thead>
           <tbody id="h-tbody"></tbody>
@@ -250,7 +250,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div class="tbl-wrap">
         <table id="dt-table">
           <thead><tr>
-            <th class="l dt-date-col">날짜</th><th class="l">종목명</th><th class="l">종목코드</th><th>손익금액</th><th>수익률</th>
+            <th class="l dt-date-col">날짜</th><th class="l">종목명</th><th>손익금액</th><th>수익률</th>
             <th>매수평균가</th><th>매수수량</th><th>매입금액</th>
             <th>매도평균가</th><th>매도수량</th><th>매도금액</th>
             <th>수수료제세금</th>
@@ -282,7 +282,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div class="tbl-wrap">
         <table id="hist-table">
           <thead><tr>
-            <th class="l hist-date-col">날짜</th><th class="l">전략</th><th class="l">종목명</th><th class="l">종목코드</th>
+            <th class="l hist-date-col">날짜</th><th class="l">전략</th><th class="l">종목명</th>
             <th>현재가</th><th>평가손익</th><th>수익률</th><th>매입가</th><th>보유수량</th><th>매입금액</th><th>평가금액</th><th>보유비중</th>
           </tr></thead>
           <tbody id="hist-tbody"></tbody>
@@ -565,7 +565,7 @@ function renderHoldings(){
 
   const tbody = document.getElementById('h-tbody');
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 전략 보유종목 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="10" class="empty-box">해당 전략 보유종목 없음</td></tr>';
   } else {
     const rTotalPnl = rows.reduce((s,r)=>s+r.pnl,0);
     const rTotalBuy = rows.reduce((s,r)=>s+r.buyAmt,0);
@@ -576,7 +576,6 @@ function renderHoldings(){
       <tr>
         <td class="l">${strategyBadge(r.strategy)}</td>
         <td class="l">${esc(r.name)}</td>
-        <td class="l">${esc(r.code)}</td>
         <td>${r.live?'<span class="live-dot" title="장중 실시간(KIS)">●</span> ':''}${fmtNum(r.price)}</td>
         <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
         <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
@@ -590,7 +589,6 @@ function renderHoldings(){
       <tr class="total-row">
         <td class="l"></td>
         <td class="l">합계</td>
-        <td class="l"></td>
         <td></td>
         <td class="${pctClass(rTotalPnl)}">${rTotalPnl>=0?'+':''}${fmtNum(rTotalPnl)}</td>
         <td class="${pctClass(rAvgPct)}">${fmtPct(rAvgPct)}</td>
@@ -674,14 +672,13 @@ function renderHistory(){
     .sort((a,b)=> multi ? (b.date<a.date?-1:b.date>a.date?1:b.pnlPct-a.pnlPct) : (b.pnlPct-a.pnlPct));
   const tbody = document.getElementById('hist-tbody');
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="12" class="empty-box">해당 날짜 데이터 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 날짜 데이터 없음</td></tr>';
   } else {
     tbody.innerHTML = rows.map(r=>`
       <tr>
         <td class="l hist-date-col">${esc(r.date)}</td>
         <td class="l">${strategyBadge(r.strategy)}</td>
         <td class="l">${esc(r.name)}</td>
-        <td class="l">${esc(r.code)}</td>
         <td>${fmtNum(r.price)}</td>
         <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
         <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
@@ -772,14 +769,13 @@ function renderDaytrade(){
 
   const tbody = document.getElementById('dt-tbody');
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="12" class="empty-box">해당 날짜 당일매매 내역 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 날짜 당일매매 내역 없음</td></tr>';
   } else {
     const sorted = rows.slice().sort((a,b)=> multi ? (b.date<a.date?-1:b.date>a.date?1:b.pnl-a.pnl) : (b.pnl-a.pnl));
     tbody.innerHTML = sorted.map(r=>`
       <tr>
         <td class="l dt-date-col">${esc(r.date)}</td>
         <td class="l">${esc(r.name)}</td>
-        <td class="l">${esc(r.code)}</td>
         <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
         <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
         <td>${fmtNum(r.buyAvg)}</td>
