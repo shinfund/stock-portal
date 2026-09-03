@@ -758,8 +758,8 @@ function renderHoldings(){
   const totalBuy = current.reduce((s,r)=>s+r.buyAmt,0);
   const avgPct = totalBuy ? totalPnl/totalBuy : 0;
   document.getElementById('h-kpi').innerHTML = `
-    <div class="kpi-card kpi-teal"><div class="num">${fmtNum(totalEval)}</div><div class="lbl">총 평가금액(원)</div></div>
-    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">총 평가손익(원)</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">${fmtNum(totalEval)}</div><div class="lbl">총 평가금액</div></div>
+    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">총 평가손익</div></div>
     <div class="kpi-card kpi-amber"><div class="num ${pctClass(avgPct)}">${fmtPct(avgPct)}</div><div class="lbl">전체 평균수익률</div></div>
     <div class="kpi-card kpi-purple"><div class="num">${current.length}</div><div class="lbl">보유종목 수</div></div>
   `;
@@ -964,7 +964,7 @@ function renderDaytrade(){
   const winRate = rows.length ? (wins/rows.length*100) : 0;
   document.getElementById('dt-kpi').innerHTML = `
     <div class="kpi-card kpi-sky"><div class="num">${rows.length}</div><div class="lbl">거래 종목수</div></div>
-    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">${multi?'선택기간':'당일'} 손익합계(원)</div></div>
+    <div class="kpi-card ${totalPnl<0?'kpi-sky':'kpi-coral'}"><div class="num ${pctClass(totalPnl)}">${totalPnl>=0?'+':''}${fmtNum(totalPnl)}</div><div class="lbl">${multi?'선택기간':'당일'} 손익합계</div></div>
     <div class="kpi-card kpi-purple"><div class="num">${winRate.toFixed(0)}%</div><div class="lbl">승률</div></div>
   `;
 
