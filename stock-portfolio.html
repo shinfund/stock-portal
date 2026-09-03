@@ -995,6 +995,11 @@ function renderDaytrade(){
     tbody.innerHTML = '<tr><td colspan="11" class="empty-box">해당 날짜 당일매매 내역 없음</td></tr>';
   } else {
     const sorted = rows.slice().sort((a,b)=> multi ? (b.date<a.date?-1:b.date>a.date?1:b.pnl-a.pnl) : (b.pnl-a.pnl));
+    const tBuyAmt = rows.reduce((s,r)=>s+r.buyAmt,0);
+    const tSellAmt = rows.reduce((s,r)=>s+r.sellAmt,0);
+    const tFee = rows.reduce((s,r)=>s+r.fee,0);
+    const tPnl = rows.reduce((s,r)=>s+r.pnl,0);
+    const tPnlPct = tBuyAmt ? tPnl/tBuyAmt : 0;
     tbody.innerHTML = sorted.map(r=>`
       <tr>
         <td class="l dt-date-col">${esc(r.date)}</td>
@@ -1009,7 +1014,21 @@ function renderDaytrade(){
         <td>${fmtNum(r.sellAmt)}</td>
         <td>${fmtNum(r.fee)}</td>
       </tr>
-    `).join('');
+    `).join('') + `
+      <tr class="total-row">
+        <td class="l dt-date-col"></td>
+        <td class="l">합계</td>
+        <td class="${pctClass(tPnl)}">${tPnl>=0?'+':''}${fmtNum(tPnl)}</td>
+        <td class="${pctClass(tPnlPct)}">${fmtPct(tPnlPct)}</td>
+        <td></td>
+        <td></td>
+        <td>${fmtNum(tBuyAmt)}</td>
+        <td></td>
+        <td></td>
+        <td>${fmtNum(tSellAmt)}</td>
+        <td>${fmtNum(tFee)}</td>
+      </tr>
+    `;
   }
 }
 
