@@ -256,10 +256,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}.chart-card-stats .sep{color:var(
   <nav class="top-nav">
     <button class="tab-btn on" data-tab="0">최근신호</button>
     <button class="tab-btn" data-tab="1">예상종목</button>
-    <button class="tab-btn" data-tab="2">보유종목</button>
-    <button class="tab-btn" data-tab="3">당일매매</button>
-    <button class="tab-btn" data-tab="4">매매전략</button>
-    <button class="tab-btn" data-tab="5">백테스트</button>
+    <button class="tab-btn" data-tab="2">매매전략</button>
+    <button class="tab-btn" data-tab="3">백테스트</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
@@ -457,32 +455,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}.chart-card-stats .sep{color:var(
 </div>
 
 
-<div class="panel" id="p4">
-  <div class="sc">
-    <div class="sc-title">노션 보유종목DB 연동 분석 <span class="sub">보유정보·가격 2026-09-02 기준 · EMA5+EMA20 · 최근2년</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th class="c">시장</th><th>평단대비(실손익)</th><th>EMA20괴리</th><th>Z20</th><th>위치20</th><th>EMA5괴리</th><th>Z5</th><th>위치5</th><th class="c">추세</th><th class="c">판단</th></tr></thead>
-        <tbody>
-          <tr><td class="l" colspan="11" style="text-align:center;color:var(--txt3)">괴리율 전략 보유종목 없음(2026-09-02 기준 : 삼성중공업·두산로보틱스는 기준선 전략으로 보유중, 한국전력은 라운드넘버 전략으로 보유중)</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sc-note">평단대비 : 보유 평균단가 대비 현재가 손익률(실제 계좌 수익률). 판단(2026-08-10 3단계 매도규칙, 손절 v15 2026-08-26 -18% 재확정) : 손절검토(평단대비≤-18%, 최우선) &gt; 전량매도검토(종가 EMA5 하향이탈) &gt; 2차익절검토(종가 EMA20 신규돌파) &gt; 홀딩(EMA20 위 유지중) &gt; 익절검토(평단대비 +20%신규도달) &gt; 주의(평단대비 -8~-18%) &gt; 관찰. 이 탭은 괴리율 전략으로 실제 매수한 포지션만 표시합니다(다른 전략 보유종목은 각 전략 앱의 보유종목 탭 참고).</div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">보유종목 0종목 : 매수/매도 전략 반영 차트</div>
-    <div class="chart-grid">
-<div style="color:var(--txt3);padding:20px">보유종목 없음</div>
-    </div>
-  </div>
-</div>
-<div class="panel" id="p6">
-  <div class="sc">
-    <div class="sc-title">당일매매 <span class="sub">2026-09-02</span></div>
-    <div style="color:var(--txt3);padding:20px;text-align:center">오늘 괴리율 전략에 해당하는 당일매매 내역 없음(2026-09-02 기준 : 삼성중공업 매수·SK스퀘어 매도 2건 발생했으나 각각 기준선·라운드넘버 전략 소관으로 괴리율 전략과 무관)</div>
-  </div>
-</div>
 <div class="panel" id="p1">
   <div class="sc">
     <div class="sc-title">매수/매도 전략 예시</div>

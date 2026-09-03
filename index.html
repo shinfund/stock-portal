@@ -180,6 +180,7 @@ body{
 .sb-disabled:hover{background:transparent !important;color:var(--nav-item-text) !important;}
 .sb-lock-icon{width:12px !important;height:12px !important;flex-shrink:0;opacity:.8;display:none;}
 /* 공용 비밀번호 로그인 전: 홈·설정·로그아웃을 제외한 사이드바 메뉴는 클릭은 되지만(go()에서 막고 설정을 띄움) 시각적으로 잠금 표시 */
+html:not([data-viewauthed="1"]) #sbn-portfolio,
 html:not([data-viewauthed="1"]) #sbn-deviation,
 html:not([data-viewauthed="1"]) #sbn-pullback,
 html:not([data-viewauthed="1"]) #sbn-valuechain,
@@ -530,6 +531,13 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
       <span>홈</span>
     </div>
 
+    <div class="sb-sec">포트폴리오</div>
+    <div class="sb-item" id="sbn-portfolio" onclick="go('portfolio')">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>
+      <span>포트폴리오</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
+
     <div class="sb-sec">전략 리포트</div>
     <div class="sb-item" id="sbn-pullback" onclick="go('pullback')">
       <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
@@ -730,6 +738,17 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
       </div>
     </div>
 
+    <!-- ▸ 포트폴리오 iframe -->
+    <div class="panel" id="panel-portfolio">
+      <div class="iframe-wrap">
+        <div class="iframe-overlay" id="ov-portfolio">
+          <div class="spin-ring"></div>
+          <div class="overlay-txt">포트폴리오 로딩 중...</div>
+        </div>
+        <iframe id="ifr-portfolio" class="app-iframe" title="포트폴리오"></iframe>
+      </div>
+    </div>
+
     <!-- ▸ 괴리율 매매전략 iframe -->
     <div class="panel" id="panel-deviation">
       <div class="iframe-wrap">
@@ -878,6 +897,7 @@ const PORTAL_BOOT_TS = Date.now();
 
 // ── 앱 정의 ──────────────────────────────────────────────
 const APPS = {
+  portfolio:   { name:'포트폴리오', file:'stock-portfolio.html' },
   pullback:    { name:'눌림목 매매전략', file:'stock-pullback.html' },
   deviation:   { name:'괴리율 매매전략', file:'stock-deviation.html' },
   roundnumber: { name:'라운드넘버 매매전략', file:'stock-roundnumber.html' },
@@ -887,6 +907,7 @@ const APPS = {
 };
 const PAGES = {
   home:        { mName:'홈' },
+  portfolio:   { mName:'포트폴리오' },
   pullback:    { mName:'눌림목 매매전략' },
   deviation:   { mName:'괴리율 매매전략' },
   roundnumber: { mName:'라운드넘버 매매전략' },
