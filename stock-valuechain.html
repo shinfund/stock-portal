@@ -203,7 +203,7 @@ html[data-theme="dark"] .nav-tab.on{color:#fff;}
 .stock-link:hover{color:var(--sky600);}
 .stock-link-icon{font-size:11px; color:var(--sky600); opacity:0.45; transition:opacity .15s; flex-shrink:0;}
 .lead{
-  font-size:11px; font-weight:800; padding:2px 9px; border-radius:20px;
+  font-size:11px; font-weight:800; padding:2px 9px; border-radius:6px;
   flex-shrink:0; letter-spacing:.04em;
 }
 .lead.t1{background:var(--coral); color:#fff}
@@ -336,7 +336,7 @@ html[data-theme="dark"] .stock-desc .risk-label{color:var(--coral)}
 
 /* ── 핵심 종목 뱃지 ── */
 .key-badge{
-  font-size:11px; font-weight:800; padding:2px 8px; border-radius:20px;
+  font-size:11px; font-weight:800; padding:2px 8px; border-radius:6px;
   background:linear-gradient(135deg,#6B3FA0,#9B5FD0);
   color:#fff; letter-spacing:.03em; flex-shrink:0;
 }
@@ -386,22 +386,25 @@ html[data-theme="dark"] .stock-desc .risk-label{color:var(--coral)}
 .home-card-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
 .home-card-dot.pos{background:var(--teal);}
 .home-card-dot.warn{background:#f5a623;}
-.home-card-label{font-size:11.5px; font-weight:600; color:var(--txt3);}
+.home-card-label{font-size:12.5px; font-weight:600; color:var(--txt3);}
 .home-card-cnt{
-  margin-left:auto; font-size:10.5px; font-weight:700;
+  margin-left:auto; font-size:11.5px; font-weight:700;
   color:var(--sky600); background:var(--sky50);
-  padding:1px 7px; border-radius:20px; white-space:nowrap;
+  padding:2px 8px; border-radius:6px; white-space:nowrap;
 }
 .home-key-row{
   display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;
 }
 .home-key-name{
-  font-size:10.5px; font-weight:700;
+  font-size:12.5px; font-weight:700;
   color:var(--coral800); background:var(--coral50);
-  padding:2px 7px; border-radius:20px; white-space:nowrap;
+  padding:3px 9px; border-radius:6px; white-space:nowrap;
+}
+html[data-theme="dark"] .home-key-name{
+  background:#F0C4AE; color:#1a1008;
 }
 .home-upd{
-  font-size:10px; font-weight:600; white-space:nowrap; flex-shrink:0;
+  font-size:11px; font-weight:600; white-space:nowrap; flex-shrink:0;
 }
 .home-upd.recent{color:var(--teal);}
 .home-upd.old{color:var(--txt3); opacity:.7;}
@@ -436,7 +439,7 @@ html[data-theme="dark"] .stock-desc .risk-label{color:var(--coral)}
 .hf-btn .hf-cnt{
   display:inline-flex; align-items:center; justify-content:center;
   vertical-align:middle; font-size:10.5px; font-weight:800;
-  padding:1px 6px; border-radius:10px; line-height:1.4; min-width:18px;
+  padding:1px 6px; border-radius:4px; line-height:1.4; min-width:18px;
   background:rgba(255,255,255,.25);
 }
 .hf-btn:not(.on) .hf-cnt{background:var(--sky50); color:var(--sky800);}
