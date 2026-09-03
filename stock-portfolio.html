@@ -96,6 +96,19 @@ tbody tr:hover{background:var(--teal50)}
 tbody tr.total-row td{font-weight:400;border-top:1.5px solid var(--border);background:var(--border2)}
 tbody tr.total-row:hover{background:var(--border2)}
 .live-dot{color:var(--teal);font-size:9px;vertical-align:middle;margin-right:1px}
+.sig-banner{margin-bottom:10px}
+.sig-note{font-size:13px;color:var(--txt2);background:var(--border2);border-radius:var(--r8);padding:8px 12px;margin-bottom:10px;line-height:1.5}
+.sig-note-warn{color:var(--amber);background:var(--amber50)}
+.sig-note-danger{color:var(--coral);background:var(--coral50)}
+.sig-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.sig-card{border:1px solid var(--border);border-radius:var(--r10);padding:12px 14px;background:var(--card)}
+.sig-card-hd{display:flex;align-items:center;gap:8px;font-size:14.5px;margin-bottom:6px;flex-wrap:wrap}
+.sig-rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--sky);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+.sig-reason{font-size:13px;color:var(--txt2);margin-bottom:6px}
+.sig-bt{font-size:13px;color:var(--txt2)}
+.sig-bt-empty{font-size:13px;color:var(--txt3)}
+.sig-bt-recent{font-size:12px;color:var(--txt3);margin-top:2px}
+tbody tr.sig-urgent-row td{background:var(--coral50)}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
@@ -183,17 +196,62 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     </div>
   </div>
   <nav class="top-nav">
-    <button class="tab-btn on" data-tab="0">보유종목</button>
-    <button class="tab-btn" data-tab="1">당일매매</button>
-    <button class="tab-btn" data-tab="2">보유이력</button>
+    <button class="tab-btn on" data-tab="0">매매신호</button>
+    <button class="tab-btn" data-tab="1">보유종목</button>
+    <button class="tab-btn" data-tab="2">당일매매</button>
+    <button class="tab-btn" data-tab="3">보유이력</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
 
 <div class="wrap"><div class="main">
 
-<!-- ═══════════════ 0. 보유종목 ═══════════════ -->
+<!-- ═══════════════ 0. 매매신호 ═══════════════ -->
 <div class="panel on" id="p0">
+  <div id="signal-login" class="sc" style="display:none">
+    <div class="login-box">
+      <div class="lb-title">🔐 Notion 연동 로그인 필요</div>
+      <div class="lb-sub">보유종목 탭에서 먼저 로그인해주세요.</div>
+    </div>
+  </div>
+  <div id="signal-body" style="display:none">
+    <div class="sc">
+      <div class="sc-title">
+        진입신호 <span class="sub" id="sig-entry-date"></span>
+        <div class="h-quote-toolbar" style="display:inline-flex;margin-left:auto;margin-bottom:0">
+          <span class="sub live-status-el" id="sig-live-status"></span>
+          <button class="hdr-btn" onclick="manualRefreshLiveQuotes()">🔄 시세조회</button>
+        </div>
+      </div>
+      <div class="sig-banner" id="sig-slot-banner"></div>
+      <div id="sig-finalists"></div>
+      <div class="tbl-wrap">
+        <table id="sig-candidates-table">
+          <thead><tr>
+            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th class="l">사유</th>
+          </tr></thead>
+          <tbody id="sig-candidates-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-title">청산신호 <span class="sub" id="sig-exit-date"></span></div>
+      <div id="sig-baseline-wrap"></div>
+      <div class="tbl-wrap">
+        <table id="sig-holdings-table">
+          <thead><tr>
+            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">판정</th>
+          </tr></thead>
+          <tbody id="sig-holdings-tbody"></tbody>
+        </table>
+      </div>
+      <div class="sc-note" id="sig-unassigned-note" style="display:none"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ 1. 보유종목 ═══════════════ -->
+<div class="panel" id="p1">
   <div id="holdings-login" class="sc" style="display:none">
     <div class="login-box">
       <div class="lb-title">🔐 Notion 연동 로그인 필요</div>
@@ -211,7 +269,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div class="h-toolbar-row">
         <div class="filter-row" id="h-filter"></div>
         <div class="h-quote-toolbar">
-          <span class="sub" id="h-live-status"></span>
+          <span class="sub live-status-el" id="h-live-status"></span>
           <button class="hdr-btn" id="h-refresh-btn" onclick="manualRefreshLiveQuotes()">🔄 시세조회</button>
         </div>
       </div>
@@ -229,8 +287,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 </div>
 
-<!-- ═══════════════ 1. 당일매매 ═══════════════ -->
-<div class="panel" id="p1">
+<!-- ═══════════════ 2. 당일매매 ═══════════════ -->
+<div class="panel" id="p2">
   <div id="daytrade-login" class="sc" style="display:none">
     <div class="login-box">
       <div class="lb-title">🔐 Notion 연동 로그인 필요</div>
@@ -262,8 +320,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
 </div>
 
-<!-- ═══════════════ 2. 보유이력 ═══════════════ -->
-<div class="panel" id="p2">
+<!-- ═══════════════ 3. 보유이력 ═══════════════ -->
+<div class="panel" id="p3">
   <div id="hist-login" class="sc" style="display:none">
     <div class="login-box">
       <div class="lb-title">🔐 Notion 연동 로그인 필요</div>
@@ -343,14 +401,19 @@ function fmtDateTime(d){
   return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())+':'+p(d.getSeconds());
 }
 function showLiveStatus(msg){
-  const statusEl = document.getElementById('h-live-status');
-  if(!statusEl) return;
-  statusEl.textContent = msg != null ? msg : (LIVE_QUOTES_TIME ? ('마지막 조회 '+fmtDateTime(LIVE_QUOTES_TIME)) : '');
+  const text = msg != null ? msg : (LIVE_QUOTES_TIME ? ('마지막 조회 '+fmtDateTime(LIVE_QUOTES_TIME)) : '');
+  document.querySelectorAll('.live-status-el').forEach(el=>{ el.textContent = text; });
+}
+function signalQuoteCodes(){
+  const finalists = (ENTRY_SIGNALS.finalists||[]).map(r=>r.code);
+  const candidates = (ENTRY_SIGNALS.allCandidates||[]).map(r=>r.code);
+  return [...finalists, ...candidates];
 }
 async function refreshLiveQuotes(){
   if(!isAuthed() || !isMarketOpenKST() || liveQuoteInFlight) return 'skip';
   const latestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
-  const codes = [...new Set(HOLDINGS.filter(r=>r.date===latestDate).map(r=>r.code).filter(Boolean))];
+  const holdingCodes = HOLDINGS.filter(r=>r.date===latestDate).map(r=>r.code);
+  const codes = [...new Set([...holdingCodes, ...signalQuoteCodes()].filter(Boolean))];
   if(!codes.length) return 'skip';
   liveQuoteInFlight = true;
   try{
@@ -362,6 +425,7 @@ async function refreshLiveQuotes(){
     LIVE_QUOTES = await res.json();
     LIVE_QUOTES_TIME = new Date();
     renderHoldings();
+    renderSignals();
     showLiveStatus();
     return 'ok';
   }catch(e){
@@ -411,6 +475,8 @@ function doLogin(){
 }
 function applyAuthUI(){
   const authed = isAuthed();
+  document.getElementById('signal-login').style.display = authed ? 'none' : 'block';
+  document.getElementById('signal-body').style.display = authed ? 'block' : 'none';
   document.getElementById('holdings-login').style.display = authed ? 'none' : 'block';
   document.getElementById('holdings-body').style.display = authed ? 'block' : 'none';
   document.getElementById('daytrade-login').style.display = authed ? 'none' : 'block';
@@ -498,6 +564,7 @@ async function loadData(){
     HOLDINGS = hPages.map(parseHolding).filter(r=>r.code);
     DAYTRADES = dPages.map(parseDaytrade).filter(r=>r.code);
     renderHoldings();
+    renderSignals();
     buildDaytradeDateSel();
     renderDaytrade();
     buildHistDateSel();
@@ -509,6 +576,143 @@ async function loadData(){
     const noteEl = document.getElementById('h-note');
     noteEl.textContent = '⚠ 데이터 로드 실패: '+e.message;
     noteEl.style.display = '';
+  }
+}
+
+// ── 매매신호(4전략 통합 진입·청산신호) — scripts/project_portfolio3_entry_scan.mjs / exit_check.mjs
+// 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
+// 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
+let ENTRY_SIGNALS = {
+  "generatedAt": "2026-09-03T05:30:50.328Z",
+  "todayDate": "2026-09-03",
+  "openSlots": 4,
+  "heldCount": 1,
+  "betaReordered": false,
+  "finalists": [],
+  "allCandidates": []
+};
+let EXIT_SIGNALS = {
+  "generatedAt": "2026-09-03T05:31:10.655Z",
+  "todayDate": "2026-09-03",
+  "baseline": [
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":66300,"ret":-16.81931096780669,"formalSignal":null },
+    { "code":"010140","name":"삼성중공업","qty":95,"avgPrice":20623,"strategy":"기준선","market":"KOSPI","close":21500,"ret":4.252533579013722,"formalSignal":null }
+  ],
+  "urgent": [],
+  "all": [
+    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32650,"ret":2.03125,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
+  ],
+  "unassigned": []
+};
+
+function sigLivePrice(code, fallback){
+  const liveOn = isMarketOpenKST();
+  const q = liveOn ? LIVE_QUOTES[code] : null;
+  return (q && q.현재가) ? {price:q.현재가, live:true} : {price:fallback, live:false};
+}
+function priceCell(code, fallback){
+  const {price, live} = sigLivePrice(code, fallback);
+  return (live?'<span class="live-dot" title="장중 실시간(KIS)">●</span> ':'')+fmtNum(price);
+}
+function renderSignals(){
+  renderEntrySignals();
+  renderExitSignals();
+}
+function renderEntrySignals(){
+  const d = ENTRY_SIGNALS;
+  document.getElementById('sig-entry-date').textContent = d.todayDate ? ('('+d.todayDate+' 기준)') : '';
+
+  const bannerEl = document.getElementById('sig-slot-banner');
+  if(d.openSlots === 0){
+    bannerEl.innerHTML = '<div class="sig-note sig-note-warn">⚠ 빈슬롯 없음 — 신규 진입 보류(아래는 참고용 전체 후보)</div>';
+  } else if(d.betaReordered){
+    bannerEl.innerHTML = `<div class="sig-note">빈슬롯 ${d.openSlots}개 — 후보(${(d.allCandidates||[]).length}건)가 슬롯보다 많아 전략우선순위 대신 베타(KOSPI상관) 상위 ${d.openSlots}개 추천</div>`;
+  } else {
+    bannerEl.innerHTML = `<div class="sig-note">빈슬롯 ${d.openSlots}개(보유 ${d.heldCount}종목/5슬롯) — 우선순위(눌림목&gt;괴리율&gt;라운드넘버&gt;장대양봉) 상위 ${d.openSlots}개 추천</div>`;
+  }
+
+  const finalistsEl = document.getElementById('sig-finalists');
+  if(!d.finalists || !d.finalists.length){
+    finalistsEl.innerHTML = '';
+  } else {
+    finalistsEl.innerHTML = '<div class="sig-cards">' + d.finalists.map((r,i)=>{
+      const bt = r.bt;
+      const btHtml = !bt ? '<div class="sig-bt-empty">과거 신호 없음/데이터 부족</div>'
+        : `<div class="sig-bt"><b class="${pctClass(bt.avgRet)}">${bt.avgRet>=0?'+':''}${bt.avgRet.toFixed(2)}%</b> 평균 · 승률 ${bt.winRate.toFixed(0)}% (n=${bt.n})
+           <div class="sig-bt-recent">최근: ${bt.recent.map(t=>`${esc(t.date)} ${esc(t.reason)} ${t.ret>=0?'+':''}${t.ret.toFixed(2)}%`).join(', ')}</div></div>`;
+      return `<div class="sig-card">
+        <div class="sig-card-hd"><span class="sig-rank">${i+1}</span> ${strategyBadge(r.strategy)} <b>${esc(r.name)}</b> ${priceCell(r.code, r.price)}</div>
+        <div class="sig-reason">${esc(r.reason)}</div>
+        ${btHtml}
+      </div>`;
+    }).join('') + '</div>';
+  }
+
+  const tbody = document.getElementById('sig-candidates-tbody');
+  const cands = d.allCandidates || [];
+  if(!cands.length){
+    tbody.innerHTML = '<tr><td colspan="4" class="empty-box">오늘 발생한 진입신호 없음</td></tr>';
+  } else {
+    tbody.innerHTML = cands.map(r=>`
+      <tr>
+        <td class="l">${strategyBadge(r.strategy)}</td>
+        <td class="l">${esc(r.name)}</td>
+        <td>${priceCell(r.code, r.price)}</td>
+        <td class="l">${esc(r.reason)}</td>
+      </tr>
+    `).join('');
+  }
+}
+function renderExitSignals(){
+  const d = EXIT_SIGNALS;
+  document.getElementById('sig-exit-date').textContent = d.todayDate ? ('('+d.todayDate+' 기준)') : '';
+
+  const urgent = d.urgent || [];
+  const urgentHtml = urgent.length ? `<div class="sig-note sig-note-danger">🔴 청산검토 대상 ${urgent.length}건 — 아래 표에서 강조 표시</div>` : '';
+
+  let baselineHtml = '';
+  if(d.baseline && d.baseline.length){
+    const sorted = [...d.baseline].sort((a,b)=>(b.formalSignal?1:0)-(a.formalSignal?1:0) || ((b.ret??-Infinity)-(a.ret??-Infinity)));
+    baselineHtml = `<div class="sig-note sig-note-warn">⚠ 우선 매도후보(기준선 전략 축소 대상, ${d.baseline.length}건) — 매도순번은 익절 유리한 순</div>
+      <div class="tbl-wrap"><table><thead><tr><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">정식청산신호</th></tr></thead><tbody>` +
+      sorted.map(r=>{
+        if(r.error) return `<tr><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
+        return `<tr>
+          <td class="l">${esc(r.name)}</td>
+          <td>${priceCell(r.code, r.close)}</td>
+          <td>${fmtNum(r.avgPrice)}</td>
+          <td class="${pctClass(r.ret)}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td>
+          <td class="l">${r.formalSignal ? esc(r.formalSignal) : '없음(홀딩중)'}</td>
+        </tr>`;
+      }).join('') + '</tbody></table></div>';
+  }
+  document.getElementById('sig-baseline-wrap').innerHTML = urgentHtml + baselineHtml;
+
+  const tbody = document.getElementById('sig-holdings-tbody');
+  const all = d.all || [];
+  if(!all.length){
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-box">청산판정 대상 보유종목 없음</td></tr>';
+  } else {
+    tbody.innerHTML = all.map(r=>{
+      if(r.error) return `<tr><td class="l">${strategyBadge(r.strategy)}</td><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
+      return `<tr class="${r.urgent?'sig-urgent-row':''}">
+        <td class="l">${strategyBadge(r.strategy)}</td>
+        <td class="l">${esc(r.name)}</td>
+        <td>${priceCell(r.code, r.close)}</td>
+        <td>${fmtNum(r.avgPrice)}</td>
+        <td class="${pctClass(r.ret)}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td>
+        <td class="l">${esc(r.verdict)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  const noteEl = document.getElementById('sig-unassigned-note');
+  if(d.unassigned && d.unassigned.length){
+    noteEl.textContent = `⚠ 전략 미지정 ${d.unassigned.length}건 — 노션 보유종목DB에서 "전략" 필드를 지정해야 청산조건 판정 가능: ` + d.unassigned.map(h=>h.name).join(', ');
+    noteEl.style.display = '';
+  } else {
+    noteEl.textContent = '';
+    noteEl.style.display = 'none';
   }
 }
 
@@ -793,7 +997,7 @@ function renderDaytrade(){
 function showTab(i){
   document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('on',j===i));
   document.querySelectorAll('.tab-btn').forEach((t,j)=>t.classList.toggle('on',j===i));
-  if(i===0) refreshLiveQuotes(); // 보유종목 탭을 열 때마다 장중이면 KIS 실시간 시세로 재조회
+  if(i===0 || i===1) refreshLiveQuotes(); // 매매신호·보유종목 탭을 열 때마다 장중이면 KIS 실시간 시세로 재조회
 }
 document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
   btn.addEventListener('click',()=>showTab(parseInt(btn.dataset.tab)));
