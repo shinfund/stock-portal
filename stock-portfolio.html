@@ -673,33 +673,24 @@ function renderExitSignals(){
   document.getElementById('sig-exit-date').textContent = d.todayDate ? ('('+d.todayDate+' 기준)') : '';
 
   const urgent = d.urgent || [];
-  const urgentHtml = urgent.length ? `<div class="sig-note sig-note-danger">🔴 청산검토 대상 ${urgent.length}건 — 아래 표에서 강조 표시</div>` : '';
+  const baseline = d.baseline || [];
+  let noteHtml = '';
+  if(urgent.length) noteHtml += `<div class="sig-note sig-note-danger">🔴 청산검토 대상 ${urgent.length}건 — 아래 표에서 강조 표시</div>`;
+  if(baseline.length) noteHtml += `<div class="sig-note sig-note-warn">⚠ 기준선 전략 축소 대상(우선 매도후보) ${baseline.length}건 포함 — 매도순번은 익절 유리한 순</div>`;
+  document.getElementById('sig-baseline-wrap').innerHTML = noteHtml;
 
-  let baselineHtml = '';
-  if(d.baseline && d.baseline.length){
-    const sorted = [...d.baseline].sort((a,b)=>(b.formalSignal?1:0)-(a.formalSignal?1:0) || ((b.ret??-Infinity)-(a.ret??-Infinity)));
-    baselineHtml = `<div class="sig-note sig-note-warn">⚠ 우선 매도후보(기준선 전략 축소 대상, ${d.baseline.length}건) — 매도순번은 익절 유리한 순</div>
-      <div class="tbl-wrap"><table><thead><tr><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">정식청산신호</th></tr></thead><tbody>` +
-      sorted.map(r=>{
-        if(r.error) return `<tr><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
-        const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
-        return `<tr>
-          <td class="l">${esc(r.name)}</td>
-          <td>${priceCell(r.code, r.close)}</td>
-          <td>${fmtNum(r.avgPrice)}</td>
-          <td class="${pctClass(ret)}">${ret>=0?'+':''}${ret.toFixed(2)}%</td>
-          <td class="l">${r.formalSignal ? esc(r.formalSignal) : '없음(홀딩중)'}</td>
-        </tr>`;
-      }).join('') + '</tbody></table></div>';
-  }
-  document.getElementById('sig-baseline-wrap').innerHTML = urgentHtml + baselineHtml;
+  const blRows = [...baseline]
+    .sort((a,b)=>(b.formalSignal?1:0)-(a.formalSignal?1:0) || ((b.ret??-Infinity)-(a.ret??-Infinity)))
+    .map(r=>({ ...r, strategy:'기준선',
+      verdict: r.formalSignal ? r.formalSignal : '우선 매도후보(기준선 축소 대상)',
+      urgent: !!r.formalSignal }));
+  const rows = [...blRows, ...(d.all || [])];
 
   const tbody = document.getElementById('sig-holdings-tbody');
-  const all = d.all || [];
-  if(!all.length){
+  if(!rows.length){
     tbody.innerHTML = '<tr><td colspan="6" class="empty-box">청산판정 대상 보유종목 없음</td></tr>';
   } else {
-    tbody.innerHTML = all.map(r=>{
+    tbody.innerHTML = rows.map(r=>{
       if(r.error) return `<tr><td class="l">${strategyBadge(r.strategy)}</td><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
       const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
       return `<tr class="${r.urgent?'sig-urgent-row':''}">
