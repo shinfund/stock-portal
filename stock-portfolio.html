@@ -614,6 +614,11 @@ function priceCell(code, fallback){
   const {price, live} = sigLivePrice(code, fallback);
   return (live?'<span class="live-dot" title="장중 실시간(KIS)">●</span> ':'')+fmtNum(price);
 }
+// 현재가가 실시간으로 바뀌면 손익률도 그 가격 기준으로 재계산(표시가와 손익률이 따로 노는 것 방지)
+function sigLiveRet(code, fallbackPrice, avgPrice, fallbackRet){
+  const {price, live} = sigLivePrice(code, fallbackPrice);
+  return live && avgPrice ? (price - avgPrice) / avgPrice * 100 : fallbackRet;
+}
 function renderSignals(){
   renderEntrySignals();
   renderExitSignals();
@@ -677,11 +682,12 @@ function renderExitSignals(){
       <div class="tbl-wrap"><table><thead><tr><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">정식청산신호</th></tr></thead><tbody>` +
       sorted.map(r=>{
         if(r.error) return `<tr><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
+        const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
         return `<tr>
           <td class="l">${esc(r.name)}</td>
           <td>${priceCell(r.code, r.close)}</td>
           <td>${fmtNum(r.avgPrice)}</td>
-          <td class="${pctClass(r.ret)}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td>
+          <td class="${pctClass(ret)}">${ret>=0?'+':''}${ret.toFixed(2)}%</td>
           <td class="l">${r.formalSignal ? esc(r.formalSignal) : '없음(홀딩중)'}</td>
         </tr>`;
       }).join('') + '</tbody></table></div>';
@@ -695,12 +701,13 @@ function renderExitSignals(){
   } else {
     tbody.innerHTML = all.map(r=>{
       if(r.error) return `<tr><td class="l">${strategyBadge(r.strategy)}</td><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
+      const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
       return `<tr class="${r.urgent?'sig-urgent-row':''}">
         <td class="l">${strategyBadge(r.strategy)}</td>
         <td class="l">${esc(r.name)}</td>
         <td>${priceCell(r.code, r.close)}</td>
         <td>${fmtNum(r.avgPrice)}</td>
-        <td class="${pctClass(r.ret)}">${r.ret>=0?'+':''}${r.ret.toFixed(2)}%</td>
+        <td class="${pctClass(ret)}">${ret>=0?'+':''}${ret.toFixed(2)}%</td>
         <td class="l">${esc(r.verdict)}</td>
       </tr>`;
     }).join('');
