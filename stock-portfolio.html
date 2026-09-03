@@ -255,7 +255,9 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div id="hist-body" style="display:none">
     <div class="date-sel">
       <label style="font-size:13.5px;font-weight:500;color:var(--txt2)">날짜</label>
-      <select id="hist-date-sel" onchange="renderHistory()"></select>
+      <select id="hist-year-sel" onchange="onHistYearChange()"></select>
+      <select id="hist-month-sel" onchange="onHistMonthChange()"></select>
+      <select id="hist-day-sel" onchange="renderHistory()"></select>
     </div>
     <div class="sc">
       <div class="sc-title">해당일 보유종목 스냅샷 <span class="sub" id="hist-date-label"></span></div>
@@ -576,15 +578,38 @@ function renderHoldings(){
       : `기준일 ${noteLatestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`;
 }
 
+let HIST_DATES = [];
 function buildHistDateSel(){
-  const dates = [...new Set(HOLDINGS.map(r=>r.date).filter(Boolean))].sort().reverse();
-  const sel = document.getElementById('hist-date-sel');
-  sel.innerHTML = dates.map(d=>`<option value="${d}">${d}</option>`).join('');
-  if(dates.length) sel.value = dates[0];
+  HIST_DATES = [...new Set(HOLDINGS.map(r=>r.date).filter(Boolean))].sort();
+  const years = [...new Set(HIST_DATES.map(d=>d.slice(0,4)))].sort().reverse();
+  const ySel = document.getElementById('hist-year-sel');
+  ySel.innerHTML = years.map(y=>`<option value="${y}">${y}년</option>`).join('');
+  if(years.length) ySel.value = years[0];
+  populateHistMonths();
 }
+function populateHistMonths(){
+  const y = document.getElementById('hist-year-sel').value;
+  const months = [...new Set(HIST_DATES.filter(d=>d.slice(0,4)===y).map(d=>d.slice(5,7)))].sort().reverse();
+  const mSel = document.getElementById('hist-month-sel');
+  mSel.innerHTML = months.map(m=>`<option value="${m}">${parseInt(m,10)}월</option>`).join('');
+  if(months.length) mSel.value = months[0];
+  populateHistDays();
+}
+function populateHistDays(){
+  const y = document.getElementById('hist-year-sel').value;
+  const m = document.getElementById('hist-month-sel').value;
+  const days = [...new Set(HIST_DATES.filter(d=>d.slice(0,4)===y && d.slice(5,7)===m).map(d=>d.slice(8,10)))].sort().reverse();
+  const dSel = document.getElementById('hist-day-sel');
+  dSel.innerHTML = days.map(d=>`<option value="${d}">${parseInt(d,10)}일</option>`).join('');
+  if(days.length) dSel.value = days[0];
+}
+function onHistYearChange(){ populateHistMonths(); renderHistory(); }
+function onHistMonthChange(){ populateHistDays(); renderHistory(); }
 function renderHistory(){
-  const sel = document.getElementById('hist-date-sel');
-  const date = sel.value;
+  const y = document.getElementById('hist-year-sel').value;
+  const m = document.getElementById('hist-month-sel').value;
+  const d = document.getElementById('hist-day-sel').value;
+  const date = (y && m && d) ? `${y}-${m}-${d}` : '';
   document.getElementById('hist-date-label').textContent = date || '';
   const rows = HOLDINGS.filter(r=>r.date===date).slice().sort((a,b)=>b.pnlPct-a.pnlPct);
   const tbody = document.getElementById('hist-tbody');
