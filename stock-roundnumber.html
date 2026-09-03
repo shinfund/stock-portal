@@ -231,7 +231,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 09.01 15:30</div>
+      <div class="hdr-date">Update 09.03 16:05</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
@@ -247,20 +247,21 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 <div class="wrap"><div class="main">
 <div class="panel on" id="p0-ks">
   <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">36</div><div class="lbl">최근45일 신호수</div></div>
+    <div class="kpi-card kpi-sky"><div class="num">37</div><div class="lbl">최근45일 신호수</div></div>
     <div class="kpi-card kpi-teal"><div class="num">2</div><div class="lbl">현재 보유중</div></div>
     <div class="kpi-card kpi-amber"><div class="num">34</div><div class="lbl">청산완료</div></div>
     <div class="kpi-card kpi-purple"><div class="num">91%</div><div class="lbl">청산 승률(TP비중)</div></div>
   </div>
   <div class="sc">
     <div class="sc-title">라운드넘버 최근 45일 신호 상세 &middot; 코스피 TOP50 <span class="sub">라운드레벨 하향이탈 &rarr; 트랙레코드&middot;밀집도 검증 &rarr; 5거래일 이내 재돌파 시 매수</span></div>
-    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "베타"는 최근 데이터 기준 KOSPI 일간수익률과의 공분산/분산비로, 3전략 통합 5슬롯 포트폴리오에서 후보가 빈슬롯보다 많을 때 슬롯을 우선 배정하는 타이브레이커와 동일한 계산식입니다(참고용 표시, 이 탭 자체엔 슬롯제약이 없음) &mdash; 값이 높을수록 KOSPI와 동조성이 강함을 뜻합니다. 표는 진입일 내림차순, 같은 날짜 내에서는 베타 높은 순으로 정렬되어 있습니다(기존 "우선순위" 컬럼은 폐지). <b>이 표와 아래 차트는 2026-09-02 장마감 기준입니다.</b> ⑥ 진입가 위치 필터(레벨가 근접 진입 제외)&middot;⑦ 폭 필터(레벨가~TP가 폭 2.5% 미만 제외)가 모두 적용된 상태입니다.</div>
+    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "베타"는 최근 데이터 기준 KOSPI 일간수익률과의 공분산/분산비로, 3전략 통합 5슬롯 포트폴리오에서 후보가 빈슬롯보다 많을 때 슬롯을 우선 배정하는 타이브레이커와 동일한 계산식입니다(참고용 표시, 이 탭 자체엔 슬롯제약이 없음) &mdash; 값이 높을수록 KOSPI와 동조성이 강함을 뜻합니다. 표는 진입일 내림차순, 같은 날짜 내에서는 베타 높은 순으로 정렬되어 있습니다(기존 "우선순위" 컬럼은 폐지). <b>이 표와 아래 차트는 2026-09-03 장마감 기준입니다.</b> ⑥ 진입가 위치 필터(레벨가 근접 진입 제외)&middot;⑦ 폭 필터(레벨가~TP가 폭 2.5% 미만 제외)가 모두 적용된 상태입니다.</div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:8%">진입일</th><th class="l" style="width:10%">종목</th><th style="width:7%">현재가</th><th style="width:7%">진입가</th><th style="width:8%">레벨(L)</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="c" style="width:8%">지지일수</th><th class="c" style="width:6%">밀집도</th><th class="c" style="width:6%">베타</th><th class="l" style="width:9%">상태</th><th style="width:8%">수익률</th></tr></thead>
         <tbody>
-<tr><td class="l">2026-09-01</td><td class="l">SK스퀘어</td><td>985,000</td><td>1,067,000</td><td>1,050,000</td><td>1,100,000</td><td>1,018,500</td><td class="c">10/20일</td><td class="c">15봉</td><td class="c">1.57</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.69%</td></tr>
-          <tr><td class="l">2026-09-01</td><td class="l">한국전력</td><td>31,350</td><td>32,350</td><td>32,000</td><td>33,000</td><td>31,040</td><td class="c">16/20일</td><td class="c">3봉</td><td class="c">0.58</td><td class="l"><span class="badge bdg-teal">보유중 D+1</span></td><td class="t-neg">-3.09%</td></tr>
+<tr><td class="l">2026-09-03</td><td class="l">삼성생명</td><td>303,000</td><td>303,000</td><td>300,000</td><td>310,000</td><td>291,000</td><td class="c">8/20일</td><td class="c">22봉</td><td class="c">0.96</td><td class="l"><span class="badge bdg-teal">보유중 D+0</span></td><td class="t-flat">+0.00%</td></tr>
+          <tr><td class="l">2026-09-01</td><td class="l">SK스퀘어</td><td>985,000</td><td>1,067,000</td><td>1,050,000</td><td>1,100,000</td><td>1,018,500</td><td class="c">10/20일</td><td class="c">15봉</td><td class="c">1.57</td><td class="l"><span class="badge bdg-red">STOP손절</span></td><td class="t-neg">-7.69%</td></tr>
+          <tr><td class="l">2026-09-01</td><td class="l">한국전력</td><td>32,450</td><td>32,350</td><td>32,000</td><td>33,000</td><td>31,040</td><td class="c">16/20일</td><td class="c">3봉</td><td class="c">0.58</td><td class="l"><span class="badge bdg-teal">보유중 D+2</span></td><td class="t-pos">+0.31%</td></tr>
           <tr><td class="l">2026-08-27</td><td class="l">LG화학</td><td>280,000</td><td>274,500</td><td>270,000</td><td>280,000</td><td>261,900</td><td class="c">7/20일</td><td class="c">15봉</td><td class="c">0.95</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+2.00%</td></tr>
           <tr><td class="l">2026-08-27</td><td class="l">삼성에스디에스</td><td>243,000</td><td>234,000</td><td>230,000</td><td>240,000</td><td>223,100</td><td class="c">6/20일</td><td class="c">12봉</td><td class="c">0.71</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+3.85%</td></tr>
           <tr><td class="l">2026-08-26</td><td class="l">HD현대일렉트릭</td><td>821,000</td><td>733,000</td><td>725,000</td><td>750,000</td><td>703,250</td><td class="c">14/20일</td><td class="c">3봉</td><td class="c">1.06</td><td class="l"><span class="badge bdg-sky">TP익절</span></td><td class="t-pos">+12.01%</td></tr>
@@ -469,7 +470,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
     <div class="kpi-card kpi-sky"><div class="num">50</div><div class="lbl">분석 유니버스(코스피TOP50)</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">9</div><div class="lbl">① 재돌파 대기중</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">12</div><div class="lbl">① 재돌파 대기중</div></div>
     <div class="kpi-card kpi-amber"><div class="num">0</div><div class="lbl">② 진입위치 20%미만</div></div>
   </div>
   <div class="sc">
@@ -479,21 +480,24 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:14%">종목명</th><th style="width:10%">현재가</th><th style="width:10%">레벨(L)</th><th style="width:9%">이격</th><th style="width:8%">경과</th><th class="c" style="width:11%">트랙레코드</th><th class="c" style="width:8%">밀집도</th><th style="width:10%">TP</th><th style="width:10%">STOP</th></tr></thead>
         <tbody>
-<tr><td class="l">SK텔레콤</td><td>91,100</td><td>92,500</td><td class="t-pos">1.5%</td><td class="c">1/5일</td><td class="c">12/20일</td><td class="c">22봉</td><td>95,000</td><td>89,725</td></tr>
-          <tr><td class="l">LS ELECTRIC</td><td>195,800</td><td>200,000</td><td class="t-pos">2.1%</td><td class="c">1/5일</td><td class="c">14/20일</td><td class="c">19봉</td><td>210,000</td><td>194,000</td></tr>
-          <tr><td class="l">카카오</td><td>35,150</td><td>36,000</td><td class="t-pos">2.4%</td><td class="c">1/5일</td><td class="c">18/20일</td><td class="c">26봉</td><td>37,000</td><td>34,920</td></tr>
-          <tr><td class="l">삼성생명</td><td>292,500</td><td>300,000</td><td class="t-pos">2.6%</td><td class="c">1/5일</td><td class="c">8/20일</td><td class="c">22봉</td><td>310,000</td><td>291,000</td></tr>
-          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>657,000</td><td>675,000</td><td class="t-pos">2.7%</td><td class="c">1/5일</td><td class="c">20/20일</td><td class="c">20봉</td><td>700,000</td><td>654,750</td></tr>
-          <tr><td class="l">미래에셋증권</td><td>33,000</td><td>34,000</td><td class="t-pos">3.0%</td><td class="c">1/5일</td><td class="c">18/20일</td><td class="c">11봉</td><td>36,000</td><td>32,980</td></tr>
-          <tr><td class="l">한미반도체</td><td>213,000</td><td>220,000</td><td class="t-pos">3.3%</td><td class="c">2/5일</td><td class="c">6/20일</td><td class="c">21봉</td><td>230,000</td><td>213,400</td></tr>
-          <tr><td class="l">삼성전자</td><td>250,500</td><td>260,000</td><td class="t-pos">3.8%</td><td class="c">1/5일</td><td class="c">8/20일</td><td class="c">17봉</td><td>270,000</td><td>252,200</td></tr>
-          <tr><td class="l">고려아연</td><td>1,204,000</td><td>1,250,000</td><td class="t-pos">3.8%</td><td class="c">1/5일</td><td class="c">6/20일</td><td class="c">11봉</td><td>1,300,000</td><td>1,212,500</td></tr>
+<tr><td class="l">LG전자</td><td>199,700</td><td>200,000</td><td class="t-pos">0.2%</td><td class="c">1/5일</td><td class="c">11/20일</td><td class="c">17봉</td><td>210,000</td><td>194,000</td></tr>
+          <tr><td class="l">SK하이닉스</td><td>1,596,000</td><td>1,600,000</td><td class="t-pos">0.3%</td><td class="c">1/5일</td><td class="c">12/20일</td><td class="c">13봉</td><td>1,700,000</td><td>1,552,000</td></tr>
+          <tr><td class="l">SK텔레콤</td><td>89,000</td><td>90,000</td><td class="t-pos">1.1%</td><td class="c">1/5일</td><td class="c">16/20일</td><td class="c">16봉</td><td>92,500</td><td>87,300</td></tr>
+          <tr><td class="l">LIG디펜스앤에어로스페이스</td><td>665,000</td><td>675,000</td><td class="t-pos">1.5%</td><td class="c">2/5일</td><td class="c">20/20일</td><td class="c">20봉</td><td>700,000</td><td>654,750</td></tr>
+          <tr><td class="l">삼성에스디에스</td><td>226,000</td><td>230,000</td><td class="t-pos">1.8%</td><td class="c">1/5일</td><td class="c">11/20일</td><td class="c">18봉</td><td>240,000</td><td>223,100</td></tr>
+          <tr><td class="l">카카오</td><td>35,350</td><td>36,000</td><td class="t-pos">1.8%</td><td class="c">2/5일</td><td class="c">18/20일</td><td class="c">26봉</td><td>37,000</td><td>34,920</td></tr>
+          <tr><td class="l">고려아연</td><td>1,224,000</td><td>1,250,000</td><td class="t-pos">2.1%</td><td class="c">2/5일</td><td class="c">6/20일</td><td class="c">11봉</td><td>1,300,000</td><td>1,212,500</td></tr>
+          <tr><td class="l">미래에셋증권</td><td>33,200</td><td>34,000</td><td class="t-pos">2.4%</td><td class="c">2/5일</td><td class="c">18/20일</td><td class="c">11봉</td><td>36,000</td><td>32,980</td></tr>
+          <tr><td class="l">삼성전기</td><td>1,348,000</td><td>1,400,000</td><td class="t-pos">3.9%</td><td class="c">1/5일</td><td class="c">6/20일</td><td class="c">10봉</td><td>1,500,000</td><td>1,358,000</td></tr>
+          <tr><td class="l">삼성전자</td><td>250,000</td><td>260,000</td><td class="t-pos">4.0%</td><td class="c">2/5일</td><td class="c">8/20일</td><td class="c">17봉</td><td>270,000</td><td>252,200</td></tr>
+          <tr><td class="l">LS ELECTRIC</td><td>192,100</td><td>200,000</td><td class="t-pos">4.1%</td><td class="c">2/5일</td><td class="c">14/20일</td><td class="c">19봉</td><td>210,000</td><td>194,000</td></tr>
+          <tr><td class="l">한미반도체</td><td>210,500</td><td>220,000</td><td class="t-pos">4.5%</td><td class="c">3/5일</td><td class="c">6/20일</td><td class="c">21봉</td><td>230,000</td><td>213,400</td></tr>
         </tbody>
       </table>
     </div>
   </div>
   <div class="sc">
-    <div class="sc-note">차트 섹션은 2026-09-02 갱신에서 종목 구성이 바뀌어(9종목 전면 교체) 실데이터 스파크라인 재생성이 보류되었습니다 &mdash; 위 표의 수치는 최신입니다.</div>
+    <div class="sc-note">차트 섹션은 2026-09-03 갱신에서도 종목 구성이 바뀌어(12종목 전면 교체) 실데이터 스파크라인 재생성이 보류되었습니다 &mdash; 위 표의 수치는 최신입니다.</div>
   </div>
   <div class="sc" style="display:none">
     <div class="sc-title">① 대기 중 차트 <span class="sub">전체 6건(이격순)</span></div>
