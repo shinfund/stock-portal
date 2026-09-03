@@ -109,7 +109,9 @@ tbody tr.total-row:hover{background:var(--border2)}
 .bdg-gray{background:#52606B}
 .bdg-purple{background:#5B4FBD}
 .filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.h-quote-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.h-toolbar-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.h-toolbar-row .filter-row{margin-bottom:0}
+.h-quote-toolbar{display:flex;align-items:center;justify-content:flex-end;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .date-sel select.flt-active{background:var(--sky800);border-color:var(--sky800);color:#fff}
 html[data-theme="dark"] .date-sel select.flt-active{background:#0C447C;border-color:#0C447C}
 .hist-date-col{display:none}
@@ -203,10 +205,12 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <div class="kpi-row" id="h-kpi"></div>
     <div class="sc">
       <div class="sc-title">보유종목 현황</div>
-      <div class="filter-row" id="h-filter"></div>
-      <div class="h-quote-toolbar">
-        <span class="sub" id="h-live-status"></span>
-        <button class="hdr-btn" id="h-refresh-btn" onclick="manualRefreshLiveQuotes()">🔄 시세조회</button>
+      <div class="h-toolbar-row">
+        <div class="filter-row" id="h-filter"></div>
+        <div class="h-quote-toolbar">
+          <span class="sub" id="h-live-status"></span>
+          <button class="hdr-btn" id="h-refresh-btn" onclick="manualRefreshLiveQuotes()">🔄 시세조회</button>
+        </div>
       </div>
       <div class="tbl-wrap">
         <table>
