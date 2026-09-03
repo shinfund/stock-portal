@@ -95,6 +95,7 @@ tbody td.l{text-align:left} tbody td.c{text-align:center}
 tbody tr:hover{background:var(--teal50)}
 tbody tr.total-row td{font-weight:400;border-top:1.5px solid var(--border);background:var(--border2)}
 tbody tr.total-row:hover{background:var(--border2)}
+.live-dot{color:var(--teal);font-size:9px;vertical-align:middle;margin-right:1px}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
@@ -122,26 +123,6 @@ html[data-theme="dark"] .pill.on{background:#0C447C;border-color:#0C447C}
 .login-box input:focus{border-color:var(--sky)}
 .login-box button{background:var(--sky);border:none;color:#fff;border-radius:var(--r8);padding:9px 22px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
 .login-box .lb-err{color:var(--red);font-size:13px;margin-top:8px;min-height:18px}
-#settingsModal{display:none;position:fixed;inset:0;z-index:100}
-#settingsModal.modal-open{display:block}
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px}
-.modal-box{background:var(--card);border-radius:var(--r16);padding:20px;width:100%;max-width:340px;box-shadow:var(--shadow-h)}
-.modal-title{font-size:16px;font-weight:500;color:var(--txt);margin-bottom:14px}
-.modal-section{font-size:13.5px;font-weight:500;color:var(--txt2);margin-bottom:8px;margin-top:16px}
-.modal-section:first-of-type{margin-top:0}
-.theme-opts{display:flex;gap:10px}
-.theme-opt{flex:1;cursor:pointer;text-align:center;padding:8px;border-radius:var(--r12);border:2px solid var(--border);position:relative;transition:border-color .12s}
-.theme-opt.on{border-color:var(--teal)}
-.theme-opt.on::after{content:'✓';position:absolute;top:5px;right:7px;width:16px;height:16px;background:var(--teal);color:#fff;border-radius:50%;font-size:10px;font-weight:500;display:flex;align-items:center;justify-content:center}
-.theme-swatch{width:100%;height:50px;border-radius:8px;border:1px solid var(--border2);margin-bottom:6px;position:relative;overflow:hidden}
-.theme-swatch-dark{background:#24292E}
-.theme-swatch-light{background:#FFFFFF}
-.theme-swatch-dark .ts-side{background:#24292E;border-right:1px solid rgba(255,255,255,.08)}
-.theme-swatch-light .ts-side{background:#FFFFFF;border-right:1px solid #DCE9F7}
-.ts-side{position:absolute;left:0;top:0;bottom:0;width:30%}
-.theme-opt-label{font-size:13px;font-weight:500;color:var(--txt)}
-.modal-hint{font-size:12.5px;color:var(--txt3);margin-top:8px;line-height:1.6}
-.modal-close-btn{width:100%;margin-top:16px;background:var(--bg);border:1.5px solid var(--border);color:var(--txt2);border-radius:var(--r8);padding:9px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit}
 html[data-theme="dark"]{--txt2:#fff;--txt3:rgba(255,255,255,.92)}
 html[data-theme="dark"] .tab-btn.on{color:#fff}
 @media(max-width:374px){.logo-sub{display:none} .tab-btn{font-size:13px;padding:11px 2px;min-width:52px} .kpi-card .num{font-size:16px} .kpi-card .lbl{font-size:12px}}
@@ -175,37 +156,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   window.addEventListener('storage', function(e){
     if (e.key === 'theme' && e.newValue) {
       document.documentElement.setAttribute('data-theme', e.newValue);
-      if (typeof syncThemeOptUI === 'function') syncThemeOptUI();
     }
   });
 })();
 </script>
-
-<div id="settingsModal">
-  <div class="modal-backdrop" onclick="closeSettingsModal()">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <div class="modal-title">설정</div>
-
-      <div class="modal-section">화면모드</div>
-      <div class="theme-opts">
-        <div class="theme-opt" id="theme-opt-dark" onclick="setTheme('dark')">
-          <div class="theme-swatch theme-swatch-dark"><span class="ts-side"></span></div>
-          <div class="theme-opt-label">다크</div>
-        </div>
-        <div class="theme-opt" id="theme-opt-light" onclick="setTheme('light')">
-          <div class="theme-swatch theme-swatch-light"><span class="ts-side"></span></div>
-          <div class="theme-opt-label">라이트</div>
-        </div>
-      </div>
-
-      <div class="modal-section">Notion 연동</div>
-      <div class="modal-hint" id="cfgAuthHint">확인 중...</div>
-      <button class="modal-close-btn" id="cfgLogoutBtn" style="display:none;margin-top:10px" onclick="doLogout()">로그아웃</button>
-
-      <button class="modal-close-btn" onclick="closeSettingsModal()">닫기</button>
-    </div>
-  </div>
-</div>
 
 <div class="hdr-wrap">
   <div class="header">
@@ -216,7 +170,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     </div>
     <div class="header-right">
       <div class="hdr-date" id="lastUpdate"></div>
-      <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
   <nav class="top-nav">
@@ -244,7 +197,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div id="holdings-body" style="display:none">
     <div class="kpi-row" id="h-kpi"></div>
     <div class="sc">
-      <div class="sc-title">보유종목 현황</div>
+      <div class="sc-title">보유종목 현황 <button class="hdr-btn" id="h-refresh-btn" onclick="manualRefreshLiveQuotes()" style="margin-left:6px">🔄 시세조회</button> <span class="sub" id="h-live-status"></span></div>
       <div class="filter-row" id="h-filter"></div>
       <div class="tbl-wrap">
         <table>
@@ -350,6 +303,56 @@ function fmtNum(n){ return (Number(n)||0).toLocaleString('ko-KR',{maximumFractio
 function fmtPct(n){ const v=(Number(n)||0)*100; return (v>=0?'+':'')+v.toFixed(2)+'%'; }
 function pctClass(n){ return (Number(n)||0) < 0 ? 't-neg' : (Number(n)||0) > 0 ? 't-pos' : 't-flat'; }
 
+// ── 보유종목 장중 실시간 시세(KIS API, Worker 프록시) ────────────
+let LIVE_QUOTES = {};      // {종목코드: {현재가,등락률,...}}
+let LIVE_QUOTES_TIME = null;
+let liveQuoteInFlight = false;
+function isMarketOpenKST(){
+  const now = new Date();
+  const kst = new Date(now.getTime() + (9*60 - now.getTimezoneOffset())*60000);
+  const day = kst.getDay();
+  if(day===0 || day===6) return false;
+  const hm = kst.getHours()*100 + kst.getMinutes();
+  return hm >= 900 && hm <= 1530;
+}
+async function refreshLiveQuotes(){
+  if(!isAuthed() || !isMarketOpenKST() || liveQuoteInFlight) return 'skip';
+  const latestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
+  const codes = [...new Set(HOLDINGS.filter(r=>r.date===latestDate).map(r=>r.code).filter(Boolean))];
+  if(!codes.length) return 'skip';
+  liveQuoteInFlight = true;
+  try{
+    const res = await fetch(`${WORKER_URL}/kis/quote?codes=${codes.join(',')}`, {
+      headers:{'Authorization':'Bearer '+AUTH.token}
+    });
+    if(res.status === 401){ AUTH={token:'',expires:0}; try{localStorage.removeItem('sp_notionAuthToken');localStorage.removeItem('sp_notionAuthExpires');}catch(e){} applyAuthUI(); return 'error'; }
+    if(!res.ok) return 'error';
+    LIVE_QUOTES = await res.json();
+    LIVE_QUOTES_TIME = new Date();
+    renderHoldings();
+    return 'ok';
+  }catch(e){
+    return 'error'; // 실패 시 기존 스냅샷 값 그대로 표시(값은 안 바꿈)
+  }finally{
+    liveQuoteInFlight = false;
+  }
+}
+async function manualRefreshLiveQuotes(){
+  const statusEl = document.getElementById('h-live-status');
+  if(!isAuthed()) return;
+  if(!isMarketOpenKST()){
+    if(statusEl) statusEl.textContent = '장 종료 · 종가 고정(실시간 조회 불필요)';
+    setTimeout(()=>{ if(statusEl && statusEl.textContent==='장 종료 · 종가 고정(실시간 조회 불필요)') statusEl.textContent=''; }, 3000);
+    return;
+  }
+  if(statusEl) statusEl.textContent = '실시간 시세 조회 중...';
+  const result = await refreshLiveQuotes();
+  if(statusEl){
+    if(result==='error') statusEl.textContent = '조회 실패(기존 값 유지)';
+    else statusEl.textContent = '';
+  }
+}
+
 async function login(password){
   const res = await fetch(WORKER_URL+'/login', {
     method:'POST', headers:{'Content-Type':'application/json'},
@@ -374,12 +377,6 @@ function doLogin(){
     loadData();
   }).catch(e=>{ errEl.textContent = '로그인 실패: '+e.message; });
 }
-function doLogout(){
-  AUTH = {token:'', expires:0};
-  try{ localStorage.removeItem('sp_notionAuthToken'); localStorage.removeItem('sp_notionAuthExpires'); }catch(e){}
-  applyAuthUI();
-  closeSettingsModal();
-}
 function applyAuthUI(){
   const authed = isAuthed();
   document.getElementById('holdings-login').style.display = authed ? 'none' : 'block';
@@ -388,10 +385,6 @@ function applyAuthUI(){
   document.getElementById('daytrade-body').style.display = authed ? 'block' : 'none';
   document.getElementById('hist-login').style.display = authed ? 'none' : 'block';
   document.getElementById('hist-body').style.display = authed ? 'block' : 'none';
-  document.getElementById('cfgAuthHint').textContent = authed
-    ? '로그인됨 · '+new Date(AUTH.expires).toLocaleDateString('ko-KR')+'까지 유지'
-    : '로그인되어 있지 않습니다. 보유종목 탭에서 로그인하세요.';
-  document.getElementById('cfgLogoutBtn').style.display = authed ? 'block' : 'none';
 }
 
 async function fetchNotionAll(dbId, body){
@@ -479,6 +472,7 @@ async function loadData(){
     renderHistory();
     const now = new Date();
     document.getElementById('lastUpdate').textContent = 'Update '+String(now.getMonth()+1).padStart(2,'0')+'.'+String(now.getDate()).padStart(2,'0')+' '+now.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    refreshLiveQuotes();
   }catch(e){
     document.getElementById('h-note').textContent = '⚠ 데이터 로드 실패: '+e.message;
   }
@@ -492,7 +486,23 @@ function setHFilter(s){
 function renderHoldings(){
   // 보유종목DB는 매일 스냅샷을 새 레코드로 쌓는 이력 로그이므로, "현재 보유"는 최신 날짜 스냅샷만 취한다.
   const latestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
-  const current = latestDate ? HOLDINGS.filter(r=>r.date===latestDate) : [];
+  const snapshot = latestDate ? HOLDINGS.filter(r=>r.date===latestDate) : [];
+
+  // 장중일 때만 KIS 실시간 현재가로 현재가·평가손익·수익률·평가금액·보유비중을 재계산한다.
+  // 장중이 아니면(LIVE_QUOTES가 없거나 장마감) 기존 노션 스냅샷 값을 그대로 사용한다.
+  const liveOn = isMarketOpenKST();
+  let current = snapshot.map(r=>{
+    const q = liveOn ? LIVE_QUOTES[r.code] : null;
+    if(!q || !q.현재가) return r;
+    const evalAmt = q.현재가 * r.qty;
+    const pnl = evalAmt - r.buyAmt;
+    const pnlPct = r.buyAmt ? pnl/r.buyAmt : 0;
+    return { ...r, price:q.현재가, evalAmt, pnl, pnlPct, live:true };
+  });
+  const liveTotalEval = current.reduce((s,r)=>s+r.evalAmt,0);
+  if(liveOn && liveTotalEval){
+    current = current.map(r=>r.live ? { ...r, weight: r.evalAmt/liveTotalEval } : r);
+  }
 
   const strategies = ['전체','눌림목','괴리율','라운드넘버','기준선','장대양봉','미분류'];
   const counts = {};
@@ -533,7 +543,7 @@ function renderHoldings(){
         <td class="l">${strategyBadge(r.strategy)}</td>
         <td class="l">${esc(r.name)}</td>
         <td class="l">${esc(r.code)}</td>
-        <td>${fmtNum(r.price)}</td>
+        <td>${r.live?'<span class="live-dot" title="장중 실시간(KIS)">●</span> ':''}${fmtNum(r.price)}</td>
         <td class="${pctClass(r.pnl)}">${r.pnl>=0?'+':''}${fmtNum(r.pnl)}</td>
         <td class="${pctClass(r.pnlPct)}">${fmtPct(r.pnlPct)}</td>
         <td>${fmtNum(r.buyPrice)}</td>
@@ -559,9 +569,11 @@ function renderHoldings(){
     `;
   }
   const noteLatestDate = HOLDINGS.map(r=>r.date).filter(Boolean).sort().pop();
-  document.getElementById('h-note').textContent = noteLatestDate
-    ? `기준일 ${noteLatestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`
-    : '데이터 없음';
+  const anyLive = current.some(r=>r.live);
+  document.getElementById('h-note').textContent = !noteLatestDate ? '데이터 없음'
+    : anyLive
+      ? `기준일 ${noteLatestDate} · 현재가·평가손익·수익률·평가금액·보유비중은 장중 실시간(KIS, ${LIVE_QUOTES_TIME?LIVE_QUOTES_TIME.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}):''} 기준) · 매입가·보유수량은 노션 스냅샷 · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`
+      : `기준일 ${noteLatestDate} · 전략은 노션에 수기 태깅된 확정값(미분류는 아직 태깅 전)`;
 }
 
 function buildHistDateSel(){
@@ -640,28 +652,10 @@ function renderDaytrade(){
   }
 }
 
-// ── 설정모달 / 테마 ──────────────────────────────────────────
-function openSettingsModal(){
-  document.getElementById('settingsModal').classList.add('modal-open');
-  syncThemeOptUI();
-  applyAuthUI();
-}
-function closeSettingsModal(){
-  document.getElementById('settingsModal').classList.remove('modal-open');
-}
-function setTheme(t){
-  document.documentElement.setAttribute('data-theme', t);
-  try{ localStorage.setItem('theme', t); }catch(e){}
-  syncThemeOptUI();
-}
-function syncThemeOptUI(){
-  const cur = document.documentElement.getAttribute('data-theme');
-  document.getElementById('theme-opt-dark')?.classList.toggle('on', cur === 'dark');
-  document.getElementById('theme-opt-light')?.classList.toggle('on', cur === 'light');
-}
 function showTab(i){
   document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('on',j===i));
   document.querySelectorAll('.tab-btn').forEach((t,j)=>t.classList.toggle('on',j===i));
+  if(i===0) refreshLiveQuotes(); // 보유종목 탭을 열 때마다 장중이면 KIS 실시간 시세로 재조회
 }
 document.querySelectorAll('.tab-btn[data-tab]').forEach(btn=>{
   btn.addEventListener('click',()=>showTab(parseInt(btn.dataset.tab)));
