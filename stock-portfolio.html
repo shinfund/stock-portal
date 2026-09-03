@@ -102,6 +102,7 @@ tbody tr.total-row:hover{background:var(--border2)}
 .sig-note-danger{color:var(--coral);background:var(--coral50)}
 .sig-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
 .sig-card{border:1px solid var(--border);border-radius:var(--r10);padding:12px 14px;background:var(--card)}
+.sig-card-urgent{border-color:var(--coral);background:var(--coral50)}
 .sig-card-hd{display:flex;align-items:center;gap:8px;font-size:14.5px;margin-bottom:6px;flex-wrap:wrap}
 .sig-rank{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--sky);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
 .sig-reason{font-size:13px;color:var(--txt2);margin-bottom:6px}
@@ -245,6 +246,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
           <tbody id="sig-holdings-tbody"></tbody>
         </table>
       </div>
+      <div id="sig-exit-cards"></div>
       <div class="sc-note" id="sig-unassigned-note" style="display:none"></div>
     </div>
   </div>
@@ -706,6 +708,21 @@ function renderExitSignals(){
         <td class="l">${esc(r.verdict)}</td>
       </tr>`;
     }).join('');
+  }
+
+  const cardsEl = document.getElementById('sig-exit-cards');
+  if(!rows.length){
+    cardsEl.innerHTML = '';
+  } else {
+    cardsEl.innerHTML = '<div class="sig-cards">' + rows.map(r=>{
+      if(r.error) return `<div class="sig-card"><div class="sig-card-hd">${strategyBadge(r.strategy)} <b>${esc(r.name)}</b></div><div class="sig-reason">${esc(r.error)}</div></div>`;
+      const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
+      return `<div class="sig-card ${r.urgent?'sig-card-urgent':''}">
+        <div class="sig-card-hd">${strategyBadge(r.strategy)} <b>${esc(r.name)}</b> ${priceCell(r.code, r.close)}</div>
+        <div class="sig-reason">평단 ${fmtNum(r.avgPrice)} · <span class="${pctClass(ret)}">${ret>=0?'+':''}${ret.toFixed(2)}%</span></div>
+        <div class="sig-bt">${esc(r.verdict)}</div>
+      </div>`;
+    }).join('') + '</div>';
   }
 
   const noteEl = document.getElementById('sig-unassigned-note');
