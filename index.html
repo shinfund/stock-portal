@@ -1084,6 +1084,24 @@ initDraggableModals();
 // 비밀번호는 SHA-256 해시로만 코드에 남는다(평문은 코드 어디에도 없음).
 const VIEW_PASSWORD_HASH = 'bd94dcda26fccb4e68d6a31f9b5aac0b571ae266d822620e901ef7ebe3a11d4f';
 const VIEW_TTL_MS = 30 * 24 * 3600 * 1000; // 30일
+
+// 포트폴리오 앱(stock-portfolio.html)이 쓰는 공유 Notion Worker — 공용 비밀번호가 Worker 비밀번호와
+// 동일하므로, 포털 로그인 성공 시 같은 값으로 Worker에도 함께 로그인해 sp_notionAuthToken을 심어둔다.
+// 실패해도(값이 서로 다른 경우 등) 조용히 무시 — 포트폴리오 앱 자체 로그인창이 폴백으로 남아있다.
+const NOTION_WORKER_URL = 'https://notion-proxy.shinfund.workers.dev';
+async function silentNotionLogin(pw) {
+  try {
+    const res = await fetch(NOTION_WORKER_URL + '/login', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw })
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.token) return;
+    localStorage.setItem('sp_notionAuthToken', data.token);
+    localStorage.setItem('sp_notionAuthExpires', String(data.expires));
+  } catch (e) { /* 무시 — 포트폴리오 앱 자체 로그인으로 폴백 */ }
+}
 async function sha256HexLocal(text) {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
@@ -1111,6 +1129,7 @@ async function doViewLogin() {
       localStorage.setItem('sp_viewExpires', String(Date.now() + VIEW_TTL_MS));
     } catch (e) {}
     document.documentElement.setAttribute('data-viewauthed', '1');
+    silentNotionLogin(pw);
     if (pEl) pEl.value = '';
     closeCfg();
     showToast('로그인되었습니다.');
@@ -1121,7 +1140,10 @@ async function doViewLogin() {
   }
 }
 function doViewLogout() {
-  try { localStorage.removeItem('sp_viewUnlocked'); localStorage.removeItem('sp_viewExpires'); } catch (e) {}
+  try {
+    localStorage.removeItem('sp_viewUnlocked'); localStorage.removeItem('sp_viewExpires');
+    localStorage.removeItem('sp_notionAuthToken'); localStorage.removeItem('sp_notionAuthExpires');
+  } catch (e) {}
   document.documentElement.setAttribute('data-viewauthed', '0');
   updateLoginStatusHint();
   updateTopbarStatus();
