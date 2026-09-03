@@ -582,24 +582,36 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-03T05:30:50.328Z",
+  "generatedAt": "2026-09-03T06:25:13.749Z",
   "todayDate": "2026-09-03",
   "openSlots": 4,
   "heldCount": 1,
   "betaReordered": false,
-  "finalists": [],
-  "allCandidates": []
+  "finalists": [
+    { "code":"032830","name":"삼성생명","market":"KOSPI","price":303000,"touchCount":22,"aboveCount":8,"reason":"라운드지지 300,000 이탈 후 오늘 재돌파(터치22봉, 진입위치30%), TP 310,000","strategy":"라운드넘버",
+      "bt": { "n":13,"winRate":69.23076923076923,"avgRet":1.426688659343805,
+        "recent": [
+          {"date":"2026-07-02","reason":"TP","ret":2.741514360313316},
+          {"date":"2021-02-15","reason":"TP","ret":4.918032786885246},
+          {"date":"2021-02-08","reason":"TP","ret":5.639614855570839}
+        ]
+      }
+    }
+  ],
+  "allCandidates": [
+    { "code":"032830","name":"삼성생명","market":"KOSPI","price":303000,"touchCount":22,"aboveCount":8,"reason":"라운드지지 300,000 이탈 후 오늘 재돌파(터치22봉, 진입위치30%), TP 310,000","strategy":"라운드넘버" }
+  ]
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-03T05:31:10.655Z",
+  "generatedAt": "2026-09-03T06:25:51.569Z",
   "todayDate": "2026-09-03",
   "baseline": [
-    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":66300,"ret":-16.81931096780669,"formalSignal":null },
-    { "code":"010140","name":"삼성중공업","qty":95,"avgPrice":20623,"strategy":"기준선","market":"KOSPI","close":21500,"ret":4.252533579013722,"formalSignal":null }
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":66400,"ret":-16.693849898376534,"formalSignal":null },
+    { "code":"010140","name":"삼성중공업","qty":95,"avgPrice":20623,"strategy":"기준선","market":"KOSPI","close":21550,"ret":4.494981331523057,"formalSignal":null }
   ],
   "urgent": [],
   "all": [
-    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32650,"ret":2.03125,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
+    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32600,"ret":1.875,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
   ],
   "unassigned": []
 };
