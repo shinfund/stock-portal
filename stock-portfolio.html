@@ -627,13 +627,7 @@ function renderEntrySignals(){
   document.getElementById('sig-entry-date').textContent = d.todayDate ? ('('+d.todayDate+' 기준)') : '';
 
   const bannerEl = document.getElementById('sig-slot-banner');
-  if(d.openSlots === 0){
-    bannerEl.innerHTML = '<div class="sig-note sig-note-warn">⚠ 빈슬롯 없음 — 신규 진입 보류(아래는 참고용 전체 후보)</div>';
-  } else if(d.betaReordered){
-    bannerEl.innerHTML = `<div class="sig-note">빈슬롯 ${d.openSlots}개 — 후보(${(d.allCandidates||[]).length}건)가 슬롯보다 많아 전략우선순위 대신 베타(KOSPI상관) 상위 ${d.openSlots}개 추천</div>`;
-  } else {
-    bannerEl.innerHTML = `<div class="sig-note">빈슬롯 ${d.openSlots}개(보유 ${d.heldCount}종목/5슬롯) — 우선순위(눌림목&gt;괴리율&gt;라운드넘버&gt;장대양봉) 상위 ${d.openSlots}개 추천</div>`;
-  }
+  bannerEl.innerHTML = '';
 
   const finalistsEl = document.getElementById('sig-finalists');
   if(!d.finalists || !d.finalists.length){
@@ -675,7 +669,6 @@ function renderExitSignals(){
   const baseline = d.baseline || [];
   let noteHtml = '';
   if(urgent.length) noteHtml += `<div class="sig-note sig-note-danger">🔴 청산검토 대상 ${urgent.length}건 — 아래 표에서 강조 표시</div>`;
-  if(baseline.length) noteHtml += `<div class="sig-note sig-note-warn">⚠ 기준선 전략 축소 대상(우선 매도후보) ${baseline.length}건 포함 — 매도순번은 익절 유리한 순</div>`;
   document.getElementById('sig-baseline-wrap').innerHTML = noteHtml;
 
   const blRows = [...baseline]
