@@ -854,6 +854,12 @@ renderUniverse();
 renderUniSectorTable();
 document.getElementById('uniFootnote').textContent = '[데이터 소스] 현재가·등락률: KIS API 스냅샷(' + D.meta.date + ' ' + D.meta.time + ' 기준) / 시가총액: 전일(' + D.meta.krxBasDt + ') KRX 확정 기준 / EMA 괴리율: Yahoo Finance 일봉 종가 기준(오늘 종가는 KIS 스냅샷가로 대체)';
 renderSectorIndex();
+(function initLiveStatusDefaults(){
+  const t = '스냅샷 기준 ' + D.meta.date + ' ' + D.meta.time;
+  const idx = document.getElementById('idxLiveStatus');
+  if(idx) idx.textContent = t;
+  uniLiveTargets().forEach(el=>{ el.textContent = t; });
+})();
 </script>
 </body>
 </html>
