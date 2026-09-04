@@ -110,6 +110,12 @@ tbody tr.total-row:hover{background:var(--border2)}
 .sig-bt-empty{font-size:13px;color:var(--txt3)}
 .sig-bt-recent{font-size:12px;color:var(--txt3);margin-top:2px}
 tbody tr.sig-urgent-row td{background:var(--coral50)}
+.recheck-cell{font-size:12.5px;line-height:1.5}
+.recheck-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11.5px;font-weight:500;margin-bottom:2px}
+.recheck-ok{background:var(--teal50);color:var(--teal600)}
+.recheck-warn{background:var(--amber50);color:var(--amber)}
+.recheck-danger{background:var(--coral50);color:var(--coral)}
+.recheck-muted{background:var(--border2);color:var(--txt3)}
 .t-neg{color:var(--blue);font-weight:400}
 .t-pos{color:var(--red);font-weight:400}
 .t-flat{color:var(--txt2);font-weight:400}
@@ -221,14 +227,15 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
         진입신호 <span class="sub" id="sig-entry-date"></span>
         <div class="h-quote-toolbar" style="display:inline-flex;margin-left:auto;margin-bottom:0">
           <span class="sub live-status-el" id="sig-live-status"></span>
-          <button class="hdr-btn" onclick="manualRefreshLiveQuotes()">🔄 시세조회</button>
+          <span class="sub" id="sig-recheck-status"></span>
+          <button class="hdr-btn" onclick="runLiveSignalCheck()">🔍 조회(실시간 재판정)</button>
         </div>
       </div>
       <div class="sig-banner" id="sig-slot-banner"></div>
       <div class="tbl-wrap">
         <table id="sig-candidates-table">
           <thead><tr>
-            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th class="l">사유</th>
+            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th class="l">사유</th><th class="l">실시간 재판정</th>
           </tr></thead>
           <tbody id="sig-candidates-tbody"></tbody>
         </table>
@@ -236,12 +243,18 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       <div id="sig-finalists"></div>
     </div>
     <div class="sc">
-      <div class="sc-title">청산신호 <span class="sub" id="sig-exit-date"></span></div>
+      <div class="sc-title">
+        청산신호 <span class="sub" id="sig-exit-date"></span>
+        <div class="h-quote-toolbar" style="display:inline-flex;margin-left:auto;margin-bottom:0">
+          <span class="sub live-status-el" id="sig-exit-live-status"></span>
+          <button class="hdr-btn" onclick="runLiveSignalCheck()">🔍 조회(실시간 재판정)</button>
+        </div>
+      </div>
       <div id="sig-baseline-wrap"></div>
       <div class="tbl-wrap">
         <table id="sig-holdings-table">
           <thead><tr>
-            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">판정</th>
+            <th class="l">전략</th><th class="l">종목명</th><th>현재가</th><th>평단</th><th>손익률</th><th class="l">판정(스캔시점)</th><th class="l">실시간 재판정</th>
           </tr></thead>
           <tbody id="sig-holdings-tbody"></tbody>
         </table>
@@ -583,36 +596,47 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-03T06:58:43.760Z",
-  "todayDate": "2026-09-03",
-  "openSlots": 3,
+  "generatedAt": "2026-09-04T00:57:36.012Z",
+  "todayDate": "2026-09-04",
+  "openSlots": 2,
   "heldCount": 2,
-  "betaReordered": false,
+  "betaReordered": true,
   "finalists": [
-    { "code":"032830","name":"삼성생명","market":"KOSPI","price":303000,"touchCount":22,"aboveCount":8,"reason":"라운드지지 300,000 이탈 후 오늘 재돌파(터치22봉, 진입위치30%), TP 310,000 · 매수 체결완료(보유종목 전환)","strategy":"라운드넘버",
-      "bt": { "n":13,"winRate":69.23076923076923,"avgRet":1.426688659343805,
+    { "code":"042700","name":"한미반도체","market":"KOSPI","price":224500,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치45%), TP 230,000","strategy":"라운드넘버",
+      "bt": { "n":28,"winRate":71.42857142857143,"avgRet":1.8153212702775348,
         "recent": [
-          {"date":"2026-07-02","reason":"TP","ret":2.741514360313316},
-          {"date":"2021-02-15","reason":"TP","ret":4.918032786885246},
-          {"date":"2021-02-08","reason":"TP","ret":5.639614855570839}
+          {"date":"2026-08-24","reason":"TP","ret":2.0689655172413794},
+          {"date":"2026-08-07","reason":"TP","ret":3.64963503649635},
+          {"date":"2026-05-29","reason":"STOP","ret":-5.972696245733788}
+        ]
+      }
+    },
+    { "code":"066570","name":"LG전자","market":"KOSPI","price":202750,"touchCount":17,"aboveCount":11,"L":200000,"step":10000,"target":210000,"reason":"라운드지지 200,000 이탈 후 오늘 재돌파(터치17봉, 진입위치28%), TP 210,000","strategy":"라운드넘버",
+      "bt": { "n":13,"winRate":76.92307692307693,"avgRet":0.15412485281092583,
+        "recent": [
+          {"date":"2026-08-03","reason":"TP","ret":8.459214501510575},
+          {"date":"2026-07-07","reason":"STOP","ret":-9.090909090909092},
+          {"date":"2026-06-29","reason":"STOP","ret":-4.778325123152709}
         ]
       }
     }
   ],
   "allCandidates": [
-    { "code":"032830","name":"삼성생명","market":"KOSPI","price":303000,"touchCount":22,"aboveCount":8,"reason":"라운드지지 300,000 이탈 후 오늘 재돌파(터치22봉, 진입위치30%), TP 310,000 · 매수 체결완료(보유종목 전환)","strategy":"라운드넘버" }
+    { "code":"042700","name":"한미반도체","market":"KOSPI","price":224500,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치45%), TP 230,000","strategy":"라운드넘버" },
+    { "code":"066570","name":"LG전자","market":"KOSPI","price":202750,"touchCount":17,"aboveCount":11,"L":200000,"step":10000,"target":210000,"reason":"라운드지지 200,000 이탈 후 오늘 재돌파(터치17봉, 진입위치28%), TP 210,000","strategy":"라운드넘버" },
+    { "code":"018260","name":"삼성에스디에스","market":"KOSPI","price":236000,"touchCount":18,"aboveCount":11,"L":230000,"step":10000,"target":240000,"reason":"라운드지지 230,000 이탈 후 오늘 재돌파(터치18봉, 진입위치60%), TP 240,000","strategy":"라운드넘버" }
   ]
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-03T06:59:05.818Z",
-  "todayDate": "2026-09-03",
+  "generatedAt": "2026-09-04T00:56:35.968Z",
+  "todayDate": "2026-09-04",
   "baseline": [
-    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":66200,"ret":-16.944772037236845,"formalSignal":null }
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":68800,"ema200":83644.35139173242,"ema5":68373.37979221363,"ret":-13.682784232052795,"formalSignal":null }
   ],
   "urgent": [],
   "all": [
-    { "code":"032830","name":"삼성생명","qty":6,"avgPrice":303000,"strategy":"라운드넘버","market":"KOSPI","close":303000,"ret":0,"support":300000,"resistance":310000,"stop":291000,"verdict":"홀딩(지지 300,000~저항 310,000 박스권)","urgent":false },
-    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32450,"ret":1.40625,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
+    { "code":"032830","name":"삼성생명","qty":6,"avgPrice":303000,"strategy":"라운드넘버","market":"KOSPI","close":298500,"ret":-1.4851485148514851,"support":300000,"resistance":310000,"stop":291000,"verdict":"홀딩(지지 300,000~저항 310,000 박스권)","urgent":false },
+    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32350,"ret":1.09375,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
   ],
   "unassigned": []
 };
@@ -631,6 +655,167 @@ function sigLiveRet(code, fallbackPrice, avgPrice, fallbackRet){
   const {price, live} = sigLivePrice(code, fallbackPrice);
   return live && avgPrice ? (price - avgPrice) / avgPrice * 100 : fallbackRet;
 }
+// ── "조회"(실시간 재판정, 2026-09-04) ──────────────────────────────────
+// entry_scan.mjs/exit_check.mjs는 Yahoo Finance 풀히스토리+백테스트로 1~2분 걸려 브라우저에서 직접 못 돌린다.
+// 대신 각 전략 조건이 "전일 종가까지의 EMA/레벨(스캔시점 스냅샷, 하루 안에서 고정)" + "오늘 실시간가"로만
+// 결정된다는 점을 이용해, 실시간가는 기존 /kis/quote 프록시로 받고 조건 재계산만 클라이언트에서 수행한다.
+// isMarketOpenKST() 게이트를 쓰지 않는다 — 동시호가(08:30~09:00·15:20~15:30)·장마감 후에도 조회 가능해야 함
+// (KIS 시세 API가 그 시간대엔 예상체결가/확정종가를 그대로 돌려주므로 값 자체는 항상 유효).
+let SIGNAL_LIVE_QUOTES = {};
+let SIGNAL_LIVE_TIME = null;
+let signalRecheckInFlight = false;
+
+function emaNext(prevEma, livePrice, period){
+  if(prevEma==null || livePrice==null) return null;
+  const k = 2/(period+1);
+  return livePrice*k + prevEma*(1-k);
+}
+function marketPhaseLabel(){
+  const kst = new Date(Date.now()+9*3600000);
+  const day = kst.getUTCDay();
+  if(day===0||day===6) return '휴장(주말)';
+  const hm = kst.getUTCHours()*100+kst.getUTCMinutes();
+  if(hm<830) return '장전(전일종가)';
+  if(hm<900) return '동시호가(장전 예상체결가)';
+  if(hm<1520) return '정규장(실시간)';
+  if(hm<=1530) return '동시호가(장마감 예상체결가)';
+  return '장마감(확정종가)';
+}
+function recheckBadge(cls, label){ return `<span class="recheck-badge ${cls}">${esc(label)}</span>`; }
+function recheckMuted(label){ return `<div class="recheck-cell">${recheckBadge('recheck-muted', label)}</div>`; }
+
+// ── 진입신호 라이브 재확인: 이미 오늘 스캔에서 잡힌 후보의 트리거 레벨(라운드넘버 L/step, 장대양봉
+// candleHigh/stop/ema200, 눌림목 highS/atrPct는 하루 안에서 고정값)을 실시간가와 비교해 신호가 여전히
+// 유효한지 확인한다. 새 후보 발굴(전체 유니버스 재스캔)은 하지 않음 — Yahoo Finance 롤링윈도우(괴리율 Z-score
+// 250일 등) 재현이 필요해 이번 범위에서 제외, 조회 결과 안내문에 명시.
+function liveCheckRoundnumberEntry(r, live){
+  if(r.L==null || r.step==null || r.target==null) return null;
+  const entryPosition = (live - r.L) / r.step * 100;
+  if(live >= r.target) return {cls:'recheck-warn', label:`라이브가 TP(${fmtNum(r.target)}) 도달 — 신호 소멸(이미 목표가 초과)`};
+  if(live < r.L) return {cls:'recheck-danger', label:`라이브가 지지선(${fmtNum(r.L)}) 재이탈 — 신호 무효화`};
+  if(entryPosition < 20) return {cls:'recheck-warn', label:`진입위치 20%미만(현재 ${entryPosition.toFixed(0)}%) — 조건 미충족`};
+  return {cls:'recheck-ok', label:`조건 유지(진입위치 ${entryPosition.toFixed(0)}%, 지지 ${fmtNum(r.L)}~TP ${fmtNum(r.target)})`};
+}
+function liveCheckBigcandleEntry(r, live){
+  if(r.candleHigh==null) return null;
+  if(live >= r.candleHigh) return {cls:'recheck-warn', label:`라이브가 TP(${fmtNum(r.candleHigh)}) 도달 — 신호 소멸`};
+  if(r.stop!=null && live <= r.stop) return {cls:'recheck-danger', label:`라이브가 STOP(${fmtNum(r.stop)}) 도달`};
+  if(r.ema200!=null && live < r.ema200) return {cls:'recheck-danger', label:'라이브가 EMA200 아래로 이탈 — 상승국면 조건 무효화(EMA200은 스캔시점 근사값)'};
+  return {cls:'recheck-ok', label:'조건 유지'};
+}
+function liveCheckPullbackEntry(r, live){
+  if(r.highS==null) return null;
+  if(live > r.highS) return {cls:'recheck-warn', label:'라이브가가 50일신고가 갱신 — 눌림목 상태 아님(추격매수 주의)'};
+  if(!r.atrPct) return {cls:'recheck-muted', label:'ATR% 데이터 없음(재판정 불가)'};
+  const pullbackPct = (r.highS - live) / r.highS * 100;
+  const normDepth = pullbackPct / r.atrPct;
+  if(normDepth > 0.4) return {cls:'recheck-danger', label:`눌림폭 밴드(ATR×0.4) 이탈(ATR%는 스캔시점 근사값)`};
+  return {cls:'recheck-ok', label:`조건 유지(눌림폭 ATR대비 ${(normDepth*100).toFixed(0)}%)`};
+}
+function liveEntryRecheck(r){
+  const live = SIGNAL_LIVE_QUOTES[r.code]?.현재가;
+  if(live==null) return recheckMuted('실시간가 없음');
+  let res = null;
+  if(r.strategy==='라운드넘버') res = liveCheckRoundnumberEntry(r, live);
+  else if(r.strategy==='장대양봉') res = liveCheckBigcandleEntry(r, live);
+  else if(r.strategy==='눌림목') res = liveCheckPullbackEntry(r, live);
+  if(r.strategy==='괴리율') return recheckMuted('괴리율(Z-score)은 라이브 재판정 미지원');
+  if(!res) return recheckMuted('데이터 부족(재판정 불가)');
+  return `<div class="recheck-cell">${recheckBadge(res.cls, res.label)}</div>`;
+}
+
+// ── 청산신호 라이브 재확인: EMA는 재귀식(오늘EMA = 라이브가×k + 전일EMA×(1-k))으로, 라운드넘버 지지/저항은
+// 진입가 기준 고정레벨이라 그대로 실시간가와 비교. exit_check.mjs 서버 판정 로직과 1:1 동일 조건.
+function liveJudgePullbackExit(r, live){
+  if(r.ema50==null) return null;
+  const ema50Today = emaNext(r.ema50, live, 50);
+  const sl = r.sl ?? (r.market==='KOSDAQ'?18:8);
+  const ret = (live - r.avgPrice)/r.avgPrice*100;
+  const prevRet = (r.close - r.avgPrice)/r.avgPrice*100;
+  const aboveEma50 = live >= ema50Today;
+  const freshTp20 = ret>=20 && !(prevRet>=20);
+  if(ret<=-sl) return {label:`손절검토(-${sl}%)`, urgent:true};
+  if(!aboveEma50) return {label:'전량매도검토(50EMA이탈)', urgent:true};
+  if(freshTp20) return {label:'1차익절검토(+20%)', urgent:true};
+  if(aboveEma50) return {label:'홀딩(50EMA위)', urgent:false};
+  if(ret<=-sl*0.6) return {label:'주의', urgent:false};
+  return {label:'관찰', urgent:false};
+}
+function liveJudgeDeviationExit(r, live){
+  if(r.ema5==null || r.ema20==null) return null;
+  const ema5Today = emaNext(r.ema5, live, 5);
+  const ema20Today = emaNext(r.ema20, live, 20);
+  const ret = (live-r.avgPrice)/r.avgPrice*100;
+  const prevRet = (r.close-r.avgPrice)/r.avgPrice*100;
+  const aboveEma5 = live>=ema5Today, aboveEma20 = live>=ema20Today;
+  const prevAboveEma20 = !!r.prevAboveEma20;
+  const freshTp20 = ret>=20 && !(prevRet>=20);
+  const freshLeg20 = aboveEma20 && !prevAboveEma20;
+  const DV_SL = 18;
+  if(ret<=-DV_SL) return {label:`손절검토(-${DV_SL}%)`, urgent:true};
+  if(!aboveEma5) return {label:'전량매도검토(5EMA이탈)', urgent:true};
+  if(freshLeg20) return {label:'2차익절검토(20EMA돌파)', urgent:true};
+  if(aboveEma20) return {label:'홀딩(20EMA위)', urgent:false};
+  if(freshTp20) return {label:'익절검토(+20%)', urgent:true};
+  if(ret<=-8) return {label:'주의', urgent:false};
+  return {label:'관찰', urgent:false};
+}
+function liveJudgeRoundnumberExit(r, live){
+  if(r.support==null) return null;
+  if(live<=r.stop) return {label:`손절검토(라운드지지 ${fmtNum(r.support)} 붕괴)`, urgent:true};
+  if(live>=r.resistance) return {label:`익절검토(라운드저항 ${fmtNum(r.resistance)} 도달)`, urgent:true};
+  return {label:`홀딩(지지 ${fmtNum(r.support)}~저항 ${fmtNum(r.resistance)} 박스권)`, urgent:false};
+}
+function liveJudgeBaselineExit(r, live){
+  if(r.ema200==null || r.ema5==null) return null;
+  const ema200Today = emaNext(r.ema200, live, 200);
+  const ema5Today = emaNext(r.ema5, live, 5);
+  const prevAboveEma200 = r.close >= r.ema200;
+  const prevAboveEma5 = r.close >= r.ema5;
+  let signal = null;
+  if(live < ema200Today){ if(prevAboveEma200) signal = 'BASELINE_BREAK(라이브가 기준선 하향돌파)'; }
+  else { if(prevAboveEma5 && live < ema5Today) signal = 'WAVE1_FULL(라이브가 EMA5 하향이탈)'; }
+  return {label: signal || '우선 매도후보(기준선 축소 대상)', urgent: !!signal};
+}
+function liveExitRecheck(r){
+  const live = SIGNAL_LIVE_QUOTES[r.code]?.현재가;
+  if(live==null) return recheckMuted('실시간가 없음');
+  let res = null;
+  if(r.strategy==='눌림목') res = liveJudgePullbackExit(r, live);
+  else if(r.strategy==='괴리율') res = liveJudgeDeviationExit(r, live);
+  else if(r.strategy==='라운드넘버') res = liveJudgeRoundnumberExit(r, live);
+  else if(r.strategy==='기준선') res = liveJudgeBaselineExit(r, live);
+  if(r.strategy==='장대양봉') return recheckMuted('정밀판정불가(참고용) — 수동확인');
+  if(!res) return recheckMuted('데이터 부족(재판정 불가)');
+  return `<div class="recheck-cell">${recheckBadge(res.urgent?'recheck-danger':'recheck-ok', res.label)}</div>`;
+}
+
+async function runLiveSignalCheck(){
+  if(!isAuthed()){ alert('로그인 후 이용 가능합니다. 좌측 상단에서 로그인해주세요.'); return; }
+  if(signalRecheckInFlight) return;
+  const entryCodes = [...new Set((ENTRY_SIGNALS.allCandidates||[]).map(r=>r.code))];
+  const exitCodes = [...new Set([...(EXIT_SIGNALS.baseline||[]), ...(EXIT_SIGNALS.all||[])].map(r=>r.code))];
+  const codes = [...new Set([...entryCodes, ...exitCodes])];
+  const statusEls = [document.getElementById('sig-recheck-status')];
+  if(!codes.length){ statusEls.forEach(el=>el&&(el.textContent='조회 대상 종목 없음')); return; }
+  signalRecheckInFlight = true;
+  statusEls.forEach(el=>el&&(el.textContent=`조회 중... (${marketPhaseLabel()})`));
+  try{
+    const res = await fetch(`${WORKER_URL}/kis/quote?codes=${codes.join(',')}`, { headers:{'Authorization':'Bearer '+AUTH.token} });
+    if(res.status === 401){ AUTH={token:'',expires:0}; try{localStorage.removeItem('sp_notionAuthToken');localStorage.removeItem('sp_notionAuthExpires');}catch(e){} applyAuthUI(); alert('로그인이 만료되었습니다. 다시 로그인해주세요.'); return; }
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    SIGNAL_LIVE_QUOTES = await res.json();
+    SIGNAL_LIVE_TIME = new Date();
+    renderSignals();
+    const label = `${codes.length}종목 재판정 완료 · ${marketPhaseLabel()} · ${fmtDateTime(SIGNAL_LIVE_TIME)}`;
+    statusEls.forEach(el=>el&&(el.textContent=label));
+  }catch(e){
+    statusEls.forEach(el=>el&&(el.textContent='조회 실패 — 잠시 후 다시 시도해주세요'));
+  }finally{
+    signalRecheckInFlight = false;
+  }
+}
+
 function renderSignals(){
   renderEntrySignals();
   renderExitSignals();
@@ -662,7 +847,7 @@ function renderEntrySignals(){
   const tbody = document.getElementById('sig-candidates-tbody');
   const cands = d.allCandidates || [];
   if(!cands.length){
-    tbody.innerHTML = '<tr><td colspan="4" class="empty-box">오늘 발생한 진입신호 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5" class="empty-box">오늘 발생한 진입신호 없음</td></tr>';
   } else {
     tbody.innerHTML = cands.map(r=>`
       <tr>
@@ -670,6 +855,7 @@ function renderEntrySignals(){
         <td class="l">${esc(r.name)}</td>
         <td>${priceCell(r.code, r.price)}</td>
         <td class="l">${esc(r.reason)}</td>
+        <td class="l">${liveEntryRecheck(r)}</td>
       </tr>
     `).join('');
   }
@@ -693,10 +879,10 @@ function renderExitSignals(){
 
   const tbody = document.getElementById('sig-holdings-tbody');
   if(!rows.length){
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-box">청산판정 대상 보유종목 없음</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-box">청산판정 대상 보유종목 없음</td></tr>';
   } else {
     tbody.innerHTML = rows.map(r=>{
-      if(r.error) return `<tr><td class="l">${strategyBadge(r.strategy)}</td><td class="l">${esc(r.name)}</td><td colspan="4">${esc(r.error)}</td></tr>`;
+      if(r.error) return `<tr><td class="l">${strategyBadge(r.strategy)}</td><td class="l">${esc(r.name)}</td><td colspan="5">${esc(r.error)}</td></tr>`;
       const ret = sigLiveRet(r.code, r.close, r.avgPrice, r.ret);
       return `<tr class="${r.urgent?'sig-urgent-row':''}">
         <td class="l">${strategyBadge(r.strategy)}</td>
@@ -705,6 +891,7 @@ function renderExitSignals(){
         <td>${fmtNum(r.avgPrice)}</td>
         <td class="${pctClass(ret)}">${ret>=0?'+':''}${ret.toFixed(2)}%</td>
         <td class="l">${esc(r.verdict)}</td>
+        <td class="l">${liveExitRecheck(r)}</td>
       </tr>`;
     }).join('');
   }
