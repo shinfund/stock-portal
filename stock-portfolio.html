@@ -298,6 +298,34 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       </div>
       <div class="sc-note" id="h-note"></div>
     </div>
+    <div class="sc">
+      <div class="sc-title">섹터별 요약 <span class="sub">수익률 내림차순</span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>매입금액</th><th>평가손익</th><th>수익률</th><th>손익기여도</th></tr></thead>
+          <tbody id="h-sector-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sc-title">종목별 추세구조 <span class="sub">5/20/50/100/200 EMA 괴리율, 정배열=상승구조·역배열=하락구조</span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th class="l">종목명</th><th class="c">구조</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th></tr></thead>
+          <tbody id="h-trend-tbody"></tbody>
+        </table>
+      </div>
+      <div class="sc-note" id="h-trend-note"></div>
+    </div>
+    <div class="sc">
+      <div class="sc-title">종목별 손익 기여도 <span class="sub">영향 큰 순</span></div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th class="l">종목명</th><th>평가손익</th><th>기여도</th></tr></thead>
+          <tbody id="h-contrib-tbody"></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -380,6 +408,17 @@ let AUTH = { token:'', expires:0 };
   }catch(e){}
 })();
 function isAuthed(){ return !!AUTH.token && Date.now() < AUTH.expires; }
+
+// 보유종목 섹터·EMA추세구조 보강 데이터(정적 스냅샷, scripts/project_holdings_analytics_data.mjs로 갱신)
+// 가격·평가손익 등 실시간성 값은 Notion+KIS 라이브 데이터(HOLDINGS/LIVE_QUOTES)를 그대로 쓰고,
+// 여기서는 EMA 계산에 필요한 종가 히스토리 기반 값(섹터·EMA괴리율·추세구조)만 보강한다.
+const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-04 01:40","rows":[{"code":"015760","sector":"전력","ema":{"5":-0.5,"20":-2.9,"50":-7.78,"100":-14.88,"200":-19.42},"structure":"역배열"},{"code":"032830","sector":"금융(보험/증권)","ema":{"5":-0.35,"20":-0.4,"50":-4.04,"100":-1.89,"200":11.8},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":-0.25,"20":-3.47,"50":-10.21,"100":-17.34,"200":-18.84},"structure":"역배열"}]};
+function findHoldingAnalytics(code){ return HOLDINGS_ANALYTICS.rows.find(r=>r.code===code) || null; }
+function structureBadge(s){
+  const cls = s==='정배열'?'bdg-teal':s==='역배열'?'bdg-blue':'bdg-gray';
+  return '<span class="badge '+cls+'">'+esc(s||'데이터부족')+'</span>';
+}
+function emaDevCell(v){ return v!=null ? '<span class="'+pctClass(v)+'">'+(v>=0?'+':'')+v.toFixed(2)+'%</span>' : '─'; }
 
 const STRATEGY_BADGE = {
   '눌림목':'bdg-teal', '괴리율':'bdg-coral', '라운드넘버':'bdg-purple',
@@ -1003,6 +1042,47 @@ function renderHoldings(){
     noteEl.textContent = '';
     noteEl.style.display = 'none';
   }
+  renderHoldingsAnalytics(rows);
+}
+
+// 섹터별 요약·추세구조·손익기여도 — 라이브 rows(전략필터 적용됨)에 정적 섹터/EMA 스냅샷(HOLDINGS_ANALYTICS)을 코드로 결합
+function renderHoldingsAnalytics(rows){
+  const totalPnl = rows.reduce((s,r)=>s+r.pnl,0);
+
+  const bySector = {};
+  rows.forEach(r=>{
+    const sector = (findHoldingAnalytics(r.code)||{}).sector || '기타';
+    if(!bySector[sector]) bySector[sector] = { name:sector, count:0, buyAmt:0, pnl:0 };
+    bySector[sector].count++;
+    bySector[sector].buyAmt += r.buyAmt;
+    bySector[sector].pnl += r.pnl;
+  });
+  const sectorRows = Object.values(bySector).map(s=>({
+    ...s, pnlPct: s.buyAmt ? s.pnl/s.buyAmt : 0,
+    contribution: totalPnl!==0 ? s.pnl/totalPnl*100 : null,
+  })).sort((a,b)=>b.pnlPct-a.pnlPct);
+  document.getElementById('h-sector-tbody').innerHTML = sectorRows.length ? sectorRows.map(s=>
+    '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+fmtNum(s.buyAmt)+'</td>'+
+    '<td class="'+pctClass(s.pnl)+'">'+(s.pnl>=0?'+':'')+fmtNum(s.pnl)+'</td>'+
+    '<td class="'+pctClass(s.pnlPct)+'">'+fmtPct(s.pnlPct)+'</td>'+
+    '<td>'+(s.contribution!=null?(s.contribution>=0?'+':'')+s.contribution.toFixed(1)+'%':'─')+'</td></tr>'
+  ).join('') : '<tr><td colspan="6" class="empty-box">보유종목 없음</td></tr>';
+
+  document.getElementById('h-trend-tbody').innerHTML = rows.length ? rows.map(r=>{
+    const a = findHoldingAnalytics(r.code);
+    return '<tr><td class="l">'+esc(r.name)+'</td><td class="c">'+structureBadge(a?a.structure:null)+'</td>'+
+      [5,20,50,100,200].map(p=>'<td>'+emaDevCell(a?a.ema[p]:null)+'</td>').join('')+'</tr>';
+  }).join('') : '<tr><td colspan="7" class="empty-box">보유종목 없음</td></tr>';
+  const missing = rows.filter(r=>!findHoldingAnalytics(r.code));
+  document.getElementById('h-trend-note').textContent = 'EMA 괴리율·섹터는 '+HOLDINGS_ANALYTICS.generatedAt+' 기준 스냅샷입니다(가격·손익은 실시간).'
+    + (missing.length ? ' 데이터 없음: '+missing.map(r=>r.name).join(', ') : '');
+
+  const contribRows = rows.filter(r=>r.pnl!=null).slice().sort((a,b)=>Math.abs(b.pnl)-Math.abs(a.pnl));
+  document.getElementById('h-contrib-tbody').innerHTML = contribRows.length ? contribRows.map(r=>{
+    const contribution = totalPnl!==0 ? r.pnl/totalPnl*100 : null;
+    return '<tr><td class="l">'+esc(r.name)+'</td><td class="'+pctClass(r.pnl)+'">'+(r.pnl>=0?'+':'')+fmtNum(r.pnl)+'</td>'+
+      '<td>'+(contribution!=null?(contribution>=0?'+':'')+contribution.toFixed(1)+'%':'─')+'</td></tr>';
+  }).join('') : '<tr><td colspan="3" class="empty-box">보유종목 없음</td></tr>';
 }
 
 let HIST_DATES = [];

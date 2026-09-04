@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>관심종목</title>
+<title>국내증시</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -230,7 +230,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div class="header">
     <div class="header-left">
       <div class="logo-info">
-        <div class="logo-title">관심종목</div>
+        <div class="logo-title">국내증시</div>
       </div>
     </div>
     <div class="header-right">
@@ -239,18 +239,63 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     </div>
   </div>
   <nav class="top-nav">
-    <button class="tab-btn on" data-tab="0">관심종목</button>
-    <button class="tab-btn" data-tab="1">종목조회</button>
-    <button class="tab-btn" data-tab="2">보유종목</button>
-    <button class="tab-btn" data-tab="3">섹터·지수</button>
+    <button class="tab-btn on" data-tab="0">지수</button>
+    <button class="tab-btn" data-tab="1">섹터</button>
+    <button class="tab-btn" data-tab="2">관심종목</button>
+    <button class="tab-btn" data-tab="3">종목조회</button>
   </nav>
 </div>
 <div class="nav-spacer"></div>
 
 <div class="wrap"><div class="main">
 
-<!-- ▸ 탭0: 관심종목 -->
-<div class="panel on" id="p0">
+<!-- ▸ 탭0: 지수 -->
+<div class="panel on" id="p-idx">
+  <div class="sc">
+    <div class="sc-title">지수 시세표 <span class="sub">국내·미국·원자재·환율·변동성</span></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">지수명</th><th>현재가</th><th>등락률</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th><th>ATR14</th><th>5일누적</th></tr></thead>
+        <tbody id="idxTbody"></tbody>
+      </table>
+    </div>
+    <div class="sc-note" id="idxFootnote"></div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">시황 요약</div>
+    <div class="tbl-wrap">
+      <table class="tbl-fixed">
+        <thead><tr><th class="l" style="width:16%">구분</th><th class="l" style="width:34%">현황</th><th class="l" style="width:50%">판단</th></tr></thead>
+        <tbody id="mktSummaryTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ 탭1: 섹터 -->
+<div class="panel" id="p-sector">
+  <div class="sc">
+    <div class="sc-title">코스피 TOP50 섹터별 요약</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <tbody id="secKospiTbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sc">
+    <div class="sc-title">코스닥 TOP20 섹터별 요약</div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <tbody id="secKosdaqTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ 탭2: 관심종목 -->
+<div class="panel" id="p0">
   <div class="kpi-row" id="uniKpiRow"></div>
   <div class="sc">
     <div class="sc-title">관심종목 <span class="sub">코스피 시가총액 TOP50 · 코스닥 시가총액 TOP20</span></div>
@@ -301,7 +346,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div class="sc-note" id="uniFootnote"></div>
 </div>
 
-<!-- ▸ 탭1: 종목조회 -->
+<!-- ▸ 탭3: 종목조회 -->
 <div class="panel" id="p1">
   <div class="sc">
     <div class="sc-title">종목조회 <span class="sub">전종목(코스피·코스닥) 이름/코드 검색</span></div>
@@ -316,89 +361,6 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   </div>
   <div id="stockDetailWrap">
     <div class="detail-card"><div class="detail-empty">종목을 검색하면 상세 시세가 여기 표시됩니다.</div></div>
-  </div>
-</div>
-
-<!-- ▸ 탭2: 보유종목 -->
-<div class="panel" id="p2">
-  <div class="kpi-row" id="hdKpiRow"></div>
-  <div class="sc">
-    <div class="sc-title">보유종목 현황표 <span class="sub">수익률 내림차순</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th>현재가</th><th>등락률</th><th>평가손익</th><th>수익률</th><th>매입금액</th><th>매입가</th><th>보유수량</th><th>보유비중</th></tr></thead>
-        <tbody id="hdRowsTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">섹터별 요약 <span class="sub">수익률 내림차순</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>매입금액</th><th>평가손익</th><th>수익률</th><th>손익기여도</th></tr></thead>
-        <tbody id="hdSectorTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">종목별 추세구조 <span class="sub">5/20/50/100/200 EMA 괴리율, 정배열=상승구조·역배열=하락구조</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th class="c">구조</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th></tr></thead>
-        <tbody id="hdTrendTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">종목별 손익 기여도 <span class="sub">영향 큰 순</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">종목명</th><th>평가손익</th><th>기여도</th></tr></thead>
-        <tbody id="hdContribTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc-note" id="hdFootnote"></div>
-</div>
-
-<!-- ▸ 탭3: 섹터·지수 -->
-<div class="panel" id="p3">
-  <div class="sc">
-    <div class="sc-title">코스피 TOP50 섹터별 요약</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
-        <tbody id="secKospiTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">코스닥 TOP20 섹터별 요약</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
-        <tbody id="secKosdaqTbody"></tbody>
-      </table>
-    </div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">지수 시세표 <span class="sub">국내·미국·원자재·환율·변동성</span></div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th class="l">지수명</th><th>현재가</th><th>등락률</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th><th>ATR14</th><th>5일누적</th></tr></thead>
-        <tbody id="idxTbody"></tbody>
-      </table>
-    </div>
-    <div class="sc-note" id="idxFootnote"></div>
-  </div>
-  <div class="sc">
-    <div class="sc-title">시황 요약</div>
-    <div class="tbl-wrap">
-      <table class="tbl-fixed">
-        <thead><tr><th class="l" style="width:16%">구분</th><th class="l" style="width:34%">현황</th><th class="l" style="width:50%">판단</th></tr></thead>
-        <tbody id="mktSummaryTbody"></tbody>
-      </table>
-    </div>
   </div>
 </div>
 
@@ -661,7 +623,7 @@ function runLookupSearch(){
   }
 }
 function jumpToLookup(code){
-  switchTab(1);
+  switchTab(3);
   const info = D.lookup.find(s=>s.code===code);
   document.getElementById('lookupInput').value = info ? info.name : code;
   selectStock(code);
@@ -743,45 +705,7 @@ function renderStockBody(enriched, isHolding){
 }
 
 // ══════════════════════════════════════════════════════════
-// 탭2: 보유종목
-// ══════════════════════════════════════════════════════════
-function renderHoldings(){
-  const H = D.holdings;
-  if(!H || !H.rows || !H.rows.length){
-    document.getElementById('hdKpiRow').innerHTML = '<div class="kpi-card"><div class="num">─</div><div class="lbl">보유종목 없음</div></div>';
-    return;
-  }
-  document.getElementById('hdKpiRow').innerHTML =
-    '<div class="kpi-card"><div class="num">'+H.rows.length+'</div><div class="lbl">보유종목수</div></div>' +
-    '<div class="kpi-card '+(H.totals.pnl>=0?'kpi-coral':'kpi-sky')+'"><div class="num">'+fmtWonSigned(H.totals.pnl)+'</div><div class="lbl">총평가손익</div></div>' +
-    '<div class="kpi-card '+(H.totals.pnlPct>=0?'kpi-coral':'kpi-sky')+'"><div class="num">'+fmtPct(H.totals.pnlPct)+'</div><div class="lbl">총수익률</div></div>' +
-    '<div class="kpi-card kpi-teal"><div class="num">'+fmtWon(H.totals.value)+'</div><div class="lbl">총평가금액</div></div>';
-
-  const totalValue = H.totals.value;
-  document.getElementById('hdRowsTbody').innerHTML = H.rows.map(r=>{
-    const weight = (r.value!=null && totalValue>0) ? (r.value/totalValue)*100 : null;
-    return '<tr class="clickable" onclick="jumpToLookup(\''+r.code+'\')"><td class="l">'+esc(r.name)+'</td><td>'+fmtWon(r.price)+'</td><td class="'+pctClass(r.changePct)+'">'+fmtPct(r.changePct)+'</td>' +
-      '<td class="'+pctClass(r.pnl)+'">'+fmtWonSigned(r.pnl)+'</td><td class="'+pctClass(r.pnlPct)+'">'+fmtPct(r.pnlPct)+'</td>' +
-      '<td>'+fmtWon(r.cost)+'</td><td>'+fmtWon(r.avgPrice)+'</td><td>'+fmtWon(r.qty)+'</td><td>'+fmtPctPlain(weight)+'</td></tr>';
-  }).join('') + '<tr class="total-row"><td class="l">합계</td><td></td><td></td><td class="'+pctClass(H.totals.pnl)+'">'+fmtWonSigned(H.totals.pnl)+'</td><td class="'+pctClass(H.totals.pnlPct)+'">'+fmtPct(H.totals.pnlPct)+'</td><td>'+fmtWon(H.totals.cost)+'</td><td></td><td></td><td>100.00%</td></tr>';
-
-  document.getElementById('hdSectorTbody').innerHTML = H.sectors.map(s=>
-    '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+fmtWon(s.cost)+'</td><td class="'+pctClass(s.pnl)+'">'+fmtWonSigned(s.pnl)+'</td><td class="'+pctClass(s.pnlPct)+'">'+fmtPct(s.pnlPct)+'</td><td class="'+pctClass(s.contribution)+'">'+fmtPct(s.contribution)+'</td></tr>'
-  ).join('');
-
-  document.getElementById('hdTrendTbody').innerHTML = H.rows.map(r=>
-    '<tr><td class="l">'+esc(r.name)+'</td><td class="c">'+structureBadge(r.structure)+'</td>' + EMA_PERIODS.map(p=>'<td>'+emaCell(r.ema[p])+'</td>').join('') + '</tr>'
-  ).join('');
-
-  document.getElementById('hdContribTbody').innerHTML = H.contribution.map(c=>
-    '<tr><td class="l">'+esc(c.name)+'</td><td class="'+pctClass(c.pnl)+'">'+fmtWonSigned(c.pnl)+'</td><td class="'+pctClass(c.contribution)+'">'+fmtPct(c.contribution)+'</td></tr>'
-  ).join('');
-
-  document.getElementById('hdFootnote').textContent = '[데이터 소스] 현재가·등락률: KIS API 스냅샷(' + D.meta.date + ' ' + D.meta.time + ' 기준) / 평가손익·수익률·보유비중은 현재가 기준 계산, 매입가·보유수량은 holdings.json 스냅샷';
-}
-
-// ══════════════════════════════════════════════════════════
-// 탭3: 섹터·지수
+// 탭: 섹터 / 지수
 // ══════════════════════════════════════════════════════════
 function renderSectorIndex(){
   document.getElementById('secKospiTbody').innerHTML = D.sectorSummary.kospi.map(s=>
@@ -810,7 +734,6 @@ renderUniKpi();
 renderUniverse();
 renderUniSectorTable();
 document.getElementById('uniFootnote').textContent = '[데이터 소스] 현재가·등락률: KIS API 스냅샷(' + D.meta.date + ' ' + D.meta.time + ' 기준) / 시가총액: 전일(' + D.meta.krxBasDt + ') KRX 확정 기준 / EMA 괴리율: Yahoo Finance 일봉 종가 기준(오늘 종가는 KIS 스냅샷가로 대체)';
-renderHoldings();
 renderSectorIndex();
 </script>
 </body>
