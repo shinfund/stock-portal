@@ -345,7 +345,6 @@ html[data-theme="dark"] .rank-sel-on{background:#8C5A12;border-color:#8C5A12;col
       </select>
       <span class="ctrl-count" id="uniLiveStatus"></span>
       <button class="hdr-btn" id="uniLiveBtn" onclick="refreshUniverseLive()">🔄 조회</button>
-      <span class="ctrl-count" id="uniCount"></span>
     </div>
     <div class="tbl-wrap">
       <table>
@@ -525,7 +524,6 @@ function renderUniverse(resetPage){
   const totalPages = Math.max(1, Math.ceil(total/pageSize));
   if(uniPage > totalPages) uniPage = totalPages;
   const pageRows = rows.slice((uniPage-1)*pageSize, (uniPage-1)*pageSize + pageSize);
-  document.getElementById('uniCount').textContent = total + '종목' + (totalPages>1 ? ' · '+uniPage+'/'+totalPages+'페이지' : '');
   document.getElementById('uniTbody').innerHTML = pageRows.map(s=>
     '<tr class="clickable" onclick="jumpToLookup(\''+s.code+'\')">' +
     '<td class="c">'+s.rank+'</td>' +
