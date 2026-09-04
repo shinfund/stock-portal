@@ -143,6 +143,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 .ctrl-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
 .ctrl-sel,.ctrl-input{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r8);padding:8px 11px;font-size:13.5px;font-family:inherit;color:var(--txt);outline:none}
 .ctrl-sel:focus,.ctrl-input:focus{border-color:var(--sky)}
+.mkt-sel.mkt-kospi{border-color:var(--sky);color:var(--sky600);background:var(--sky50);font-weight:500}
+.mkt-sel.mkt-kosdaq{border-color:var(--purple);color:var(--purple);background:var(--purple50);font-weight:500}
 .ctrl-input{flex:1;min-width:160px}
 .ctrl-count{font-size:12.5px;color:var(--txt3);white-space:nowrap}
 .pager{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:12px}
@@ -307,10 +309,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div class="sc">
     <div class="sc-title">관심종목 <span class="sub">코스피 시가총액 TOP50 · 코스닥 시가총액 TOP20</span></div>
     <div class="ctrl-row">
-      <select class="ctrl-sel" id="uniMarketSel" onchange="renderUniverse(true)">
-        <option value="ALL">전체 시장</option>
-        <option value="KOSPI" selected>코스피만</option>
-        <option value="KOSDAQ">코스닥만</option>
+      <select class="ctrl-sel mkt-sel mkt-kospi" id="uniMarketSel" onchange="renderUniverse(true)">
+        <option value="ALL">전체</option>
+        <option value="KOSPI" selected>코스피</option>
+        <option value="KOSDAQ">코스닥</option>
       </select>
       <select class="ctrl-sel" id="uniSectorSel" onchange="renderUniverse(true)">
         <option value="ALL">전체 섹터</option>
@@ -459,8 +461,15 @@ function populateSectorFilter(){
     const opt = document.createElement('option'); opt.value=s; opt.textContent=s; sel.appendChild(opt);
   });
 }
+function updateMarketSelColor(){
+  const sel = document.getElementById('uniMarketSel');
+  sel.classList.remove('mkt-kospi','mkt-kosdaq');
+  if(sel.value==='KOSPI') sel.classList.add('mkt-kospi');
+  else if(sel.value==='KOSDAQ') sel.classList.add('mkt-kosdaq');
+}
 function renderUniverse(resetPage){
   if(resetPage) uniPage = 1;
+  updateMarketSelColor();
   const market = document.getElementById('uniMarketSel').value;
   const sector = document.getElementById('uniSectorSel').value;
   const q = document.getElementById('uniSearchInput').value.trim();
