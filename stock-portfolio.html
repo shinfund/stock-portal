@@ -635,13 +635,13 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-04T00:57:36.012Z",
+  "generatedAt": "2026-09-04T06:38:19.800Z",
   "todayDate": "2026-09-04",
   "openSlots": 2,
   "heldCount": 2,
   "betaReordered": true,
   "finalists": [
-    { "code":"042700","name":"한미반도체","market":"KOSPI","price":224500,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치45%), TP 230,000","strategy":"라운드넘버",
+    { "code":"042700","name":"한미반도체","market":"KOSPI","price":229000,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치90%), TP 230,000","strategy":"라운드넘버",
       "bt": { "n":28,"winRate":71.42857142857143,"avgRet":1.8153212702775348,
         "recent": [
           {"date":"2026-08-24","reason":"TP","ret":2.0689655172413794},
@@ -650,32 +650,32 @@ let ENTRY_SIGNALS = {
         ]
       }
     },
-    { "code":"066570","name":"LG전자","market":"KOSPI","price":202750,"touchCount":17,"aboveCount":11,"L":200000,"step":10000,"target":210000,"reason":"라운드지지 200,000 이탈 후 오늘 재돌파(터치17봉, 진입위치28%), TP 210,000","strategy":"라운드넘버",
-      "bt": { "n":13,"winRate":76.92307692307693,"avgRet":0.15412485281092583,
+    { "code":"034730","name":"SK","market":"KOSPI","price":573000,"bodyPct":7.918968692449356,"candleHigh":587000,"candleLow":539000,"stop":536305,"ema200":464111.18089912663,"candleDate":"2026-09-01","touchDate":"2026-09-02","reason":"2026-09-01 장대양봉(몸통+7.9%) 중간값눌림 후 오늘 캔들고가(571,000) 재돌파, TP 587,000/STOP 536,305","strategy":"장대양봉",
+      "bt": { "n":2,"winRate":50,"avgRet":-1.520128232079041,
         "recent": [
-          {"date":"2026-08-03","reason":"TP","ret":8.459214501510575},
-          {"date":"2026-07-07","reason":"STOP","ret":-9.090909090909092},
-          {"date":"2026-06-29","reason":"STOP","ret":-4.778325123152709}
+          {"date":"2026-01-09","reason":"TP","ret":4.049295774647888},
+          {"date":"2025-11-17","reason":"STOP","ret":-7.08955223880597}
         ]
       }
     }
   ],
   "allCandidates": [
-    { "code":"042700","name":"한미반도체","market":"KOSPI","price":224500,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치45%), TP 230,000","strategy":"라운드넘버" },
-    { "code":"066570","name":"LG전자","market":"KOSPI","price":202750,"touchCount":17,"aboveCount":11,"L":200000,"step":10000,"target":210000,"reason":"라운드지지 200,000 이탈 후 오늘 재돌파(터치17봉, 진입위치28%), TP 210,000","strategy":"라운드넘버" },
-    { "code":"018260","name":"삼성에스디에스","market":"KOSPI","price":236000,"touchCount":18,"aboveCount":11,"L":230000,"step":10000,"target":240000,"reason":"라운드지지 230,000 이탈 후 오늘 재돌파(터치18봉, 진입위치60%), TP 240,000","strategy":"라운드넘버" }
+    { "code":"042700","name":"한미반도체","market":"KOSPI","price":229000,"touchCount":21,"aboveCount":6,"L":220000,"step":10000,"target":230000,"reason":"라운드지지 220,000 이탈 후 오늘 재돌파(터치21봉, 진입위치90%), TP 230,000","strategy":"라운드넘버" },
+    { "code":"034730","name":"SK","market":"KOSPI","price":573000,"bodyPct":7.918968692449356,"candleHigh":587000,"candleLow":539000,"stop":536305,"ema200":464111.18089912663,"candleDate":"2026-09-01","touchDate":"2026-09-02","reason":"2026-09-01 장대양봉(몸통+7.9%) 중간값눌림 후 오늘 캔들고가(571,000) 재돌파, TP 587,000/STOP 536,305","strategy":"장대양봉" },
+    { "code":"018260","name":"삼성에스디에스","market":"KOSPI","price":238000,"touchCount":18,"aboveCount":11,"L":230000,"step":10000,"target":240000,"reason":"라운드지지 230,000 이탈 후 오늘 재돌파(터치18봉, 진입위치80%), TP 240,000","strategy":"라운드넘버" },
+    { "code":"035720","name":"카카오","market":"KOSPI","price":36200,"touchCount":26,"aboveCount":18,"L":36000,"step":1000,"target":37000,"reason":"라운드지지 36,000 이탈 후 오늘 재돌파(터치26봉, 진입위치20%), TP 37,000","strategy":"라운드넘버" }
   ]
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-04T00:56:35.968Z",
+  "generatedAt": "2026-09-04T06:38:36.225Z",
   "todayDate": "2026-09-04",
   "baseline": [
-    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":68800,"ema200":83644.35139173242,"ema5":68373.37979221363,"ret":-13.682784232052795,"formalSignal":null }
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":68600,"ema200":83642.36134198117,"ema5":68306.71312554696,"ret":-13.933706370913107,"formalSignal":null }
   ],
   "urgent": [],
   "all": [
-    { "code":"032830","name":"삼성생명","qty":6,"avgPrice":303000,"strategy":"라운드넘버","market":"KOSPI","close":298500,"ret":-1.4851485148514851,"support":300000,"resistance":310000,"stop":291000,"verdict":"홀딩(지지 300,000~저항 310,000 박스권)","urgent":false },
-    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32350,"ret":1.09375,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
+    { "code":"032830","name":"삼성생명","qty":6,"avgPrice":303000,"strategy":"라운드넘버","market":"KOSPI","close":297500,"ret":-1.8151815181518154,"support":300000,"resistance":310000,"stop":291000,"verdict":"홀딩(지지 300,000~저항 310,000 박스권)","urgent":false },
+    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32250,"ret":0.78125,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
   ],
   "unassigned": []
 };
