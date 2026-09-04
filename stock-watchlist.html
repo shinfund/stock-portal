@@ -252,7 +252,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 <!-- ▸ 탭0: 지수 -->
 <div class="panel on" id="p-idx">
   <div class="sc">
-    <div class="sc-title">지수 시세표 <span class="sub">국내·미국·원자재·환율·변동성</span></div>
+    <div class="sc-title">지수 시세표 <span class="sub">국내·미국·원자재·환율·변동성</span>
+      <button class="hdr-btn" id="idxLiveBtn" onclick="refreshIndexLive()" style="margin-left:auto">🔄 조회</button>
+    </div>
+    <div class="sc-note" id="idxLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">지수명</th><th>현재가</th><th>등락률</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th><th>ATR14</th><th>5일누적</th></tr></thead>
@@ -260,6 +263,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
       </table>
     </div>
     <div class="sc-note" id="idxFootnote"></div>
+    <div class="sc-note">코스피·코스닥은 조회 버튼으로 실시간 반영됩니다. 해외지수·원자재·환율·금리는 실시간 조회 미지원(스냅샷 기준)입니다.</div>
   </div>
   <div class="sc">
     <div class="sc-title">시황 요약</div>
@@ -716,6 +720,39 @@ function renderStockBody(enriched, isHolding){
 // ══════════════════════════════════════════════════════════
 // 탭: 섹터 / 지수
 // ══════════════════════════════════════════════════════════
+// 코스피/코스닥 지수 실시간 조회(2026-09-04). 해외지수·원자재·환율·금리는 KIS 미지원이라 스냅샷 유지.
+const IDX_KIS_CODE = { '코스피':'0001', '코스닥':'1001' };
+let idxLiveQuotes = {};
+let idxLiveInFlight = false;
+async function refreshIndexLive(){
+  if(idxLiveInFlight) return;
+  const token = getAuthToken();
+  const statusEl = document.getElementById('idxLiveStatus');
+  const btn = document.getElementById('idxLiveBtn');
+  if(!token){
+    statusEl.style.display = '';
+    statusEl.textContent = '실시간 조회는 포트폴리오 탭 로그인 후 이용 가능합니다.';
+    return;
+  }
+  idxLiveInFlight = true;
+  btn.disabled = true;
+  statusEl.style.display = '';
+  statusEl.textContent = '실시간 지수 조회 중...';
+  try{
+    const codes = Object.values(IDX_KIS_CODE);
+    const res = await fetch(WORKER_URL+'/kis/index?codes='+codes.join(','), { headers:{ 'Authorization':'Bearer '+token } });
+    const data = res.ok ? await res.json() : {};
+    Object.entries(IDX_KIS_CODE).forEach(([name, code])=>{ if(data[code]) idxLiveQuotes[name] = data[code]; });
+    renderSectorIndex();
+    const t = new Date();
+    statusEl.textContent = '실시간 지수 반영 완료 · ' + t.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }catch(e){
+    statusEl.textContent = '실시간 조회 실패 — 잠시 후 다시 시도해주세요.';
+  }finally{
+    idxLiveInFlight = false;
+    btn.disabled = false;
+  }
+}
 function computeSectorSummary(market){
   const bySector = {};
   uniAll.filter(s=>s.market===market).forEach(s=>{
@@ -753,7 +790,10 @@ function renderSectorIndex(){
 
   document.getElementById('idxTbody').innerHTML = D.indices.rows.map(r=>{
     if(r.error) return '<tr><td class="l">'+esc(r.name)+'</td><td colspan="9" style="color:var(--txt3)">조회실패</td></tr>';
-    return '<tr><td class="l">'+esc(r.name)+'</td><td>'+r.price.toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td class="'+pctClass(r.changePct)+'">'+fmtPct(r.changePct)+'</td>' +
+    const live = idxLiveQuotes[r.name];
+    const price = live ? live.현재가 : r.price;
+    const changePct = live ? live.등락률 : r.changePct;
+    return '<tr><td class="l">'+esc(r.name)+(live?' <span class="sc-note" style="display:inline">●</span>':'')+'</td><td>'+price.toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2})+'</td><td class="'+pctClass(changePct)+'">'+fmtPct(changePct)+'</td>' +
       EMA_PERIODS.map(p=>'<td>'+emaCell(r.dev[p])+(r.cross[p]?' '+r.cross[p]:'')+'</td>').join('') +
       '<td>'+fmtPctPlain(r.atrPct)+'</td><td class="'+pctClass(r.ret5d)+'">'+fmtPct(r.ret5d)+'</td></tr>';
   }).join('');
