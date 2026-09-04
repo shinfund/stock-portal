@@ -185,7 +185,8 @@ html:not([data-viewauthed="1"]) #sbn-deviation,
 html:not([data-viewauthed="1"]) #sbn-pullback,
 html:not([data-viewauthed="1"]) #sbn-valuechain,
 html:not([data-viewauthed="1"]) #sbn-baseline,
-html:not([data-viewauthed="1"]) #sbn-roundnumber{
+html:not([data-viewauthed="1"]) #sbn-roundnumber,
+html:not([data-viewauthed="1"]) #sbn-watchlist{
   opacity:.55;
 }
 html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
@@ -566,6 +567,11 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
     </div>
 
     <div class="sb-sec">종목 분석</div>
+    <div class="sb-item" id="sbn-watchlist" onclick="go('watchlist')">
+      <svg viewBox="0 0 24 24"><polygon points="12 2.5 15.09 8.76 22 9.77 17 14.64 18.18 21.52 12 18.27 5.82 21.52 7 14.64 2 9.77 8.91 8.76"/></svg>
+      <span>관심종목</span>
+      <svg class="sb-lock-icon" viewBox="0 0 24 24" title="로그인 필요"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </div>
     <div class="sb-item" id="sbn-valuechain" onclick="go('valuechain')">
       <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
       <span>주식 밸류체인</span>
@@ -751,6 +757,17 @@ html:not([data-viewauthed="1"]) .sb-lock-icon{display:block;}
       </div>
     </div>
 
+    <!-- ▸ 관심종목 iframe -->
+    <div class="panel" id="panel-watchlist">
+      <div class="iframe-wrap">
+        <div class="iframe-overlay" id="ov-watchlist">
+          <div class="spin-ring"></div>
+          <div class="overlay-txt">관심종목 로딩 중...</div>
+        </div>
+        <iframe id="ifr-watchlist" class="app-iframe" title="관심종목"></iframe>
+      </div>
+    </div>
+
     <!-- ▸ 괴리율 매매전략 iframe -->
     <div class="panel" id="panel-deviation">
       <div class="iframe-wrap">
@@ -900,6 +917,7 @@ const PORTAL_BOOT_TS = Date.now();
 // ── 앱 정의 ──────────────────────────────────────────────
 const APPS = {
   portfolio:   { name:'포트폴리오', file:'stock-portfolio.html' },
+  watchlist:   { name:'관심종목', file:'stock-watchlist.html' },
   pullback:    { name:'눌림목 매매전략', file:'stock-pullback.html' },
   deviation:   { name:'괴리율 매매전략', file:'stock-deviation.html' },
   roundnumber: { name:'라운드넘버 매매전략', file:'stock-roundnumber.html' },
@@ -910,6 +928,7 @@ const APPS = {
 const PAGES = {
   home:        { mName:'홈' },
   portfolio:   { mName:'포트폴리오' },
+  watchlist:   { mName:'관심종목' },
   pullback:    { mName:'눌림목 매매전략' },
   deviation:   { mName:'괴리율 매매전략' },
   roundnumber: { mName:'라운드넘버 매매전략' },
