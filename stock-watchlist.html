@@ -275,7 +275,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 <!-- ▸ 탭1: 섹터 -->
 <div class="panel" id="p-sector">
   <div class="sc">
-    <div class="sc-title">코스피 TOP50 섹터별 요약</div>
+    <div class="sc-title">코스피 TOP50 섹터별 요약
+      <button class="hdr-btn" id="secLiveBtn" onclick="refreshUniverseLive()" style="margin-left:auto">🔄 조회</button>
+    </div>
+    <div class="sc-note" id="secLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
@@ -315,7 +318,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
         <option value="100">100개씩</option>
         <option value="9999">전체</option>
       </select>
-      <button class="hdr-btn" id="uniLiveBtn" onclick="refreshUniverseLive()">🔍 시세조회</button>
+      <button class="hdr-btn" id="uniLiveBtn" onclick="refreshUniverseLive()">🔄 조회</button>
       <span class="ctrl-count" id="uniCount"></span>
     </div>
     <div class="sc-note" id="uniLiveStatus" style="display:none"></div>
@@ -356,7 +359,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
           oninput="onLookupInput()" onkeydown="onLookupKeydown(event)" onfocus="onLookupInput()">
         <div class="suggest-list" id="lookupSuggest"></div>
       </div>
-      <button class="hdr-btn" style="flex-shrink:0;padding:11px 16px" onclick="runLookupSearch()">🔍 조회</button>
+      <button class="hdr-btn" style="flex-shrink:0;padding:11px 16px" onclick="runLookupSearch()">🔍 검색</button>
     </div>
   </div>
   <div id="stockDetailWrap">
@@ -494,20 +497,24 @@ function renderUniverse(resetPage){
   ).join('') || '<tr><td colspan="12" class="l" style="color:var(--txt3)">조건에 맞는 종목이 없습니다.</td></tr>';
   renderPager('uniPager', uniPage, totalPages, p=>{ uniPage=p; renderUniverse(); });
 }
+function uniLiveTargets(){
+  return ['uniLiveStatus','secLiveStatus'].map(id=>document.getElementById(id)).filter(Boolean);
+}
+function uniLiveButtons(){
+  return ['uniLiveBtn','secLiveBtn'].map(id=>document.getElementById(id)).filter(Boolean);
+}
 async function refreshUniverseLive(){
   if(uniLiveInFlight) return;
   const token = getAuthToken();
-  const statusEl = document.getElementById('uniLiveStatus');
-  const btn = document.getElementById('uniLiveBtn');
+  const statusEls = uniLiveTargets();
+  const btns = uniLiveButtons();
   if(!token){
-    statusEl.style.display = '';
-    statusEl.textContent = '실시간 조회는 포트폴리오 탭 로그인 후 이용 가능합니다.';
+    statusEls.forEach(el=>{ el.style.display=''; el.textContent = '실시간 조회는 포트폴리오 탭 로그인 후 이용 가능합니다.'; });
     return;
   }
   uniLiveInFlight = true;
-  btn.disabled = true;
-  statusEl.style.display = '';
-  statusEl.textContent = '실시간 시세 조회 중...';
+  btns.forEach(b=>b.disabled = true);
+  statusEls.forEach(el=>{ el.style.display=''; el.textContent = '실시간 시세 조회 중...'; });
   try{
     const codes = uniAll.map(s=>s.code);
     const chunks = [];
@@ -520,12 +527,14 @@ async function refreshUniverseLive(){
     uniLiveQuotes = Object.assign({}, ...results);
     uniLiveTime = new Date();
     renderUniverse();
-    statusEl.textContent = '실시간 시세 반영 완료 · ' + Object.keys(uniLiveQuotes).length + '종목 · ' + uniLiveTime.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    renderSectorLive();
+    const msg = '실시간 시세 반영 완료 · ' + Object.keys(uniLiveQuotes).length + '종목 · ' + uniLiveTime.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+    statusEls.forEach(el=> el.textContent = msg);
   }catch(e){
-    statusEl.textContent = '실시간 조회 실패 — 잠시 후 다시 시도해주세요.';
+    statusEls.forEach(el=> el.textContent = '실시간 조회 실패 — 잠시 후 다시 시도해주세요.');
   }finally{
     uniLiveInFlight = false;
-    btn.disabled = false;
+    btns.forEach(b=>b.disabled = false);
   }
 }
 document.querySelectorAll('#p0 thead th.sortable').forEach(th=>{
@@ -707,6 +716,33 @@ function renderStockBody(enriched, isHolding){
 // ══════════════════════════════════════════════════════════
 // 탭: 섹터 / 지수
 // ══════════════════════════════════════════════════════════
+function computeSectorSummary(market){
+  const bySector = {};
+  uniAll.filter(s=>s.market===market).forEach(s=>{
+    const live = uniLiveQuotes[s.code];
+    const chg = live ? live.등락률 : s.changePct;
+    if(!bySector[s.sector]) bySector[s.sector] = { name:s.sector, count:0, mktcap:0, chgSum:0 };
+    const b = bySector[s.sector];
+    b.count++; b.mktcap += s.mktcap; b.chgSum += chg;
+  });
+  return Object.values(bySector).map(b=>({...b, avgChg: b.chgSum/b.count})).sort((a,b)=>b.avgChg-a.avgChg);
+}
+function sectorRowHtml(s){
+  return '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+}
+function renderSectorLive(){
+  const kospi = computeSectorSummary('KOSPI');
+  const kosdaq = computeSectorSummary('KOSDAQ');
+  document.getElementById('secKospiTbody').innerHTML = kospi.map(sectorRowHtml).join('');
+  document.getElementById('secKosdaqTbody').innerHTML = kosdaq.map(sectorRowHtml).join('');
+  const combined = [
+    ...kospi.map(s=>({...s, market:'코스피'})),
+    ...kosdaq.map(s=>({...s, market:'코스닥'})),
+  ];
+  document.getElementById('uniSectorTbody').innerHTML = combined.map(s=>
+    '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
+  ).join('');
+}
 function renderSectorIndex(){
   document.getElementById('secKospiTbody').innerHTML = D.sectorSummary.kospi.map(s=>
     '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
