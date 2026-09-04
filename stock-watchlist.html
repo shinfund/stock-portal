@@ -290,7 +290,7 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
     <div class="sc-note" id="secLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">섹터</th><th>평균등락률</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th></tr></thead>
         <tbody id="secKospiTbody"></tbody>
       </table>
     </div>
@@ -299,7 +299,7 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
     <div class="sc-title">코스닥 TOP20 섹터별 요약</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">섹터</th><th>평균등락률</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th></tr></thead>
         <tbody id="secKosdaqTbody"></tbody>
       </table>
     </div>
@@ -319,6 +319,16 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
       </select>
       <select class="ctrl-sel" id="uniSectorSel" onchange="renderUniverse(true)">
         <option value="ALL">전체 섹터</option>
+      </select>
+      <select class="ctrl-sel" id="uniRankSel" onchange="onRankSelChange()">
+        <option value="mktcap">시가총액순</option>
+        <option value="changePct" selected>등락률순</option>
+        <option value="price">현재가순</option>
+        <option value="ema5">5EMA순</option>
+        <option value="ema20">20EMA순</option>
+        <option value="ema50">50EMA순</option>
+        <option value="ema100">100EMA순</option>
+        <option value="ema200">200EMA순</option>
       </select>
       <input class="ctrl-input" id="uniSearchInput" placeholder="종목명 검색..." oninput="renderUniverse(true)">
       <select class="ctrl-sel" id="uniPageSizeSel" onchange="renderUniverse(true)">
@@ -350,7 +360,7 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
     <div class="sc-title">섹터별 요약 <span class="sub">평균등락률 내림차순</span></div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">시장</th><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">시장</th><th class="l">섹터</th><th>평균등락률</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th></tr></thead>
         <tbody id="uniSectorTbody"></tbody>
       </table>
     </div>
@@ -494,8 +504,8 @@ function renderUniverse(resetPage){
   });
   const k = uniSort.key, dir = uniSort.dir==='asc'?1:-1;
   rows.sort((a,b)=>{
-    const av = k==='price'||k==='changePct' ? a[k] : (a.ema ? a.ema[k.replace('ema','')] : null);
-    const bv = k==='price'||k==='changePct' ? b[k] : (b.ema ? b.ema[k.replace('ema','')] : null);
+    const av = (k==='price'||k==='changePct'||k==='mktcap') ? a[k] : (a.ema ? a.ema[k.replace('ema','')] : null);
+    const bv = (k==='price'||k==='changePct'||k==='mktcap') ? b[k] : (b.ema ? b.ema[k.replace('ema','')] : null);
     if(av==null && bv==null) return 0;
     if(av==null) return 1; if(bv==null) return -1;
     return (av-bv)*dir;
@@ -560,12 +570,20 @@ async function refreshUniverseLive(){
     btns.forEach(b=>b.disabled = false);
   }
 }
+function onRankSelChange(){
+  const key = document.getElementById('uniRankSel').value;
+  uniSort = { key, dir:'desc' };
+  document.querySelectorAll('#p0 thead th.sortable').forEach(t=>t.classList.toggle('on', t.dataset.key===key));
+  renderUniverse(true);
+}
 document.querySelectorAll('#p0 thead th.sortable').forEach(th=>{
   th.addEventListener('click', ()=>{
     const key = th.dataset.key;
     if(uniSort.key===key){ uniSort.dir = uniSort.dir==='asc'?'desc':'asc'; }
     else{ uniSort = {key, dir:'desc'}; }
     document.querySelectorAll('#p0 thead th.sortable').forEach(t=>t.classList.toggle('on', t===th));
+    const rankSel = document.getElementById('uniRankSel');
+    if(rankSel) rankSel.value = key;
     renderUniverse(true);
   });
 });
@@ -587,7 +605,7 @@ function renderUniSectorTable(){
   ];
   document.getElementById('uniSectorTbody').innerHTML = rows.map(s=>{
     const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
-    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
   }).join('');
 }
 
@@ -786,7 +804,7 @@ function computeSectorSummary(market){
 }
 function sectorRowHtml(s, namesMap){
   const names = (namesMap && namesMap[s.name]) || [];
-  return '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+  return '<tr><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
 }
 function renderSectorLive(){
   const kospi = computeSectorSummary('KOSPI');
@@ -799,7 +817,7 @@ function renderSectorLive(){
   ];
   document.getElementById('uniSectorTbody').innerHTML = combined.map(s=>{
     const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
-    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
   }).join('');
 }
 function renderSectorIndex(){
