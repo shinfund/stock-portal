@@ -145,6 +145,12 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 .ctrl-sel:focus,.ctrl-input:focus{border-color:var(--sky)}
 .ctrl-input{flex:1;min-width:160px}
 .ctrl-count{font-size:12.5px;color:var(--txt3);white-space:nowrap}
+.pager{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:12px}
+.pager-btn{min-width:30px;height:30px;padding:0 6px;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r8);color:var(--txt2);font-size:13px;font-family:inherit;cursor:pointer;transition:border-color .12s,color .12s}
+.pager-btn:hover:not(:disabled){border-color:var(--sky)}
+.pager-btn.on{background:var(--sky);border-color:var(--sky);color:#fff}
+.pager-btn:disabled{opacity:.4;cursor:default}
+.pager-ellipsis{color:var(--txt3);font-size:13px;padding:0 2px}
 .search-wrap{position:relative;max-width:420px}
 .search-input{width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:var(--r8);padding:11px 14px;font-size:15px;font-family:inherit;color:var(--txt);outline:none}
 .search-input:focus{border-color:var(--sky)}
@@ -249,17 +255,25 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
   <div class="sc">
     <div class="sc-title">관심종목 <span class="sub">코스피 시가총액 TOP50 · 코스닥 시가총액 TOP20</span></div>
     <div class="ctrl-row">
-      <select class="ctrl-sel" id="uniMarketSel" onchange="renderUniverse()">
+      <select class="ctrl-sel" id="uniMarketSel" onchange="renderUniverse(true)">
         <option value="ALL">전체 시장</option>
-        <option value="KOSPI">코스피만</option>
+        <option value="KOSPI" selected>코스피만</option>
         <option value="KOSDAQ">코스닥만</option>
       </select>
-      <select class="ctrl-sel" id="uniSectorSel" onchange="renderUniverse()">
+      <select class="ctrl-sel" id="uniSectorSel" onchange="renderUniverse(true)">
         <option value="ALL">전체 섹터</option>
       </select>
-      <input class="ctrl-input" id="uniSearchInput" placeholder="종목명 검색..." oninput="renderUniverse()">
+      <input class="ctrl-input" id="uniSearchInput" placeholder="종목명 검색..." oninput="renderUniverse(true)">
+      <select class="ctrl-sel" id="uniPageSizeSel" onchange="renderUniverse(true)">
+        <option value="20">20개씩</option>
+        <option value="50">50개씩</option>
+        <option value="100">100개씩</option>
+        <option value="9999">전체</option>
+      </select>
+      <button class="hdr-btn" id="uniLiveBtn" onclick="refreshUniverseLive()">🔍 시세조회</button>
       <span class="ctrl-count" id="uniCount"></span>
     </div>
+    <div class="sc-note" id="uniLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
@@ -272,6 +286,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
         <tbody id="uniTbody"></tbody>
       </table>
     </div>
+    <div class="pager" id="uniPager"></div>
     <div class="sc-note">EMA 컬럼은 종가 기준 EMA 대비 현재가 괴리율(%)입니다. 종목명을 클릭하면 "종목조회" 탭에서 상세 시세표를 볼 수 있습니다. 헤더를 클릭하면 해당 컬럼 기준으로 정렬됩니다.</div>
   </div>
   <div class="sc">
@@ -290,10 +305,13 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 <div class="panel" id="p1">
   <div class="sc">
     <div class="sc-title">종목조회 <span class="sub">전종목(코스피·코스닥) 이름/코드 검색</span></div>
-    <div class="search-wrap">
-      <input class="search-input" id="lookupInput" placeholder="종목명 또는 종목코드 입력 (예: 삼성전자, 005930)" autocomplete="off"
-        oninput="onLookupInput()" onkeydown="onLookupKeydown(event)" onfocus="onLookupInput()">
-      <div class="suggest-list" id="lookupSuggest"></div>
+    <div class="search-wrap" style="display:flex;gap:8px;align-items:flex-start;max-width:none">
+      <div style="position:relative;flex:1;max-width:420px">
+        <input class="search-input" id="lookupInput" placeholder="종목명 또는 종목코드 입력 (예: 삼성전자, 005930)" autocomplete="off"
+          oninput="onLookupInput()" onkeydown="onLookupKeydown(event)" onfocus="onLookupInput()">
+        <div class="suggest-list" id="lookupSuggest"></div>
+      </div>
+      <button class="hdr-btn" style="flex-shrink:0;padding:11px 16px" onclick="runLookupSearch()">🔍 조회</button>
     </div>
   </div>
   <div id="stockDetailWrap">
@@ -440,6 +458,30 @@ const uniAll = [
   ...D.universe.kosdaq.map(s=>({...s})),
 ];
 let uniSort = { key:'changePct', dir:'desc' };
+let uniLiveQuotes = {};
+let uniLiveTime = null;
+let uniLiveInFlight = false;
+let uniPage = 1;
+
+// ── 공용 페이지네이션 ────────────────────────────────────────
+function renderPager(elId, page, totalPages, onGoto){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(totalPages<=1){ el.innerHTML=''; return; }
+  const mk = (label, p, opts={}) => '<button class="pager-btn'+(opts.on?' on':'')+'"'+(opts.disabled?' disabled':'')+' data-p="'+p+'">'+label+'</button>';
+  const parts = [ mk('‹', Math.max(1,page-1), {disabled:page===1}) ];
+  const pages = [];
+  for(let p=1;p<=totalPages;p++){
+    if(p===1 || p===totalPages || Math.abs(p-page)<=2) pages.push(p);
+    else if(pages[pages.length-1]!=='...') pages.push('...');
+  }
+  pages.forEach(p=> parts.push(p==='...' ? '<span class="pager-ellipsis">…</span>' : mk(p, p, {on:p===page})));
+  parts.push(mk('›', Math.min(totalPages,page+1), {disabled:page===totalPages}));
+  el.innerHTML = parts.join('');
+  el.querySelectorAll('.pager-btn[data-p]').forEach(b=>{
+    b.addEventListener('click', ()=> onGoto(parseInt(b.dataset.p,10)));
+  });
+}
 
 function populateSectorFilter(){
   const sel = document.getElementById('uniSectorSel');
@@ -448,7 +490,8 @@ function populateSectorFilter(){
     const opt = document.createElement('option'); opt.value=s; opt.textContent=s; sel.appendChild(opt);
   });
 }
-function renderUniverse(){
+function renderUniverse(resetPage){
+  if(resetPage) uniPage = 1;
   const market = document.getElementById('uniMarketSel').value;
   const sector = document.getElementById('uniSectorSel').value;
   const q = document.getElementById('uniSearchInput').value.trim();
@@ -457,6 +500,10 @@ function renderUniverse(){
     (sector==='ALL' || s.sector===sector) &&
     (!q || s.name.includes(q))
   );
+  rows = rows.map(s=>{
+    const live = uniLiveQuotes[s.code];
+    return live ? {...s, price:live.현재가, changePct:live.등락률, _live:true} : s;
+  });
   const k = uniSort.key, dir = uniSort.dir==='asc'?1:-1;
   rows.sort((a,b)=>{
     const av = k==='price'||k==='changePct' ? a[k] : (a.ema ? a.ema[k.replace('ema','')] : null);
@@ -465,11 +512,16 @@ function renderUniverse(){
     if(av==null) return 1; if(bv==null) return -1;
     return (av-bv)*dir;
   });
-  document.getElementById('uniCount').textContent = rows.length + '종목';
-  document.getElementById('uniTbody').innerHTML = rows.map(s=>
+  const total = rows.length;
+  const pageSize = parseInt(document.getElementById('uniPageSizeSel').value,10) || 20;
+  const totalPages = Math.max(1, Math.ceil(total/pageSize));
+  if(uniPage > totalPages) uniPage = totalPages;
+  const pageRows = rows.slice((uniPage-1)*pageSize, (uniPage-1)*pageSize + pageSize);
+  document.getElementById('uniCount').textContent = total + '종목' + (totalPages>1 ? ' · '+uniPage+'/'+totalPages+'페이지' : '');
+  document.getElementById('uniTbody').innerHTML = pageRows.map(s=>
     '<tr class="clickable" onclick="jumpToLookup(\''+s.code+'\')">' +
     '<td class="c">'+s.rank+'</td>' +
-    '<td class="l">'+esc(s.name)+'</td>' +
+    '<td class="l">'+esc(s.name)+(s._live?' <span class="sc-note" style="display:inline">●</span>':'')+'</td>' +
     '<td class="c">'+(s.market==='KOSPI'?'코스피':'코스닥')+'</td>' +
     '<td class="l">'+esc(s.sector)+'</td>' +
     '<td>'+fmtWon(s.price)+'</td>' +
@@ -478,6 +530,41 @@ function renderUniverse(){
     '<td class="c">'+structureBadge(s.structure)+'</td>' +
     '</tr>'
   ).join('') || '<tr><td colspan="12" class="l" style="color:var(--txt3)">조건에 맞는 종목이 없습니다.</td></tr>';
+  renderPager('uniPager', uniPage, totalPages, p=>{ uniPage=p; renderUniverse(); });
+}
+async function refreshUniverseLive(){
+  if(uniLiveInFlight) return;
+  const token = getAuthToken();
+  const statusEl = document.getElementById('uniLiveStatus');
+  const btn = document.getElementById('uniLiveBtn');
+  if(!token){
+    statusEl.style.display = '';
+    statusEl.textContent = '실시간 조회는 포트폴리오 탭 로그인 후 이용 가능합니다.';
+    return;
+  }
+  uniLiveInFlight = true;
+  btn.disabled = true;
+  statusEl.style.display = '';
+  statusEl.textContent = '실시간 시세 조회 중...';
+  try{
+    const codes = uniAll.map(s=>s.code);
+    const chunks = [];
+    for(let i=0;i<codes.length;i+=30) chunks.push(codes.slice(i,i+30));
+    const results = await Promise.all(chunks.map(c=>
+      fetch(WORKER_URL+'/kis/quote?codes='+c.join(','), { headers:{ 'Authorization':'Bearer '+token } })
+        .then(r=> r.ok ? r.json() : {})
+        .catch(()=>({}))
+    ));
+    uniLiveQuotes = Object.assign({}, ...results);
+    uniLiveTime = new Date();
+    renderUniverse();
+    statusEl.textContent = '실시간 시세 반영 완료 · ' + Object.keys(uniLiveQuotes).length + '종목 · ' + uniLiveTime.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  }catch(e){
+    statusEl.textContent = '실시간 조회 실패 — 잠시 후 다시 시도해주세요.';
+  }finally{
+    uniLiveInFlight = false;
+    btn.disabled = false;
+  }
 }
 document.querySelectorAll('#p0 thead th.sortable').forEach(th=>{
   th.addEventListener('click', ()=>{
@@ -485,7 +572,7 @@ document.querySelectorAll('#p0 thead th.sortable').forEach(th=>{
     if(uniSort.key===key){ uniSort.dir = uniSort.dir==='asc'?'desc':'asc'; }
     else{ uniSort = {key, dir:'desc'}; }
     document.querySelectorAll('#p0 thead th.sortable').forEach(t=>t.classList.toggle('on', t===th));
-    renderUniverse();
+    renderUniverse(true);
   });
 });
 function renderUniKpi(){
@@ -514,6 +601,7 @@ function renderUniSectorTable(){
 // ══════════════════════════════════════════════════════════
 const WORKER_URL = 'https://notion-proxy.shinfund.workers.dev';
 let lookupHi = -1;
+let lastAutoCode = null;
 function getAuthToken(){
   try{
     const token = localStorage.getItem('sp_notionAuthToken')||'';
@@ -526,7 +614,14 @@ function onLookupInput(){
   const q = document.getElementById('lookupInput').value.trim();
   const box = document.getElementById('lookupSuggest');
   lookupHi = -1;
-  if(!q){ box.classList.remove('open'); box.innerHTML=''; return; }
+  if(!q){ box.classList.remove('open'); box.innerHTML=''; lastAutoCode = null; return; }
+  // 종목명/코드가 정확히 일치하면 별도 조작 없이 즉시 조회(중복 재조회는 방지)
+  const exact = D.lookup.find(s=>s.code===q || s.name===q);
+  if(exact){
+    if(exact.code !== lastAutoCode){ lastAutoCode = exact.code; selectStock(exact.code); }
+  } else {
+    lastAutoCode = null;
+  }
   const matches = D.lookup.filter(s=>s.name.includes(q) || s.code.startsWith(q)).slice(0,15);
   if(!matches.length){ box.innerHTML = '<div class="suggest-empty">검색 결과 없음</div>'; box.classList.add('open'); return; }
   box.innerHTML = matches.map((s,i)=>
@@ -542,13 +637,29 @@ function onLookupKeydown(e){
   if(!items.length) return;
   if(e.key==='ArrowDown'){ e.preventDefault(); lookupHi = Math.min(lookupHi+1, items.length-1); }
   else if(e.key==='ArrowUp'){ e.preventDefault(); lookupHi = Math.max(lookupHi-1, 0); }
-  else if(e.key==='Enter'){ e.preventDefault(); if(lookupHi>=0) selectStock(items[lookupHi].dataset.code); return; }
+  else if(e.key==='Enter'){ e.preventDefault(); const idx = lookupHi>=0 ? lookupHi : 0; selectStock(items[idx].dataset.code); return; }
   else return;
   items.forEach((it,i)=>it.classList.toggle('hi', i===lookupHi));
 }
 document.addEventListener('click', e=>{
   if(!e.target.closest('.search-wrap')) document.getElementById('lookupSuggest').classList.remove('open');
 });
+function pickBestMatch(q){
+  if(!q) return null;
+  const exact = D.lookup.find(s=>s.code===q || s.name===q);
+  if(exact) return exact;
+  return D.lookup.find(s=>s.name.includes(q) || s.code.startsWith(q)) || null;
+}
+function runLookupSearch(){
+  const q = document.getElementById('lookupInput').value.trim();
+  document.getElementById('lookupSuggest').classList.remove('open');
+  if(!q) return;
+  const best = pickBestMatch(q);
+  if(best){ selectStock(best.code); }
+  else {
+    document.getElementById('stockDetailWrap').innerHTML = '<div class="detail-card"><div class="detail-empty">"'+esc(q)+'"에 해당하는 종목을 찾을 수 없습니다.</div></div>';
+  }
+}
 function jumpToLookup(code){
   switchTab(1);
   const info = D.lookup.find(s=>s.code===code);
