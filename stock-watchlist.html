@@ -96,6 +96,7 @@ thead th.sortable:hover{background:var(--sky100)}
 thead th.sortable.on::after{content:' ▾';font-size:11px}
 tbody td{padding:9px 8px;border-bottom:1px solid var(--border2);text-align:right;white-space:nowrap;color:var(--txt)}
 tbody td.wrap{white-space:normal}
+.sec-names{color:var(--txt3);font-size:12.5px}
 th.shrink{width:1%}
 .tbl-fixed{table-layout:fixed}
 .tbl-fixed td{white-space:normal;word-break:break-word}
@@ -145,6 +146,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 .ctrl-sel:focus,.ctrl-input:focus{border-color:var(--sky)}
 .mkt-sel.mkt-kospi{border-color:var(--sky);color:var(--sky600);background:var(--sky50);font-weight:500}
 .mkt-sel.mkt-kosdaq{border-color:var(--purple);color:var(--purple);background:var(--purple50);font-weight:500}
+html[data-theme="dark"] .mkt-sel.mkt-kospi{background:#0C447C;border-color:#0C447C;color:#fff}
+html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534AB7;color:#fff}
 .ctrl-input{flex:1;min-width:160px}
 .ctrl-count{font-size:12.5px;color:var(--txt3);white-space:nowrap}
 .pager{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:12px}
@@ -287,7 +290,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <div class="sc-note" id="secLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
         <tbody id="secKospiTbody"></tbody>
       </table>
     </div>
@@ -296,7 +299,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <div class="sc-title">코스닥 TOP20 섹터별 요약</div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
         <tbody id="secKosdaqTbody"></tbody>
       </table>
     </div>
@@ -347,7 +350,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
     <div class="sc-title">섹터별 요약 <span class="sub">평균등락률 내림차순</span></div>
     <div class="tbl-wrap">
       <table>
-        <thead><tr><th class="l">시장</th><th class="l">섹터</th><th class="c">종목수</th><th>시가총액</th><th>평균등락률</th></tr></thead>
+        <thead><tr><th class="l">시장</th><th class="l">섹터</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th><th>평균등락률</th></tr></thead>
         <tbody id="uniSectorTbody"></tbody>
       </table>
     </div>
@@ -428,6 +431,13 @@ const uniAll = [
   ...D.universe.kospi.map(s=>({...s})),
   ...D.universe.kosdaq.map(s=>({...s})),
 ];
+function namesBySector(market){
+  const m = {};
+  uniAll.filter(s=>s.market===market).forEach(s=>{ (m[s.sector]=m[s.sector]||[]).push(s.name); });
+  return m;
+}
+const secNamesKospi = namesBySector('KOSPI');
+const secNamesKosdaq = namesBySector('KOSDAQ');
 let uniSort = { key:'changePct', dir:'desc' };
 let uniLiveQuotes = {};
 let uniLiveTime = null;
@@ -575,9 +585,10 @@ function renderUniSectorTable(){
     ...D.sectorSummary.kospi.map(s=>({...s, market:'코스피'})),
     ...D.sectorSummary.kosdaq.map(s=>({...s, market:'코스닥'})),
   ];
-  document.getElementById('uniSectorTbody').innerHTML = rows.map(s=>
-    '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
-  ).join('');
+  document.getElementById('uniSectorTbody').innerHTML = rows.map(s=>{
+    const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+  }).join('');
 }
 
 // ══════════════════════════════════════════════════════════
@@ -773,29 +784,27 @@ function computeSectorSummary(market){
   });
   return Object.values(bySector).map(b=>({...b, avgChg: b.chgSum/b.count})).sort((a,b)=>b.avgChg-a.avgChg);
 }
-function sectorRowHtml(s){
-  return '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+function sectorRowHtml(s, namesMap){
+  const names = (namesMap && namesMap[s.name]) || [];
+  return '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
 }
 function renderSectorLive(){
   const kospi = computeSectorSummary('KOSPI');
   const kosdaq = computeSectorSummary('KOSDAQ');
-  document.getElementById('secKospiTbody').innerHTML = kospi.map(sectorRowHtml).join('');
-  document.getElementById('secKosdaqTbody').innerHTML = kosdaq.map(sectorRowHtml).join('');
+  document.getElementById('secKospiTbody').innerHTML = kospi.map(s=>sectorRowHtml(s, secNamesKospi)).join('');
+  document.getElementById('secKosdaqTbody').innerHTML = kosdaq.map(s=>sectorRowHtml(s, secNamesKosdaq)).join('');
   const combined = [
     ...kospi.map(s=>({...s, market:'코스피'})),
     ...kosdaq.map(s=>({...s, market:'코스닥'})),
   ];
-  document.getElementById('uniSectorTbody').innerHTML = combined.map(s=>
-    '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
-  ).join('');
+  document.getElementById('uniSectorTbody').innerHTML = combined.map(s=>{
+    const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>';
+  }).join('');
 }
 function renderSectorIndex(){
-  document.getElementById('secKospiTbody').innerHTML = D.sectorSummary.kospi.map(s=>
-    '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
-  ).join('');
-  document.getElementById('secKosdaqTbody').innerHTML = D.sectorSummary.kosdaq.map(s=>
-    '<tr><td class="l">'+esc(s.name)+'</td><td class="c">'+s.count+'</td><td>'+mktcapStr(s.mktcap)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td></tr>'
-  ).join('');
+  document.getElementById('secKospiTbody').innerHTML = D.sectorSummary.kospi.map(s=>sectorRowHtml(s, secNamesKospi)).join('');
+  document.getElementById('secKosdaqTbody').innerHTML = D.sectorSummary.kosdaq.map(s=>sectorRowHtml(s, secNamesKosdaq)).join('');
 
   document.getElementById('idxTbody').innerHTML = D.indices.rows.map(r=>{
     if(r.error) return '<tr><td class="l">'+esc(r.name)+'</td><td colspan="9" style="color:var(--txt3)">조회실패</td></tr>';
