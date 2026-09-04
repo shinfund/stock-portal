@@ -231,7 +231,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 09.03 16:05</div>
+      <div class="hdr-date">Update 09.04 16:45</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
@@ -254,7 +254,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
   </div>
   <div class="sc">
     <div class="sc-title">라운드넘버 최근 45일 신호 상세 &middot; 코스피 TOP50 <span class="sub">라운드레벨 하향이탈 &rarr; 트랙레코드&middot;밀집도 검증 &rarr; 5거래일 이내 재돌파 시 매수</span></div>
-    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "베타"는 최근 데이터 기준 KOSPI 일간수익률과의 공분산/분산비로, 3전략 통합 5슬롯 포트폴리오에서 후보가 빈슬롯보다 많을 때 슬롯을 우선 배정하는 타이브레이커와 동일한 계산식입니다(참고용 표시, 이 탭 자체엔 슬롯제약이 없음) &mdash; 값이 높을수록 KOSPI와 동조성이 강함을 뜻합니다. 표는 진입일 내림차순, 같은 날짜 내에서는 베타 높은 순으로 정렬되어 있습니다(기존 "우선순위" 컬럼은 폐지). <b>이 표와 아래 차트는 2026-09-03 장마감 기준입니다.</b> ⑥ 진입가 위치 필터(레벨가 근접 진입 제외)&middot;⑦ 폭 필터(레벨가~TP가 폭 2.5% 미만 제외)가 모두 적용된 상태입니다.</div>
+    <div class="sc-note">라운드레벨은 최근150거래일 고가~저가 범위&divide;30눈금을 niceStep(1/2/2.5/5/10 계열)으로 반올림한 값입니다. "지지일수"는 이탈 직전 최근20거래일 중 레벨 위에 머문 일수, "밀집도"는 최근150거래일간 캔들(저가~고가)이 그 레벨을 통과한 횟수입니다. 청산은 TP(다음 라운드레벨 도달)/STOP(레벨&times;98% 이탈)/TIME(60거래일) 중 먼저 오는 조건이며, 체결가는 트리거를 넘긴/이탈한 날의 종가 기준입니다(정확한 목표가 아님, 갭 반영). "베타"는 최근 데이터 기준 KOSPI 일간수익률과의 공분산/분산비로, 3전략 통합 5슬롯 포트폴리오에서 후보가 빈슬롯보다 많을 때 슬롯을 우선 배정하는 타이브레이커와 동일한 계산식입니다(참고용 표시, 이 탭 자체엔 슬롯제약이 없음) &mdash; 값이 높을수록 KOSPI와 동조성이 강함을 뜻합니다. 표는 진입일 내림차순, 같은 날짜 내에서는 베타 높은 순으로 정렬되어 있습니다(기존 "우선순위" 컬럼은 폐지). <b>이 표와 아래 차트는 2026-09-04 장마감 기준입니다.</b> ⑥ 진입가 위치 필터(레벨가 근접 진입 제외)&middot;⑦ 폭 필터(레벨가~TP가 폭 2.5% 미만 제외)가 모두 적용된 상태입니다.</div>
     <div class="tbl-wrap">
       <table class="tbl-fixed">
         <thead><tr><th class="l" style="width:8%">진입일</th><th class="l" style="width:10%">종목</th><th style="width:7%">현재가</th><th style="width:7%">진입가</th><th style="width:8%">레벨(L)</th><th style="width:8%">TP가</th><th style="width:8%">STOP가</th><th class="c" style="width:8%">지지일수</th><th class="c" style="width:6%">밀집도</th><th class="c" style="width:6%">베타</th><th class="l" style="width:9%">상태</th><th style="width:8%">수익률</th></tr></thead>
