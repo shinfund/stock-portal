@@ -750,7 +750,7 @@ function renderStockBody(enriched, isHolding){
     return;
   }
   let html = '<div class="tbl-wrap" style="margin-top:10px"><table><thead><tr><th class="l">구분</th>' + EMA_PERIODS.map(p=>'<th>'+p+'EMA</th>').join('') + '<th class="c">추세구조</th></tr></thead><tbody>';
-  html += '<tr><td class="l">EMA 괴리율</td>' + EMA_PERIODS.map(p=>'<td>'+emaCell(enriched.ema[p])+'</td>').join('') + '<td class="c">'+structureBadge(enriched.structure)+'</td></tr>';
+  html += '<tr><td class="l">EMA 괴리율</td>' + EMA_PERIODS.map(p=>'<td>'+crossMark(enriched.cross?enriched.cross[p]:null)+emaCell(enriched.ema[p])+'</td>').join('') + '<td class="c">'+structureBadge(enriched.structure)+'</td></tr>';
   html += '</tbody></table></div>';
   if(isHolding){
     html += '<div class="tbl-wrap"><table><thead><tr><th class="l">평가손익</th><th>수익률</th><th>매입금액</th><th>매입가</th><th>보유수량</th></tr></thead><tbody>' +
