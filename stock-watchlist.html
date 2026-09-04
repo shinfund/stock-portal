@@ -148,6 +148,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}
 .mkt-sel.mkt-kosdaq{border-color:var(--purple);color:var(--purple);background:var(--purple50);font-weight:500}
 html[data-theme="dark"] .mkt-sel.mkt-kospi{background:#0C447C;border-color:#0C447C;color:#fff}
 html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534AB7;color:#fff}
+.sec-sel-on{border-color:var(--teal);color:var(--teal600);background:var(--teal50);font-weight:500}
+.rank-sel-on{border-color:var(--amber);color:var(--amber);background:var(--amber50);font-weight:500}
+html[data-theme="dark"] .sec-sel-on{background:#0F6E56;border-color:#0F6E56;color:#fff}
+html[data-theme="dark"] .rank-sel-on{background:#8C5A12;border-color:#8C5A12;color:#fff}
 .ctrl-input{flex:1;min-width:160px}
 .ctrl-count{font-size:12.5px;color:var(--txt3);white-space:nowrap}
 .pager{display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;margin-top:12px}
@@ -258,9 +262,9 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
 <div class="panel on" id="p-idx">
   <div class="sc">
     <div class="sc-title">지수 시세표 <span class="sub">국내·미국·원자재·환율·변동성</span>
-      <button class="hdr-btn" id="idxLiveBtn" onclick="refreshIndexLive()" style="margin-left:auto">🔄 조회</button>
+      <span class="sub" id="idxLiveStatus" style="margin-left:auto"></span>
+      <button class="hdr-btn" id="idxLiveBtn" onclick="refreshIndexLive()">🔄 조회</button>
     </div>
-    <div class="sc-note" id="idxLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">지수명</th><th>현재가</th><th>등락률</th><th>5EMA</th><th>20EMA</th><th>50EMA</th><th>100EMA</th><th>200EMA</th><th>ATR14</th><th>5일누적</th></tr></thead>
@@ -285,9 +289,9 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
 <div class="panel" id="p-sector">
   <div class="sc">
     <div class="sc-title">코스피 TOP50 섹터별 요약
-      <button class="hdr-btn" id="secLiveBtn" onclick="refreshUniverseLive()" style="margin-left:auto">🔄 조회</button>
+      <span class="sub" id="secLiveStatus" style="margin-left:auto"></span>
+      <button class="hdr-btn" id="secLiveBtn" onclick="refreshUniverseLive()">🔄 조회</button>
     </div>
-    <div class="sc-note" id="secLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">섹터</th><th>평균등락률</th><th class="c">종목수</th><th class="l">종목명</th><th>시가총액</th></tr></thead>
@@ -337,10 +341,10 @@ html[data-theme="dark"] .mkt-sel.mkt-kosdaq{background:#534AB7;border-color:#534
         <option value="100">100개씩</option>
         <option value="9999">전체</option>
       </select>
+      <span class="ctrl-count" id="uniLiveStatus"></span>
       <button class="hdr-btn" id="uniLiveBtn" onclick="refreshUniverseLive()">🔄 조회</button>
       <span class="ctrl-count" id="uniCount"></span>
     </div>
-    <div class="sc-note" id="uniLiveStatus" style="display:none"></div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
@@ -486,6 +490,9 @@ function updateMarketSelColor(){
   sel.classList.remove('mkt-kospi','mkt-kosdaq');
   if(sel.value==='KOSPI') sel.classList.add('mkt-kospi');
   else if(sel.value==='KOSDAQ') sel.classList.add('mkt-kosdaq');
+  const secSel = document.getElementById('uniSectorSel');
+  secSel.classList.toggle('sec-sel-on', secSel.value!=='ALL');
+  document.getElementById('uniRankSel').classList.add('rank-sel-on');
 }
 function renderUniverse(resetPage){
   if(resetPage) uniPage = 1;
