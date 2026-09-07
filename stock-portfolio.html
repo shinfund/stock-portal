@@ -844,7 +844,7 @@ function renderEntrySignals(){
   const bannerEl = document.getElementById('sig-slot-banner');
   const soldToday = d.soldTodayRows || [];
   bannerEl.innerHTML = soldToday.length
-    ? `<div class="sig-note">당일 재진입 제외: 오늘 매도한 ${soldToday.map(r=>esc(r.name)).join('·')} 은(는) 신규진입 후보에서 제외됨</div>`
+    ? `<div class="sig-note">당일 재진입 제외: 오늘 매도한 ${soldToday.map(r=>esc(r.name)).join('·')}는 신규진입 후보에서 제외됨</div>`
     : '';
 
   const finalistsEl = document.getElementById('sig-finalists');
