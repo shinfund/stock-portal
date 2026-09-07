@@ -635,17 +635,14 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-07T06:45:54.574Z",
+  "generatedAt": "2026-09-07T07:44:08.949Z",
   "todayDate": "2026-09-07",
-  "openSlots": 1,
-  "heldCount": 3,
+  "openSlots": 2,
+  "heldCount": 2,
+  "soldTodayRows": [{"code":"032830","name":"삼성생명"},{"code":"066570","name":"LG전자"},{"code":"000660","name":"SK하이닉스"}],
   "betaReordered": false,
-  "finalists": [
-    { "code":"066570","name":"LG전자","market":"KOSPI","price":214000,"bodyPct":10.010162601626016,"candleHigh":217000,"candleLow":193400,"stop":192433,"ema200":159702.06277701468,"candleDate":"2026-08-31","touchDate":"2026-09-01","reason":"2026-08-31 장대양봉(몸통+10.0%) 중간값눌림 후 오늘 캔들고가(212,500) 재돌파, TP 217,000/STOP 192,433","strategy":"장대양봉","bt":{"n":5,"winRate":80,"avgRet":5.134929099125275,"recent":[{"date":"2026-08-24","reason":"TP","ret":8.358358358358359},{"date":"2026-02-19","reason":"TP","ret":9.49628406275805},{"date":"2025-12-19","reason":"STOP","ret":-6.680805938494168}]} }
-  ],
-  "allCandidates": [
-    { "code":"066570","name":"LG전자","market":"KOSPI","price":214000,"bodyPct":10.010162601626016,"candleHigh":217000,"candleLow":193400,"stop":192433,"ema200":159702.06277701468,"candleDate":"2026-08-31","touchDate":"2026-09-01","reason":"2026-08-31 장대양봉(몸통+10.0%) 중간값눌림 후 오늘 캔들고가(212,500) 재돌파, TP 217,000/STOP 192,433","strategy":"장대양봉" }
-  ]
+  "finalists": [],
+  "allCandidates": []
 };
 let EXIT_SIGNALS = {
   "generatedAt": "2026-09-07T06:47:01.834Z",
@@ -845,7 +842,10 @@ function renderEntrySignals(){
   document.getElementById('sig-entry-date').textContent = d.todayDate ? ('('+d.todayDate+' 기준)') : '';
 
   const bannerEl = document.getElementById('sig-slot-banner');
-  bannerEl.innerHTML = '';
+  const soldToday = d.soldTodayRows || [];
+  bannerEl.innerHTML = soldToday.length
+    ? `<div class="sig-note">당일 재진입 제외: 오늘 매도한 ${soldToday.map(r=>esc(r.name)).join('·')} 은(는) 신규진입 후보에서 제외됨</div>`
+    : '';
 
   const finalistsEl = document.getElementById('sig-finalists');
   if(!d.finalists || !d.finalists.length){
