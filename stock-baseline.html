@@ -230,7 +230,7 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
       </div>
     </div>
     <div class="header-right">
-      <div class="hdr-date">Update 09.07 15:45</div>
+      <div class="hdr-date">Update 09.08 15:58</div>
       <button class="hdr-btn" id="hdrSettingsBtn" onclick="openSettingsModal()">⚙ 설정</button>
     </div>
   </div>
@@ -250,10 +250,10 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 </div>
 <div class="panel on" id="p0-ks">
   <div class="kpi-row">
-    <div class="kpi-card kpi-sky"><div class="num">27</div><div class="lbl">최근365일 신호수</div></div>
+    <div class="kpi-card kpi-sky"><div class="num">28</div><div class="lbl">최근365일 신호수</div></div>
     <div class="kpi-card kpi-teal"><div class="num">11</div><div class="lbl">현재 보유중</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">16</div><div class="lbl">청산완료</div></div>
-    <div class="kpi-card kpi-purple"><div class="num">81%</div><div class="lbl">청산 승률</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">17</div><div class="lbl">청산완료</div></div>
+    <div class="kpi-card kpi-purple"><div class="num">82%</div><div class="lbl">청산 승률</div></div>
   </div>
   <div class="sc">
     <div class="sc-title">기준선(EMA200) 최근 365일 신호 상세 &middot; 코스피 TOP50 <span class="sub">2025-09-07 ~ 2026-09-07 &middot; Z&le;-1.25 AND 최저점갱신 후 첫 EMA5 상향돌파, 최대 2회 분할매수</span></div>
@@ -546,8 +546,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
 <div class="panel" id="p1-ks">
   <div class="kpi-row">
     <div class="kpi-card kpi-sky"><div class="num">50</div><div class="lbl">분석 유니버스(코스피TOP50)</div></div>
-    <div class="kpi-card kpi-teal"><div class="num">1</div><div class="lbl">관찰대상(스트릭&ge;16일)</div></div>
-    <div class="kpi-card kpi-amber"><div class="num">1</div><div class="lbl">Z조건충족(&le;-1.25)</div></div>
+    <div class="kpi-card kpi-teal"><div class="num">2</div><div class="lbl">관찰대상(스트릭&ge;16일)</div></div>
+    <div class="kpi-card kpi-amber"><div class="num">2</div><div class="lbl">Z조건충족(&le;-1.25)</div></div>
 
   </div>
   <div class="sc">
@@ -555,7 +555,8 @@ html[data-theme="dark"] .tab-btn.on{color:#fff}@media(max-width:374px){.logo-sub
     <div class="tbl-wrap">
       <table>
         <thead><tr><th class="l">종목명</th><th>현재가</th><th>기준선(EMA200)</th><th>EMA200괴리</th><th>롤링Z</th><th class="c">이탈일수</th><th class="c">돌파확률(60D)</th><th class="c">상태</th></tr></thead>
-        <tbody>          <tr><td class="l">기아</td><td>128,400</td><td>140,103</td><td class="t-neg">-8.35%</td><td>-1.51</td><td class="c">31일</td><td class="c"><span title="괴리율구간 -5%~-10%, 표본 n=136">83%</span></td><td class="c"><span class="badge bdg-amber">Z충족&middot;돌파대기</span></td></tr></tbody>
+        <tbody>          <tr><td class="l">기아</td><td>125,400</td><td>139,960</td><td class="t-neg">-10.40%</td><td>-1.63</td><td class="c">32일</td><td class="c"><span title="괴리율구간 -10%~-15%, 표본 참고용">78%</span></td><td class="c"><span class="badge bdg-amber">Z충족&middot;돌파대기</span></td></tr>
+          <tr><td class="l">현대차</td><td>385,000</td><td>441,762</td><td class="t-neg">-12.85%</td><td>-1.41</td><td class="c">16일</td><td class="c"><span title="괴리율구간 -10%~-15%, 표본 참고용">59%</span></td><td class="c"><span class="badge bdg-amber">Z충족&middot;돌파대기</span></td></tr></tbody>
       </table>
     </div>
     <div class="sc-note">"Z충족&middot;돌파대기"는 롤링Z가 이미 -1.25 이하로 내려간 상태로, 종가가 최근 최저점을 갱신한 뒤 EMA5를 상향돌파하는 순간 매수신호가 발생합니다(최저점을 갱신하지 않은 채 EMA5만 넘는 경우는 신호로 인정되지 않습니다). "관찰"은 스트릭(16거래일 이상 기준선 이탈)만 충족한 상태로, Z조건까지 충족하려면 추가 하락 또는 시간 경과가 더 필요합니다. "돌파확률(60D)"은 해당 종목 자신의 과거 이력 중 지금과 같은 EMA200 괴리율 구간에서 하회 상태였던 날들이 이후 60거래일 안에 실제로 재상향돌파한 비율입니다(2026-08-20 추가, 표본 부족 시 &mdash; 표시). 여러 종목이 동시에 조건을 충족했을 때 참고용 우선순위로만 활용할 것 — 백테스트 결과 슬롯제약 포트폴리오 시뮬레이션에서 개선폭이 크지 않고 경쟁일 표본이 작아 확정된 선별기준은 아닙니다.</div>

@@ -412,7 +412,7 @@ function isAuthed(){ return !!AUTH.token && Date.now() < AUTH.expires; }
 // 보유종목 섹터·EMA추세구조 보강 데이터(정적 스냅샷, scripts/project_holdings_analytics_data.mjs로 갱신)
 // 가격·평가손익 등 실시간성 값은 Notion+KIS 라이브 데이터(HOLDINGS/LIVE_QUOTES)를 그대로 쓰고,
 // 여기서는 EMA 계산에 필요한 종가 히스토리 기반 값(섹터·EMA괴리율·추세구조)만 보강한다.
-const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-07 15:47","rows":[{"code":"015760","sector":"전력","ema":{"5":1.11,"20":-0.60,"50":-5.42,"100":-12.67,"200":-17.39},"structure":"역배열"},{"code":"010120","sector":"기타","ema":{"5":2.97,"20":2.76,"50":1.03,"100":2.90,"200":18.24},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":2.09,"20":0.01,"50":-6.67,"100":-14.06,"200":-15.73},"structure":"역배열"}]};
+const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-08 15:41","rows":[{"code":"010120","sector":"기타","ema":{"5":-0.18,"20":-0.42,"50":-2.06,"100":-0.32,"200":14.36},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":0.33,"20":-1.41,"50":-7.84,"100":-15.14,"200":-16.90},"structure":"역배열"}]};
 function findHoldingAnalytics(code){ return HOLDINGS_ANALYTICS.rows.find(r=>r.code===code) || null; }
 function structureBadge(s){
   const cls = s==='정배열'?'bdg-teal':s==='역배열'?'bdg-blue':'bdg-gray';
@@ -635,25 +635,24 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-07T07:44:08.949Z",
-  "todayDate": "2026-09-07",
-  "openSlots": 2,
-  "heldCount": 2,
-  "soldTodayRows": [{"code":"032830","name":"삼성생명"},{"code":"066570","name":"LG전자"},{"code":"000660","name":"SK하이닉스"}],
+  "generatedAt": "2026-09-08T06:39:11.518Z",
+  "todayDate": "2026-09-08",
+  "openSlots": 3,
+  "heldCount": 1,
+  "soldTodayRows": [{"code":"015760","name":"한국전력"}],
   "betaReordered": false,
   "finalists": [],
   "allCandidates": []
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-07T06:47:01.834Z",
-  "todayDate": "2026-09-07",
+  "generatedAt": "2026-09-08T06:39:25.137Z",
+  "todayDate": "2026-09-08",
   "baseline": [
-    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":70200,"ema200":83505.42414640181,"ema5":68893.3643059202,"ret":-11.926329260030613,"formalSignal":null }
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":69400,"ema200":83366.12639621185,"ema5":69106.68731505792,"ret":-12.930017815471858,"formalSignal":null }
   ],
   "urgent": [],
   "all": [
-    { "code":"010120","name":"LS ELECTRIC","qty":9,"avgPrice":207000,"strategy":"라운드넘버","market":"KOSPI","close":206500,"ret":-0.24154589371980675,"support":200000,"resistance":210000,"stop":194000,"verdict":"홀딩(지지 200,000~저항 210,000 박스권)","urgent":false },
-    { "code":"015760","name":"한국전력","qty":62,"avgPrice":32000,"strategy":"라운드넘버","market":"KOSPI","close":32750,"ret":2.34375,"support":32000,"resistance":33000,"stop":31040,"verdict":"홀딩(지지 32,000~저항 33,000 박스권)","urgent":false }
+    { "code":"010120","name":"LS ELECTRIC","qty":9,"avgPrice":207000,"strategy":"라운드넘버","market":"KOSPI","close":200000,"ret":-3.3816425120772946,"support":200000,"resistance":210000,"stop":194000,"verdict":"홀딩(지지 200,000~저항 210,000 박스권)","urgent":false }
   ],
   "unassigned": []
 };
