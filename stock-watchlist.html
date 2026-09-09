@@ -449,8 +449,11 @@ const uniAll = [
 ];
 function namesBySector(market){
   const m = {};
-  uniAll.filter(s=>s.market===market).forEach(s=>{ (m[s.sector]=m[s.sector]||[]).push(s.name); });
+  uniAll.filter(s=>s.market===market).forEach(s=>{ (m[s.sector]=m[s.sector]||[]).push({name:s.name, changePct:s.changePct}); });
   return m;
+}
+function sectorNamesHtml(names){
+  return names.map(n=>esc(n.name)+'<span class="'+pctClass(n.changePct)+'">('+fmtPct(n.changePct)+')</span>').join(', ');
 }
 const secNamesKospi = namesBySector('KOSPI');
 const secNamesKosdaq = namesBySector('KOSDAQ');
@@ -613,7 +616,7 @@ function renderUniSectorTable(){
   ];
   document.getElementById('uniSectorTbody').innerHTML = rows.map(s=>{
     const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
-    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+sectorNamesHtml(names)+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
   }).join('');
 }
 
@@ -812,7 +815,7 @@ function computeSectorSummary(market){
 }
 function sectorRowHtml(s, namesMap){
   const names = (namesMap && namesMap[s.name]) || [];
-  return '<tr><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
+  return '<tr><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+sectorNamesHtml(names)+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
 }
 function renderSectorLive(){
   const kospi = computeSectorSummary('KOSPI');
@@ -825,7 +828,7 @@ function renderSectorLive(){
   ];
   document.getElementById('uniSectorTbody').innerHTML = combined.map(s=>{
     const names = (s.market==='코스피'?secNamesKospi:secNamesKosdaq)[s.name]||[];
-    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+esc(names.join(', '))+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
+    return '<tr><td class="l">'+s.market+'</td><td class="l">'+esc(s.name)+'</td><td class="'+pctClass(s.avgChg)+'">'+fmtPct(s.avgChg)+'</td><td class="c">'+s.count+'</td><td class="l wrap sec-names">'+sectorNamesHtml(names)+'</td><td>'+mktcapStr(s.mktcap)+'</td></tr>';
   }).join('');
 }
 function renderSectorIndex(){
