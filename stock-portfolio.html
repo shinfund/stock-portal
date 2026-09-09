@@ -412,7 +412,7 @@ function isAuthed(){ return !!AUTH.token && Date.now() < AUTH.expires; }
 // 보유종목 섹터·EMA추세구조 보강 데이터(정적 스냅샷, scripts/project_holdings_analytics_data.mjs로 갱신)
 // 가격·평가손익 등 실시간성 값은 Notion+KIS 라이브 데이터(HOLDINGS/LIVE_QUOTES)를 그대로 쓰고,
 // 여기서는 EMA 계산에 필요한 종가 히스토리 기반 값(섹터·EMA괴리율·추세구조)만 보강한다.
-const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-08 15:41","rows":[{"code":"010120","sector":"기타","ema":{"5":-0.18,"20":-0.42,"50":-2.06,"100":-0.32,"200":14.36},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":0.33,"20":-1.41,"50":-7.84,"100":-15.14,"200":-16.90},"structure":"역배열"}]};
+const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-09 06:54","rows":[{"code":"267260","sector":"전력기기/유틸리티","ema":{"5":1.28,"20":0.03,"50":-6.14,"100":-12.68,"200":-11.62},"structure":"혼조"},{"code":"005490","sector":"철강/비철금속","ema":{"5":0.63,"20":1.8,"50":1.13,"100":-1.89,"200":-1.95},"structure":"혼조"},{"code":"000150","sector":"지주회사","ema":{"5":4.68,"20":7.7,"50":3.58,"100":1.48,"200":10.66},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":3.16,"20":2.71,"50":-3.57,"100":-11.15,"200":-13.07},"structure":"역배열"}]};
 function findHoldingAnalytics(code){ return HOLDINGS_ANALYTICS.rows.find(r=>r.code===code) || null; }
 function structureBadge(s){
   const cls = s==='정배열'?'bdg-teal':s==='역배열'?'bdg-blue':'bdg-gray';
@@ -635,24 +635,30 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-08T06:39:11.518Z",
-  "todayDate": "2026-09-08",
-  "openSlots": 3,
-  "heldCount": 1,
-  "soldTodayRows": [{"code":"015760","name":"한국전력"}],
+  "generatedAt": "2026-09-09T06:47:15.092Z",
+  "todayDate": "2026-09-09",
+  "openSlots": 0,
+  "heldCount": 4,
+  "soldTodayRows": [{"code":"010120","name":"LS ELECTRIC"}],
   "betaReordered": false,
   "finalists": [],
-  "allCandidates": []
+  "allCandidates": [
+    { "code":"298040","name":"효성중공업","market":"KOSPI","price":2931000,"touchCount":21,"aboveCount":9,"L":2900000,"step":100000,"target":3000000,"reason":"라운드지지 2,900,000 이탈 후 오늘 재돌파(터치21봉, 진입위치31%), TP 3,000,000","strategy":"라운드넘버","changePct":3.42,"overBudget":true }
+  ]
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-08T06:39:25.137Z",
-  "todayDate": "2026-09-08",
+  "generatedAt": "2026-09-09T06:48:04.119Z",
+  "todayDate": "2026-09-09",
   "baseline": [
-    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":69400,"ema200":83366.12639621185,"ema5":69106.68731505792,"ret":-12.930017815471858,"formalSignal":null }
+    { "code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":72300,"changePct":4.329004329004329,"ema200":83253.96734486226,"ema5":70148.90265448307,"ret":-9.29164680199734,"formalSignal":null }
   ],
-  "urgent": [],
+  "urgent": [
+    { "code":"000150","name":"두산","qty":1,"avgPrice":1299000,"strategy":"라운드넘버","market":"KOSPI","close":1301000,"changePct":4.330392943063352,"ret":0.15396458814472672,"support":1250000,"resistance":1300000,"stop":1212500,"verdict":"익절검토(라운드저항 1,300,000 도달)","urgent":true }
+  ],
   "all": [
-    { "code":"010120","name":"LS ELECTRIC","qty":9,"avgPrice":207000,"strategy":"라운드넘버","market":"KOSPI","close":200000,"ret":-3.3816425120772946,"support":200000,"resistance":210000,"stop":194000,"verdict":"홀딩(지지 200,000~저항 210,000 박스권)","urgent":false }
+    { "code":"267260","name":"HD현대일렉트릭","qty":2,"avgPrice":751000,"strategy":"라운드넘버","market":"KOSPI","close":753000,"changePct":3.4340659340659343,"ret":0.2663115845539281,"support":750000,"resistance":775000,"stop":727500,"verdict":"홀딩(지지 750,000~저항 775,000 박스권)","urgent":false },
+    { "code":"005490","name":"POSCO홀딩스","qty":5,"avgPrice":337000,"strategy":"라운드넘버","market":"KOSPI","close":337000,"changePct":2.5875190258751903,"ret":0,"support":330000,"resistance":340000,"stop":320100,"verdict":"홀딩(지지 330,000~저항 340,000 박스권)","urgent":false },
+    { "code":"000150","name":"두산","qty":1,"avgPrice":1299000,"strategy":"라운드넘버","market":"KOSPI","close":1301000,"changePct":4.330392943063352,"ret":0.15396458814472672,"support":1250000,"resistance":1300000,"stop":1212500,"verdict":"익절검토(라운드저항 1,300,000 도달)","urgent":true }
   ],
   "unassigned": []
 };
