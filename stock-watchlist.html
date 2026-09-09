@@ -450,6 +450,7 @@ const uniAll = [
 function namesBySector(market){
   const m = {};
   uniAll.filter(s=>s.market===market).forEach(s=>{ (m[s.sector]=m[s.sector]||[]).push({name:s.name, changePct:s.changePct}); });
+  Object.values(m).forEach(arr=>arr.sort((a,b)=>(b.changePct??-Infinity)-(a.changePct??-Infinity)));
   return m;
 }
 function sectorNamesHtml(names){
