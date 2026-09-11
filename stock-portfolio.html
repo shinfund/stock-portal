@@ -412,7 +412,7 @@ function isAuthed(){ return !!AUTH.token && Date.now() < AUTH.expires; }
 // 보유종목 섹터·EMA추세구조 보강 데이터(정적 스냅샷, scripts/project_holdings_analytics_data.mjs로 갱신)
 // 가격·평가손익 등 실시간성 값은 Notion+KIS 라이브 데이터(HOLDINGS/LIVE_QUOTES)를 그대로 쓰고,
 // 여기서는 EMA 계산에 필요한 종가 히스토리 기반 값(섹터·EMA괴리율·추세구조)만 보강한다.
-const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-10 07:03","rows":[{"code":"298040","sector":"전력기기/유틸리티","ema":{"5":0.35,"20":1.07,"50":-0.71,"100":-1.83,"200":7.48},"structure":"혼조"},{"code":"005490","sector":"철강/비철금속","ema":{"5":0.81,"20":2.17,"50":1.66,"100":-1.29,"200":-1.35},"structure":"혼조"},{"code":"267260","sector":"전력기기/유틸리티","ema":{"5":0.4,"20":-0.57,"50":-6.51,"100":-13.04,"200":-12.11},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":1.62,"20":1.81,"50":-4.08,"100":-11.56,"200":-13.55},"structure":"혼조"}]};
+const HOLDINGS_ANALYTICS = {"generatedAt":"2026-09-11 16:04","rows":[{"code":"298040","sector":"전력기기/유틸리티","ema":{"5":-0.63,"20":-0.20,"50":-1.91,"100":-3.03,"200":6.04},"structure":"혼조"},{"code":"005490","sector":"철강/비철금속","ema":{"5":-0.45,"20":0.60,"50":0.15,"100":-2.69,"200":-2.80},"structure":"혼조"},{"code":"267260","sector":"전력기기/유틸리티","ema":{"5":0.36,"20":-0.40,"50":-6.15,"100":-12.70,"200":-11.88},"structure":"혼조"},{"code":"454910","sector":"로봇/자동화","ema":{"5":0.70,"20":1.12,"50":-4.44,"100":-11.84,"200":-13.91},"structure":"혼조"}]};
 function findHoldingAnalytics(code){ return HOLDINGS_ANALYTICS.rows.find(r=>r.code===code) || null; }
 function structureBadge(s){
   const cls = s==='정배열'?'bdg-teal':s==='역배열'?'bdg-blue':'bdg-gray';
@@ -635,26 +635,26 @@ async function loadData(){
 // 실행 결과를 그대로 임베드. 시세는 다른 스크립트/report와 마찬가지로 정적 스냅샷이며, 현재가만
 // 보유종목 탭과 동일한 KIS 실시간 시세 메커니즘(refreshLiveQuotes)으로 장중에 덮어쓴다.
 let ENTRY_SIGNALS = {
-  "generatedAt": "2026-09-10T07:01:19.929Z",
-  "todayDate": "2026-09-10",
-  "openSlots": 0,
-  "heldCount": 4,
-  "soldTodayRows": [{"code":"000150","name":"두산"}],
+  "generatedAt": "2026-09-11T06:49:01.065Z",
+  "todayDate": "2026-09-11",
+  "openSlots": 1,
+  "heldCount": 3,
+  "soldTodayRows": [],
   "betaReordered": false,
   "finalists": [],
   "allCandidates": []
 };
 let EXIT_SIGNALS = {
-  "generatedAt": "2026-09-10T07:02:21.407Z",
-  "todayDate": "2026-09-10",
+  "generatedAt": "2026-09-11T06:49:15.254Z",
+  "todayDate": "2026-09-11",
   "baseline": [
-    { "pageId":"3d759c8c-9c0a-813a-b693-e9f40f1838f7","code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":71900,"changePct":-0.6906077348066298,"ema200":83141.97766954149,"ema5":70754.82399187761,"ret":-9.793491079717963,"formalSignal":null }
+    { "pageId":"3d759c8c-9c0a-813a-b693-e9f40f1838f7","code":"454910","name":"두산로보틱스","qty":9,"avgPrice":79706,"strategy":"기준선","market":"KOSPI","close":71900,"changePct":0,"ema200":83028.79033834132,"ema5":71136.54932791842,"ret":-9.793491079717963,"formalSignal":null }
   ],
   "urgent": [],
   "all": [
-    { "pageId":"3d759c8c-9c0a-817b-b689-e6a6c8fec146","code":"267260","name":"HD현대일렉트릭","qty":2,"avgPrice":751000,"strategy":"라운드넘버","market":"KOSPI","close":746000,"changePct":-0.6657789613848202,"ret":-0.6657789613848202,"support":750000,"resistance":775000,"stop":727500,"verdict":"홀딩(지지 750,000~저항 775,000 박스권)","urgent":false },
-    { "pageId":"3d759c8c-9c0a-8107-85ed-c65c3ebbcdd1","code":"005490","name":"POSCO홀딩스","qty":5,"avgPrice":337000,"strategy":"라운드넘버","market":"KOSPI","close":339000,"changePct":0.5934718100890208,"ret":0.5934718100890208,"support":330000,"resistance":340000,"stop":320100,"verdict":"홀딩(지지 330,000~저항 340,000 박스권)","urgent":false },
-    { "pageId":"3d759c8c-9c0a-8128-9830-e3789f5f7516","code":"298040","name":"효성중공업","qty":1,"avgPrice":2863000,"strategy":"라운드넘버","market":"KOSPI","close":2891000,"changePct":-1.3647219379051518,"ret":0.9779951100244498,"support":2800000,"resistance":2900000,"stop":2716000,"verdict":"홀딩(지지 2,800,000~저항 2,900,000 박스권)","urgent":false }
+    { "pageId":"3d759c8c-9c0a-817b-b689-e6a6c8fec146","code":"267260","name":"HD현대일렉트릭","qty":2,"avgPrice":751000,"strategy":"라운드넘버","market":"KOSPI","close":753000,"changePct":0.938337801608579,"ret":0.2663115845539281,"support":750000,"resistance":775000,"stop":727500,"verdict":"홀딩(지지 750,000~저항 775,000 박스권)","urgent":false },
+    { "pageId":"3d759c8c-9c0a-8107-85ed-c65c3ebbcdd1","code":"005490","name":"POSCO홀딩스","qty":5,"avgPrice":337000,"strategy":"라운드넘버","market":"KOSPI","close":333000,"changePct":-1.7699115044247788,"ret":-1.1869436201780417,"support":330000,"resistance":340000,"stop":320100,"verdict":"홀딩(지지 330,000~저항 340,000 박스권)","urgent":false },
+    { "pageId":"3d759c8c-9c0a-8128-9830-e3789f5f7516","code":"298040","name":"효성중공업","qty":1,"avgPrice":2863000,"strategy":"라운드넘버","market":"KOSPI","close":2847000,"changePct":-1.5219647180906262,"ret":-0.5588543485854,"support":2800000,"resistance":2900000,"stop":2716000,"verdict":"홀딩(지지 2,800,000~저항 2,900,000 박스권)","urgent":false }
   ],
   "unassigned": []
 };
